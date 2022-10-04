@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Praga.PaisaKanaku.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{51053208-0db0-4aab-80c7-749adf07bb8c}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Praga.PaisaKanaku.Database</RootNamespace>
+    <AssemblyName>Praga.PaisaKanaku.Database</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Schema" />
+    <Folder Include="Setup" />
+    <Folder Include="Setup\Table" />
+    <Folder Include="Setup\StoredProcedure" />
+    <Folder Include="Setup\Table\Brand" />
+    <Folder Include="Lookups" />
+    <Folder Include="Lookups\Table" />
+    <Folder Include="Lookups\StoredProcedure" />
+    <Folder Include="Post.Deployment" />
+    <Folder Include="TestScripts" />
+    <Folder Include="TestScripts\Setup" />
+    <Folder Include="TestScripts\Setup\Brand" />
+    <Folder Include="Auth" />
+    <Folder Include="Auth\StoredProcedure" />
+    <Folder Include="Auth\Table" />
+    <Folder Include="Auth\ScalarFunction" />
+    <Folder Include="Setup\Table\Member" />
+    <Folder Include="Setup\StoredProcedure\Brand" />
+    <Folder Include="Setup\StoredProcedure\Member" />
+    <Folder Include="TestScripts\Setup\Member" />
+    <Folder Include="Setup\Table\Product" />
+    <Folder Include="Setup\StoredProcedure\Product" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Schema\Account.sql" />
+    <Build Include="Schema\Lookups.sql" />
+    <Build Include="Schema\Setup.sql" />
+    <Build Include="Setup\Table\Brand\BrandInfo.sql" />
+    <Build Include="Lookups\Table\RowStatusInfo.sql" />
+    <Build Include="Schema\Auth.sql" />
+    <Build Include="Auth\Table\UserInfo.sql" />
+    <Build Include="Auth\StoredProcedure\usp_v1_UserInfo_Save.sql" />
+    <Build Include="Auth\StoredProcedure\usp_v1_User_Info_Get.sql" />
+    <Build Include="Auth\ScalarFunction\udp_v1_ValidateLoggedInUser.sql" />
+    <Build Include="Setup\Table\Member\MemberInfo.sql" />
+    <Build Include="Setup\StoredProcedure\Brand\usp_V1_BrandInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Brand\usp_V1_BrandInfo_Save.sql" />
+    <Build Include="Setup\StoredProcedure\Member\usp_V1_MemberInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Member\usp_V1_MemberInfo_Save.sql" />
+    <Build Include="TestScripts\Setup\Member\usp_V1_MemberInfo_Get_Test.sql" />
+    <Build Include="TestScripts\Setup\Member\usp_V1_MemberInfo_Save_Test.sql" />
+    <Build Include="Lookups\Table\WeightMeasureInfo.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_WeightMeasureInfo_Get.sql" />
+    <Build Include="Lookups\Table\ExpenseTypeInfo.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_ExpenseTypeInfo_Get.sql" />
+    <Build Include="Lookups\Table\LiquidMeasureInfo.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_LiquidMeasureInfo_Get.sql" />
+    <Build Include="Lookups\Table\MeasureTypeInfo.sql" />
+    <Build Include="Setup\Table\Product\ProductInfo.sql" />
+    <Build Include="Setup\Table\Product\ProductDetailInfo.sql" />
+    <Build Include="Lookups\Table\TimePeriodInfo.sql" />
+    <Build Include="Setup\StoredProcedure\Product\usp_V1_ProductDetailInfo_Save.sql" />
+    <Build Include="Lookups\Table\PaymentMethodInfo.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_PaymentMethodInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Product\usp_V1_ProductInfo_Save.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestScripts\Setup\Brand\usp_V1_BrandInfo_Save_Test.sql" />
+    <None Include="TestScripts\Setup\Brand\usp_V1_BrandInfo_Get_Test.sql" />
+  </ItemGroup>
+</Project>
