@@ -7,7 +7,7 @@
 	@ExpenseType NVARCHAR(25),
 	@Price DECIMAL(12,3),
 	@Description NVARCHAR(250),
-	@RecurringTimePeriod NVARCHAR(10),
+	@PreferredRecurringTimePeriod NVARCHAR(10),
 	@LoggedInUserId UNIQUEIDENTIFIER,
 	@Result UNIQUEIDENTIFIER OUTPUT
 AS
@@ -42,9 +42,9 @@ BEGIN TRY
 	IF(@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[BrandInfo] WHERE [Id] = @Id))
 	BEGIN
 		INSERT INTO [Setup].[ProductDetailInfo] 
-		([Id], [ProductId], [BrandId], [ExpenseType], [Price], [Description], [RecurringTimePeriod], [CreatedBy])
+		([Id], [ProductId], [BrandId], [ExpenseType], [Price], [Description], [PreferredRecurringTimePeriod], [CreatedBy])
 		VALUES 
-		(@TempProductDetailId, @TempProductId, @TempBrandId, @ExpenseType, @Price, @Description, @RecurringTimePeriod, @LoggedInUserId);
+		(@TempProductDetailId, @TempProductId, @TempBrandId, @ExpenseType, @Price, @Description, @PreferredRecurringTimePeriod, @LoggedInUserId);
 	END
 	ELSE
 	BEGIN  
@@ -55,7 +55,7 @@ BEGIN TRY
 				[ExpenseType] = @ExpenseType,
 				[Price] = @Price,
 				[Description] = @Description,
-				[RecurringTimePeriod] = @RecurringTimePeriod,
+				[PreferredRecurringTimePeriod] = @PreferredRecurringTimePeriod,
 				[ModifiedBy] = @LoggedInUserId,
 				[ModifiedDate] = GETUTCDATE()
 		WHERE [Id] = @TempProductDetailId AND [RowStatus] = 'A';

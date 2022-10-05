@@ -6,7 +6,7 @@
 	[ExpenseType] NVARCHAR(25) NOT NULL,
 	[Price] DECIMAL(12,3) NOT NULL,
 	[Description] NVARCHAR(250),
-	[RecurringTimePeriod] NVARCHAR(10) NOT NULL,
+	[PreferredRecurringTimePeriod] NVARCHAR(10) NOT NULL,
 	[SequenceId] INT NOT NULL IDENTITY,
 	[CreatedBy] UNIQUEIDENTIFIER NOT NULL,
 	[CreatedDate] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
@@ -20,7 +20,7 @@
 	CONSTRAINT [FK_ProductDetailInfo_Product] FOREIGN KEY ([ProductId]) REFERENCES [Setup].[ProductInfo]([Id]),
 	CONSTRAINT [FK_ProductDetailInfo_Brand] FOREIGN KEY ([BrandId]) REFERENCES [Setup].[BrandInfo]([Id]),
 	CONSTRAINT [FK_ProductDetailInfo_ExpenseType] FOREIGN KEY ([ExpenseType]) REFERENCES [Lookups].[ExpenseTypeInfo]([ExpenseType]),
-	CONSTRAINT [FK_ProductDetailInfo_TimePeriod] FOREIGN KEY ([RecurringTimePeriod]) REFERENCES [Lookups].[TimePeriodInfo]([TimePeriod]),
+	CONSTRAINT [FK_ProductDetailInfo_TimePeriod] FOREIGN KEY ([PreferredRecurringTimePeriod]) REFERENCES [Lookups].[TimePeriodInfo]([TimePeriod]),
 	CONSTRAINT [FK_ProductDetailInfo_RowStatus] FOREIGN KEY ([RowStatus]) REFERENCES [Lookups].[RowStatusInfo]([RowStatus])
 ) ON [PRIMARY]
 GO

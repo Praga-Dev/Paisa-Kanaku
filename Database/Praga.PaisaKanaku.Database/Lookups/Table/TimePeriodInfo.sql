@@ -2,7 +2,6 @@
 (
 	[TimePeriod] NVARCHAR(10) NOT NULL,
 	[TimePeriodValue] NVARCHAR(10) NOT NULL,
-	[SequenceId] INT NOT NULL,
 	[RowStatus] NVARCHAR(1) NOT NULL DEFAULT 'A'
 	CONSTRAINT [PK_Lookups_TimePeriodInfo] PRIMARY KEY CLUSTERED 
 	(

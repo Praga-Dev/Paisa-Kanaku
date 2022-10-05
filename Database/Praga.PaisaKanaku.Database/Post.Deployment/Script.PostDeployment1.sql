@@ -92,6 +92,31 @@ BEGIN
 END
 GO
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'TimePeriodInfo') 
+BEGIN
+	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodInfo] WHERE [TimePeriod] LIKE N'DAILY')
+	BEGIN
+		INSERT INTO [Lookups].[TimePeriodInfo] ([TimePeriod], [TimePeriodValue]) VALUES (N'DAILY', N'Daily');
+	END
+    IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodInfo] WHERE [TimePeriod] LIKE N'WEEKLY')
+	BEGIN
+		INSERT INTO [Lookups].[TimePeriodInfo] ([TimePeriod], [TimePeriodValue]) VALUES (N'WEEKLY', N'Weekly');
+	END
+	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodInfo] WHERE [TimePeriod] LIKE N'MONTHLY')
+	BEGIN
+		INSERT INTO [Lookups].[TimePeriodInfo] ([TimePeriod], [TimePeriodValue]) VALUES (N'MONTHLY', N'Monthly');
+	END
+	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodInfo] WHERE [TimePeriod] LIKE N'BIMONTHLY')
+	BEGIN
+		INSERT INTO [Lookups].[TimePeriodInfo] ([TimePeriod], [TimePeriodValue]) VALUES (N'BIMONTHLY', N'Bimonthly');
+	END
+	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodInfo] WHERE [TimePeriod] LIKE N'NA')
+	BEGIN
+		INSERT INTO [Lookups].[TimePeriodInfo] ([TimePeriod], [TimePeriodValue]) VALUES (N'NA', N'NA');
+	END
+END
+GO
+
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'ExpenseTypeInfo') 
 BEGIN
 	IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'ENTERTAINMENT')
