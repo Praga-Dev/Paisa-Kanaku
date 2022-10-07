@@ -65,9 +65,6 @@
     <Folder Include="Lookups\Table" />
     <Folder Include="Lookups\StoredProcedure" />
     <Folder Include="Post.Deployment" />
-    <Folder Include="TestScripts" />
-    <Folder Include="TestScripts\Setup" />
-    <Folder Include="TestScripts\Setup\Brand" />
     <Folder Include="Auth" />
     <Folder Include="Auth\StoredProcedure" />
     <Folder Include="Auth\Table" />
@@ -75,9 +72,13 @@
     <Folder Include="Setup\Table\Member" />
     <Folder Include="Setup\StoredProcedure\Brand" />
     <Folder Include="Setup\StoredProcedure\Member" />
-    <Folder Include="TestScripts\Setup\Member" />
     <Folder Include="Setup\Table\Product" />
     <Folder Include="Setup\StoredProcedure\Product" />
+    <Folder Include="Transactions" />
+    <Folder Include="Transactions\Table" />
+    <Folder Include="Transactions\StoredProcedure" />
+    <Folder Include="Transactions\Table\Expense" />
+    <Folder Include="Transactions\StoredProcedure\Expense" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Account.sql" />
@@ -95,8 +96,6 @@
     <Build Include="Setup\StoredProcedure\Brand\usp_V1_BrandInfo_Save.sql" />
     <Build Include="Setup\StoredProcedure\Member\usp_V1_MemberInfo_Get.sql" />
     <Build Include="Setup\StoredProcedure\Member\usp_V1_MemberInfo_Save.sql" />
-    <Build Include="TestScripts\Setup\Member\usp_V1_MemberInfo_Get_Test.sql" />
-    <Build Include="TestScripts\Setup\Member\usp_V1_MemberInfo_Save_Test.sql" />
     <Build Include="Lookups\Table\WeightMeasureInfo.sql" />
     <Build Include="Lookups\StoredProcedure\usp_v1_WeightMeasureInfo_Get.sql" />
     <Build Include="Lookups\Table\ExpenseTypeInfo.sql" />
@@ -104,19 +103,19 @@
     <Build Include="Lookups\Table\LiquidMeasureInfo.sql" />
     <Build Include="Lookups\StoredProcedure\usp_v1_LiquidMeasureInfo_Get.sql" />
     <Build Include="Lookups\Table\MeasureTypeInfo.sql" />
-    <Build Include="Setup\Table\Product\ProductInfo.sql" />
+    <Build Include="Setup\Table\Product\ProductCategoryInfo.sql" />
     <Build Include="Setup\Table\Product\ProductDetailInfo.sql" />
     <Build Include="Lookups\Table\TimePeriodInfo.sql" />
     <Build Include="Setup\StoredProcedure\Product\usp_V1_ProductDetailInfo_Save.sql" />
     <Build Include="Lookups\Table\PaymentMethodInfo.sql" />
     <Build Include="Lookups\StoredProcedure\usp_v1_PaymentMethodInfo_Get.sql" />
-    <Build Include="Setup\StoredProcedure\Product\usp_V1_ProductInfo_Save.sql" />
+    <Build Include="Setup\StoredProcedure\Product\usp_V1_ProductCategoryInfo_Save.sql" />
+    <Build Include="Schema\Transactions.sql" />
+    <Build Include="Transactions\Table\Expense\ExpenseInfo.sql" />
+    <Build Include="Transactions\Table\Expense\ExpenseReferenceDetailInfo.sql" />
+    <Build Include="Transactions\StoredProcedure\Expense\usp_V1_ExpenseInfo_Product_Save.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="TestScripts\Setup\Brand\usp_V1_BrandInfo_Save_Test.sql" />
-    <None Include="TestScripts\Setup\Brand\usp_V1_BrandInfo_Get_Test.sql" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,8 @@
 ﻿CREATE PROCEDURE [Setup].[usp_V1_ProductDetailInfo_Save]
 	@Id UNIQUEIDENTIFIER,
-	@ProductId UNIQUEIDENTIFIER,
-	@ProductName NVARCHAR(50),
+	@ProductName NVARCHAR(25),
+	@ProductCategoryId UNIQUEIDENTIFIER,
+	@ProductCategoryName NVARCHAR(25),
 	@BrandId UNIQUEIDENTIFIER,
 	@BrandName NVARCHAR(50),
 	@ExpenseType NVARCHAR(25),
@@ -14,7 +15,7 @@ AS
 DECLARE @Response INT = 0;
 
 DECLARE @EmptyGuid UNIQUEIDENTIFIER;
-set @EmptyGuid = CAST(CAST(0 AS BINARY) AS UNIQUEIDENTIFIER);
+SET @EmptyGuid = CAST(CAST(0 AS BINARY) AS UNIQUEIDENTIFIER);
 
 BEGIN TRY
 
@@ -23,45 +24,47 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	DECLARE @TempBrandId UNIQUEIDENTIFIER;
-
 	IF(@BrandId IS NULL OR @BrandId = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[BrandInfo] WHERE [Id] = @BrandId))
 	BEGIN
-		EXEC [Setup].[usp_V1_BrandInfo_Save] @BrandId, @BrandName, @LoggedInUserId, @TempBrandId OUTPUT;
+		EXEC [Setup].[usp_V1_BrandInfo_Save] @BrandId, @BrandName, @LoggedInUserId, @BrandId OUTPUT;
 	END
 
-	DECLARE @TempProductId UNIQUEIDENTIFIER = CASE WHEN (@ProductId IS NULL OR @ProductId = @EmptyGuid) THEN NEWID() ELSE @ProductId END;
+	DECLARE @TempProductDetailInfoId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
 
-	IF(@ProductId IS NULL OR @ProductId = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[ProductInfo] WHERE [Id] = @ProductId))
+	IF(@ProductCategoryId IS NULL OR @ProductCategoryId = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[ProductCategoryInfo] WHERE [Id] = @ProductCategoryId))
 	BEGIN
-		EXEC [Setup].[usp_V1_ProductInfo_Save] @ProductId, @ProductName, @LoggedInUserId, @TempProductId OUTPUT;
-	END
+		DECLARE @TempProductCategoryId UNIQUEIDENTIFIER;
+		EXEC [Setup].[usp_V1_ProductCategoryInfo_Save] @EmptyGuid, @ProductCategoryName, @LoggedInUserId, @TempProductCategoryId OUTPUT;
 
-	DECLARE @TempProductDetailId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
-
-	IF(@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[BrandInfo] WHERE [Id] = @Id))
-	BEGIN
 		INSERT INTO [Setup].[ProductDetailInfo] 
-		([Id], [ProductId], [BrandId], [ExpenseType], [Price], [Description], [PreferredRecurringTimePeriod], [CreatedBy])
+		([Id], [Name], [ProductCategoryId], [BrandId], [ExpenseType], [Price], [Description], [PreferredRecurringTimePeriod], [CreatedBy])
 		VALUES 
-		(@TempProductDetailId, @TempProductId, @TempBrandId, @ExpenseType, @Price, @Description, @PreferredRecurringTimePeriod, @LoggedInUserId);
+		(@TempProductDetailInfoId, @ProductName, @TempProductCategoryId, @BrandId, @ExpenseType, @Price, @Description, @PreferredRecurringTimePeriod, @LoggedInUserId);
+	END
+	ELSE IF (@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[ProductDetailInfo] WHERE [Id] = @Id))
+	BEGIN 		
+		INSERT INTO [Setup].[ProductDetailInfo] 
+		([Id], [Name], [ProductCategoryId], [BrandId], [ExpenseType], [Price], [Description], [PreferredRecurringTimePeriod], [CreatedBy])
+		VALUES 
+		(@TempProductDetailInfoId, @ProductName, @ProductCategoryId, @BrandId, @ExpenseType, @Price, @Description, @PreferredRecurringTimePeriod, @LoggedInUserId);
 	END
 	ELSE
-	BEGIN  
+	BEGIN
 		UPDATE [Setup].[ProductDetailInfo]
 			SET	
-				[ProductId] = @TempProductId,
-				[BrandId] = @TempBrandId,
+				[Name] = @ProductName,
+				[ProductCategoryId] = @ProductCategoryId,
+				[BrandId] = @BrandId,
 				[ExpenseType] = @ExpenseType,
 				[Price] = @Price,
 				[Description] = @Description,
 				[PreferredRecurringTimePeriod] = @PreferredRecurringTimePeriod,
 				[ModifiedBy] = @LoggedInUserId,
 				[ModifiedDate] = GETUTCDATE()
-		WHERE [Id] = @TempProductDetailId AND [RowStatus] = 'A';
+		WHERE [Id] = @Id AND [RowStatus] = 'A';
 	END	
 
-	SET @Result = @TempProductDetailId;
+	SET @Result = @TempProductDetailInfoId;
 	RETURN @Response;
 
 END TRY  
@@ -69,6 +72,5 @@ BEGIN CATCH
 	DECLARE @ErrorNumber INT = ERROR_NUMBER();  
 	DECLARE @ErrorMessage NVARCHAR(1000) = ERROR_MESSAGE()
      
-	-- Raise Exception  
 	RAISERROR('%s', 16, 1, @ErrorMessage)  
 END CATCH;

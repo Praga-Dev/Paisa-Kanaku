@@ -24,6 +24,5 @@ BEGIN CATCH
 	DECLARE @ErrorNumber INT = ERROR_NUMBER();  
 	DECLARE @ErrorMessage NVARCHAR(1000) = ERROR_MESSAGE()   
      
-	-- Raise Exception  
 	RAISERROR('%s', 16, 1, @ErrorMessage)  
 END CATCH;

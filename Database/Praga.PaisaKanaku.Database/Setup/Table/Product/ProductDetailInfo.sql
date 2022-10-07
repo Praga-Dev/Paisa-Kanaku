@@ -1,7 +1,8 @@
 ﻿CREATE TABLE [Setup].[ProductDetailInfo]
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL,
-	[ProductId] UNIQUEIDENTIFIER NOT NULL,
+	[Name] NVARCHAR(25) NOT NULL,
+	[ProductCategoryId] UNIQUEIDENTIFIER NOT NULL,
 	[BrandId] UNIQUEIDENTIFIER NOT NULL,
 	[ExpenseType] NVARCHAR(25) NOT NULL,
 	[Price] DECIMAL(12,3) NOT NULL,
@@ -17,7 +18,7 @@
 	(
 		[Id] ASC
 	) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
-	CONSTRAINT [FK_ProductDetailInfo_Product] FOREIGN KEY ([ProductId]) REFERENCES [Setup].[ProductInfo]([Id]),
+	CONSTRAINT [FK_ProductDetailInfo_Product] FOREIGN KEY ([ProductCategoryId]) REFERENCES [Setup].[ProductCategoryInfo]([Id]),
 	CONSTRAINT [FK_ProductDetailInfo_Brand] FOREIGN KEY ([BrandId]) REFERENCES [Setup].[BrandInfo]([Id]),
 	CONSTRAINT [FK_ProductDetailInfo_ExpenseType] FOREIGN KEY ([ExpenseType]) REFERENCES [Lookups].[ExpenseTypeInfo]([ExpenseType]),
 	CONSTRAINT [FK_ProductDetailInfo_TimePeriod] FOREIGN KEY ([PreferredRecurringTimePeriod]) REFERENCES [Lookups].[TimePeriodInfo]([TimePeriod]),

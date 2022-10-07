@@ -1,4 +1,4 @@
-﻿CREATE TABLE [Setup].[ProductInfo]
+﻿CREATE TABLE [Setup].[ProductCategoryInfo]
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL,
 	[SequenceId] INT NOT NULL IDENTITY,
@@ -8,11 +8,11 @@
 	[ModifiedBy] UNIQUEIDENTIFIER NULL,
 	[ModifiedDate] DATETIME2,
 	[RowStatus] NVARCHAR(1) NOT NULL DEFAULT 'A'
-	CONSTRAINT [PK_Setup_ProductInfo] PRIMARY KEY NONCLUSTERED
+	CONSTRAINT [PK_Setup_ProductCategoryInfo] PRIMARY KEY NONCLUSTERED
 	(
 		[Id] ASC
 	) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
-	CONSTRAINT [FK_ProductInfo_RowStatus] FOREIGN KEY ([RowStatus]) REFERENCES [Lookups].[RowStatusInfo]([RowStatus])
+	CONSTRAINT [FK_ProductCategoryInfo_RowStatus] FOREIGN KEY ([RowStatus]) REFERENCES [Lookups].[RowStatusInfo]([RowStatus])
 ) ON [PRIMARY]
 GO
-CREATE UNIQUE CLUSTERED INDEX [IX_ProductInfo_SequenceId] ON [Setup].[ProductInfo] ([SequenceId])
+CREATE UNIQUE CLUSTERED INDEX [IX_ProductCategoryInfo_SequenceId] ON [Setup].[ProductCategoryInfo] ([SequenceId])
