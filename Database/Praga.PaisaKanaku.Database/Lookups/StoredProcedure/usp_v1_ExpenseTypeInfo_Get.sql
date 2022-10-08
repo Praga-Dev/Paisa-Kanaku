@@ -11,7 +11,6 @@ BEGIN TRY
 
 	SELECT	[ExpenseType]
 			,[ExpenseTypeValue]
-			,[RowStatus]
 	FROM	[Lookups].[ExpenseTypeInfo]
 	WHERE	[RowStatus] = 'A'
 	ORDER BY [SequenceId] ASC;
