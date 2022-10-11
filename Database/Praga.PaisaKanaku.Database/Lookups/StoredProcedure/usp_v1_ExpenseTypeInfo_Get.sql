@@ -9,9 +9,7 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	SELECT	[ExpenseType]
-			,[ExpenseTypeValue]
-	FROM	[Lookups].[ExpenseTypeInfo]
+	SELECT * FROM [Lookups].[ExpenseTypeInfo]
 	WHERE	[RowStatus] = 'A'
 	ORDER BY [SequenceId] ASC;
 

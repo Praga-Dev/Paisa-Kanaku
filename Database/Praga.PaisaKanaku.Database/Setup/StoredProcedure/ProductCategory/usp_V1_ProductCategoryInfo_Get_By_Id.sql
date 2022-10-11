@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [Setup].[usp_V1_BrandInfo_Get]
+﻿CREATE PROCEDURE [dbo].[usp_V1_ProductCategoryInfo_Get_By_Id]
+	@ProductCategoryInfoId UNIQUEIDENTIFIER,
 	@LoggedInUserId UNIQUEIDENTIFIER
 
 AS
@@ -12,12 +13,18 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	SELECT * FROM [Setup].[BrandInfo] WHERE [RowStatus] = 'A' AND [CreatedBy] = @LoggedInUserId;
+	IF([Common].[udp_v1_ValidateGuid](@ProductCategoryInfoId) = 0)
+	BEGIN
+		RAISERROR('INVALID_PARAM_PRODUCT_CATEGORY_INFO_ID', 16, 1);
+	END
+
+	SELECT * FROM [Setup].[ProductCategoryInfo] WHERE [RowStatus] = 'A' AND [CreatedBy] = @LoggedInUserId AND [Id] = @ProductCategoryInfoId;
 
 END TRY  
 BEGIN CATCH  
 	DECLARE @ErrorNumber INT = ERROR_NUMBER();  
 	DECLARE @ErrorMessage NVARCHAR(1000) = ERROR_MESSAGE()   
      
+	-- Raise Exception  
 	RAISERROR('%s', 16, 1, @ErrorMessage)  
 END CATCH;

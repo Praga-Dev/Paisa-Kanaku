@@ -5,7 +5,7 @@ CREATE PROCEDURE [Transactions].[usp_V1_ExpenseInfo_Product_Save]
 	@Id UNIQUEIDENTIFIER,
 	@ExpenseInfoId UNIQUEIDENTIFIER,
 	@ExpenseBy UNIQUEIDENTIFIER,
-	@Date DATETIME2,
+	@DateOfExpense DATETIME2,
 	@ExpenseDescription NVARCHAR(250),
 	@IsChangeInProduct BIT,
 	@BrandId UNIQUEIDENTIFIER,
@@ -39,15 +39,15 @@ BEGIN TRY
 	END
 
 	-- TODO IF PRODUCT NEW, SAVE IT
-	IF(@ProductId IS NULL OR @ProductId = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[ProductDetailInfo] WHERE [Id] = @ProductId))
+	IF(@ProductId IS NULL OR @ProductId = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[ProductInfo] WHERE [Id] = @ProductId))
 	BEGIN
-		EXEC [Setup].[usp_V1_ProductDetailInfo_Save] @ProductId, @ProductName, @ProductCategoryId, @ProductCategoryName, @BrandId, @BrandName, @ExpenseType, @Price, @ProductDescription, @PreferredRecurringTimePeriod, @LoggedInUserId, @ProductId OUTPUT;
+		EXEC [Setup].[usp_V1_ProductInfo_Save] @ProductId, @ProductName, @ProductCategoryId, @ProductCategoryName, @BrandId, @BrandName, @ExpenseType, @Price, @ProductDescription, @PreferredRecurringTimePeriod, @LoggedInUserId, @ProductId OUTPUT;
 	END
 
 	-- TODO IF PRODUCT NEED TO UPDATE, SAVE IT
 	ELSE IF(@IsChangeInProduct = 1)
 	BEGIN
-		EXEC [Setup].[usp_V1_ProductDetailInfo_Save] @ProductId, @ProductName, @ProductCategoryId, @ProductCategoryName, @BrandId, @BrandName, @ExpenseType, @Price, @ProductDescription, @PreferredRecurringTimePeriod, @LoggedInUserId, @ProductId OUTPUT;
+		EXEC [Setup].[usp_V1_ProductInfo_Save] @ProductId, @ProductName, @ProductCategoryId, @ProductCategoryName, @BrandId, @BrandName, @ExpenseType, @Price, @ProductDescription, @PreferredRecurringTimePeriod, @LoggedInUserId, @ProductId OUTPUT;
 	END
 
 	PRINT 'EXPENSE INFO SAVE'
@@ -57,9 +57,9 @@ BEGIN TRY
 
 	IF(@ExpenseInfoId IS NULL OR @ExpenseInfoId = @EmptyGuid)
 	BEGIN
-		IF EXISTS(SELECT TOP 1 1 FROM [Transactions].[ExpenseInfo] WHERE [Date] = @Date)
+		IF EXISTS(SELECT TOP 1 1 FROM [Transactions].[ExpenseInfo] WHERE [Date] = @DateOfExpense)
 		BEGIN
-			SELECT TOP 1 @TempExpenseInfoId = [Id] FROM [Transactions].[ExpenseInfo] WHERE [Date] = @Date
+			SELECT TOP 1 @TempExpenseInfoId = [Id] FROM [Transactions].[ExpenseInfo] WHERE [Date] = @DateOfExpense
 		END
 		ELSE
 		BEGIN
@@ -71,14 +71,14 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_EXPENSE_INFO_ID', 16, 1);
 	END
 
-	IF(NOT EXISTS(SELECT TOP 1 1 FROM [Transactions].[ExpenseInfo] WHERE [Date] = @Date))
+	IF(NOT EXISTS(SELECT TOP 1 1 FROM [Transactions].[ExpenseInfo] WHERE [Date] = @DateOfExpense))
 	BEGIN
 		PRINT 'EXPENSE INFO CREATE'
 
 		INSERT INTO [Transactions].[ExpenseInfo]
 		([Id], [Date], [Amount], [CreatedBy])
 		VALUES 
-		(@TempExpenseInfoId, @Date, @Price, @LoggedInUserId);
+		(@TempExpenseInfoId, @DateOfExpense, @Price, @LoggedInUserId);
 	END
 
 	PRINT 'EXPENSE REFERENCE DETAIL INFO SAVE'
@@ -94,7 +94,7 @@ BEGIN TRY
 		INSERT INTO [Transactions].[ExpenseReferenceDetailInfo]
 		([Id], [ExpenseInfoId], [ExpenseType], [ReferenceId], [ExpenseBy], [DateOfExpense], [ExpenseAmount], [Description], [CreatedBy])
 		VALUES 
-		(@ExpenseReferenceDetailInfoId, @TempExpenseInfoId, @ExpenseType, @ProductId, @ExpenseBy, @Date, @Price, @ExpenseDescription, @LoggedInUserId);
+		(@ExpenseReferenceDetailInfoId, @TempExpenseInfoId, @ExpenseType, @ProductId, @ExpenseBy, @DateOfExpense, @Price, @ExpenseDescription, @LoggedInUserId);
 	END
 	ELSE
 	BEGIN
@@ -106,7 +106,7 @@ BEGIN TRY
 			[ExpenseType] = @ExpenseType, 
 			[ReferenceId] = @ProductId, 
 			[ExpenseBy] = @ExpenseBy, 
-			[DateOfExpense] = @Date, 
+			[DateOfExpense] = @DateOfExpense, 
 			[ExpenseAmount] = @Price,
 			[Description] = @ExpenseDescription,
 			[ModifiedBy] = @LoggedInUserId,
@@ -117,10 +117,10 @@ BEGIN TRY
 	
 	UPDATE [Transactions].[ExpenseInfo]
 	SET
-		[Amount] = (SELECT SUM([ExpenseAmount]) FROM [Transactions].[ExpenseReferenceDetailInfo] WHERE [Date] = @Date AND [RowStatus] = 'A' AND [CreatedBy] = @LoggedInUserId),
+		[Amount] = (SELECT SUM([ExpenseAmount]) FROM [Transactions].[ExpenseReferenceDetailInfo] WHERE [Date] = @DateOfExpense AND [RowStatus] = 'A' AND [CreatedBy] = @LoggedInUserId),
 		[ModifiedBy] = @LoggedInUserId,
 		[ModifiedDate] = GETUTCDATE()
-	WHERE [Date] = @Date AND [RowStatus] = 'A' AND [CreatedBy] = @LoggedInUserId;
+	WHERE [Date] = @DateOfExpense AND [RowStatus] = 'A' AND [CreatedBy] = @LoggedInUserId;
 
 
 	SET @Result = @ExpenseReferenceDetailInfoId;

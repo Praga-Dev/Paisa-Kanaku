@@ -79,6 +79,9 @@
     <Folder Include="Transactions\StoredProcedure" />
     <Folder Include="Transactions\Table\Expense" />
     <Folder Include="Transactions\StoredProcedure\Expense" />
+    <Folder Include="Setup\StoredProcedure\ProductCategory" />
+    <Folder Include="Common" />
+    <Folder Include="Common\ScalarFunction" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Account.sql" />
@@ -104,16 +107,25 @@
     <Build Include="Lookups\StoredProcedure\usp_v1_LiquidMeasureInfo_Get.sql" />
     <Build Include="Lookups\Table\MeasureTypeInfo.sql" />
     <Build Include="Setup\Table\Product\ProductCategoryInfo.sql" />
-    <Build Include="Setup\Table\Product\ProductDetailInfo.sql" />
-    <Build Include="Lookups\Table\TimePeriodInfo.sql" />
-    <Build Include="Setup\StoredProcedure\Product\usp_V1_ProductDetailInfo_Save.sql" />
+    <Build Include="Setup\Table\Product\ProductInfo.sql" />
+    <Build Include="Lookups\Table\TimePeriodTypeInfo.sql" />
+    <Build Include="Setup\StoredProcedure\Product\usp_V1_ProductInfo_Save.sql" />
     <Build Include="Lookups\Table\PaymentMethodInfo.sql" />
     <Build Include="Lookups\StoredProcedure\usp_v1_PaymentMethodInfo_Get.sql" />
-    <Build Include="Setup\StoredProcedure\Product\usp_V1_ProductCategoryInfo_Save.sql" />
     <Build Include="Schema\Transactions.sql" />
     <Build Include="Transactions\Table\Expense\ExpenseInfo.sql" />
     <Build Include="Transactions\Table\Expense\ExpenseReferenceDetailInfo.sql" />
     <Build Include="Transactions\StoredProcedure\Expense\usp_V1_ExpenseInfo_Product_Save.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_MeasureTypeInfo_Get.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_TimePeriodTypeInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Brand\usp_V1_BrandInfo_Get_By_Id.sql" />
+    <Build Include="Setup\StoredProcedure\Member\usp_V1_MemberInfo_Get_By_Id.sql" />
+    <Build Include="Setup\StoredProcedure\ProductCategory\usp_V1_ProductCategoryInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\ProductCategory\usp_V1_ProductCategoryInfo_Get_By_Id.sql" />
+    <Build Include="Schema\Common.sql" />
+    <Build Include="Common\ScalarFunction\udp_v1_ValidateGuid.sql" />
+    <Build Include="Setup\StoredProcedure\ProductCategory\usp_V1_ProductCategoryInfo_Save.sql" />
+    <Build Include="Setup\StoredProcedure\Product\usp_V1_ProductInfo_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />

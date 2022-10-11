@@ -40,11 +40,11 @@ IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Loo
 BEGIN
 	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MeasureTypeInfo] WHERE [MeasureType] LIKE N'W')
 	BEGIN
-		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue]) VALUES (N'W', N'WeightMeasure');
+		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue], [SequenceId], [RowStatus]) VALUES (N'W', N'WeightMeasure', 1, 'A');
 	END
 	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MeasureTypeInfo] WHERE [MeasureType] LIKE N'L')
 	BEGIN
-		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue]) VALUES (N'L', N'LiquidMeasure');
+		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue], [SequenceId], [RowStatus]) VALUES (N'L', N'LiquidMeasure', 2, 'A');
 	END
 END
 GO
@@ -79,40 +79,40 @@ IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Loo
 BEGIN
 	IF NOT EXISTS(SELECT * FROM [Lookups].[PaymentMethodInfo] WHERE [PaymentMethod] LIKE N'CASH')
 	BEGIN
-		INSERT INTO [Lookups].[PaymentMethodInfo] ([PaymentMethod], [PaymentMethodValue]) VALUES (N'CASH', N'Cash');
+		INSERT INTO [Lookups].[PaymentMethodInfo] ([PaymentMethod], [PaymentMethodValue], [SequenceId], [RowStatus]) VALUES (N'CASH', N'Cash', 1, 'A');
 	END
     IF NOT EXISTS(SELECT * FROM [Lookups].[PaymentMethodInfo] WHERE [PaymentMethod] LIKE N'UPI')
 	BEGIN
-		INSERT INTO [Lookups].[PaymentMethodInfo] ([PaymentMethod], [PaymentMethodValue]) VALUES (N'UPI', N'UPI');
+		INSERT INTO [Lookups].[PaymentMethodInfo] ([PaymentMethod], [PaymentMethodValue], [SequenceId], [RowStatus]) VALUES (N'UPI', N'UPI', 2, 'A');
 	END
 	IF NOT EXISTS(SELECT * FROM [Lookups].[PaymentMethodInfo] WHERE [PaymentMethod] LIKE N'CARD')
 	BEGIN
-		INSERT INTO [Lookups].[PaymentMethodInfo] ([PaymentMethod], [PaymentMethodValue]) VALUES (N'CARD', N'Card');
+		INSERT INTO [Lookups].[PaymentMethodInfo] ([PaymentMethod], [PaymentMethodValue], [SequenceId], [RowStatus]) VALUES (N'CARD', N'Card', 3, 'A');
 	END
 END
 GO
 
-IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'TimePeriodInfo') 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'TimePeriodTypeInfo') 
 BEGIN
-	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodInfo] WHERE [TimePeriod] LIKE N'DAILY')
+	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodTypeInfo] WHERE [TimePeriodType] LIKE N'DAILY')
 	BEGIN
-		INSERT INTO [Lookups].[TimePeriodInfo] ([TimePeriod], [TimePeriodValue]) VALUES (N'DAILY', N'Daily');
+		INSERT INTO [Lookups].[TimePeriodTypeInfo] ([TimePeriodType], [TimePeriodTypeValue], [SequenceId], [RowStatus]) VALUES (N'DAILY', N'Daily', 1, 'A');
 	END
-    IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodInfo] WHERE [TimePeriod] LIKE N'WEEKLY')
+    IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodTypeInfo] WHERE [TimePeriodType] LIKE N'WEEKLY')
 	BEGIN
-		INSERT INTO [Lookups].[TimePeriodInfo] ([TimePeriod], [TimePeriodValue]) VALUES (N'WEEKLY', N'Weekly');
+		INSERT INTO [Lookups].[TimePeriodTypeInfo] ([TimePeriodType], [TimePeriodTypeValue], [SequenceId], [RowStatus]) VALUES (N'WEEKLY', N'Weekly', 2, 'A');
 	END
-	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodInfo] WHERE [TimePeriod] LIKE N'MONTHLY')
+	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodTypeInfo] WHERE [TimePeriodType] LIKE N'MONTHLY')
 	BEGIN
-		INSERT INTO [Lookups].[TimePeriodInfo] ([TimePeriod], [TimePeriodValue]) VALUES (N'MONTHLY', N'Monthly');
+		INSERT INTO [Lookups].[TimePeriodTypeInfo] ([TimePeriodType], [TimePeriodTypeValue], [SequenceId], [RowStatus]) VALUES (N'MONTHLY', N'Monthly', 3, 'A');
 	END
-	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodInfo] WHERE [TimePeriod] LIKE N'BIMONTHLY')
+	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodTypeInfo] WHERE [TimePeriodType] LIKE N'BIMONTHLY')
 	BEGIN
-		INSERT INTO [Lookups].[TimePeriodInfo] ([TimePeriod], [TimePeriodValue]) VALUES (N'BIMONTHLY', N'Bimonthly');
+		INSERT INTO [Lookups].[TimePeriodTypeInfo] ([TimePeriodType], [TimePeriodTypeValue], [SequenceId], [RowStatus]) VALUES (N'BIMONTHLY', N'Bimonthly', 4, 'A');
 	END
-	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodInfo] WHERE [TimePeriod] LIKE N'NA')
+	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodTypeInfo] WHERE [TimePeriodType] LIKE N'NA')
 	BEGIN
-		INSERT INTO [Lookups].[TimePeriodInfo] ([TimePeriod], [TimePeriodValue]) VALUES (N'NA', N'NA');
+		INSERT INTO [Lookups].[TimePeriodTypeInfo] ([TimePeriodType], [TimePeriodTypeValue], [SequenceId], [RowStatus]) VALUES (N'NA', N'NA', 1, 'A');
 	END
 END
 GO
@@ -166,15 +166,6 @@ BEGIN
 END
 GO
 
-IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Setup' AND T.TABLE_NAME = 'MemberInfo') 
-BEGIN
-	IF NOT EXISTS(SELECT 1 FROM [Setup].[MemberInfo] WHERE [Id] LIKE N'D2D0F25A-5FBC-4F1A-A0B2-EB1E7FF39AB3')
-	BEGIN
-		INSERT INTO [Setup].[MemberInfo]([Id], [Name], [CreatedBy]) 
-		VALUES (N'D2D0F25A-5FBC-4F1A-A0B2-EB1E7FF39AB3', N'PRAGADEESHWARAN', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
-	END
-END
-GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Auth' AND T.TABLE_NAME = 'UserInfo') 
 BEGIN
@@ -182,6 +173,16 @@ BEGIN
 	BEGIN
 		INSERT INTO [Auth].[UserInfo]([Id], [UserName], [FirstName], [LastName], [CreatedBy]) 
 		VALUES (N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5', N'PRAGADEESHWARAN', N'PRAGADEESHWARAN', N'PASUPATHI', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	END
+END
+GO
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Setup' AND T.TABLE_NAME = 'MemberInfo') 
+BEGIN
+	IF NOT EXISTS(SELECT 1 FROM [Setup].[MemberInfo] WHERE [Id] LIKE N'D2D0F25A-5FBC-4F1A-A0B2-EB1E7FF39AB3')
+	BEGIN
+		INSERT INTO [Setup].[MemberInfo]([Id], [Name], [CreatedBy]) 
+		VALUES (N'D2D0F25A-5FBC-4F1A-A0B2-EB1E7FF39AB3', N'PRAGADEESHWARAN', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
 	END
 END
 GO

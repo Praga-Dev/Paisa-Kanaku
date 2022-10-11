@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [Setup].[usp_V1_BrandInfo_Get]
+﻿CREATE PROCEDURE [Setup].[usp_V1_MemberInfo_Get_By_Id]
+	@MemberInfoId UNIQUEIDENTIFIER,
 	@LoggedInUserId UNIQUEIDENTIFIER
 
 AS
@@ -12,7 +13,12 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	SELECT * FROM [Setup].[BrandInfo] WHERE [RowStatus] = 'A' AND [CreatedBy] = @LoggedInUserId;
+	IF([Common].[udp_v1_ValidateGuid](@MemberInfoId) = 0)
+	BEGIN
+		RAISERROR('INVALID_PARAM_MEMBER_INFO_ID', 16, 1);
+	END
+
+	SELECT * FROM [Setup].[MemberInfo] WHERE [Id] = @MemberInfoId AND [RowStatus] = 'A' AND [CreatedBy] = @LoggedInUserId;
 
 END TRY  
 BEGIN CATCH  

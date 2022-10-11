@@ -9,11 +9,7 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	SELECT	[LiquidMeasure]
-			,[LiquidMeasureValue]
-			,[ConversionValue]
-			,[RowStatus]
-	FROM	[Lookups].[LiquidMeasureInfo]
+	SELECT * FROM [Lookups].[LiquidMeasureInfo]
 	WHERE	[RowStatus] = 'A'
 	ORDER BY [SequenceId] ASC;
 

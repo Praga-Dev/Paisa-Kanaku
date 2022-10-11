@@ -1,23 +1,24 @@
-﻿CREATE PROCEDURE [Lookups].[usp_v1_PaymentMethodInfo_Get]
+﻿CREATE PROCEDURE [Setup].[usp_V1_BrandInfo_Get_By_Id]
+	@BrandInfoId UNIQUEIDENTIFIER,
 	@LoggedInUserId UNIQUEIDENTIFIER
-AS
 
-BEGIN TRY
+AS
+DECLARE @EmptyGuid UNIQUEIDENTIFIER;
+SET @EmptyGuid = CAST(CAST(0 AS BINARY) AS UNIQUEIDENTIFIER);
+
+BEGIN TRY 
 
 	IF([Auth].[udp_v1_ValidateAccount](@LoggedInUserId) = 0)
 	BEGIN
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	SELECT * FROM [Lookups].[PaymentMethodInfo]
-	WHERE [RowStatus] = 'A'
-	ORDER BY [SequenceId] ASC;
+	SELECT * FROM [Setup].[BrandInfo] WHERE [Id] = @BrandInfoId AND [RowStatus] = 'A' AND [CreatedBy] = @LoggedInUserId;
 
 END TRY  
 BEGIN CATCH  
 	DECLARE @ErrorNumber INT = ERROR_NUMBER();  
 	DECLARE @ErrorMessage NVARCHAR(1000) = ERROR_MESSAGE()   
      
-	-- Raise Exception  
 	RAISERROR('%s', 16, 1, @ErrorMessage)  
 END CATCH;

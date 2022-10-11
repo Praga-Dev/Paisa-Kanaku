@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [Lookups].[usp_v1_PaymentMethodInfo_Get]
+﻿CREATE PROCEDURE [Lookups].[usp_v1_MeasureTypeInfo_Get]
 	@LoggedInUserId UNIQUEIDENTIFIER
 AS
 
@@ -9,7 +9,7 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	SELECT * FROM [Lookups].[PaymentMethodInfo]
+	SELECT * FROM [Lookups].[MeasureTypeInfo]
 	WHERE [RowStatus] = 'A'
 	ORDER BY [SequenceId] ASC;
 

@@ -9,12 +9,8 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	SELECT	[WeightMeasure]
-			,[WeightMeasureValue]
-			,[ConversionValue]
-			,[RowStatus]
-	FROM	[Lookups].[WeightMeasureInfo]
-	WHERE	[RowStatus] = 'A'
+	SELECT * FROM [Lookups].[WeightMeasureInfo]
+	WHERE [RowStatus] = 'A'
 	ORDER BY [SequenceId] ASC;
 
 END TRY  

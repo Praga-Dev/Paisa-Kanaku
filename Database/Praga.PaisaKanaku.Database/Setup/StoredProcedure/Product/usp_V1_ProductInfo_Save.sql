@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [Setup].[usp_V1_ProductDetailInfo_Save]
+﻿CREATE PROCEDURE [Setup].[usp_V1_ProductInfo_Save]
 	@Id UNIQUEIDENTIFIER,
 	@ProductName NVARCHAR(25),
 	@ProductCategoryId UNIQUEIDENTIFIER,
@@ -29,28 +29,28 @@ BEGIN TRY
 		EXEC [Setup].[usp_V1_BrandInfo_Save] @BrandId, @BrandName, @LoggedInUserId, @BrandId OUTPUT;
 	END
 
-	DECLARE @TempProductDetailInfoId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
+	DECLARE @TempProductInfoId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
 
 	IF(@ProductCategoryId IS NULL OR @ProductCategoryId = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[ProductCategoryInfo] WHERE [Id] = @ProductCategoryId))
 	BEGIN
 		DECLARE @TempProductCategoryId UNIQUEIDENTIFIER;
 		EXEC [Setup].[usp_V1_ProductCategoryInfo_Save] @EmptyGuid, @ProductCategoryName, @LoggedInUserId, @TempProductCategoryId OUTPUT;
 
-		INSERT INTO [Setup].[ProductDetailInfo] 
+		INSERT INTO [Setup].[ProductInfo] 
 		([Id], [Name], [ProductCategoryId], [BrandId], [ExpenseType], [Price], [Description], [PreferredRecurringTimePeriod], [CreatedBy])
 		VALUES 
-		(@TempProductDetailInfoId, @ProductName, @TempProductCategoryId, @BrandId, @ExpenseType, @Price, @Description, @PreferredRecurringTimePeriod, @LoggedInUserId);
+		(@TempProductInfoId, @ProductName, @TempProductCategoryId, @BrandId, @ExpenseType, @Price, @Description, @PreferredRecurringTimePeriod, @LoggedInUserId);
 	END
-	ELSE IF (@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[ProductDetailInfo] WHERE [Id] = @Id))
+	ELSE IF (@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[ProductInfo] WHERE [Id] = @Id))
 	BEGIN 		
-		INSERT INTO [Setup].[ProductDetailInfo] 
+		INSERT INTO [Setup].[ProductInfo] 
 		([Id], [Name], [ProductCategoryId], [BrandId], [ExpenseType], [Price], [Description], [PreferredRecurringTimePeriod], [CreatedBy])
 		VALUES 
-		(@TempProductDetailInfoId, @ProductName, @ProductCategoryId, @BrandId, @ExpenseType, @Price, @Description, @PreferredRecurringTimePeriod, @LoggedInUserId);
+		(@TempProductInfoId, @ProductName, @ProductCategoryId, @BrandId, @ExpenseType, @Price, @Description, @PreferredRecurringTimePeriod, @LoggedInUserId);
 	END
 	ELSE
 	BEGIN
-		UPDATE [Setup].[ProductDetailInfo]
+		UPDATE [Setup].[ProductInfo]
 			SET	
 				[Name] = @ProductName,
 				[ProductCategoryId] = @ProductCategoryId,
@@ -64,7 +64,7 @@ BEGIN TRY
 		WHERE [Id] = @Id AND [RowStatus] = 'A';
 	END	
 
-	SET @Result = @TempProductDetailInfoId;
+	SET @Result = @TempProductInfoId;
 	RETURN @Response;
 
 END TRY  
