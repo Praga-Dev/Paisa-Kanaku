@@ -1,0 +1,18 @@
+﻿@model Response<List<BrandInfo>>
+
+<div class="form-group">
+    <label class="form-label">
+        Brand
+        <span class="required">*</span>
+    </label>
+    <select id="selectBrand" name="brand" class="form-control form-control-sm">
+        @if (Model != null && Model.Data != null && Model.Data.Any())
+        {
+            @foreach (var brand in Model.Data)
+            {
+                <option value="@brand.Id">@brand.Name</option>
+            }
+        }
+        <option value="NEW">New</option>
+    </select>
+</div>

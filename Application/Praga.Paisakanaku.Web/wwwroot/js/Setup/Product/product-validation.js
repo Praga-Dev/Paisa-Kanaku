@@ -1,0 +1,212 @@
+﻿jQuery.validator.addMethod('isDropDownValueValid', function (value, element) {
+    return this.optional(element) || value;
+});
+
+jQuery.validator.addMethod('isPriceValid', function (value, element) {
+    return this.optional(element) || value;
+});
+
+$(function () {
+    $('#formCreateProduct').validate({
+        errorElement: 'span',
+        rules: {
+            name: {
+                required: true,
+                minlength: 2,
+            },
+            description: {
+                minlength: 2
+            },
+            price: {
+                required: true,
+                number: true
+            },
+            brandId: {
+                isDropDownValueValid: true
+            },
+            brandName: {
+                required: true,
+                minlength: 2,
+            },
+            productCategoryId: {
+                isDropDownValueValid: true
+            },
+            productCategoryName: {
+                required: true,
+                minlength: 2,
+            },
+            expenseType: {
+                isDropDownValueValid: true
+            },
+            preferredRecurringTimePeriod: {
+                isDropDownValueValid: true
+            },
+        },
+        messages: {
+            name: {
+                required: 'Name is required',
+                minlength: 'Name is too short'
+            },
+            description: {
+                minlength: 'Description is too short'
+            },
+            brandId: {
+                isBrandIdValid: 'Brand is required'
+            },
+            brandName: {
+                required: 'Brand Name is required',
+                minlength: 'Brand Name is too short'
+            },
+            productCategoryId: {
+                isProductCategoryIdValid: 'Product Category is required'
+            },
+            productCategoryName: {
+                required: 'Product Category Name is required',
+                minlength: 'Product Category Name is too short'
+            },
+            expenseType: {
+                isExpenseTypeValid: 'Expense Type is required'
+            },
+            preferredRecurringTimePeriod: {
+                isPreferredRecurringTimePeriod: 'Preferred Recurring Time Period is required'
+            },
+        },
+        submitHandler: function () {
+            loadSpinner();
+            //disableBtnById('btnSaveProductSubmit');
+
+            let id = $('#formCreateProduct').data('id');
+            let name = $('#formCreateProduct #name').val();
+            let description = $('#formCreateProduct #description').val();
+            let price = $('#formCreateProduct #price').val();
+            let brandId = $('#formCreateProduct #selectBrand').val();
+            let brandName = $('#formCreateProduct #brandName').val();
+            let productCategoryId = $('#formCreateProduct #selectProductCategory').val();            
+            let productCategoryName = $('#formCreateProduct #productCategoryName').val();
+            let timePeriod = $('#formCreateProduct #selectTimePeriod').val();
+            let expenseTypeInfo = $('#formCreateProduct #selectExpenseType').val();
+
+            if (brandId === 'NEW')
+                brandId = ''
+            if (productCategoryId === 'NEW')
+                productCategoryId = ''
+
+            let productInfo = {
+                'Id': id,
+                'Name': name,
+                'Price': price,
+                'Description': description,
+                'BrandInfo': {
+                    'Id': brandId,
+                    'Name': brandName
+                },
+                'ProductCategoryInfo': {
+                    'Id': productCategoryId,
+                    'Name': productCategoryName
+                },
+                'ExpenseTypeInfo': {
+                    'Id': expenseTypeInfo
+                },
+                'PreferredTimePeriodInfo': {
+                    'Id': timePeriod
+                }
+            }
+
+            let isUpdate = $('#formCreateProduct').data('isupdate') === 'True';
+            console.log(productInfo, isUpdate);
+
+            $.ajax({
+                url: isUpdate ? `./product/update` : `./product/create`,
+                method: isUpdate ? 'PUT' : 'POST',
+                data: productInfo,
+                success: function (response) {
+                    if (typeof response !== undefined && response !== null && response.isSuccess && response.data != null) {
+                        $('#createProductModal').modal('hide');
+                        showSuccessMsg('Product Category saved successfully');
+                        getProductList();
+                    } else {
+                        showErrorMsg('Product Category save failed');
+                    }
+                },
+                error: function (error) {
+                    showErrorMsg('Something went wrong');
+                },
+                complete: function () {
+                    hideSpinner();
+                    enableBtnById('btnSaveProductSubmit');
+                }
+            });
+        },
+        invalidHandler: function (event, validator) {
+            enableBtnById('btnSaveProductSubmit');
+        },
+        errorClass: 'error',
+        highlight: function (element, errorClass, validClass) { },
+        unhighlight: function (element, errorClass, validClass) { }
+    });
+})
+
+
+$('#formCreateProduct #name').on('focus', function () {
+    $('#formCreateProduct  #productHelp').show();
+});
+
+$('#formCreateProduct #name').on('blur', function () {
+    $('#formCreateProduct  #productHelp').hide();
+});
+
+$('#formCreateProduct #description').on('focus', function () {
+    $('#formCreateProduct  #product-description-help').show();
+});
+
+$('#formCreateProduct #description').on('blur', function () {
+    $('#formCreateProduct  #product-description-help').hide();
+});
+
+$('#formCreateProduct #price').on('focus', function () {
+    $('#formCreateProduct  #product-price-help').show();
+});
+
+$('#formCreateProduct #price').on('blur', function () {
+    $('#formCreateProduct  #product-price-help').hide();
+});
+
+$('#formCreateProduct #brandName').on('focus', function () {
+    $('#formCreateProduct  #product-brand-help').show();
+});
+
+$('#formCreateProduct #brandName').on('blur', function () {
+    $('#formCreateProduct  #product-brand-help').hide();
+});
+
+$('#formCreateProduct #productCategoryName').on('focus', function () {
+    $('#formCreateProduct  #product-product-category-help').show();
+});
+
+$('#formCreateProduct #productCategoryName').on('blur', function () {
+    $('#formCreateProduct  #product-product-category-help').hide();
+});
+
+$(document).on('change', '#selectBrand', function () {
+    let id = $('#formCreateProduct #selectBrand').val();
+    console.log(id);
+    if (id === 'NEW') {
+        $('#formCreateProduct #brandNameContainer').show();
+    } else {
+        $('#formCreateProduct #brandNameContainer').hide();
+    }
+});
+
+$(document).on('change', '#selectProductCategory', function () {
+    let id = $('#formCreateProduct #selectProductCategory').val();
+    console.log(id);
+    if (id === 'NEW') {
+        $('#formCreateProduct #productCategoryNameContainer').show();
+    } else {
+        $('#formCreateProduct #productCategoryNameContainer').hide();
+    }
+});
+
+function saveProduct() {
+    $('#btnProductSaveSubmit').click();
+}

@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Praga.Paisakanaku.Web", "Pr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Praga.PaisaKanaku.Core", "..\Praga.PaisaKanaku.Core\Praga.PaisaKanaku.Core.csproj", "{F466A553-0404-44B7-ACE1-9A4E6664F618}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Praga.PaisaKanaku.API", "..\Praga.PaisaKanaku.API\Praga.PaisaKanaku.API.csproj", "{229B0278-2FE4-44B4-B9CF-F0AC2F5979B8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{F466A553-0404-44B7-ACE1-9A4E6664F618}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F466A553-0404-44B7-ACE1-9A4E6664F618}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F466A553-0404-44B7-ACE1-9A4E6664F618}.Release|Any CPU.Build.0 = Release|Any CPU
-		{229B0278-2FE4-44B4-B9CF-F0AC2F5979B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{229B0278-2FE4-44B4-B9CF-F0AC2F5979B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{229B0278-2FE4-44B4-B9CF-F0AC2F5979B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{229B0278-2FE4-44B4-B9CF-F0AC2F5979B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

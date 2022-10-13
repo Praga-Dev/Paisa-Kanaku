@@ -1,0 +1,76 @@
+﻿@model ProductInfo
+
+@if (Model != null)
+{    
+    <div class="modal fade" data-bs-backdrop="static" id="createProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <b class="modal-title" id="createProductTitle">
+                        Create Product
+                    </b>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="ProductCreateFormContainer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form id="formCreateProduct" data-id="@Model.Id" data-isupdate="@(Guid.Empty != Model.Id)" autocomplete="off">
+                                    <div class="form-group">
+                                        <label for="name" class="form-label">Name <span class="mandatory">*</span></label>
+                                        <input id="name" name="name" asp-for="@Model.Name" type="text" class="form-control form-control-sm" aria-describedby="productHelp" maxlength="50">
+                                        <div id="productHelp" style="display:none;" class="form-text">Name is case sensitive, ranges between 2 and 50 characters.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description" class="form-label">Description</label>
+                                        <textarea id="description" name="description" asp-for="@Model.Description" type="text" class="form-control form-control-sm" aria-describedby="product-description-help" maxlength="250"></textarea>
+                                        <div id="product-description-help" style="display:none;" class="form-text">Description is case sensitive, ranges between 2 and 250 characters.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price" class="form-label">Price <span class="mandatory">*</span></label>
+                                        <input id="price" name="price" asp-for="@Model.Price" type="text" class="form-control form-control-sm" aria-describedby="product-price-help" maxlength="50">
+                                        <div id="product-price-help" style="display:none;" class="form-text">Enter valid price of the product. Example : 50.95</div>
+                                    </div>
+                                    <div class="">
+                                        <div id="brandListDDContainer" class="form-group">
+                                            <partial name="~/Views/Common/_ProductCategoryList.cshtml" model="null" />
+                                        </div>
+                                        <div id="brandNameContainer" class="form-group" style="display:none">
+                                            <label for="brandName" class="form-label">Brand Name <span class="mandatory">*</span></label>
+                                            <input id="brandName" name="brandName" asp-for="@Model.ProductCategoryInfo.Name" type="text" class="form-control form-control-sm" aria-describedby="product-brand-help" maxlength="50">
+                                            <div id="product-brand-help" style="display:none;" class="form-text">Brand Name is case sensitive, ranges between 2 and 50 characters.</div>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div id="productCategoryListDDContainer" class="form-group">
+                                            <partial name="~/Views/Common/_ProductCategoryList.cshtml" model="null" />
+                                        </div>
+                                        <div id="productCategoryNameContainer" class="form-group" style="display:none">
+                                            <label for="productCategoryName" class="form-label">Product Category Name <span class="mandatory">*</span></label>
+                                            <input id="productCategoryName" name="productCategoryName" asp-for="@Model.ProductCategoryInfo.Name" type="text" class="form-control form-control-sm" aria-describedby="product-product-category-help" maxlength="50">
+                                            <div id="product-product-category-help" style="display:none;" class="form-text">Product Category Name is case sensitive, ranges between 2 and 50 characters.</div>
+                                        </div>
+                                    </div>
+                                    <div id="timePeriodListDDContainer" class="form-group">
+                                        <partial name="~/Views/Common/_TimePeriodList.cshtml" model="null" />
+                                    </div>
+                                    <div id="expenseTypeListDDContainer" class="form-group">
+                                        <partial name="~/Views/Common/_ExpenseTypeList.cshtml" model="null" />
+                                    </div>
+
+                                    <button type="submit" id="btnProductSaveSubmit" class="display-none" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="btnSaveProductSubmit" onclick="saveProduct()" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/Setup/Product/product-validation.js" asp-append-version="true"></script>
+}

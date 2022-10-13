@@ -1,0 +1,18 @@
+﻿@model Response<List<ProductCategoryInfo>>
+
+<div class="form-group">
+    <label class="form-label">
+        ProductCategory
+        <span class="required">*</span>
+    </label>
+    <select id="selectProductCategory" name="productCategory" class="form-control form-control-sm">
+        @if (Model != null && Model.Data != null && Model.Data.Any())
+        {
+            @foreach (var productCategory in Model.Data)
+            {
+                <option value="@productCategory.Id">@productCategory.Name</option>
+            }
+        }
+        <option value="NEW">New</option>
+    </select>
+</div>
