@@ -10,7 +10,9 @@ const { Header, Content, Sider } = Layout;
 const AppLayout = () => (
   <Layout>
     <Header className="header">
-      <div className="logo"></div>
+      <div className="logo">
+        <h2>PaisaKanaku</h2>
+      </div>
       <Menu
         theme="light"
         mode="horizontal"

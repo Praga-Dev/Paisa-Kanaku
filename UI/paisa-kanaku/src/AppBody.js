@@ -1,12 +1,9 @@
 import React from "react";
 import "./App.css";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 function AppBody() {
-  return (
-    <>
-      <h1>Paisa Kanaku</h1>
-    </>
-  );
+  return <Dashboard />;
 }
 
 export default AppBody;
