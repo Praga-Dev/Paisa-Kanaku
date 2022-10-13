@@ -30,18 +30,14 @@ BEGIN TRY
 	END
 
 	DECLARE @TempProductInfoId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
+	DECLARE @TempProductCategoryId UNIQUEIDENTIFIER = CASE WHEN (@ProductCategoryId IS NULL OR @ProductCategoryId = @EmptyGuid) THEN NEWID() ELSE @ProductCategoryId END;
 
 	IF(@ProductCategoryId IS NULL OR @ProductCategoryId = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[ProductCategoryInfo] WHERE [Id] = @ProductCategoryId))
 	BEGIN
-		DECLARE @TempProductCategoryId UNIQUEIDENTIFIER;
 		EXEC [Setup].[usp_V1_ProductCategoryInfo_Save] @EmptyGuid, @ProductCategoryName, @LoggedInUserId, @TempProductCategoryId OUTPUT;
-
-		INSERT INTO [Setup].[ProductInfo] 
-		([Id], [Name], [ProductCategoryId], [BrandId], [ExpenseType], [Price], [Description], [PreferredRecurringTimePeriod], [CreatedBy])
-		VALUES 
-		(@TempProductInfoId, @ProductName, @TempProductCategoryId, @BrandId, @ExpenseType, @Price, @Description, @PreferredRecurringTimePeriod, @LoggedInUserId);
 	END
-	ELSE IF (@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[ProductInfo] WHERE [Id] = @Id))
+	
+	IF (@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[ProductInfo] WHERE [Id] = @Id))
 	BEGIN 		
 		INSERT INTO [Setup].[ProductInfo] 
 		([Id], [Name], [ProductCategoryId], [BrandId], [ExpenseType], [Price], [Description], [PreferredRecurringTimePeriod], [CreatedBy])

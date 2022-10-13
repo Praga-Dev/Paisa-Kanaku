@@ -32,7 +32,7 @@
                                         <div id="product-price-help" style="display:none;" class="form-text">Enter valid price of the product. Example : 50.95</div>
                                     </div>
                                     <div class="">
-                                        <div id="brandListDDContainer" class="form-group">
+                                        <div id="brandListDDContainer" class="form-group" data-val="@Model?.BrandInfo?.Id">
                                             <partial name="~/Views/Common/_ProductCategoryList.cshtml" model="null" />
                                         </div>
                                         <div id="brandNameContainer" class="form-group" style="display:none">
@@ -42,7 +42,7 @@
                                         </div>
                                     </div>
                                     <div class="">
-                                        <div id="productCategoryListDDContainer" class="form-group">
+                                        <div id="productCategoryListDDContainer" class="form-group" data-val="@Model?.ProductCategoryInfo?.Id">
                                             <partial name="~/Views/Common/_ProductCategoryList.cshtml" model="null" />
                                         </div>
                                         <div id="productCategoryNameContainer" class="form-group" style="display:none">
@@ -51,10 +51,10 @@
                                             <div id="product-product-category-help" style="display:none;" class="form-text">Product Category Name is case sensitive, ranges between 2 and 50 characters.</div>
                                         </div>
                                     </div>
-                                    <div id="timePeriodListDDContainer" class="form-group">
+                                    <div id="timePeriodListDDContainer" class="form-group" data-val="@Model?.PreferredTimePeriodInfo?.TimePeriodType">
                                         <partial name="~/Views/Common/_TimePeriodList.cshtml" model="null" />
                                     </div>
-                                    <div id="expenseTypeListDDContainer" class="form-group">
+                                    <div id="expenseTypeListDDContainer" class="form-group" data-val="@Model?.ExpenseTypeInfo?.ExpenseType">
                                         <partial name="~/Views/Common/_ExpenseTypeList.cshtml" model="null" />
                                     </div>
 

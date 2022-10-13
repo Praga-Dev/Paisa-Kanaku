@@ -186,12 +186,12 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     response.ValidationErrorMessages.Add("Product Name must be between 2 and 50 Characters long.");
                 }
 
-                if (productInfo.BrandInfo == null || !Helpers.IsValidGuid(productInfo.BrandInfo.Id))
+                if (productInfo.BrandInfo == null || (!Helpers.IsValidGuid(productInfo.BrandInfo.Id) && string.IsNullOrWhiteSpace(productInfo.BrandInfo.Name)))
                 {
                     response.ValidationErrorMessages.Add("Invalid Brand");
                 }
 
-                if (productInfo.ProductCategoryInfo == null || !Helpers.IsValidGuid(productInfo.ProductCategoryInfo.Id))
+                if (productInfo.ProductCategoryInfo == null || (!Helpers.IsValidGuid(productInfo.ProductCategoryInfo.Id) && string.IsNullOrWhiteSpace(productInfo.ProductCategoryInfo.Name)))
                 {
                     response.ValidationErrorMessages.Add("Invalid Product Category");
                 }
@@ -215,11 +215,13 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                 {
                     Name = productInfo.Name,
                     BrandId = productInfo.BrandInfo.Id,
+                    BrandName = productInfo.BrandInfo.Name,
                     Description = productInfo.Description,
                     ExpenseType = productInfo.ExpenseTypeInfo.ExpenseType,
                     PreferredRecurringTimePeriod = productInfo.PreferredTimePeriodInfo?.TimePeriodType,
                     Price = productInfo.Price,
-                    ProductCategoryId = productInfo.ProductCategoryInfo.Id
+                    ProductCategoryId = productInfo.ProductCategoryInfo.Id,
+                    ProductCategoryName = productInfo.ProductCategoryInfo.Name,
                 };
 
                 if (isUpdate)

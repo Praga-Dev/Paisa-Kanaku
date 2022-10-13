@@ -15,6 +15,7 @@ function getBrandDDList() {
         success: function (response) {
             if (typeof response !== undefined && response !== null) {
                 $('#brandListDDContainer').html(response);
+                $('#selectBrand').val($('#brandListDDContainer').data('val'));
             }
             else {
                 // TODO Alert
@@ -59,6 +60,7 @@ function getProductCategoryDDList() {
         success: function (response) {
             if (typeof response !== undefined && response !== null) {
                 $('#productCategoryListDDContainer').html(response);
+                $('#selectProductCategory').val($('#productCategoryListDDContainer').data('val'));
             }
             else {
                 // TODO Alert
@@ -81,6 +83,7 @@ function getTimePeriodDDList() {
         success: function (response) {
             if (typeof response !== undefined && response !== null) {
                 $('#timePeriodListDDContainer').html(response);
+                $('#selectTimePeriod').val($('#timePeriodListDDContainer').data('val'));
             }
             else {
                 // TODO Alert
@@ -103,6 +106,7 @@ function getExpenseTypeDDList() {
         success: function (response) {
             if (typeof response !== undefined && response !== null) {
                 $('#expenseTypeListDDContainer').html(response);
+                $('#selectExpenseType').val($('#expenseTypeListDDContainer').data('val'));
             }
             else {
                 // TODO Alert

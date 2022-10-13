@@ -73,7 +73,7 @@ $(function () {
         },
         submitHandler: function () {
             loadSpinner();
-            //disableBtnById('btnSaveProductSubmit');
+            disableBtnById('btnSaveProductSubmit');
 
             let id = $('#formCreateProduct').data('id');
             let name = $('#formCreateProduct #name').val();
@@ -105,10 +105,10 @@ $(function () {
                     'Name': productCategoryName
                 },
                 'ExpenseTypeInfo': {
-                    'Id': expenseTypeInfo
+                    'ExpenseType': expenseTypeInfo
                 },
                 'PreferredTimePeriodInfo': {
-                    'Id': timePeriod
+                    'TimePeriodType': timePeriod
                 }
             }
 

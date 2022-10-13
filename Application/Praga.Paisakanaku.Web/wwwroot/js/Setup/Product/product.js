@@ -47,6 +47,10 @@ function editProduct(productInfoId) {
             success: function (response) {
                 if (typeof response !== undefined && response !== null) {
                     $('#createProductFormContainer').empty().html(response);
+                    getBrandDDList();
+                    getProductCategoryDDList();
+                    getExpenseTypeDDList();
+                    getTimePeriodDDList();
                     $('#createProductTitle').text('Update Product');
                     $('#createProductModal').modal('show');
                 }
