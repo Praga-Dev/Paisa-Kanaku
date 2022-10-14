@@ -62,7 +62,7 @@ BEGIN TRY
 	LEFT JOIN [Lookups].[TimePeriodTypeInfo] TPTI ON PI.[PreferredRecurringTimePeriod] = TPTI.[TimePeriodType]
 	WHERE PI.[RowStatus] = 'A' AND PI.CreatedBy = @LoggedInUserId;
 
-	SELECT * FROM @ProductInfo;
+	SELECT * FROM @ProductInfo ORDER BY [Name];;
 
 	RETURN 0
 END TRY  

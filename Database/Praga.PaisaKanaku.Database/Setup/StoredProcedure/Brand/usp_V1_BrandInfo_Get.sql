@@ -12,7 +12,7 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	SELECT * FROM [Setup].[BrandInfo] WHERE [RowStatus] = 'A' AND [CreatedBy] = @LoggedInUserId;
+	SELECT * FROM [Setup].[BrandInfo] WHERE [RowStatus] = 'A' AND [CreatedBy] = @LoggedInUserId ORDER BY [Name];
 
 END TRY  
 BEGIN CATCH  

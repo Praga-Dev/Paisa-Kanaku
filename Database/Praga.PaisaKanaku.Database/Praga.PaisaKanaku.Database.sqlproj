@@ -126,6 +126,7 @@
     <Build Include="Common\ScalarFunction\udp_v1_ValidateGuid.sql" />
     <Build Include="Setup\StoredProcedure\ProductCategory\usp_V1_ProductCategoryInfo_Save.sql" />
     <Build Include="Setup\StoredProcedure\Product\usp_V1_ProductInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Product\usp_V1_ProductInfo_Get_By_Id.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />

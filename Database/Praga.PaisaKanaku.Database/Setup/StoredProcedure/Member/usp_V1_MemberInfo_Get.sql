@@ -12,12 +12,7 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	SELECT	[Id]
-			,[Name]
-			,[SequenceId]
-			,[RowStatus]
-	FROM	[Setup].[MemberInfo]
-	WHERE	[RowStatus] = 'A';
+	SELECT * FROM [Setup].[MemberInfo] WHERE [RowStatus] = 'A' ORDER BY [Name];
 
 END TRY  
 BEGIN CATCH  

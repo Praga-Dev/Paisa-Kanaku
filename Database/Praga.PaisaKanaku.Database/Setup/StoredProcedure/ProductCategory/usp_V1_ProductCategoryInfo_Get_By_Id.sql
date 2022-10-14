@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[usp_V1_ProductCategoryInfo_Get_By_Id]
+﻿CREATE PROCEDURE [Setup].[usp_V1_ProductCategoryInfo_Get_By_Id]
 	@ProductCategoryInfoId UNIQUEIDENTIFIER,
 	@LoggedInUserId UNIQUEIDENTIFIER
 
