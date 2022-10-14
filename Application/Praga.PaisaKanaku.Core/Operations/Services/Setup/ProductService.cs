@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Dapper;
+using Microsoft.Extensions.Logging;
 using Praga.PaisaKanaku.Core.Common.Constants;
 using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.Common.Utils;
@@ -245,6 +246,51 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                 return response;
             }
 
+        }
+
+        public async Task<Response<string>> ExportProductInfoData(Guid loggedInUserId)
+        {
+            Response<string> response = new Response<string>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
+
+            try
+            {
+                string csv = String.Empty;
+                List<string> COLUMN_NAMES = new() { "Product Name", "Price", "Product Category", "Brand", "Expense Type", "Preferred Recurring Time Period" };
+
+                foreach (string column in COLUMN_NAMES)
+                    csv += column + " , ";
+
+                csv = csv[..^3];
+
+                //Add new line.
+                csv += "\r\n";
+
+                Response<List<ProductInfoDb>> productInfoList = await _productRepository.GetProductInfoList(loggedInUserId);
+
+                if (Helpers.IsResponseValid(productInfoList))
+                {
+                    foreach (var product in productInfoList.Data)
+                    {
+                        csv += product.Name?.Replace(",", ";") + ',';
+                        csv += Convert.ToString(product.Price).Replace(",", ";") + ',';
+                        csv += product.ProductCategoryName?.Replace(",", ";") + ',';
+                        csv += product.BrandName?.Replace(",", ";") + ',';
+                        csv += product.ExpenseTypeValue?.Replace(",", ";") + ',';
+                        csv += product.PreferredRecurringTimePeriodValue?.Replace(",", ";");
+
+                        csv += "\r\n";
+                    }
+                }
+
+                response = response.GetSuccessResponse(csv);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ProductService.ExportProductInfoData({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+            }
+
+            return response;
         }
     }
 }

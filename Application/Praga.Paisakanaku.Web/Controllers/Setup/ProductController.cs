@@ -5,7 +5,10 @@ using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.Common.Utils;
 using Praga.PaisaKanaku.Core.DomainEntities.Setup;
 using Praga.PaisaKanaku.Core.Operations.IServices.Setup;
+using System.IO;
+using System;
 using System.Net;
+using System.Text;
 
 namespace Praga.Paisakanaku.Web.Controllers.Setup
 {
@@ -206,6 +209,35 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
             }
 
             return PartialView("~/Views/Common/_ProductList.cshtml", response);
+        }
+
+        [HttpGet, Route("~/product/export")]
+        public async Task<IActionResult> ExportProductInfoData()
+        {
+            Response<string> response = new Response<string>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(this.LoggedInUserId))
+                {
+                    byte[] failuremsgByte = Encoding.ASCII.GetBytes("SOMETHING WENT WRONG !!!");
+                    return File(failuremsgByte, "application/text", "ProductList.csv");
+                }
+
+                var dbresponse = await _productService.ExportProductInfoData(LoggedInUserId);
+                if (Helpers.IsResponseValid(dbresponse))
+                {
+                    response = dbresponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ProductController.ExportProductInfoData({@loggedInUserId})", LoggedInUserId);
+            }
+
+            byte[] bytes = Encoding.ASCII.GetBytes(response.Data);
+            var file = File(bytes, "application/text", "ProductList.csv");
+            return file;
         }
     }
 }

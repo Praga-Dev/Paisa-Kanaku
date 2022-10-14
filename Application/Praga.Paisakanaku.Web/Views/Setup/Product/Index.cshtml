@@ -12,11 +12,14 @@
                     <h2>Product</h2>
                 </div>
                 <div class="col-sm-6">
-                    @*<a href="#addEmployeeModal" class="btn btn-primary-outline" data-toggle="modal"> </a>*@
-                    <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary-outline" onclick="onCreateProduct()">
                         <span>Create &nbsp;</span><i class="material-icons">&#xE147;</i>
                     </button>
+                    <a id="btnDownloadProduct" class="btn btn-primary-outline" asp-area="" asp-controller="Product" asp-action="ExportProductInfoData">
+                        <i class="material-icons">
+                            file_download
+                        </i>
+                    </a>
                 </div>
             </div>
         </div>
