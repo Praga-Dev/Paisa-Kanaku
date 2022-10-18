@@ -42,14 +42,14 @@ BEGIN TRY
 		INSERT INTO [Setup].[ProductInfo] 
 		([Id], [Name], [ProductCategoryId], [BrandId], [ExpenseType], [Price], [Description], [PreferredRecurringTimePeriod], [CreatedBy])
 		VALUES 
-		(@TempProductInfoId, @ProductName, @ProductCategoryId, @BrandId, @ExpenseType, @Price, @Description, @PreferredRecurringTimePeriod, @LoggedInUserId);
+		(@TempProductInfoId, @ProductName, @TempProductCategoryId, @BrandId, @ExpenseType, @Price, @Description, @PreferredRecurringTimePeriod, @LoggedInUserId);
 	END
 	ELSE
 	BEGIN
 		UPDATE [Setup].[ProductInfo]
 			SET	
 				[Name] = @ProductName,
-				[ProductCategoryId] = @ProductCategoryId,
+				[ProductCategoryId] = @TempProductCategoryId,
 				[BrandId] = @BrandId,
 				[ExpenseType] = @ExpenseType,
 				[Price] = @Price,

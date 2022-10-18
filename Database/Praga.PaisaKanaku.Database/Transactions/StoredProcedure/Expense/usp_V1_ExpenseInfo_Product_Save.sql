@@ -92,9 +92,9 @@ BEGIN TRY
 		PRINT 'EXPENSE INFO SAVE'
 
 		INSERT INTO [Transactions].[ExpenseReferenceDetailInfo]
-		([Id], [ExpenseInfoId], [ExpenseType], [ReferenceId], [ExpenseBy], [DateOfExpense], [ExpenseAmount], [Description], [CreatedBy])
+		([Id], [ExpenseInfoId], [ReferenceId], [ExpenseBy], [DateOfExpense], [ExpenseAmount], [Description], [CreatedBy])
 		VALUES 
-		(@ExpenseReferenceDetailInfoId, @TempExpenseInfoId, @ExpenseType, @ProductId, @ExpenseBy, @DateOfExpense, @Price, @ExpenseDescription, @LoggedInUserId);
+		(@ExpenseReferenceDetailInfoId, @TempExpenseInfoId, @ProductId, @ExpenseBy, @DateOfExpense, @Price, @ExpenseDescription, @LoggedInUserId);
 	END
 	ELSE
 	BEGIN
@@ -103,7 +103,6 @@ BEGIN TRY
 		UPDATE [Transactions].[ExpenseReferenceDetailInfo]
 		SET
 			[ExpenseInfoId] = @TempExpenseInfoId,
-			[ExpenseType] = @ExpenseType, 
 			[ReferenceId] = @ProductId, 
 			[ExpenseBy] = @ExpenseBy, 
 			[DateOfExpense] = @DateOfExpense, 
