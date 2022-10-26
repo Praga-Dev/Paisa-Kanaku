@@ -5,6 +5,7 @@
 	@ProductId UNIQUEIDENTIFIER,
 	@Quantity INT,
 	@ExpenseAmount DECIMAL(12,3),
+	@Description NVARCHAR(250) = '',	
 	@LoggedInUserId UNIQUEIDENTIFIER,
 	@Result UNIQUEIDENTIFIER OUTPUT
 
@@ -26,14 +27,15 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_EXPENSE_BY', 16, 1);
 	END
 
+	DECLARE @TempExpenseInfoId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
 
 	IF(@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Transactions].[TempExpenseInfo] WHERE [Id] = @Id))
 	BEGIN
 
 		INSERT INTO [Transactions].[TempExpenseInfo]
-		([Id], [MemberId], [Date], [ProductId], [Quantity] ,[Amount], [CreatedBy])
+		([Id], [MemberId], [Date], [ProductId], [Quantity] ,[Amount], [Description], [CreatedBy])
 		VALUES 
-		(@Id, @ExpenseBy, @ExpenseDate, @ProductId, @Quantity, @ExpenseAmount, @LoggedInUserId);
+		(@TempExpenseInfoId, @ExpenseBy, @ExpenseDate, @ProductId, @Quantity, @ExpenseAmount, @Description, @LoggedInUserId);
 	END
 	ELSE
 	BEGIN
@@ -44,10 +46,14 @@ BEGIN TRY
 			[ProductId] = @ExpenseBy, 
 			[Quantity] = @Quantity,
  			[Amount] = @ExpenseAmount,
+			[Description] = @Description,
 			[ModifiedBy] = @LoggedInUserId,
 			[ModifiedDate] = GETUTCDATE()
-		WHERE [Id] = @Id  AND [CreatedBy] = @LoggedInUserId AND [RowStatus] = 'A';
+		WHERE [Id] = @TempExpenseInfoId  AND [CreatedBy] = @LoggedInUserId AND [RowStatus] = 'A';
 	END
+
+	SET @Result = @TempExpenseInfoId;
+	RETURN @Response;
 
 END TRY  
 BEGIN CATCH  
