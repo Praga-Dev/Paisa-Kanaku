@@ -11,6 +11,19 @@ try
     string? connectionString = config["ConnectionStrings:DefaultConnection"];
     builder.Services.InjectDependencies(connectionString);
 
+    builder.Services.AddCors(options =>
+    {
+        // Todo add only required clients policy
+        options.AddPolicy("AllowAll",
+            builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
+    });
+
     // Serilog Configuration
     var logger = new LoggerConfiguration()
                         .ReadFrom.Configuration(builder.Configuration)
@@ -34,7 +47,7 @@ try
     // Swagger UI
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Praga.Paisakanaku.API"));
-
+    app.UseCors("AllowAll");
     app.UseSerilogRequestLogging();
     app.UseHttpsRedirection();
 
