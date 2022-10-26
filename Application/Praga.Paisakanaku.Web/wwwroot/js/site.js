@@ -38,6 +38,7 @@ function getMemberDDList() {
         success: function (response) {
             if (typeof response !== undefined && response !== null) {
                 $('#memberListDDContainer').html(response);
+                $('#selectMember').val('')
             }
             else {
                 // TODO Alert
@@ -61,6 +62,33 @@ function getProductCategoryDDList() {
             if (typeof response !== undefined && response !== null) {
                 $('#productCategoryListDDContainer').html(response);
                 $('#selectProductCategory').val($('#productCategoryListDDContainer').data('val'));
+            }
+            else {
+                // TODO Alert
+            }
+        },
+        error: function () {
+            // TODO Alert
+        },
+        complete: function () {
+            hideSpinner();
+        }
+    })
+}
+
+function getProductDDList(productId = '') {
+    loadSpinner();
+    $.ajax({
+        url: `./product/data-list`,
+        method: 'GET',
+        success: function (response) {
+            if (typeof response !== undefined && response !== null) {
+                $('#productListDDContainer').html(response);
+                if (productId) {
+                    $('#selectProduct').val(productId);
+                } else {
+                    $('#selectProduct').val($('#productListDDContainer').data('val'));
+                }
             }
             else {
                 // TODO Alert
@@ -167,5 +195,18 @@ function enableBtnById(btnId) {
     }
 }
 
-// #endregion 
+// #endregion
 
+
+// #region helpers
+
+function isNotFutureDate(date) {
+    debugger;
+    if (date) {
+        date = new Date(date);
+        date.setHours(0, 0, 0, 0);
+        return new Date(date) <= new Date();
+    }
+}
+
+// #endregion

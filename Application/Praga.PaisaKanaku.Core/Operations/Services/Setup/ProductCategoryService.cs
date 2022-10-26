@@ -61,6 +61,10 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
 
                     response = response.GetSuccessResponse(response.Data);
                 }
+                else if (dbResponse != null)
+                {
+                    response.Message = dbResponse.Message;
+                }
 
             }
             catch (Exception ex)

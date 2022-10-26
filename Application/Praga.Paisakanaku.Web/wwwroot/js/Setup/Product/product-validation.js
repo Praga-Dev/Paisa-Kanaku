@@ -122,10 +122,20 @@ $(function () {
                 success: function (response) {
                     if (typeof response !== undefined && response !== null && response.isSuccess && response.data != null) {
                         $('#createProductModal').modal('hide');
-                        showSuccessMsg('Product Category saved successfully');
-                        getProductList();
+                        showSuccessMsg('Product saved successfully');
+
+                        // ExpenseView
+                        let isExpenseView = $('#formCreateProduct').data('is-expense-view');
+                        if (isExpenseView === 'true') {
+                            //todo get product list
+                            $('#selectProduct').val(response.data)
+                            fetchProductDetails(response.data);
+                        } else {
+                            getProductList();
+                        }
+
                     } else {
-                        showErrorMsg('Product Category save failed');
+                        showErrorMsg('Product save failed');
                     }
                 },
                 error: function (error) {

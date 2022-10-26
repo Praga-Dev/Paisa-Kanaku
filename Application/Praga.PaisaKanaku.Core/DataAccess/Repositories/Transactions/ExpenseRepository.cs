@@ -6,6 +6,7 @@ using Praga.PaisaKanaku.Core.DataAccess.ConnectionManager;
 using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Transactions;
 using Praga.PaisaKanaku.Core.DataAccess.Utils;
 using Praga.PaisaKanaku.Core.DataEntities.Transactions.Expense;
+using Praga.PaisaKanaku.Core.DomainEntities.Transactions.Expense;
 using System.Data;
 
 namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
@@ -21,51 +22,89 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             _db = db;
         }
 
-        public async Task<Response<ExpenseInfoDb>> GetExpenseInfoById(Guid expenseInfoId, Guid loggedInUserId)
+        public async Task<Response<List<ExpenseInfoDb>>> GetExpenseBaseInfoList(Guid loggedInUserId)
         {
-            throw new NotImplementedException();
+            Response<List<ExpenseInfoDb>> response = new Response<List<ExpenseInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
-            //Response<ExpenseInfoDb> response = new Response<ExpenseInfoDb>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            try
+            {
+                string spName = DatabaseConstants.USP_TEMP_EXPENSE_INFO_PRODUCT_GET;
+                var param = new { LoggedInUserId = loggedInUserId };
 
-            //try
-            //{
-            //    string spName = DatabaseConstants.USP_BRAND_INFO_GET_BY_ID;
-
-            //    DynamicParameters parameters = new();
-            //    parameters.Add("@ExpenseInfoId", expenseInfoId, DbType.Guid);
-            //    parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
-
-            //    var result = await _db.Connection.QueryAsync<ExpenseInfoDb>(spName, parameters, commandType: CommandType.StoredProcedure);
-            //    return result != null ? response.GetSuccessResponse(result.FirstOrDefault()) : response;
-            //}
-            //catch (Exception ex)
-            //{
-            //    _logger.LogError(ex, "Error in ExpenseRepository.GetExpenseInfoById({@expenseInfoId}, {@loggedInUserId})", expenseInfoId, loggedInUserId);
-            //    response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
-            //    return response;
-            //}
+                var result = await _db.Connection.QueryAsync<ExpenseInfoDb>(spName, param, commandType: CommandType.StoredProcedure);
+                return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ExpenseRepository.GetExpenseInfoList({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+            }
+            return response;
         }
 
-        public async Task<Response<List<ExpenseInfoDb>>> GetExpenseInfoList(Guid loggedInUserId)
+        public async Task<Response<ExpenseReferenceDetailInfoDb>> GetExpenseInfoById(Guid expenseInfoId, Guid loggedInUserId)
         {
-            throw new NotImplementedException();
+            Response<ExpenseReferenceDetailInfoDb> response = new Response<ExpenseReferenceDetailInfoDb>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
-            //Response<List<ExpenseInfoDb>> response = new Response<List<ExpenseInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            try
+            {
+                string spName = DatabaseConstants.USP_BRAND_INFO_GET;
 
-            //try
-            //{
-            //    string spName = DatabaseConstants.USP_BRAND_INFO_GET;
-            //    var param = new { LoggedInUserId = loggedInUserId };
+                DynamicParameters parameters = new();
+                parameters.Add("@ExpenseInfoId", expenseInfoId, DbType.Guid);
+                parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
 
-            //    var result = await _db.Connection.QueryAsync<ExpenseInfoDb>(spName, param, commandType: CommandType.StoredProcedure);
-            //    return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
-            //}
-            //catch (Exception ex)
-            //{
-            //    _logger.LogError(ex, "Error in ExpenseRepository.GetExpenseInfoList({@loggedInUserId})", loggedInUserId);
-            //    response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
-            //    return response;
-            //}
+                var result = await _db.Connection.QueryAsync<ExpenseReferenceDetailInfoDb>(spName, parameters, commandType: CommandType.StoredProcedure);
+                return result != null && result.Any() ? response.GetSuccessResponse(result.FirstOrDefault()) : response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ExpenseRepository.GetExpenseInfoById({@expenseInfoId}, {@loggedInUserId})", expenseInfoId, loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+            }
+            return response;
+        }
+
+        public async Task<Response<List<ExpenseReferenceDetailInfoDb>>> GetExpenseInfoList(Guid loggedInUserId)
+        {
+            Response<List<ExpenseReferenceDetailInfoDb>> response = new Response<List<ExpenseReferenceDetailInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+
+            try
+            {
+                string spName = DatabaseConstants.USP_BRAND_INFO_GET;
+                var param = new { LoggedInUserId = loggedInUserId };
+
+                var result = await _db.Connection.QueryAsync<ExpenseReferenceDetailInfoDb>(spName, param, commandType: CommandType.StoredProcedure);
+                return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ExpenseRepository.GetExpenseInfoList({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+            }
+            return response;
+        }
+
+        public async Task<Response<List<TempProductExpenseInfoDb>>> GetTempExpenseInfo(DateTime expenseDate, Guid loggedInUserId)
+        {
+            Response<List<TempProductExpenseInfoDb>> response = new Response<List<TempProductExpenseInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+
+            try
+            {
+                string spName = DatabaseConstants.USP_TEMP_EXPENSE_INFO_PRODUCT_GET;
+                DynamicParameters parameters = new();
+                parameters.Add("@ExpenseDate", expenseDate, DbType.DateTime);
+                parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
+
+                var result = await _db.Connection.QueryAsync<TempProductExpenseInfoDb>(spName, parameters, commandType: CommandType.StoredProcedure);
+                return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ExpenseRepository.GetTempExpenseInfo({@expenseDate}, {@loggedInUserId})", expenseDate, loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+                return response;
+            }
         }
 
         public async Task<Response<Guid>> SaveExpenseInfo(ExpenseReferenceDetailInfoDb expenseInfoDb, Guid loggedInUserId)
@@ -112,6 +151,41 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
 
             return response;
         }
-    }
 
+        public async Task<Response<Guid>> SaveTempExpenseInfo(TempProductExpenseInfoDb tempProductExpenseInfoDb, Guid loggedInUserId)
+        {
+            Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
+
+            try
+            {
+                string spName = DatabaseConstants.USP_TEMP_EXPENSE_INFO_PRODUCT_SAVE;
+
+                DynamicParameters parameters = new();
+                parameters.Add("@Id", tempProductExpenseInfoDb.Id, DbType.Guid);
+                parameters.Add("@ExpenseBy", tempProductExpenseInfoDb.MemberId, DbType.Guid);
+                parameters.Add("@ExpenseDate", tempProductExpenseInfoDb.Date, DbType.Date);
+                parameters.Add("@ProductId", tempProductExpenseInfoDb.ProductId, DbType.Guid);
+                parameters.Add("@Quantity", tempProductExpenseInfoDb.Quantity, DbType.Double);
+                parameters.Add("@ExpenseAmount", tempProductExpenseInfoDb.Amount, DbType.Double);
+                parameters.Add("@Description", tempProductExpenseInfoDb.Description, DbType.String);
+                parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
+                parameters.Add("@Result", null, DbType.Guid, direction: ParameterDirection.Output);
+
+                var returnValue = await _db.Connection.QueryAsync<Guid>(spName, parameters, commandType: CommandType.StoredProcedure);
+                var result = parameters.Get<Guid>("@Result");
+
+                if (!returnValue.Any() && result != Guid.Empty)
+                {
+                    response = response.GetSuccessResponse(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ExpenseRepository.SaveTempExpenseInfo({@expenseInfoDb}, {@loggedInUserId})", tempProductExpenseInfoDb.ToString(), loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+            }
+
+            return response;
+        }
+    }
 }

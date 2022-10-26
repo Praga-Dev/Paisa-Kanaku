@@ -1,0 +1,10 @@
+﻿@model TempProductExpenseInfo
+
+@if (Model != null && Model.ProductInfo != null)
+{
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">@Model.ProductInfo.Price.ToString("c")</h6>
+        </div>
+    </div>
+}

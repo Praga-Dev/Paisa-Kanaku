@@ -54,7 +54,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="@(@ViewData["Title"].ToString() == "Expense" ? "pk-create-expense-layout-container" : "container")">
         <div id="loader" class="pk-loader" style="display:none"></div>
         <div class="toast-container">
             <div id="toast" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true">
@@ -71,11 +71,11 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    @*<footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2022 - Praga.Paisakanaku.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
+    </footer>*@
     @*<script src="~/js/layout.js" asp-append-version="true"></script>*@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @*<script src="~/js/Helpers/validation-helper.js" asp-append-version="true"></script>*@

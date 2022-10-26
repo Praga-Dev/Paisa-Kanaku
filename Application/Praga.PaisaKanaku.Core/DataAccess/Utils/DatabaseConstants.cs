@@ -33,7 +33,9 @@
         public const string USP_PRODUCT_CATEGORY_INFO_GET_BY_ID = "Setup.usp_V1_ProductCategoryInfo_Get_By_Id";
 
         // Expense
-        public const string USP_EXPENSE_INFO_PRODUCT_SAVE = "Setup.usp_V1_ExpenseInfo_Product_Save";
+        public const string USP_EXPENSE_INFO_PRODUCT_SAVE = "Transactions.usp_V1_ExpenseInfo_Product_Save";
+        public const string USP_TEMP_EXPENSE_INFO_PRODUCT_GET = "Transactions.usp_V1_TempExpenseInfo_Product_Get";
+        public const string USP_TEMP_EXPENSE_INFO_PRODUCT_SAVE = "Transactions.usp_V1_TempExpenseInfo_Product_Save";
 
         #endregion
     }

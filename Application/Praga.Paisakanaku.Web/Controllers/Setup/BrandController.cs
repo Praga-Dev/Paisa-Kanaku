@@ -30,7 +30,7 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
                 if (!Helpers.IsValidGuid(this.LoggedInUserId))
                 {
                     response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
-                    return StatusCode(StatusCodes.Status200OK, response);
+                    return View("~/Views/Setup/Brand/Index.cshtml", response);
                 }
 
                 var dbresponse = await _brandService.GetBrandInfoList(LoggedInUserId);
@@ -48,7 +48,6 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
 
             return View("~/Views/Setup/Brand/Index.cshtml", response);
         }
-
 
         [HttpPost, Route("~/brand/create")]
         public async Task<IActionResult> CreateBrandInfo(BrandInfo brandInfo)

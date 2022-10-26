@@ -20,18 +20,18 @@
                 </div>
             </div>
         </div>
-        @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
-        {
-            <div id="memberListContainer">
-                <partial name="_MemberList.cshtml" />
-            </div>
-        }
-        else
-        {
-            <p>
-                NO RECORDS FOUND
-            </p>
-        }
+        <div id="memberListContainer">
+            @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
+            {
+                    <partial name="_MemberList.cshtml" />
+            }
+            else
+            {
+                <p>
+                    NO RECORDS FOUND
+                </p>
+            }
+        </div>
     </div>
     <div>
         <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary-outline"> <span>&#8592; &nbsp;</span> Go to Home</a>

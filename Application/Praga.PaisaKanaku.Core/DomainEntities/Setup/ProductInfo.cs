@@ -6,6 +6,7 @@ namespace Praga.PaisaKanaku.Core.DomainEntities.Setup
     public class ProductInfo : BaseInfo
     {
         public Guid Id { get; set; }
+        public bool IsChangeInProduct { get; set; }
         public string? Name { get; set; }
         public double Price { get; set; }
         public string? Description { get; set; }

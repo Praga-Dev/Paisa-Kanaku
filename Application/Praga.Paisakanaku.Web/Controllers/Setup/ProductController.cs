@@ -33,13 +33,13 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
                 if (!Helpers.IsValidGuid(this.LoggedInUserId))
                 {
                     response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
-                    return StatusCode(StatusCodes.Status200OK, response);
+                    return View("~/Views/Setup/Product/Index.cshtml", response);
                 }
 
                 var dbresponse = await _productService.GetProductInfoList(LoggedInUserId);
                 if (Helpers.IsResponseValid(dbresponse))
                 {
-                    return View("~/Views/Setup/Product/Index.cshtml", dbresponse);
+                    response = dbresponse;
                 }
             }
             catch (Exception ex)
@@ -209,6 +209,40 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
             }
 
             return PartialView("~/Views/Common/_ProductList.cshtml", response);
+        }
+
+        [HttpGet, Route("~/product/{productInfoId:Guid}/data")]
+        public async Task<IActionResult> GetProductInfoDataById(Guid productInfoId)
+        {
+            Response<ProductInfo> response = new Response<ProductInfo>().GetFailedResponse(ResponseConstants.FAILED);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(this.LoggedInUserId))
+                {
+                    response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return StatusCode(StatusCodes.Status200OK, response);
+                }
+
+                if (!Helpers.IsValidGuid(productInfoId))
+                {
+                    response.Message ??= ResponseConstants.INVALID_PARAM;
+                    return StatusCode(StatusCodes.Status200OK, response);
+                }
+
+                var dbresponse = await _productService.GetProductInfoById(productInfoId, LoggedInUserId);
+                if (Helpers.IsResponseValid(dbresponse))
+                {
+                    response = dbresponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ProductController.GetProductInfoDataById({@productInfoId}, {@loggedInUserId})", productInfoId, LoggedInUserId);
+                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
+            }
+
+            return StatusCode(StatusCodes.Status200OK, response);
         }
 
         [HttpGet, Route("~/product/export")]

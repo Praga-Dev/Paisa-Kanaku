@@ -1,0 +1,104 @@
+﻿@model Response<List<TempProductExpenseInfo>>
+
+@if (Model != null )
+{
+    double totalExpenseAmount = 0;
+    <div class="table-wrapper pk-table-border">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Expense Items</h2>
+                </div>
+            </div>
+        </div>
+        <div class="action-body-container ">
+            <div class="main-grid-container">
+                <div class="table-responsive">
+                    <table class="table table-bordered  align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col">ExpenseBy</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Expense Amount</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Data != null && Model.Data.Any())
+                            @*@if (expenseItems != null)*@
+                            {
+                                @*@foreach (var cartItem in expenseItems)*@
+                                @foreach (var cartItem in Model.Data)
+                                {
+                                    @if (cartItem != null && cartItem.ProductInfo != null)
+                                    {
+                                        totalExpenseAmount += cartItem.ExpenseAmount;
+                                        <tr>
+                                            <th scope="row">
+                                                @if (cartItem.ExpenseBy != null && !string.IsNullOrWhiteSpace(cartItem.ExpenseBy.Name))
+                                                {
+                                                    <p>@cartItem.ExpenseBy.Name</p>
+                                                }
+                                            </th>
+                                            <th scope="row">
+                                                @if (!string.IsNullOrWhiteSpace(cartItem.ProductInfo.Name))
+                                                {
+                                                    <p>@cartItem.ProductInfo.Name</p>
+                                                }
+                                            </th>
+@*                                            <th scope="row">
+                                                @if (cartItem.ProductInfo.Price > 0)
+                                                {
+                                                    <p>@cartItem.ProductInfo.Price.ToString("c")</p>
+                                                }
+                                            </th>
+                                            <th scope="row">
+                                                @if (!string.IsNullOrWhiteSpace(cartItem.ProductInfo.ProductCategoryInfo?.Name))
+                                                {
+                                                    <p>@cartItem.ProductInfo.ProductCategoryInfo?.Name</p>
+                                                }
+                                            </th>
+                                            <th scope="row">
+                                                @if (!string.IsNullOrWhiteSpace(cartItem.ProductInfo.BrandInfo?.Name))
+                                                {
+                                                    <p>@cartItem.ProductInfo.BrandInfo?.Name</p>
+                                                }
+                                            </th>*@
+                                            <th scope="row">
+                                                @if (cartItem.Quantity > 0)
+                                                {
+                                                    <p>@cartItem.Quantity</p>
+                                                }
+                                            </th>
+                                            <th scope="row">
+                                                @if (cartItem.ExpenseAmount > 0)
+                                                {
+                                                    <p>@cartItem.ExpenseAmount.ToString("c")</p>
+                                                }
+                                            </th>
+                                            <td class="d-flex justify-content-end">
+                                                <span class="material-icons-outlined arrow btn-icon" id="btnDeleteCartItem_@cartItem.Id" title="Delete" onclick="deleteCartItem('@cartItem.Id', '@cartItem.ProductInfo.Name')">
+                                                    delete
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    @if (Model != null && Model.Data != null && Model.Data.Any())
+                    {
+                        <div class="card" style="width: 18rem; float: right;">
+                            <div class="card-body">
+                                <h6 class="card-title mb-2 text-muted">@totalExpenseAmount.ToString("c")</h6>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

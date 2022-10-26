@@ -1,0 +1,8 @@
+﻿@model Response<List<ExpenseReferenceDetailInfo>>
+@{
+    ViewData["Title"] = "Expense";
+}
+
+<div class="pk-expense-container">
+    <partial name="_CreateExpense.cshtml" model="new ExpenseReferenceDetailInfo()" />
+</div>

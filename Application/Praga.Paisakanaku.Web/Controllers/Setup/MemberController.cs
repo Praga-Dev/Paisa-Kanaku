@@ -5,6 +5,7 @@ using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.Common.Utils;
 using Praga.PaisaKanaku.Core.DomainEntities.Setup;
 using Praga.PaisaKanaku.Core.Operations.IServices.Setup;
+using Praga.PaisaKanaku.Core.Operations.Services.Setup;
 using System.Net;
 
 namespace Praga.Paisakanaku.Web.Controllers.Setup
@@ -30,13 +31,13 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
                 if (!Helpers.IsValidGuid(this.LoggedInUserId))
                 {
                     response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
-                    return StatusCode(StatusCodes.Status200OK, response);
+                    return View("~/Views/Setup/Member/Index.cshtml", response);
                 }
 
                 var dbresponse = await _memberService.GetMemberInfoList(LoggedInUserId);
                 if (Helpers.IsResponseValid(dbresponse))
                 {
-                    return View("~/Views/Setup/Member/Index.cshtml", dbresponse);
+                    response = dbresponse;
                 }
             }
             catch (Exception ex)
@@ -178,5 +179,35 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
 
             return PartialView("~/Views/Setup/Member/_CreateMember.cshtml", response.Data);
         }
+
+        [HttpGet, Route("~/member/data-list")]
+        public async Task<IActionResult> GetMemberInfoDataList()
+        {
+            Response<List<MemberInfo>> response = new Response<List<MemberInfo>>().GetFailedResponse(ResponseConstants.FAILED);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(this.LoggedInUserId))
+                {
+                    response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return PartialView("~/Views/Common/_MemberList.cshtml", response);
+                }
+
+                var dbresponse = await _memberService.GetMemberInfoList(LoggedInUserId);
+                if (Helpers.IsResponseValid(dbresponse))
+                {
+                    response = dbresponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in MemberController.GetMemberInfoList({@loggedInUserId})", LoggedInUserId);
+
+                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
+            }
+
+            return PartialView("~/Views/Common/_MemberList.cshtml", response);
+        }
+
     }
 }

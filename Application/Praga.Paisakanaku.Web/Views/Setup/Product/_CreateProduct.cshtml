@@ -15,7 +15,7 @@
                     <div id="ProductCreateFormContainer">
                         <div class="row">
                             <div class="col-sm-12">
-                                <form id="formCreateProduct" data-id="@Model.Id" data-isupdate="@(Guid.Empty != Model.Id)" autocomplete="off">
+                                <form id="formCreateProduct" data-id="@Model.Id" data-isupdate="@(Guid.Empty != Model.Id)" data-is-expense-view="false" autocomplete="off">
                                     <div class="form-group">
                                         <label for="name" class="form-label">Name <span class="mandatory">*</span></label>
                                         <input id="name" name="name" asp-for="@Model.Name" type="text" class="form-control form-control-sm" aria-describedby="productHelp" maxlength="50">

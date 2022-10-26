@@ -14,7 +14,7 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .btn-icon {
@@ -278,4 +278,36 @@ table.table td a {
 
 .modal form label {
     font-weight: normal;
+}
+
+.pk-cart {
+    /*padding-left: 200px;*/
+    /*padding-top: 50px;*/
+}
+
+.pk-cart-input-container {
+    padding: 2px 0px;
+}
+
+.pk-cart-item-close-btn {
+    float: right;
+    padding-right: 15px;
+    padding-top: 0;
+}
+
+.pk-card-text {
+    margin: 0px;
+}
+
+.pk-cart-number-input {
+    height: 20px;
+    width: 60px;
+}
+
+.pk-cart-footer {
+    margin-bottom: 50px;
+}
+
+.pk-create-expense-container{
+    max-width: 1800px;
 }
