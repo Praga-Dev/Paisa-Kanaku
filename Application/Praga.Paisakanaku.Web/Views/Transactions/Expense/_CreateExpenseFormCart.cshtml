@@ -1,9 +1,0 @@
-﻿@model List<TempProductExpenseInfo>
-
-@if (Model != null)
-{
-    @foreach (var expenseItem in Model)
-    {
-        <partial name="_CreateExpenseFormCartItem.cshtml" model="expenseItem" />
-    }
-}
