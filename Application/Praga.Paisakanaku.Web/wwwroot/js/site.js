@@ -201,7 +201,6 @@ function enableBtnById(btnId) {
 // #region helpers
 
 function isNotFutureDate(date) {
-    debugger;
     if (date) {
         date = new Date(date);
         date.setHours(0, 0, 0, 0);

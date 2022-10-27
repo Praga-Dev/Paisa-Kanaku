@@ -51,7 +51,6 @@ function editProductCategory(productCategoryInfoId) {
                 }
             },
             error: function (err) {
-                debugger;
                 showErrorMsg('Something went wrong !');
             },
             complete: function () {

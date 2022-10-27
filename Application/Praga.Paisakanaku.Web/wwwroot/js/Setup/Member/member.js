@@ -51,7 +51,6 @@ function editMember(memberInfoId) {
                 }
             },
             error: function (err) {
-                debugger;
                 showErrorMsg('Something went wrong !');
             },
             complete: function () {

@@ -51,7 +51,6 @@ function editBrand(brandInfoId) {
                 }
             },
             error: function (err) {
-                debugger;
                 showErrorMsg('Something went wrong !');
             },
             complete: function () {

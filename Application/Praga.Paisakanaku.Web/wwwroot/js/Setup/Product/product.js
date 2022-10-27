@@ -61,7 +61,6 @@ function editProduct(productInfoId) {
                 }
             },
             error: function (err) {
-                debugger;
                 showErrorMsg('Something went wrong !');
             },
             complete: function () {
@@ -94,7 +93,6 @@ function downloadProduct() {
             }
         },
         error: function (err) {
-            debugger;
             showErrorMsg('Something went wrong !');
         },
         complete: function () {
