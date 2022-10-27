@@ -1,7 +1,7 @@
-import React from "react";
-import "antd/dist/antd.css";
+import React from 'react';
+import 'antd/dist/antd.css';
 // import "./index.css";
-import { Table } from "antd";
+import { Table } from 'antd';
 
 const PKTable = (props) => {
   return (
@@ -9,7 +9,7 @@ const PKTable = (props) => {
       <Table
         columns={props.columns}
         dataSource={props.dataSource}
-        rowKey="id" 
+        rowKey='id'
         bordered
         title={props.title}
         pagination={{
