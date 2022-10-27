@@ -1,35 +1,35 @@
-import React, { useEffect, useState } from "react";
-import DraggableModal from "../../../components/shared/modal/DraggableModal";
-import PkTable from "../../../components/shared/table/PKTable";
-import { Popconfirm } from "antd";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { getBrandList } from "../../../services/BrandServices";
+import React, { useEffect, useState } from 'react';
+import DraggableModal from '../../../components/shared/modal/DraggableModal';
+import PkTable from '../../../components/shared/table/PKTable';
+import { Popconfirm } from 'antd';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { getBrandList } from '../../../services/BrandServices';
 
 const Brand = () => {
   const columns = [
     {
-      title: "Brand Name",
-      dataIndex: "name",
-      key: "id",
+      title: 'Brand Name',
+      dataIndex: 'name',
+      key: 'id',
       width: 100,
     },
     {
-      title: "Actions",
-      dataIndex: "actions",
+      title: 'Actions',
+      dataIndex: 'actions',
       render: () =>
         brandContainer.length >= 1 ? (
-          <Popconfirm title="Sure to delete?">
+          <Popconfirm title='Sure to delete?'>
             <DeleteOutlined />
           </Popconfirm>
         ) : null,
       width: 150,
     },
     {
-      title: "Actions",
-      dataIndex: "actions",
+      title: 'Actions',
+      dataIndex: 'actions',
       render: () =>
         brandContainer.length >= 1 ? (
-          <Popconfirm title="Sure to delete?">
+          <Popconfirm title='Sure to delete?'>
             <EditOutlined />
           </Popconfirm>
         ) : null,
@@ -37,8 +37,8 @@ const Brand = () => {
     },
   ];
 
-  const newBrand = "Create New Brand";
-  const modelName = "Brand";
+  const newBrand = 'Create New Brand';
+  const modelName = 'Brand';
 
   const [brandContainer, setBrandContainer] = useState([]);
 
@@ -51,14 +51,14 @@ const Brand = () => {
   }, []);
 
   const onSaveBrandNameHandler = (BrandName) => {
-    console.log("BrandName", BrandName);
+    console.log('BrandName', BrandName);
     const brandData = {
       ...BrandName,
     };
 
-    console.log("brandContainer before update", brandContainer);
+    console.log('brandContainer before update', brandContainer);
     setBrandContainer([...brandContainer, brandData]);
-    console.log("brandContainer after update", brandContainer);
+    console.log('brandContainer after update', brandContainer);
   };
 
   return (
@@ -72,7 +72,7 @@ const Brand = () => {
         columns={columns}
         dataSource={brandContainer}
         bordered
-        title={() => "Brand"}
+        title={() => 'Brand'}
       />
     </div>
   );
