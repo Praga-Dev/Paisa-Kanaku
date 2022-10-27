@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import DraggableModal from "../../../components/shared/modal/DraggableModal";
-import Tables from "../../../components/shared/table/Table";
+import PkTable from "../../../components/shared/table/PKTable";
 import axios from "axios";
 import { Popconfirm } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 const baseURL = "https://localhost:7122/v1/setup/brand/";
 
-const Brand = (props) => {
+const Brand = () => {
   const columns = [
     {
       title: "Brand Name",
-      dataIndex: "brandContainer",
+      dataIndex: "name",
+      key: 'id',
       width: 100,
     },
     {
@@ -42,12 +43,15 @@ const Brand = (props) => {
 
   const [brandContainer, setBrandContainer] = useState([]);
 
-  axios.get(baseURL).then((response) => {
-    console.log(response.data);
-    if (response && response.data) {
-      setBrandContainer(response.data);
-    }
-  });
+  useEffect(() => {
+    (async () => {
+      const response = await axios(baseURL);
+      console.log(response)
+      if (response && response.data && response.data.data) {
+        setBrandContainer(response.data.data);
+      }
+    })();
+  }, []);
 
   const onSaveBrandNameHandler = (BrandName) => {
     console.log("BrandName", BrandName);
@@ -67,7 +71,7 @@ const Brand = (props) => {
         modelName={modelName}
         onSaveBrandName={onSaveBrandNameHandler}
       />
-      <Tables
+      <PkTable
         columns={columns}
         dataSource={brandContainer}
         bordered

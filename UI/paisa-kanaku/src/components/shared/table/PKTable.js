@@ -3,15 +3,13 @@ import "antd/dist/antd.css";
 // import "./index.css";
 import { Table } from "antd";
 
-const Tables = (props) => {
+const PKTable = (props) => {
   return (
     <div>
-      {/* <Button type="primary" style={{ marginBottom: 16 }}>
-        Add a row
-      </Button> */}
       <Table
         columns={props.columns}
         dataSource={props.dataSource}
+        rowKey="id" 
         bordered
         title={props.title}
         pagination={{
@@ -25,4 +23,4 @@ const Tables = (props) => {
   );
 };
 
-export default Tables;
+export default PKTable;

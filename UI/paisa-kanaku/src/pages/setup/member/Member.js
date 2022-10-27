@@ -1,5 +1,5 @@
 import React from "react";
-import Tables from "../../../components/shared/table/Table";
+import Tables from "../../../components/shared/table/PKTable";
 
 const columns = [
   {
