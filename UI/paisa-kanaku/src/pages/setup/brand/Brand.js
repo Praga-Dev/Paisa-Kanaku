@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import DraggableModal from "../../../components/shared/modal/DraggableModal";
 import PkTable from "../../../components/shared/table/PKTable";
-// import axios from "axios";
 import { Popconfirm } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { getBrandList } from "../../../services/BrandServices";
-// const baseURL = "https://localhost:7122/v1/setup/brand/";
 
 const Brand = () => {
   const columns = [
@@ -38,19 +36,18 @@ const Brand = () => {
       width: 100,
     },
   ];
+
   const newBrand = "Create New Brand";
   const modelName = "Brand";
 
   const [brandContainer, setBrandContainer] = useState([]);
 
   useEffect(() => {
-    let brandList = getBrandList();
-    console.log(brandList);
-
-    if (brandList) {
-      console.log(brandList);
-      // setBrandContainer(brandList);
-    }
+    getBrandList().then((response) => {
+      if (response && response.data && response.data.data) {
+        setBrandContainer(response.data.data);
+      }
+    });
   }, []);
 
   const onSaveBrandNameHandler = (BrandName) => {
