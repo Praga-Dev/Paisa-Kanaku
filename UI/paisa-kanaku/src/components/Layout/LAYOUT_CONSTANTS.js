@@ -1,10 +1,7 @@
 import React from "react";
+// import { useNavigate } from "react-router-dom";
 
-import {
-  LaptopOutlined,
-  NotificationOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { LaptopOutlined } from "@ant-design/icons";
 
 // export const items1 = ["Report", "Forms", "Barchart"].map((key) => ({
 //   key,
@@ -12,26 +9,27 @@ import {
 // }));
 export const items1 = [];
 
-export const LAYOUT_ITEMS = [
+export const LAYOUT_CONSTANTS = [
   {
     key: `SETUP`,
     icon: React.createElement(LaptopOutlined),
     label: `Setup`,
+
     children: [
       {
-        key: "BRAND",
+        key: "/",
         label: `Brand`,
       },
       {
-        key: "MEMBER",
+        key: "/member",
         label: `Member`,
       },
       {
-        key: "PRODUCT_CATEGORY",
+        key: "/productCategory",
         label: `Product Category`,
       },
       {
-        key: "PRODUCT",
+        key: "/product",
         label: `Product`,
       },
     ],
