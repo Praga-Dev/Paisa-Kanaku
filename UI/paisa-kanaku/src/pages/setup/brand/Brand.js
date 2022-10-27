@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import DraggableModal from "../../../components/shared/modal/DraggableModal";
 import PkTable from "../../../components/shared/table/PKTable";
-import axios from "axios";
+// import axios from "axios";
 import { Popconfirm } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-
-const baseURL = "https://localhost:7122/v1/setup/brand/";
+import { getBrandList } from "../../../services/BrandServices";
+// const baseURL = "https://localhost:7122/v1/setup/brand/";
 
 const Brand = () => {
   const columns = [
     {
       title: "Brand Name",
       dataIndex: "name",
-      key: 'id',
+      key: "id",
       width: 100,
     },
     {
@@ -44,13 +44,13 @@ const Brand = () => {
   const [brandContainer, setBrandContainer] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      const response = await axios(baseURL);
-      console.log(response)
-      if (response && response.data && response.data.data) {
-        setBrandContainer(response.data.data);
-      }
-    })();
+    let brandList = getBrandList();
+    console.log(brandList);
+
+    if (brandList) {
+      console.log(brandList);
+      // setBrandContainer(brandList);
+    }
   }, []);
 
   const onSaveBrandNameHandler = (BrandName) => {
