@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import DraggableModal from '../../../components/shared/modal/DraggableModal';
 import PkTable from '../../../components/shared/table/PKTable';
+import axios from 'axios';
 import { Popconfirm } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { getBrandList } from '../../../services/BrandServices';
+import { baseURL } from '../../../config/ServiceConfig.js';
+
+// const baseURL = "https://localhost:7122/v1/setup/brand/";
+const brandPostBaseUrl = `${baseURL}setup/brand/create/`;
 
 const Brand = () => {
   const columns = [
@@ -36,7 +41,6 @@ const Brand = () => {
       width: 100,
     },
   ];
-
   const newBrand = 'Create New Brand';
   const modelName = 'Brand';
 
@@ -50,15 +54,32 @@ const Brand = () => {
     });
   }, []);
 
+  //   useEffect(() => {
+  //     postBrandList().then((response) => {
+  //      if () {
+  //       response
+  //      }
+  //       setBrandContainer({})
+  //    })
+  // })
+
   const onSaveBrandNameHandler = (BrandName) => {
-    console.log('BrandName', BrandName);
     const brandData = {
       ...BrandName,
     };
+    console.log('After brandData', brandData);
+    // setBrandContainer([...brandContainer, brandData]);
+    // console.log("brandContainer after update", brandContainer);
 
-    console.log('brandContainer before update', brandContainer);
-    setBrandContainer([...brandContainer, brandData]);
-    console.log('brandContainer after update', brandContainer);
+    axios
+      .post(brandPostBaseUrl, brandData)
+      .then((res) => {
+        console.log(res.data);
+        // setBrandContainer("");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

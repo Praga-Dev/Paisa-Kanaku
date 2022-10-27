@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
-import "antd/dist/antd.css";
-import { Button, Modal, Input, Form } from "antd";
-import Draggable from "react-draggable";
-import "./DraggableModal.css";
+import React, { useRef, useState } from 'react';
+import 'antd/dist/antd.css';
+import { Button, Modal, Input, Form } from 'antd';
+import Draggable from 'react-draggable';
+import './DraggableModal.css';
 
 const DraggableModal = (props) => {
   const [open, setOpen] = useState(false);
@@ -15,11 +15,10 @@ const DraggableModal = (props) => {
     bottom: 0,
     right: 0,
   });
-  const [brandname, setBrandName] = useState("");
+  const [brandname, setBrandName] = useState('');
 
   const brandChangeHandler = (event) => {
     setBrandName(event.target.value);
-    // console.log(brandname);
   };
 
   const draggleRef = useRef(null);
@@ -28,16 +27,16 @@ const DraggableModal = (props) => {
   };
   const handleOk = (e) => {
     e.preventDefault();
-    console.log("Brandname", brandname);
+    //TODO: Make generic draggable modal
     const brandData = {
       brandname: brandname,
     };
     props.onSaveBrandName(brandData);
-    setBrandName("");
+    setBrandName('');
     setOpen(false);
   };
   const CancelHandler = (e) => {
-    setBrandName("");
+    setBrandName('');
 
     setOpen(false);
   };
@@ -70,7 +69,7 @@ const DraggableModal = (props) => {
   };
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <Button type='primary' onClick={showModal}>
         {props.newBrand}
       </Button>
       <Modal
@@ -78,8 +77,8 @@ const DraggableModal = (props) => {
         title={
           <div
             style={{
-              width: "100%",
-              cursor: "move",
+              width: '100%',
+              cursor: 'move',
             }}
             onMouseOver={() => {
               if (disabled) {
@@ -107,8 +106,8 @@ const DraggableModal = (props) => {
           </Draggable>
         )}
       >
-        <Form layout="vertical">
-          <Form.Item required label="Name">
+        <Form layout='vertical'>
+          <Form.Item required label='Name'>
             <Input
               allowClear
               value={brandname}
@@ -121,7 +120,7 @@ const DraggableModal = (props) => {
             ) : focus ? (
               <span>Brand will have atleast 2 characters </span>
             ) : (
-              ""
+              ''
             )}
           </Form.Item>
         </Form>

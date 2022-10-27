@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 // import { useNavigate } from "react-router-dom";
 
-import { LaptopOutlined } from "@ant-design/icons";
+import { LaptopOutlined } from '@ant-design/icons';
 
 // export const items1 = ["Report", "Forms", "Barchart"].map((key) => ({
 //   key,
@@ -17,19 +17,19 @@ export const LAYOUT_CONSTANTS = [
 
     children: [
       {
-        key: "/",
+        key: '/',
         label: `Brand`,
       },
       {
-        key: "/member",
+        key: '/member',
         label: `Member`,
       },
       {
-        key: "/productCategory",
+        key: '/productCategory',
         label: `Product Category`,
       },
       {
-        key: "/product",
+        key: '/product',
         label: `Product`,
       },
     ],

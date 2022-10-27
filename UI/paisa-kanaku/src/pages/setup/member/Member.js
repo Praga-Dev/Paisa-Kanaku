@@ -1,15 +1,15 @@
-import React from "react";
-import Tables from "../../../components/shared/table/PKTable";
+import React from 'react';
+import Tables from '../../../components/shared/table/PKTable';
 
 const columns = [
   {
-    title: "Member Name",
-    dataIndex: "membername",
+    title: 'Member Name',
+    dataIndex: 'membername',
     width: 600,
   },
   {
-    title: "Actions",
-    dataIndex: "actions",
+    title: 'Actions',
+    dataIndex: 'actions',
   },
 ];
 const data = [];
@@ -23,7 +23,7 @@ for (let i = 0; i < 100; i++) {
 const Member = () => {
   return (
     <div>
-      <Tables columns={columns} dataSource={data} title={() => "Member"} />
+      <Tables columns={columns} dataSource={data} title={() => 'Member'} />
     </div>
   );
 };

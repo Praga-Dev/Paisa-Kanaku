@@ -1,11 +1,11 @@
-import React from "react";
-import { Input } from "antd";
+import React from 'react';
+import { Input } from 'antd';
 
 const Input = () => {
   return (
     <>
-      <Form layout="vertical">
-        <Form.Item label="Field A" tooltip="This is a required field">
+      <Form layout='vertical'>
+        <Form.Item label='Field A' tooltip='This is a required field'>
           <Input />
         </Form.Item>
       </Form>
