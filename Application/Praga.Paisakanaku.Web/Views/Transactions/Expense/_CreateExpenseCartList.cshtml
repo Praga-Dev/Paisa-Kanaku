@@ -26,9 +26,7 @@
                         </thead>
                         <tbody>
                             @if (Model != null && Model.Data != null && Model.Data.Any())
-                            @*@if (expenseItems != null)*@
                             {
-                                @*@foreach (var cartItem in expenseItems)*@
                                 @foreach (var cartItem in Model.Data)
                                 {
                                     @if (cartItem != null && cartItem.ProductInfo != null)
@@ -96,7 +94,6 @@
                             </div>
                         </div>
                     }
-
                 </div>
             </div>
         </div>
