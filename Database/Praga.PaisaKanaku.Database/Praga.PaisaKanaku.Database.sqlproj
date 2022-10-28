@@ -115,7 +115,6 @@
     <Build Include="Schema\Transactions.sql" />
     <Build Include="Transactions\Table\Expense\ExpenseInfo.sql" />
     <Build Include="Transactions\Table\Expense\ExpenseReferenceDetailInfo.sql" />
-    <Build Include="Transactions\StoredProcedure\Expense\usp_V1_ExpenseInfo_Product_Save.sql" />
     <Build Include="Lookups\StoredProcedure\usp_v1_MeasureTypeInfo_Get.sql" />
     <Build Include="Lookups\StoredProcedure\usp_v1_TimePeriodTypeInfo_Get.sql" />
     <Build Include="Setup\StoredProcedure\Brand\usp_V1_BrandInfo_Get_By_Id.sql" />
@@ -130,6 +129,7 @@
     <Build Include="Transactions\Table\Expense\TempExpenseInfo.sql" />
     <Build Include="Transactions\StoredProcedure\Expense\usp_V1_TempExpenseInfo_Product_Save.sql" />
     <Build Include="Transactions\StoredProcedure\Expense\usp_V1_TempExpenseInfo_Product_Get.sql" />
+    <Build Include="Transactions\StoredProcedure\Expense\usp_V1_ExpenseInfo_Product_Save.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />

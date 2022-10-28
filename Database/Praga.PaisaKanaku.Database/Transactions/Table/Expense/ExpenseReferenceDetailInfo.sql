@@ -1,9 +1,11 @@
-﻿CREATE TABLE [Transactions].[ExpenseReferenceDetailInfo](
+﻿CREATE TABLE [Transactions].[ExpenseReferenceDetailInfo]
+(
 	[Id] UNIQUEIDENTIFIER NOT NULL,
 	[ExpenseInfoId] UNIQUEIDENTIFIER NOT NULL,
 	[ReferenceId] UNIQUEIDENTIFIER NOT NULL,
 	[ExpenseBy] UNIQUEIDENTIFIER NOT NULL,
 	[DateOfExpense] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
+	[Quantity] INT NOT NULL DEFAULT 1, -- If Applicable else 1
 	[ExpenseAmount] DECIMAL(12,3) NOT NULL, -- The Rate in the product may differ from the actual expense
 	[Description] NVARCHAR(250),
 	[CreatedBy] UNIQUEIDENTIFIER NOT NULL,

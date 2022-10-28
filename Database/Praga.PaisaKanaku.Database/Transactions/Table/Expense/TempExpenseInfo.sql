@@ -3,8 +3,8 @@
 	[Id] UNIQUEIDENTIFIER NOT NULL,
 	[MemberId] UNIQUEIDENTIFIER NOT NULL,
 	[Date] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
-	[ProductId] UNIQUEIDENTIFIER NOT NULL,
-	[Quantity] INT NOT NULL DEFAULT 1,
+	[ProductId] UNIQUEIDENTIFIER NOT NULL, -- ReferenceId, because there are multiple types of expense
+	[Quantity] INT NOT NULL DEFAULT 1,  -- If Applicable else 1
 	[Amount] DECIMAL(12,3) NOT NULL,
 	[Description] NVARCHAR(250),
 	[SequenceId] INT NOT NULL IDENTITY,
