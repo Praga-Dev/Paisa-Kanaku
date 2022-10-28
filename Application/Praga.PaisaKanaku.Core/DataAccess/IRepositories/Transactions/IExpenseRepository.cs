@@ -10,7 +10,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.IRepositories.Transactions
 {
     public interface IExpenseRepository
     {
-        Task<Response<Guid>> SaveExpenseInfo(ExpenseReferenceDetailInfoDb expenseInfoDb, Guid loggedInUserId);
+        Task<Response<Guid>> CreateExpenseInfo(ExpenseSaveInfoDb expenseSaveInfoDb, Guid loggedInUserId);
         Task<Response<List<ExpenseReferenceDetailInfoDb>>> GetExpenseInfoList(Guid loggedInUserId);
         Task<Response<ExpenseReferenceDetailInfoDb>> GetExpenseInfoById(Guid expenseInfoId, Guid loggedInUserId);
         Task<Response<List<ExpenseInfoDb>>> GetExpenseBaseInfoList(Guid loggedInUserId);

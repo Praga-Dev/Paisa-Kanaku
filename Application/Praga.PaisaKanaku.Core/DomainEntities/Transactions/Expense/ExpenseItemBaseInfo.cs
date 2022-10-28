@@ -3,10 +3,14 @@
     public class ExpenseItemBaseInfo
     {
         public Guid Id { get; set; }
-        public string? Name { get; set; }
-        public double Price { get; set; }
-        public string? ProductCategoryName { get; set; }
-        public string? BrandName { get; set; }
-        public int Quantity { get; set; }
+
+        public int Quantity { get; set; } = 1;
+
+        /// <summary>
+        /// The expense amount is the amount spent for the product. i.e expenseAmount is equalto (productAmount * Quantity)
+        /// </summary>
+        public double ExpenseAmount { get; set; } 
+        
+        public string? Description { get; set; }
     }
 }

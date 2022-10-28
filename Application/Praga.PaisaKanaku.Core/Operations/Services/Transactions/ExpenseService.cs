@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
@@ -191,7 +192,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
             return response;
         }
 
-        public async Task<Response<Guid>> SaveExpenseInfo(ExpenseReferenceDetailInfo expenseInfo, bool isUpdate, Guid loggedInUserId)
+        public async Task<Response<Guid>> CreateExpenseInfo(ExpenseSaveInfo expenseSaveInfo, Guid loggedInUserId)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
 
@@ -203,124 +204,90 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                     return response;
                 }
 
-                if (expenseInfo == null)
+                if (expenseSaveInfo == null)
                 {
                     response.Message = ResponseConstants.INVALID_PARAM;
                     return response;
                 }
 
-                if (expenseInfo.DateOfExpense == DateTime.MinValue || expenseInfo.DateOfExpense == DateTime.MaxValue)
+                // Todo Add a valid start date, like 2000
+                if (expenseSaveInfo.DateOfExpense == DateTime.MinValue)
                 {
                     response.ValidationErrorMessages.Add("Invalid Date Of Expense");
                 }
 
-                if (expenseInfo.DateOfExpense > DateTime.UtcNow)
+                if (expenseSaveInfo.DateOfExpense > DateTime.UtcNow)
                 {
                     response.ValidationErrorMessages.Add("Future Date is not allowed for Date of Expense");
                 }
 
-                if (!string.IsNullOrWhiteSpace(expenseInfo.Description)
-                    && (expenseInfo.Description.Length < 2 || expenseInfo.Description.Length > 250))
-                {
-                    response.ValidationErrorMessages.Add("Invalid Expense Description");
-                }
-
-                if (expenseInfo.ExpenseAmount < 0)
-                {
-                    response.ValidationErrorMessages.Add("Invalid Expense Amount");
-                }
-
-                if (expenseInfo.ExpenseBy == null)
+                if (!Helpers.IsValidGuid(expenseSaveInfo.ExpenseBy))
                 {
                     response.ValidationErrorMessages.Add("Invalid ExpenseBy");
                 }
-                else
+
+                if (expenseSaveInfo.ExpenseItemBaseInfoList == null || !expenseSaveInfo.ExpenseItemBaseInfoList.Any())
                 {
-                    if (!Helpers.IsValidGuid(expenseInfo.ExpenseBy.Id))
-                    {
-                        response.ValidationErrorMessages.Add("Invalid ExpenseBy");
-
-                    }
-                    response.ValidationErrorMessages.Add("Invalid ExpenseBy ");
-                }
-
-                if (!Helpers.IsValidGuid(expenseInfo.ReferenceId))
-                {
-                    if (expenseInfo.ProductInfo == null)
-                    {
-                        response.ValidationErrorMessages.Add("Invalid Product Data");
-                        response.Message = ResponseConstants.INVALID_PARAM;
-                        return response;
-                    }
-
-                    if (string.IsNullOrWhiteSpace(expenseInfo.ProductInfo.Name))
-                    {
-                        response.ValidationErrorMessages.Add("Invalid Expense Name");
-                    }
-                    else
-                    {
-                        if (expenseInfo.ProductInfo.Name.Length < 2 || expenseInfo.ProductInfo.Name.Length > 50)
-                        {
-                            response.ValidationErrorMessages.Add("Expense Name must be between 2 and 50 Characters long.");
-                        }
-                    }
-
-                    if (expenseInfo.ProductInfo.BrandInfo == null || (!Helpers.IsValidGuid(expenseInfo.ProductInfo.BrandInfo.Id) && string.IsNullOrWhiteSpace(expenseInfo.ProductInfo.BrandInfo.Name)))
-                    {
-                        response.ValidationErrorMessages.Add("Invalid Brand");
-                    }
-
-                    if (expenseInfo.ProductInfo.ExpenseTypeInfo == null || string.IsNullOrWhiteSpace(expenseInfo.ProductInfo.ExpenseTypeInfo.ExpenseType))
-                    {
-                        response.ValidationErrorMessages.Add("Invalid Expense Type");
-                    }
-
-                    if (expenseInfo.ExpenseTypeInfo == null || string.IsNullOrWhiteSpace(expenseInfo.ExpenseTypeInfo.ExpenseType))
-                    {
-                        response.ValidationErrorMessages.Add("Invalid Expense Type");
-                    }
-
-                    if (expenseInfo.ProductInfo.PreferredTimePeriodInfo == null || string.IsNullOrWhiteSpace(expenseInfo.ProductInfo.PreferredTimePeriodInfo.TimePeriodType))
-                    {
-                        response.ValidationErrorMessages.Add("Invalid Preferred Time Period");
-                    }
-                }
-
-                ExpenseReferenceDetailInfoDb expenseInfoDb = new()
-                {
-                    DateOfExpense = expenseInfo.DateOfExpense,
-                    ExpenseDescription = expenseInfo.Description,
-                    ExpenseAmount = expenseInfo.ExpenseAmount,
-                    ExpenseType = expenseInfo.ExpenseTypeInfo?.ExpenseType,
-                    ExpenseBy = expenseInfo.ExpenseBy.Id
-                };
-
-                if (isUpdate)
-                {
-                    if (!Helpers.IsValidGuid(expenseInfo.Id))
-                    {
-                        response.ValidationErrorMessages.Add("Invalid Id");
-                    }
-
-                    if (!Helpers.IsValidGuid(expenseInfo.ExpenseInfoId))
-                    {
-                        response.ValidationErrorMessages.Add("Invalid ExpenseInfo Id");
-                    }
+                    response.ValidationErrorMessages.Add("Invalid ExpenseItemBaseInfoList");
+                    return response;
                 }
 
                 if (response.ValidationErrorMessages.Count > 0)
                 {
-                    response.Message = ResponseConstants.INVALID_PARAM;
+                    response = new Response<Guid>().GetValidationFailedResponse(response.ValidationErrorMessages);
                     return response;
                 }
 
-                expenseInfoDb.Id = isUpdate ? expenseInfo.Id : Guid.Empty;
+                List<ExpenseItemBaseInfo> expenseItemBaseInfoList = expenseSaveInfo.ExpenseItemBaseInfoList;
 
-                return await _expenseRepository.SaveExpenseInfo(expenseInfoDb, loggedInUserId);
+                foreach (var expenseItem in expenseSaveInfo.ExpenseItemBaseInfoList)
+                {
+                    if (!Helpers.IsValidGuid(expenseItem.Id))
+                    {
+                        response.ValidationErrorMessages.Add("Invalid ProductId in Expense Product Items");
+                    }
+                    
+                    if (expenseItem.ExpenseAmount <= 0)
+                    {
+                        response.ValidationErrorMessages.Add("Invalid ExpenseAmount in Expense Product Items");
+                    }
+
+                    // Todo Add min and max as constant and refer here.
+                    if (!string.IsNullOrWhiteSpace(expenseItem.Description)
+                        && (expenseItem.Description.Length < 2 || expenseItem.Description.Length > 250))
+                    {
+                        response.ValidationErrorMessages.Add("Invalid Expense Description");
+                    }
+
+                    if (response.ValidationErrorMessages.Count > 0)
+                    {
+                        response = new Response<Guid>().GetValidationFailedResponse(response.ValidationErrorMessages);
+                        return response;
+                    }
+                }
+
+                XElement expenseData = new("Expense",
+                    expenseSaveInfo.ExpenseItemBaseInfoList.Select(expenseItem =>
+                        new XElement("Product",
+                            new XElement("ProductId", expenseItem.Id),
+                            new XElement("Quantity", expenseItem.Quantity),
+                            new XElement("ExpenseAmount", expenseItem.ExpenseAmount),
+                            new XElement("Description", expenseItem.Description)
+                        )
+                    ));
+
+                ExpenseSaveInfoDb expenseInfoDb = new()
+                {
+                    ExpenseDate = expenseSaveInfo.DateOfExpense,
+                    ExpenseBy = expenseSaveInfo.ExpenseBy,
+                    ExpenseData = expenseData
+                };
+
+                return await _expenseRepository.CreateExpenseInfo(expenseInfoDb, loggedInUserId);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in ExpenseService.SaveExpenseInfo({@expenseInfo}, {@loggedInUserId})", expenseInfo.ToString(), loggedInUserId);
+                _logger.LogError(ex, "Error in ExpenseService.SaveExpenseInfo({@expenseSaveInfo}, {@loggedInUserId})", expenseSaveInfo.ToString(), loggedInUserId);
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
                 return response;
             }

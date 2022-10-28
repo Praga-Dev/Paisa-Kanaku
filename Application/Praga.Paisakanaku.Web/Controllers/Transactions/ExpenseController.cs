@@ -55,7 +55,7 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
         }
 
         [HttpPost, Route("~/expense/create")]
-        public async Task<IActionResult> CreateExpenseInfo(ExpenseReferenceDetailInfo expenseInfo)
+        public async Task<IActionResult> CreateExpenseInfo(ExpenseSaveInfo expenseSaveInfo)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
 
@@ -67,51 +67,19 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
                     return StatusCode(StatusCodes.Status200OK, response);
                 }
 
-                if (expenseInfo == null)
+                if (expenseSaveInfo == null)
                 {
                     response.Message ??= ResponseConstants.INVALID_PARAM;
                     return StatusCode(StatusCodes.Status200OK, response);
                 }
 
-                var dbresponse = await _expenseService.SaveExpenseInfo(expenseInfo, false, LoggedInUserId);
+                var dbresponse = await _expenseService.CreateExpenseInfo(expenseSaveInfo, LoggedInUserId);
 
                 return StatusCode(StatusCodes.Status200OK, Helpers.IsResponseValid(dbresponse) ? dbresponse : response);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in ExpenseController.CreateExpenseInfo({@expenseInfo}, {@loggedInUserId})", expenseInfo.ToString(), LoggedInUserId);
-
-                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
-                return StatusCode(StatusCodes.Status200OK, response);
-            }
-        }
-
-        [HttpPut, Route("~/expense/update")]
-        public async Task<IActionResult> UpdateExpenseInfo(ExpenseReferenceDetailInfo expenseInfo)
-        {
-            Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
-
-            try
-            {
-                if (!Helpers.IsValidGuid(this.LoggedInUserId))
-                {
-                    response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
-                    return StatusCode(StatusCodes.Status200OK, response);
-                }
-
-                if (expenseInfo == null)
-                {
-                    response.Message ??= ResponseConstants.INVALID_PARAM;
-                    return StatusCode(StatusCodes.Status200OK, response);
-                }
-
-                var dbresponse = await _expenseService.SaveExpenseInfo(expenseInfo, true, LoggedInUserId);
-
-                return StatusCode(StatusCodes.Status200OK, Helpers.IsResponseValid(dbresponse) ? dbresponse : response);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in ExpenseController.UpdateExpenseInfo({@expenseInfo}, {@loggedInUserId})", expenseInfo.ToString(), LoggedInUserId);
+                _logger.LogError(ex, "Error in ExpenseController.CreateExpenseInfo({@expenseSaveInfo}, {@loggedInUserId})", expenseSaveInfo.ToString(), LoggedInUserId);
 
                 response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
                 return StatusCode(StatusCodes.Status200OK, response);
@@ -244,7 +212,6 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
             return PartialView("~/Views/Transactions/Expense/_CreateExpenseCartList.cshtml", response);
 
         }
-
 
         [HttpGet, Route("~/expense/export")]
         public async Task<IActionResult> ExportExpenseInfoData()
