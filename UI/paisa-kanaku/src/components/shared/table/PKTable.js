@@ -13,7 +13,7 @@ const PKTable = (props) => {
         bordered
         title={props.title}
         pagination={{
-          pageSize: 50,
+          pageSize: 10,
         }}
         scroll={{
           y: 240,
