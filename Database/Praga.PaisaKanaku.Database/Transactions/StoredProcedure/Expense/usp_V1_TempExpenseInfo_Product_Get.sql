@@ -51,7 +51,7 @@ BEGIN TRY
 	LEFT JOIN [Setup].[MemberInfo] MI ON TEI.[MemberId] = MI.[Id]
 	WHERE [TEI].[Date] = @ExpenseDate AND [TEI].[RowStatus] = 'A' AND [TEI].[CreatedBy] = @LoggedInUserId
 
-	SELECT * FROM @TempExpenseInfo;
+	SELECT * FROM @TempExpenseInfo ORDER BY [MemberName];
 
 END TRY  
 BEGIN CATCH  

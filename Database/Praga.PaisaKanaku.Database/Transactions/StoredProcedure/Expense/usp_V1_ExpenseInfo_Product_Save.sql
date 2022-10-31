@@ -1,14 +1,10 @@
 ﻿CREATE PROCEDURE [Transactions].[usp_V1_ExpenseInfo_Product_Save]
-	@ExpenseBy UNIQUEIDENTIFIER,
 	@ExpenseDate DATETIME,
 	@ExpenseData XML,
 	@LoggedInUserId UNIQUEIDENTIFIER,
 	@Result UNIQUEIDENTIFIER OUTPUT
 AS
 DECLARE @Response INT = 0;
-
-DECLARE @EmptyGuid UNIQUEIDENTIFIER;
-SET @EmptyGuid = CAST(CAST(0 AS BINARY) AS UNIQUEIDENTIFIER);
 
 BEGIN TRY
 
@@ -17,22 +13,16 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	IF(@ExpenseBy IS NULL OR @ExpenseBy = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[MemberInfo] WHERE [Id] = @ExpenseBy))
-	BEGIN
-		RAISERROR('INVALID_PARAM_EXPENSE_BY', 16, 1);
-	END
-
 	IF(@ExpenseDate IS NULL OR ISDATE(@ExpenseDate) = 0)
 	BEGIN
 		RAISERROR('INVALID_EXPENSE_DATE', 16, 1);
 	END
 
-	DECLARE @handle INT  
-	DECLARE @PrepareXmlStatus INT 
-	
 	DECLARE @ExpenseInfoId UNIQUEIDENTIFIER;
 	DECLARE @TotalExpense DECIMAL(12,3) = 0;
 
+	DECLARE @handle INT  
+	DECLARE @PrepareXmlStatus INT 
 
 	IF(EXISTS(SELECT TOP 1 1 FROM [Transactions].[ExpenseInfo] WHERE [Date] = @ExpenseDate))
 	BEGIN
@@ -48,13 +38,15 @@ BEGIN TRY
 
 	EXEC @PrepareXmlStatus = [sys].[sp_xml_preparedocument] @handle OUTPUT, @ExpenseData;
 
+	-- If the product already exist in the date, we need to increase the quantity of the product.
+
 	INSERT INTO [Transactions].[ExpenseReferenceDetailInfo] ([Id], [ExpenseInfoId], [ReferenceId]
-		, [ExpenseBy], [DateOfExpense], [Quantity], [ExpenseAmount], [Description], [CreatedBy])
+		, [ExpenseById], [DateOfExpense], [Quantity], [ExpenseAmount], [Description], [CreatedBy])
 	SELECT
 		NEWID(),
 		@ExpenseInfoId,
 		[ProductId],
-		@ExpenseBy,
+		[ExpenseById],
 		@ExpenseDate,
 		[Quantity],
 		[ExpenseAmount],
@@ -63,6 +55,7 @@ BEGIN TRY
 	FROM OPENXML(@handle, '/Expense/Product', 2)
 	WITH(
 		[ProductId] UNIQUEIDENTIFIER,
+		[ExpenseById] UNIQUEIDENTIFIER,
 		[Quantity] INT,
 		[ExpenseAmount] DECIMAL(12,3),
 		[Description] NVARCHAR(250)
@@ -73,6 +66,10 @@ BEGIN TRY
 	UPDATE [Transactions].[ExpenseInfo]
 	SET [Amount] = @TotalExpense
 	WHERE [Id] = @ExpenseInfoId;
+
+	UPDATE [Transactions].[TempExpenseInfo]
+	SET [RowStatus] = 'I' -- Change to M - Moved
+	WHERE [Date] = @ExpenseDate;
 
 	SET @Result = @ExpenseInfoId;
 
