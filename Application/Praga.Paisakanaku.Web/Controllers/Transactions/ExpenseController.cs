@@ -54,7 +54,7 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
             return View("~/Views/Transactions/Expense/Index.cshtml", response);
         }
 
-        [HttpPost, Route("~/expense/create")]
+        [HttpPost, Route("~/expense/")]
         public async Task<IActionResult> CreateExpenseInfo(ExpenseSaveInfo expenseSaveInfo)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);

@@ -8,8 +8,7 @@ namespace Praga.PaisaKanaku.Core.DomainEntities.Transactions.Expense
 {
     public class ExpenseSaveInfo
     {
-        public Guid ExpenseBy { get; set; }
-        public DateTime DateOfExpense { get; set; }
+        public DateTime ExpenseDate { get; set; }
         public List<ExpenseItemBaseInfo> ExpenseItemBaseInfoList { get; set; } = new();
     }
 }

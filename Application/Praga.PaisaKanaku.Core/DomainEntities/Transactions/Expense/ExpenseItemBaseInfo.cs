@@ -3,6 +3,7 @@
     public class ExpenseItemBaseInfo
     {
         public Guid Id { get; set; }
+        public Guid ExpenseById { get; set; }
 
         public int Quantity { get; set; } = 1;
 

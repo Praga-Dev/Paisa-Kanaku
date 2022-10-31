@@ -1,5 +1,9 @@
 ﻿<link rel="stylesheet" href="~/css/Transactions/create-expense.css" asp-append-version="true" />
+<script>
+    let expenseData = [];
+    let product = {};
 
+</script>
 <div>
     <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary-outline pk-back-button"> <span>&#8592; &nbsp;</span>Back</a>
 </div>
@@ -15,7 +19,7 @@
     </div>
     <hr />
     <div class="container pk-cart-footer">
-        <button style="float:right" id="" onclick="addProductToExpense()" class="btn btn-primary">Save Expense</button>
+        <button style="float:right" id="btnCreateExpense" onclick="createExpenseInfo()" class="btn btn-primary">Create Expense</button>
     </div>
 </div>
 

@@ -61,8 +61,13 @@ $(document).on('change', '#formCreateExpense #selectProduct', function () {
 function fetchProductDetails(productId) {
     if (productId) {
         getProductDataById(productId);
+        let quantity = $('#quantity').val();
+        if (quantity === '' || isNaN(quantity)) {
+            $('#quantity').val(1);
+        }
         calcExpenseAmount();
         $('#amount, #expenseAmount, #quantity').prop('disabled', false);
+
     } else {
         $('#amount, #expenseAmount, #quantity').prop('disabled', true);
     }

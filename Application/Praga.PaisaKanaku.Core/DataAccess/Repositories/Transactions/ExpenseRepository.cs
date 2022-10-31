@@ -116,8 +116,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
                 string spName = DatabaseConstants.USP_EXPENSE_INFO_PRODUCT_SAVE;
 
                 DynamicParameters parameters = new();
-                parameters.Add("@ExpenseBy", expenseSaveInfoDb.ExpenseBy, DbType.Guid);
-                parameters.Add("@DateOfExpense", expenseSaveInfoDb.ExpenseDate, DbType.Date);
+                parameters.Add("@ExpenseDate", expenseSaveInfoDb.ExpenseDate, DbType.Date);
                 parameters.Add("@ExpenseData", expenseSaveInfoDb.ExpenseData.ToString(), DbType.String);                
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
                 parameters.Add("@Result", null, DbType.Guid, direction: ParameterDirection.Output);

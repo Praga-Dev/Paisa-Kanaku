@@ -211,19 +211,14 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                 }
 
                 // Todo Add a valid start date, like 2000
-                if (expenseSaveInfo.DateOfExpense == DateTime.MinValue)
+                if (expenseSaveInfo.ExpenseDate == DateTime.MinValue)
                 {
                     response.ValidationErrorMessages.Add("Invalid Date Of Expense");
                 }
 
-                if (expenseSaveInfo.DateOfExpense > DateTime.UtcNow)
+                if (expenseSaveInfo.ExpenseDate > DateTime.UtcNow)
                 {
                     response.ValidationErrorMessages.Add("Future Date is not allowed for Date of Expense");
-                }
-
-                if (!Helpers.IsValidGuid(expenseSaveInfo.ExpenseBy))
-                {
-                    response.ValidationErrorMessages.Add("Invalid ExpenseBy");
                 }
 
                 if (expenseSaveInfo.ExpenseItemBaseInfoList == null || !expenseSaveInfo.ExpenseItemBaseInfoList.Any())
@@ -245,6 +240,11 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                     if (!Helpers.IsValidGuid(expenseItem.Id))
                     {
                         response.ValidationErrorMessages.Add("Invalid ProductId in Expense Product Items");
+                    }
+
+                    if (!Helpers.IsValidGuid(expenseItem.ExpenseById))
+                    {
+                        response.ValidationErrorMessages.Add("Invalid ExpenseById in Expense Product Items");
                     }
                     
                     if (expenseItem.ExpenseAmount <= 0)
@@ -270,6 +270,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                     expenseSaveInfo.ExpenseItemBaseInfoList.Select(expenseItem =>
                         new XElement("Product",
                             new XElement("ProductId", expenseItem.Id),
+                            new XElement("ExpenseById", expenseItem.ExpenseById),
                             new XElement("Quantity", expenseItem.Quantity),
                             new XElement("ExpenseAmount", expenseItem.ExpenseAmount),
                             new XElement("Description", expenseItem.Description)
@@ -278,8 +279,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
 
                 ExpenseSaveInfoDb expenseInfoDb = new()
                 {
-                    ExpenseDate = expenseSaveInfo.DateOfExpense,
-                    ExpenseBy = expenseSaveInfo.ExpenseBy,
+                    ExpenseDate = expenseSaveInfo.ExpenseDate,
                     ExpenseData = expenseData
                 };
 
@@ -291,7 +291,6 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
                 return response;
             }
-
         }
 
         public async Task<Response<string>> ExportExpenseInfoData(Guid loggedInUserId)
