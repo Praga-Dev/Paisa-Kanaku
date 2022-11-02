@@ -43,7 +43,7 @@ BEGIN TRY
 		SET
 			[MemberId] = @ExpenseBy, 
 			[Date] = @ExpenseDate, 
-			[ProductId] = @ExpenseBy, 
+			[ProductId] = @ProductId, 
 			[Quantity] = @Quantity,
  			[Amount] = @ExpenseAmount,
 			[Description] = @Description,
