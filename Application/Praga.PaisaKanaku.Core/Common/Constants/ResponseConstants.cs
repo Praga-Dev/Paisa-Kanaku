@@ -11,6 +11,9 @@
         public const string SOMETHING_WENT_WRONG = "Something went wrong";
 
         public const string INVALID_ID = "Invalid Id";
+        public const string INVALID_PARAM_TABLE_NAME = "Invalid Table Name";
+        public const string INVALID_PARAM_SCHEMA_NAME = "Invalid Schema Name";
+        public const string INVALID_PARAM_ROW_STATUS = "Invalid Row Status";
 
     }
 }

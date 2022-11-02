@@ -2,6 +2,9 @@
 {
     public static class DatabaseConstants
     {
+        // Common
+        public const string USP_ROW_STATUS_UPDATE = "common.usp_v1_RowStatus_Update";
+
         // Lookups
         public const string USP_EXPENSE_TYPE_INFO_GET = "Lookups.usp_v1_ExpenseTypeInfo_Get";
         public const string USP_LIQUID_MEASURE_INFO_GET = "Lookups.usp_v1_LiquidMeasureInfo_Get";
