@@ -30,7 +30,7 @@ function getBrandDDList() {
     })
 }
 
-function getMemberDDList() {
+function getMemberDDList(memberId = '') {
     loadSpinner();
     $.ajax({
         url: `./member/data-list`,
@@ -38,7 +38,7 @@ function getMemberDDList() {
         success: function (response) {
             if (typeof response !== undefined && response !== null) {
                 $('#memberListDDContainer').html(response);
-                $('#selectMember').val('')
+                $('#selectMember').val(memberId)
             }
             else {
                 // TODO Alert

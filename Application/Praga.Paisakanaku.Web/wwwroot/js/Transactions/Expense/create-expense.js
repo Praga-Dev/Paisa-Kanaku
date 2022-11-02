@@ -1,7 +1,9 @@
 ﻿$(document).ready(function () {
+    // TODO switch this to onCreateExpense method
     getMemberDDList();
     getProductDDList();
     $('#amount, #expenseAmount, #quantity').prop('disabled', true);
+    getTempExpenseInfoList();
 });
 
 function onCreateProduct() {
@@ -83,10 +85,14 @@ $(document).on('change', '#formCreateExpense #quantity', function () {
 
 
 function calcExpenseAmount() {
-    let amount = parseFloat($('#amount').val());
-    let quantity = parseInt($('#quantity').val());
-    let expenseAmount = Math.ceil(amount * quantity);
-    $('#expenseAmount').val(expenseAmount);
+    let isCreate = $('#formCreateExpense').data('isupdate') == 'False';
+    if (isCreate) {
+        let amount = parseFloat($('#amount').val());
+        let quantity = parseInt($('#quantity').val());
+        let expenseAmount = Math.ceil(amount * quantity);
+        $('#expenseAmount').val(expenseAmount);
+    }
+
 }
 
 $(document).on('change', '#formCreateExpense #amount', function () {
@@ -97,8 +103,8 @@ $(document).on('change', '#formCreateExpense #expenseDate', function () {
     getTempExpenseInfoList();
 });
 
-function getTempExpenseInfoList() {
-    let expenseDate = $('#expenseDate').val();
+function getTempExpenseInfoList(date) {
+    let expenseDate = date ?? $('#expenseDate').val();
     if (expenseDate) {
         loadSpinner();
         $.ajax({
@@ -107,6 +113,38 @@ function getTempExpenseInfoList() {
             success: function (response) {
                 if (response) {
                     $('#divTempProductExpenseInfoListContainer').html(response);
+                }
+                else {
+                    // TODO Alert
+                }
+            },
+            error: function () {
+                // TODO Alert
+            },
+            complete: function () {
+                hideSpinner();
+            }
+        })
+    }
+
+}
+
+function editCartItem(id) {
+    if (id) {
+        loadSpinner();
+        $.ajax({
+            url: `./expense/temp/${id}/`,
+            method: 'GET',
+            success: function (response) {
+                if (response) {
+                    $('#divTempExpenseFormContainer').html(response);
+                    let memberId = $('#memberListDDContainer').data('val');
+                    getMemberDDList(memberId);
+                    getProductDDList();
+                    let productId = $('#productListDDContainer').data('val');
+                    if (productId) {
+                        fetchProductDetails(productId)
+                    }
                 }
                 else {
                     // TODO Alert

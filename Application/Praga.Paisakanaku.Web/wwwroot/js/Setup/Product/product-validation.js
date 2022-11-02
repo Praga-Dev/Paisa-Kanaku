@@ -113,7 +113,6 @@ $(function () {
             }
 
             let isUpdate = $('#formCreateProduct').data('isupdate') === 'True';
-            console.log(productInfo, isUpdate);
 
             $.ajax({
                 url: isUpdate ? `./product/update` : `./product/create`,
@@ -199,7 +198,6 @@ $('#formCreateProduct #productCategoryName').on('blur', function () {
 
 $(document).on('change', '#selectBrand', function () {
     let id = $('#formCreateProduct #selectBrand').val();
-    console.log(id);
     if (id === 'NEW') {
         $('#formCreateProduct #brandNameContainer').show();
     } else {
@@ -209,7 +207,6 @@ $(document).on('change', '#selectBrand', function () {
 
 $(document).on('change', '#selectProductCategory', function () {
     let id = $('#formCreateProduct #selectProductCategory').val();
-    console.log(id);
     if (id === 'NEW') {
         $('#formCreateProduct #productCategoryNameContainer').show();
     } else {

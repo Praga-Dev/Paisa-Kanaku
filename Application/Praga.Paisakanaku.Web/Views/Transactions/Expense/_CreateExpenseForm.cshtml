@@ -20,11 +20,6 @@
                             <div id="productListDDContainer" class="form-group" data-val="@Model?.ProductInfo?.Id">
                                 <partial name="~/Views/Common/_ProductList.cshtml" model="null" />
                             </div>
-                            <div id="productNameContainer" class="form-group" style="display:none">
-                                <label for="productName" class="form-label">Product Name <span class="mandatory">*</span></label>
-                                <input id="productName" name="productName" asp-for="@Model.ProductInfo.ProductCategoryInfo.Name" type="text" class="form-control form-control-sm" aria-describedby="product-product-help" maxlength="50">
-                                <div id="product-product-help" style="display:none;" class="form-text">Product Name is case sensitive, ranges between 2 and 50 characters.</div>
-                            </div>
                         </div>
                         <div class="form-group">
                             <label for="amount" class="form-label">Product Amount <span class="mandatory">*</span></label>

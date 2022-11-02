@@ -173,5 +173,27 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
 
             return response;
         }
+
+        public async Task<Response<TempProductExpenseInfoDb>> GetTempExpenseInfoById(Guid tempExpenseInfoId, Guid loggedInUserId)
+        {
+            Response<TempProductExpenseInfoDb> response = new Response<TempProductExpenseInfoDb>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+
+            try
+            {
+                string spName = DatabaseConstants.USP_TEMP_EXPENSE_INFO_PRODUCT_GET_BY_ID;
+                DynamicParameters parameters = new();
+                parameters.Add("@TempExpenseId", tempExpenseInfoId, DbType.Guid);
+                parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
+
+                var result = await _db.Connection.QueryAsync<TempProductExpenseInfoDb>(spName, parameters, commandType: CommandType.StoredProcedure);
+                return result != null ? response.GetSuccessResponse(result.First()) : response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ExpenseRepository.GetTempExpenseInfoById({@tempexpenseInfoId}, {@loggedInUserId})", tempExpenseInfoId, loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+                return response;
+            }
+        }
     }
 }

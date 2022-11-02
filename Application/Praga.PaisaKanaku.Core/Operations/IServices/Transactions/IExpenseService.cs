@@ -12,5 +12,6 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
         Task<Response<List<ExpenseInfo>>> GetExpenseBaseInfoList(Guid loggedInUserId);
         Task<Response<Guid>> SaveTempExpenseInfo(TempProductExpenseInfo tempProductExpenseInfo, Guid loggedInUserId);
         Task<Response<List<TempProductExpenseInfo>>> GetTempExpenseInfo(DateTime expenseDate, Guid loggedInUserId);
+        Task<Response<ExpenseReferenceDetailInfo>> GetTempExpenseInfoById(Guid tempExpenseInfoId, Guid loggedInUserId);
     }
 }

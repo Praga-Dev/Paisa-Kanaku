@@ -22,8 +22,6 @@
             }
         }
 
-        console.log(expenseData);
-
     </script>
     
     
@@ -101,6 +99,9 @@
                                                 }
                                             </th>
                                             <td class="d-flex justify-content-end">
+                                                <span class="material-icons-outlined arrow btn-icon" id="btnEditCartItem_@cartItem.Id" title="Edit" onclick="editCartItem('@cartItem.Id')">
+                                                    edit
+                                                </span>
                                                 <span class="material-icons-outlined arrow btn-icon" id="btnDeleteCartItem_@cartItem.Id" title="Delete" onclick="deleteCartItem('@cartItem.Id', '@cartItem.ProductInfo.Name')">
                                                     delete
                                                 </span>

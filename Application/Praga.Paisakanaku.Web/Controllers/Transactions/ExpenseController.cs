@@ -213,6 +213,36 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
 
         }
 
+        [HttpGet, Route("~/expense/temp/{expenseInfoId:Guid}")]
+        public async Task<IActionResult> GetTempExpenseInfoById(Guid expenseInfoId)
+        {
+            Response<ExpenseReferenceDetailInfo> response = new Response<ExpenseReferenceDetailInfo>().GetFailedResponse(ResponseConstants.FAILED);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(this.LoggedInUserId))
+                {
+                    response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return PartialView("~/Views/Transactions/Expense/_CreateExpenseForm.cshtml", response.Data);
+                }
+
+                var dbresponse = await _expenseService.GetTempExpenseInfoById(expenseInfoId, LoggedInUserId);
+                if (Helpers.IsResponseValid(dbresponse))
+                {
+                    response = dbresponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ExpenseController.GetTempExpenseInfoById({@expenseInfoId}, {@loggedInUserId})", expenseInfoId, LoggedInUserId);
+
+                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
+            }
+
+            return PartialView("~/Views/Transactions/Expense/_CreateExpenseForm.cshtml", response.Data);
+
+        }
+
         [HttpGet, Route("~/expense/export")]
         public async Task<IActionResult> ExportExpenseInfoData()
         {

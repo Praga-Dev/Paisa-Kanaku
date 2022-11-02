@@ -62,11 +62,6 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                         ExpenseInfoId = dbResponse.Data.ExpenseInfoId,
                         ReferenceId = dbResponse.Data.ReferenceId,
                         Description = dbResponse.Data.ExpenseDescription,
-                        ExpenseTypeInfo = new()
-                        {
-                            ExpenseType = dbResponse.Data.ExpenseType ?? String.Empty,
-                            ExpenseTypeValue = dbResponse.Data.ExpenseTypeValue ?? String.Empty
-                        },
                         ProductInfo = new()
                         {
                             Id = dbResponse.Data.ProductId,
@@ -139,11 +134,6 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                         ExpenseInfoId = expense.ExpenseInfoId,
                         ReferenceId = expense.ReferenceId,
                         Description = expense.ExpenseDescription,
-                        ExpenseTypeInfo = new()
-                        {
-                            ExpenseType = expense.ExpenseType ?? String.Empty,
-                            ExpenseTypeValue = expense.ExpenseTypeValue ?? String.Empty
-                        },
                         ProductInfo = new()
                         {
                             Id = expense.ProductId,
@@ -469,6 +459,65 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error in ExpenseService.GetTempExpenseInfo({@expenseDate}, {@loggedInUserId})", expenseDate, loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+                return response;
+            }
+
+            return response;
+        }
+
+        public async Task<Response<ExpenseReferenceDetailInfo>> GetTempExpenseInfoById(Guid tempExpenseInfoId, Guid loggedInUserId)
+        {
+            Response<ExpenseReferenceDetailInfo> response = new Response<ExpenseReferenceDetailInfo>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
+
+            try
+            {
+
+                if (!Helpers.IsValidGuid(loggedInUserId))
+                {
+                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return response;
+                }
+
+                if (!Helpers.IsValidGuid(tempExpenseInfoId))
+                {
+                    return response;
+                }
+
+                var dbResponse = await _expenseRepository.GetTempExpenseInfoById(tempExpenseInfoId, loggedInUserId);
+                if (Helpers.IsResponseValid(dbResponse))
+                {
+                    response.Data = new ExpenseReferenceDetailInfo()
+                    {
+                        Id = dbResponse.Data.Id,
+                        DateOfExpense = dbResponse.Data.Date,
+                        ExpenseAmount = dbResponse.Data.Amount,
+                        ProductInfo = new()
+                        {
+                         Id = dbResponse.Data.ProductId
+                        },
+                        ExpenseBy = new MemberInfo()
+                        {
+                            Id = dbResponse.Data.MemberId,
+                        },
+                        Quantity = dbResponse.Data.Quantity,
+                        SequenceId = dbResponse.Data.SequenceId,
+                        CreatedBy = dbResponse.Data.CreatedBy,
+                        CreatedDate = dbResponse.Data.CreatedDate,
+                        ModifiedBy = dbResponse.Data.ModifiedBy,
+                        ModifiedDate = dbResponse.Data.ModifiedDate,
+                        RowStatus = dbResponse.Data.RowStatus,
+                        Description = dbResponse.Data.Description
+                    };
+
+
+                    response = response.GetSuccessResponse(response.Data);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ExpenseService.GetTempExpenseInfoById({@tempExpenseInfoId}, {@loggedInUserId})", tempExpenseInfoId, loggedInUserId);
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
                 return response;
             }
