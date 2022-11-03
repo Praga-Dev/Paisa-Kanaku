@@ -10,9 +10,9 @@ namespace Praga.PaisaKanaku.Core.DomainEntities.Setup
         public string? Name { get; set; }
         public double Price { get; set; }
         public string? Description { get; set; }
-        public ProductCategoryInfo ProductCategoryInfo { get; set; }
-        public BrandInfo BrandInfo { get; set; }
-        public ExpenseTypeInfo ExpenseTypeInfo { get; set; }
-        public TimePeriodTypeInfo PreferredTimePeriodInfo { get; set; }
+        public ProductCategoryInfo ProductCategoryInfo { get; set; } = new();
+        public BrandInfo BrandInfo { get; set; } = new();
+        public ExpenseTypeInfo ExpenseTypeInfo { get; set; } = new();
+        public TimePeriodTypeInfo PreferredTimePeriodInfo { get; set; } = new();
     }
 }

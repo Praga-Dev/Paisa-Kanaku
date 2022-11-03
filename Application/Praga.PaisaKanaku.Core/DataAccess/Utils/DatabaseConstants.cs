@@ -2,6 +2,9 @@
 {
     public static class DatabaseConstants
     {
+        // Common
+        public const string USP_ROW_STATUS_UPDATE = "common.usp_v1_RowStatus_Update";
+
         // Lookups
         public const string USP_EXPENSE_TYPE_INFO_GET = "Lookups.usp_v1_ExpenseTypeInfo_Get";
         public const string USP_LIQUID_MEASURE_INFO_GET = "Lookups.usp_v1_LiquidMeasureInfo_Get";
@@ -35,6 +38,7 @@
         // Expense
         public const string USP_EXPENSE_INFO_PRODUCT_SAVE = "Transactions.usp_V1_ExpenseInfo_Product_Save";
         public const string USP_TEMP_EXPENSE_INFO_PRODUCT_GET = "Transactions.usp_V1_TempExpenseInfo_Product_Get";
+        public const string USP_TEMP_EXPENSE_INFO_PRODUCT_GET_BY_ID = "Transactions.usp_V1_TempExpenseInfo_Product_Get_By_Id";
         public const string USP_TEMP_EXPENSE_INFO_PRODUCT_SAVE = "Transactions.usp_V1_TempExpenseInfo_Product_Save";
 
         #endregion

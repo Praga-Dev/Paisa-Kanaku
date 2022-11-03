@@ -82,6 +82,7 @@
     <Folder Include="Setup\StoredProcedure\ProductCategory" />
     <Folder Include="Common" />
     <Folder Include="Common\ScalarFunction" />
+    <Folder Include="Common\StoredProcedure" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Account.sql" />
@@ -130,6 +131,8 @@
     <Build Include="Transactions\StoredProcedure\Expense\usp_V1_TempExpenseInfo_Product_Save.sql" />
     <Build Include="Transactions\StoredProcedure\Expense\usp_V1_TempExpenseInfo_Product_Get.sql" />
     <Build Include="Transactions\StoredProcedure\Expense\usp_V1_ExpenseInfo_Product_Save.sql" />
+    <Build Include="Common\StoredProcedure\usp_v1_RowStatus_Update.sql" />
+    <Build Include="Transactions\StoredProcedure\Expense\usp_V1_TempExpenseInfo_Product_Get_By_Id.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />

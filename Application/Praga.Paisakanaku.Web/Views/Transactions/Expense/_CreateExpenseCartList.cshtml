@@ -2,6 +2,29 @@
 
 @if (Model != null )
 {
+    <script type="text/javascript">
+        expenseData = [];
+
+        @if (Model != null && Model.Data != null && Model.Data.Any())
+        {
+            @foreach (var cartItem in Model.Data)
+            {
+                 <text>
+                    product = {};
+                    product.Id = `@cartItem.ProductInfo?.Id`;
+                    product.ExpenseById = `@cartItem.ExpenseBy?.Id`;
+                    product.Quantity = @cartItem.Quantity;
+                    product.ExpenseAmount = @cartItem.ExpenseAmount;
+                    product.Description = `@cartItem.Description`;
+
+                    expenseData.push(product);
+                 </text>
+            }
+        }
+
+    </script>
+    
+    
     double totalExpenseAmount = 0;
     <div class="table-wrapper pk-table-border">
         <div class="table-title">
@@ -76,6 +99,9 @@
                                                 }
                                             </th>
                                             <td class="d-flex justify-content-end">
+                                                <span class="material-icons-outlined arrow btn-icon" id="btnEditCartItem_@cartItem.Id" title="Edit" onclick="editCartItem('@cartItem.Id')">
+                                                    edit
+                                                </span>
                                                 <span class="material-icons-outlined arrow btn-icon" id="btnDeleteCartItem_@cartItem.Id" title="Delete" onclick="deleteCartItem('@cartItem.Id', '@cartItem.ProductInfo.Name')">
                                                     delete
                                                 </span>

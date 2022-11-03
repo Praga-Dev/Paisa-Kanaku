@@ -120,3 +120,38 @@ function resetTempExpenseForm() {
     $('#selectProduct').val('');
     $('#amount, #expenseAmount, #quantity').prop('disabled', true).val('');
 }
+
+function createExpenseInfo() {
+    let expenseDate = $('#expenseDate').val();
+
+    if (expenseData && expenseData.length > 0 && expenseDate) {
+        loadSpinner();
+        disableBtnById('btnCreateExpense');
+
+        let expenseSaveInfo = {
+            'ExpenseDate': expenseDate,
+            'ExpenseItemBaseInfoList': expenseData
+        }
+
+        $.ajax({
+            url: `./expense/`,
+            method: 'POST',
+            data: expenseSaveInfo,
+            success: function (response) {
+                if (typeof response !== undefined && response !== null && response.isSuccess && response.data != null) {
+                    showSuccessMsg('Expense created successfully');
+                    // clear table
+                } else {
+                    showErrorMsg('Expense create failed');
+                }
+            },
+            error: function (error) {
+                showErrorMsg('Something went wrong');
+            },
+            complete: function () {
+                hideSpinner();
+                enableBtnById('btnCreateExpense');
+            }
+        });
+    }
+}

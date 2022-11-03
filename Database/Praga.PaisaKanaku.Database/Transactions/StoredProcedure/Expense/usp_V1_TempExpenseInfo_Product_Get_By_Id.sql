@@ -1,5 +1,5 @@
-﻿CREATE PROCEDURE [Transactions].[usp_V1_TempExpenseInfo_Product_Get]
-	@ExpenseDate DATETIME,
+﻿CREATE PROCEDURE [Transactions].[usp_V1_TempExpenseInfo_Product_Get_By_Id]
+	@TempExpenseId UNIQUEIDENTIFIER,
 	@LoggedInUserId UNIQUEIDENTIFIER
 AS
 DECLARE @Response INT = 0;
@@ -12,6 +12,11 @@ BEGIN TRY
 	IF([Auth].[udp_v1_ValidateAccount](@LoggedInUserId) = 0)
 	BEGIN
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
+	END
+	
+	IF([Common].[udp_v1_ValidateGuid](@TempExpenseId) = 0)
+	BEGIN
+		RAISERROR('INVALID_PARAM_TEMP_EXPENSE_INFO_ID', 16, 1);
 	END
 
 	DECLARE @TempExpenseInfo TABLE(
@@ -49,9 +54,9 @@ BEGIN TRY
 		[TEI].[RowStatus]	
 	FROM [Transactions].[TempExpenseInfo] TEI 
 	LEFT JOIN [Setup].[MemberInfo] MI ON TEI.[MemberId] = MI.[Id]
-	WHERE [TEI].[Date] = @ExpenseDate AND [TEI].[RowStatus] = 'A' AND [TEI].[CreatedBy] = @LoggedInUserId
+	WHERE [TEI].[Id] = @TempExpenseId AND [TEI].[RowStatus] = 'A' AND [TEI].[CreatedBy] = @LoggedInUserId
 
-	SELECT * FROM @TempExpenseInfo ORDER BY [MemberName];
+	SELECT * FROM @TempExpenseInfo;
 
 END TRY  
 BEGIN CATCH  
