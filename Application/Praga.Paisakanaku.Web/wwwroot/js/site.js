@@ -15,7 +15,10 @@ function getBrandDDList() {
         success: function (response) {
             if (typeof response !== undefined && response !== null) {
                 $('#brandListDDContainer').html(response);
-                $('#selectBrand').val($('#brandListDDContainer').data('val'));
+                let val = $('#brandListDDContainer').data('val')
+                if (val) {
+                    $('#selectBrand').val(val);
+                }
             }
             else {
                 // TODO Alert
@@ -38,7 +41,10 @@ function getMemberDDList(memberId = '') {
         success: function (response) {
             if (typeof response !== undefined && response !== null) {
                 $('#memberListDDContainer').html(response);
-                $('#selectMember').val(memberId)
+                let val = $('#selectMember').val(memberId)
+                if (val) {
+                    $('#selectMember').val(val);
+                }
             }
             else {
                 // TODO Alert
@@ -61,7 +67,10 @@ function getProductCategoryDDList() {
         success: function (response) {
             if (typeof response !== undefined && response !== null) {
                 $('#productCategoryListDDContainer').html(response);
-                $('#selectProductCategory').val($('#productCategoryListDDContainer').data('val'));
+                let val = $('#productCategoryListDDContainer').data('val')
+                if (val) {
+                    $('#selectProductCategory').val(val);
+                }
             }
             else {
                 // TODO Alert
@@ -87,7 +96,10 @@ function getProductDDList(productId = '') {
                 if (productId) {
                     $('#selectProduct').val(productId);
                 } else {
-                    $('#selectProduct').val($('#productListDDContainer').data('val'));
+                    let val = $('#productListDDContainer').data('val') 
+                    if (val) {
+                        $('#selectProduct').val(val);
+                    }
                 }
             }
             else {
@@ -111,7 +123,10 @@ function getTimePeriodDDList() {
         success: function (response) {
             if (typeof response !== undefined && response !== null) {
                 $('#timePeriodListDDContainer').html(response);
-                $('#selectTimePeriod').val($('#timePeriodListDDContainer').data('val'));
+                let val = $('#timePeriodListDDContainer').data('val');
+                if (val) {
+                    $('#selectTimePeriod').val(val);
+                }
             }
             else {
                 // TODO Alert
@@ -134,7 +149,10 @@ function getExpenseTypeDDList() {
         success: function (response) {
             if (typeof response !== undefined && response !== null) {
                 $('#expenseTypeListDDContainer').html(response);
-                $('#selectExpenseType').val($('#expenseTypeListDDContainer').data('val'));
+                let val = $('#expenseTypeListDDContainer').data('val')
+                if (val) {
+                    $('#selectExpenseType').val(val);
+                }
             }
             else {
                 // TODO Alert

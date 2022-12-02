@@ -113,6 +113,8 @@ function getTempExpenseInfoList(date) {
             success: function (response) {
                 if (response) {
                     $('#divTempProductExpenseInfoListContainer').html(response);
+                    $('#formCreateExpense input[type="select"]').val('');
+                    $('#formCreateExpense input[type="number"]').val('');
                 }
                 else {
                     // TODO Alert
