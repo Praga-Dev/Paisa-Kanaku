@@ -39,6 +39,23 @@ BEGIN TRY
 	EXEC @PrepareXmlStatus = [sys].[sp_xml_preparedocument] @handle OUTPUT, @ExpenseData;
 
 	-- If the product already exist in the date, we need to increase the quantity of the product.
+	-- NOT REQUIRED, BECAUSE IT WILL GIVE CONFUSION TO USER 
+
+	-- Before Insertion move all the items in EI tbl to EIL tbl
+	INSERT INTO [Transactions].[ExpenseReferenceDetailLog] ([Id], [ExpenseInfoId], [ReferenceId]
+		, [ExpenseById], [DateOfExpense], [Quantity], [ExpenseAmount], [Description], [CreatedBy])
+	SELECT 
+		[Id], [ExpenseInfoId], [ReferenceId], [ExpenseById], [DateOfExpense], [Quantity], [ExpenseAmount], [Description], [CreatedBy]
+	FROM [Transactions].[ExpenseReferenceDetailInfo] 
+	WHERE [DateOfExpense] = @ExpenseDate AND [RowStatus] = 'A'
+
+	-- TODO NEED TO HARD DELETE IN TABLES 
+	--		[ExpenseReferenceDetailInfo]
+	--		[TempExpenseInfo]
+
+	UPDATE [Transactions].[ExpenseReferenceDetailInfo]
+	SET [RowStatus] = 'D'
+	WHERE [DateOfExpense] = @ExpenseDate;
 
 	INSERT INTO [Transactions].[ExpenseReferenceDetailInfo] ([Id], [ExpenseInfoId], [ReferenceId]
 		, [ExpenseById], [DateOfExpense], [Quantity], [ExpenseAmount], [Description], [CreatedBy])

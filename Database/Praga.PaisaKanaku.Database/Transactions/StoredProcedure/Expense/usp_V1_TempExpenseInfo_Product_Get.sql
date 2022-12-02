@@ -23,7 +23,6 @@ BEGIN TRY
 		[Quantity] INT,
 		[Amount] DECIMAL(12,3),
 		[Description] NVARCHAR(250),
-		[SequenceId] INT,
 		[CreatedBy] UNIQUEIDENTIFIER,
 		[CreatedDate] DATETIME2,
 		[ModifiedBy] UNIQUEIDENTIFIER,
@@ -31,7 +30,8 @@ BEGIN TRY
 		[RowStatus] NVARCHAR(1)
 	);
 	
-	INSERT INTO @TempExpenseInfo([Id], [MemberId], [MemberName], [Date], [ProductId], [Quantity], [Amount], [Description], [SequenceId], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
+	-- Temp Items
+	INSERT INTO @TempExpenseInfo([Id], [MemberId], [MemberName], [Date], [ProductId], [Quantity], [Amount], [Description], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
 	SELECT 
 		[TEI].[Id],
 		[TEI].[MemberId],
@@ -41,7 +41,6 @@ BEGIN TRY
 		[TEI].[Quantity],
 		[TEI].[Amount],
 		[TEI].[Description],
-		[TEI].[SequenceId],
 		[TEI].[CreatedBy],
 		[TEI].[CreatedDate],
 		[TEI].[ModifiedBy],
@@ -49,7 +48,30 @@ BEGIN TRY
 		[TEI].[RowStatus]	
 	FROM [Transactions].[TempExpenseInfo] TEI 
 	LEFT JOIN [Setup].[MemberInfo] MI ON TEI.[MemberId] = MI.[Id]
-	WHERE [TEI].[Date] = @ExpenseDate AND [TEI].[RowStatus] = 'A' AND [TEI].[CreatedBy] = @LoggedInUserId
+	WHERE [TEI].[Date] = @ExpenseDate AND [TEI].[CreatedBy] = @LoggedInUserId
+	AND [TEI].[RowStatus] = 'A'
+
+
+	-- Expense Items
+	INSERT INTO @TempExpenseInfo([Id], [MemberId], [MemberName], [Date], [ProductId], [Quantity], [Amount], [Description], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
+	SELECT 
+		[ERDI].[Id],
+		[ERDI].[ExpenseById],
+		[MI].[Name] AS [MemberName],
+		[ERDI].[DateOfExpense],
+		[ERDI].[ReferenceId],
+		[ERDI].[Quantity],
+		[ERDI].[ExpenseAmount],
+		[ERDI].[Description],
+		[ERDI].[CreatedBy],
+		[ERDI].[CreatedDate],
+		[ERDI].[ModifiedBy],
+		[ERDI].[ModifiedDate],
+		[ERDI].[RowStatus]	
+	FROM [Transactions].[ExpenseReferenceDetailInfo] ERDI 
+	LEFT JOIN [Setup].[MemberInfo] MI ON ERDI.[ExpenseById] = MI.[Id]
+	WHERE [ERDI].[DateOfExpense] = @ExpenseDate AND [ERDI].[CreatedBy] = @LoggedInUserId
+	AND [ERDI].[RowStatus] = 'A'
 
 	SELECT * FROM @TempExpenseInfo ORDER BY [MemberName];
 
