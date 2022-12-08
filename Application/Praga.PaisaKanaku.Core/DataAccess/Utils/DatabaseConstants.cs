@@ -41,6 +41,11 @@
         public const string USP_TEMP_EXPENSE_INFO_PRODUCT_GET_BY_ID = "Transactions.usp_V1_TempExpenseInfo_Product_Get_By_Id";
         public const string USP_TEMP_EXPENSE_INFO_PRODUCT_SAVE = "Transactions.usp_V1_TempExpenseInfo_Product_Save";
 
+        // BillType
+        public const string USP_BILL_TYPE_INFO_SAVE = "Setup.usp_V1_BillTypeInfo_Save";
+        public const string USP_BILL_TYPE_INFO_GET = "Setup.usp_V1_BillTypeInfo_Get";
+        public const string USP_BILL_TYPE_INFO_GET_BY_ID = "Setup.usp_V1_BillTypeInfo_Get_By_Id";
+
         #endregion
     }
 }
