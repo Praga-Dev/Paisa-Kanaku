@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [common].[usp_v1_RowStatus_Update]
+﻿CREATE PROCEDURE [Common].[usp_v1_RowStatus_Update]
 	@Id UNIQUEIDENTIFIER,
 	@TableSchema NVARCHAR(50),
 	@TableName NVARCHAR(255),

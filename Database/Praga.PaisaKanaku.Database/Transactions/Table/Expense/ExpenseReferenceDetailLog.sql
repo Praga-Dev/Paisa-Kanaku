@@ -1,0 +1,20 @@
+﻿CREATE TABLE [Transactions].[ExpenseReferenceDetailLog]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL,
+	[ExpenseInfoId] UNIQUEIDENTIFIER NOT NULL,
+	[ReferenceId] UNIQUEIDENTIFIER NOT NULL,
+	[ExpenseById] UNIQUEIDENTIFIER NOT NULL,
+	[DateOfExpense] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
+	[Quantity] INT NOT NULL DEFAULT 1,
+	[ExpenseAmount] DECIMAL(12,3) NOT NULL,
+	[Description] NVARCHAR(250),
+	[CreatedBy] UNIQUEIDENTIFIER NOT NULL,
+	[CreatedDate] DATETIME2 NOT NULL DEFAULT GETUTCDATE()
+	CONSTRAINT [PK_Transactions_ExpenseReferenceDetailLog] PRIMARY KEY NONCLUSTERED
+	(
+		[Id] ASC
+	) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+	CONSTRAINT [FK_ExpenseReferenceDetailLog_ExpenseInfo] FOREIGN KEY ([ExpenseInfoId]) REFERENCES [Transactions].[ExpenseInfo]([Id]),
+	CONSTRAINT [FK_ExpenseReferenceDetailLog_MemberInfo] FOREIGN KEY ([ExpenseById]) REFERENCES [Setup].[MemberInfo]([Id])
+) ON [PRIMARY]
+GO

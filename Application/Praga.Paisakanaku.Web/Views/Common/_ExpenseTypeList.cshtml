@@ -10,7 +10,15 @@
         {
             @foreach (var expenseType in Model.Data)
             {
-                <option value="@expenseType.ExpenseType">@expenseType.ExpenseTypeValue</option>
+                @if (expenseType.ExpenseType == "UNCATEGORIZED")
+                {
+                    <option value="@expenseType.ExpenseType" selected>@expenseType.ExpenseTypeValue</option>
+                }
+                else
+                {
+                    <option value="@expenseType.ExpenseType">@expenseType.ExpenseTypeValue</option>
+
+                }
             }
         }
     </select>

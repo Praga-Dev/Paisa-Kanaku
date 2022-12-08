@@ -127,7 +127,8 @@ $(function () {
                         let isExpenseView = $('#formCreateProduct').data('is-expense-view');
                         if (isExpenseView === 'true') {
                             //todo get product list
-                            $('#selectProduct').val(response.data)
+                            $('#formCreateExpense #selectProduct').val(response.data)
+                            getProductDDList(response.data); // refresh the product dd to get new product on the list
                             fetchProductDetails(response.data);
                         } else {
                             getProductList();

@@ -10,7 +10,14 @@
         {
             @foreach (var timePeriod in Model.Data)
             {
-                <option value="@timePeriod.TimePeriodType">@timePeriod.TimePeriodTypeValue</option>
+                @if (timePeriod.TimePeriodType == "NA")
+                {
+                    <option value="@timePeriod.TimePeriodType" selected>@timePeriod.TimePeriodTypeValue</option>
+                }
+                else
+                {
+                    <option value="@timePeriod.TimePeriodType">@timePeriod.TimePeriodTypeValue</option>
+                }
             }
         }
     </select>

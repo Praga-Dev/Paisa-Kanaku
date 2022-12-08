@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> @(string.IsNullOrWhiteSpace(@ViewData["Title"].ToString()) ? "" : @ViewData["Title"] + " - ") PaisaKanaku </title>
+    <title> @(string.IsNullOrWhiteSpace(Convert.ToString(@ViewData["Title"])) ? "" : @ViewData["Title"] + " - ") PaisaKanaku </title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -53,7 +53,7 @@
             </div>
         </nav>
     </header>
-    <div class="@(@ViewData["Title"].ToString() == "Expense" ? "pk-create-expense-layout-container" : "container")">
+    <div id="divPageContainer" data-page="@ViewData["Title"]" class="@(Convert.ToString(ViewData["Title"]) == "Expense" ? "pk-create-expense-layout-container" : "container")">
         <div id="loader" class="pk-loader" style="display:none"></div>
         <div class="toast-container">
             <div id="toast" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true">
@@ -75,9 +75,7 @@
             &copy; 2022 - Praga.Paisakanaku.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>*@
-    @*<script src="~/js/layout.js" asp-append-version="true"></script>*@
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @*<script src="~/js/Helpers/validation-helper.js" asp-append-version="true"></script>*@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
