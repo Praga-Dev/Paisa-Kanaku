@@ -83,6 +83,10 @@
     <Folder Include="Common" />
     <Folder Include="Common\ScalarFunction" />
     <Folder Include="Common\StoredProcedure" />
+    <Folder Include="Setup\Table\BillType" />
+    <Folder Include="Setup\StoredProcedure\BillType" />
+    <Folder Include="Setup\Table\RepairType" />
+    <Folder Include="Setup\StoredProcedure\RepairType" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Account.sql" />
@@ -134,6 +138,14 @@
     <Build Include="Common\StoredProcedure\usp_v1_RowStatus_Update.sql" />
     <Build Include="Transactions\StoredProcedure\Expense\usp_V1_TempExpenseInfo_Product_Get_By_Id.sql" />
     <Build Include="Transactions\Table\Expense\ExpenseReferenceDetailLog.sql" />
+    <Build Include="Setup\Table\BillType\BillTypeInfo.sql" />
+    <Build Include="Setup\StoredProcedure\BillType\usp_V1_BillTypeInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\BillType\usp_V1_BillTypeInfo_Get_By_Id.sql" />
+    <Build Include="Setup\StoredProcedure\BillType\usp_V1_BillTypeInfo_Save.sql" />
+    <Build Include="Setup\Table\RepairType\RepairTypeInfo.sql" />
+    <Build Include="Setup\StoredProcedure\RepairType\usp_V1_RepairTypeInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\RepairType\usp_V1_RepairTypeInfo_Get_By_Id.sql" />
+    <Build Include="Setup\StoredProcedure\RepairType\usp_V1_RepairTypeInfo_Save.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />

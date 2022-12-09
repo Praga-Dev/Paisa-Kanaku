@@ -36,6 +36,9 @@ namespace Praga.PaisaKanaku.Web.IoC
 
             services.AddTransient<IExpenseService, ExpenseService>();
             services.AddTransient<IExpenseRepository, ExpenseRepository>();
+
+            services.AddTransient<IBillTypeService, BillTypeService>();
+            services.AddTransient<IBillTypeRepository, BillTypeRepository>();
         }
     }
 }

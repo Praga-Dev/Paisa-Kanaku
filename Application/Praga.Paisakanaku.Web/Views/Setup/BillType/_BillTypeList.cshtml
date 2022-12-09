@@ -1,0 +1,42 @@
+﻿@model Response<List<BillTypeInfo>>
+
+<div class="action-body-container">
+    <div class="main-grid-container">
+        <div class="table-responsive">
+            <table class="table table-bordered  align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Bill Type</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
+                    {
+                        @foreach (var billType in Model.Data)
+                        {
+                            <tr>
+                                <th scope="row">
+                                    @if (!string.IsNullOrWhiteSpace(billType.Name))
+                                    {
+                                        <p>@billType.Name</p>
+                                    }
+                                </th>
+                                <td class="d-flex justify-content-end">
+                                    <span class="material-icons-outlined arrow btn-icon" id="btnEditBillType_@billType.Id"
+                                  title="Update BillType" onclick="editBillType('@billType.Id')">
+                                        edit
+                                    </span>
+                                    <span class="material-icons-outlined arrow btn-icon" id="btnDeleteBillType_@billType.Id"
+                                  title="Delete BillType" onclick="deleteBillType('@billType.Id', '@billType.Name')">
+                                        delete
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
