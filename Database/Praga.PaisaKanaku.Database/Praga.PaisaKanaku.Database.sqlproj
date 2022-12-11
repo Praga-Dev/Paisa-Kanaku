@@ -87,6 +87,7 @@
     <Folder Include="Setup\StoredProcedure\BillType" />
     <Folder Include="Setup\Table\RepairType" />
     <Folder Include="Setup\StoredProcedure\RepairType" />
+    <Folder Include="Setup\Table\Lender" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Account.sql" />
@@ -146,6 +147,7 @@
     <Build Include="Setup\StoredProcedure\RepairType\usp_V1_RepairTypeInfo_Get.sql" />
     <Build Include="Setup\StoredProcedure\RepairType\usp_V1_RepairTypeInfo_Get_By_Id.sql" />
     <Build Include="Setup\StoredProcedure\RepairType\usp_V1_RepairTypeInfo_Save.sql" />
+    <Build Include="Setup\Table\Lender\LenderInfo.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />
