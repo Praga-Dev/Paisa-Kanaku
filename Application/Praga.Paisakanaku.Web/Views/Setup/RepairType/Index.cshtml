@@ -1,0 +1,45 @@
+﻿@model Response<List<RepairTypeInfo>>
+
+@{
+    ViewData["Title"] = "RepairType";
+}
+
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>RepairType</h2>
+                </div>
+                <div class="col-sm-6">
+                    @*<a href="#addEmployeeModal" class="btn btn-primary-outline" data-toggle="modal"> </a>*@
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary-outline" onclick="onCreateRepairType()">
+                        <span>Create &nbsp;</span><i class="material-icons">&#xE147;</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="repairTypeListContainer">
+            @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
+            {
+                <partial name="_RepairTypeList.cshtml" />
+            }
+            else
+            {
+                <p>
+                    NO RECORDS FOUND
+                </p>
+            }
+        </div>
+    </div>
+    <div>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary-outline"> <span>&#8592; &nbsp;</span> Go to Home</a>
+    </div>
+</div>
+
+<div id="createRepairTypeFormContainer">
+    <partial name="_CreateRepairType.cshtml" model="new RepairTypeInfo()" />
+</div>
+
+<script src="~/js/Setup/RepairType/repair-type.js" asp-append-version="true"></script>
