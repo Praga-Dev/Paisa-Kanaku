@@ -1,0 +1,27 @@
+﻿CREATE TABLE [Setup].[LoanInfo]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL,
+	[LoanAmount] DECIMAL(10,2) NOT NULL,
+	[InterestAmount] DECIMAL(8,2) NOT NULL,
+	[LendedMemberId] UNIQUEIDENTIFIER NOT NULL,
+	[BorrowedDate] DATETIME2 NOT NULL,
+	[OutstandingBalance] DECIMAL(10,2) NOT NULL,
+	[LoanRepaymentDate] DATETIME2 NOT NULL,
+	[GracePeriodDate] DATETIME2 NOT NULL,
+	[LateFee] DECIMAL(8,2) NULL, -- Optional
+	[Comments] NVARCHAR(250),
+	[SequenceId] INT NOT NULL IDENTITY,
+	[CreatedBy] UNIQUEIDENTIFIER NOT NULL,
+	[CreatedDate] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
+	[ModifiedBy] UNIQUEIDENTIFIER NULL,
+	[ModifiedDate] DATETIME2,
+	[RowStatus] NVARCHAR(1) NOT NULL DEFAULT 'A'
+	CONSTRAINT [PK_Setup_LoanInfo] PRIMARY KEY NONCLUSTERED
+	(
+		[Id] ASC
+	) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+	CONSTRAINT [FK_LoanInfo_MemberId] FOREIGN KEY ([LendedMemberId]) REFERENCES [Setup].[MemberInfo]([Id]),
+	CONSTRAINT [FK_LoanInfo_RowStatus] FOREIGN KEY ([RowStatus]) REFERENCES [Lookups].[RowStatusInfo]([RowStatus])
+) ON [PRIMARY]
+GO
+CREATE UNIQUE CLUSTERED INDEX [IX_LoanInfo_SequenceId] ON [Setup].[LoanInfo] ([SequenceId])
