@@ -15,4 +15,4 @@
 	CONSTRAINT [FK_MemberInfo_RowStatus] FOREIGN KEY ([RowStatus]) REFERENCES [Lookups].[RowStatusInfo]([RowStatus])
 ) ON [PRIMARY]
 GO
-CREATE UNIQUE CLUSTERED INDEX [IX_BrandInfo_SequenceId] ON [Setup].[MemberInfo] ([SequenceId])
+CREATE UNIQUE CLUSTERED INDEX [IX_MemberInfo_SequenceId] ON [Setup].[MemberInfo] ([SequenceId])

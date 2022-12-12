@@ -16,17 +16,17 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	IF (@Id = @EmptyGuid AND EXISTS(SELECT TOP 1 1 FROM [Setup].[BrandInfo] WHERE [Name] LIKE @Name))
+	IF (@Id = @EmptyGuid AND EXISTS(SELECT TOP 1 1 FROM [Setup].[MemberInfo] WHERE [Name] LIKE @Name))
 	BEGIN
 		RAISERROR('INVALID_PARAM_MEMBER_ALREADY_EXIST', 16, 1);
 	END
 
-	DECLARE @BrandId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
+	DECLARE @MemberId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
 
     IF(@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[MemberInfo] WHERE [Id] = @Id))
 	BEGIN
 		INSERT INTO [Setup].[MemberInfo] ([Id], [Name], [CreatedBy])
-		VALUES (@BrandId, @Name, @LoggedInUserId);
+		VALUES (@MemberId, @Name, @LoggedInUserId);
 	END
 	ELSE
 	BEGIN  
@@ -34,10 +34,10 @@ BEGIN TRY
 			SET	[Name] = @Name,
                 [ModifiedBy] = @LoggedInUserId,
 				[ModifiedDate] = GETUTCDATE()
-		WHERE [Id] = @BrandId AND [RowStatus] = 'A';
+		WHERE [Id] = @MemberId AND [RowStatus] = 'A';
 	END
 
-	SET @Result = @BrandId;
+	SET @Result = @MemberId;
 	RETURN @Response;
 
 END TRY  
