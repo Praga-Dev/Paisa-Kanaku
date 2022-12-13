@@ -24,11 +24,6 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_NAME', 16, 1);
 	END
 
-	IF(@EmailAddress IS NULL OR @EmailAddress = '')
-	BEGIN
-		RAISERROR('INVALID_PARAM_EMAIL_ADDRESS', 16, 1);
-	END
-
 	IF(@MobileNumber IS NULL OR @MobileNumber = '')
 	BEGIN
 		RAISERROR('INVALID_PARAM_MOBILE_NUMBER', 16, 1);
@@ -39,10 +34,10 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_ADDRESS', 16, 1);
 	END
 
-	IF (@Id = @EmptyGuid AND 
-		(EXISTS(SELECT TOP 1 1 FROM [Setup].[LenderInfo] WHERE [Name] LIKE @Name) OR 
-		EXISTS(SELECT TOP 1 1 FROM [Setup].[LenderInfo] WHERE [EmailAddress] LIKE @EmailAddress) OR 
-		EXISTS(SELECT TOP 1 1 FROM [Setup].[LenderInfo] WHERE [MobileNumber] LIKE @MobileNumber)))
+	IF ((@Id IS NULL OR @Id = @EmptyGuid) AND 
+		((EXISTS(SELECT TOP 1 1 FROM [Setup].[LenderInfo] WHERE [Name] LIKE @Name) OR 
+		(NOT (@EmailAddress IS NULL OR @EmailAddress = '') AND EXISTS(SELECT TOP 1 1 FROM [Setup].[LenderInfo] WHERE [EmailAddress] LIKE @EmailAddress)) OR 
+		EXISTS(SELECT TOP 1 1 FROM [Setup].[LenderInfo] WHERE [MobileNumber] LIKE @MobileNumber))))
 	BEGIN
 		RAISERROR('INVALID_PARAM_LENDER_ALREADY_EXIST', 16, 1);
 	END
