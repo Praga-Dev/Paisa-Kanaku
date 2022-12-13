@@ -161,11 +161,52 @@ BEGIN
 	END
 	IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'LEND')
 	BEGIN
-		INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'Lend', N'Lend', 11, 'A');
+		INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'LEND', N'Lend', 11, 'A');
+	END
+	IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'TRAVEL')
+	BEGIN
+		INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'TRAVEL', N'Travel', 12, 'A');
 	END
 END
 GO
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'LoanTypeInfo') 
+BEGIN
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[LoanTypeInfo] WHERE [LoanType] LIKE N'PERSONAL_LOAN')
+	BEGIN
+		INSERT INTO [Lookups].[LoanTypeInfo] ([LoanType], [LoanTypeValue], [SequenceId]) VALUES (N'PERSONAL_LOAN', N'Personal Loan', 1);
+	END
+
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[LoanTypeInfo] WHERE [LoanType] LIKE N'GOLD_LOAN')
+	BEGIN
+		INSERT INTO [Lookups].[LoanTypeInfo] ([LoanType], [LoanTypeValue], [SequenceId]) VALUES (N'GOLD_LOAN', N'Gold Loan', 2);
+	END
+
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[LoanTypeInfo] WHERE [LoanType] LIKE N'DOCUMENT')
+	BEGIN
+		INSERT INTO [Lookups].[LoanTypeInfo] ([LoanType], [LoanTypeValue], [SequenceId]) VALUES (N'DOCUMENT', N'Document', 3);
+	END
+END
+GO
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'LoanStatusInfo') 
+BEGIN
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[LoanStatusInfo] WHERE [LoanStatus] LIKE N'OPEN')
+	BEGIN
+		INSERT INTO [Lookups].[LoanStatusInfo] ([LoanStatus], [LoanStatusValue]) VALUES (N'OPEN', N'Open');
+	END
+
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[LoanStatusInfo] WHERE [LoanStatus] LIKE N'CLOSED')
+	BEGIN
+		INSERT INTO [Lookups].[LoanStatusInfo] ([LoanStatus], [LoanStatusValue]) VALUES (N'CLOSED', N'Closed');
+	END
+
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[LoanStatusInfo] WHERE [LoanStatus] LIKE N'HOLD')
+	BEGIN
+		INSERT INTO [Lookups].[LoanStatusInfo] ([LoanStatus], [LoanStatusValue]) VALUES (N'HOLD', N'Hold');
+	END
+END
+GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Auth' AND T.TABLE_NAME = 'UserInfo') 
 BEGIN

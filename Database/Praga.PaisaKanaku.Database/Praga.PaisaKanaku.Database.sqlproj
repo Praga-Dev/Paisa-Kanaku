@@ -89,6 +89,7 @@
     <Folder Include="Setup\StoredProcedure\RepairType" />
     <Folder Include="Setup\Table\Lender" />
     <Folder Include="Setup\StoredProcedure\Lender" />
+    <Folder Include="Transactions\Table\Loan" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Account.sql" />
@@ -150,10 +151,13 @@
     <Build Include="Setup\StoredProcedure\RepairType\usp_V1_RepairTypeInfo_Save.sql" />
     <Build Include="Setup\Table\Lender\LenderInfo.sql" />
     <Build Include="Setup\StoredProcedure\Lender\usp_V1_LenderInfo_Save.sql" />
-    <Build Include="Setup\Table\Lender\LoanInfo.sql" />
-    <Build Include="Setup\Table\Lender\LoanPartialPrePaymentInfo.sql" />
     <Build Include="Setup\StoredProcedure\Lender\usp_V1_LenderInfo_Get.sql" />
     <Build Include="Setup\StoredProcedure\Lender\usp_V1_LenderInfo_Get_By_Id.sql" />
+    <Build Include="Transactions\Table\Loan\LoanInfo.sql" />
+    <Build Include="Transactions\Table\Loan\LoanInterestPaymentInfo.sql" />
+    <Build Include="Transactions\Table\Loan\LoanPartialPrePaymentInfo.sql" />
+    <Build Include="Lookups\Table\LoanStatusInfo.sql" />
+    <Build Include="Lookups\Table\LoanTypeInfo.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />
