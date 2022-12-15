@@ -90,6 +90,7 @@
     <Folder Include="Setup\Table\Lender" />
     <Folder Include="Setup\StoredProcedure\Lender" />
     <Folder Include="Transactions\Table\Loan" />
+    <Folder Include="Transactions\StoredProcedure\Loan" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Account.sql" />
@@ -158,6 +159,7 @@
     <Build Include="Transactions\Table\Loan\LoanPartialPrePaymentInfo.sql" />
     <Build Include="Lookups\Table\LoanStatusInfo.sql" />
     <Build Include="Lookups\Table\LoanTypeInfo.sql" />
+    <Build Include="Transactions\StoredProcedure\Loan\usp_V1_LoanInfo_Save.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />
