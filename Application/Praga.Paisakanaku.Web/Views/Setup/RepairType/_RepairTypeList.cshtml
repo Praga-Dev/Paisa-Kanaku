@@ -1,0 +1,42 @@
+﻿@model Response<List<RepairTypeInfo>>
+
+<div class="action-body-container">
+    <div class="main-grid-container">
+        <div class="table-responsive">
+            <table class="table table-bordered  align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Bill Type</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
+                    {
+                        @foreach (var repairType in Model.Data)
+                        {
+                            <tr>
+                                <th scope="row">
+                                    @if (!string.IsNullOrWhiteSpace(repairType.Name))
+                                    {
+                                        <p>@repairType.Name</p>
+                                    }
+                                </th>
+                                <td class="d-flex justify-content-end">
+                                    <span class="material-icons-outlined arrow btn-icon" id="btnEditRepairType_@repairType.Id"
+                                  title="Update RepairType" onclick="editRepairType('@repairType.Id')">
+                                        edit
+                                    </span>
+                                    <span class="material-icons-outlined arrow btn-icon" id="btnDeleteRepairType_@repairType.Id"
+                                  title="Delete RepairType" onclick="deleteRepairType('@repairType.Id', '@repairType.Name')">
+                                        delete
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

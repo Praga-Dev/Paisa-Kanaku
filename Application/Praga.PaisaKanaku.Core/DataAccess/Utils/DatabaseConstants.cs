@@ -46,6 +46,10 @@
         public const string USP_BILL_TYPE_INFO_GET = "Setup.usp_V1_BillTypeInfo_Get";
         public const string USP_BILL_TYPE_INFO_GET_BY_ID = "Setup.usp_V1_BillTypeInfo_Get_By_Id";
 
+        // RepairType
+        public const string USP_REPAIR_TYPE_INFO_SAVE = "Setup.usp_V1_RepairTypeInfo_Save";
+        public const string USP_REPAIR_TYPE_INFO_GET = "Setup.usp_V1_RepairTypeInfo_Get";
+        public const string USP_REPAIR_TYPE_INFO_GET_BY_ID = "Setup.usp_V1_RepairTypeInfo_Get_By_Id";
         #endregion
     }
 }
