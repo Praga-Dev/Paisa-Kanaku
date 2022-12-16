@@ -39,6 +39,9 @@ namespace Praga.PaisaKanaku.Web.IoC
 
             services.AddTransient<IBillTypeService, BillTypeService>();
             services.AddTransient<IBillTypeRepository, BillTypeRepository>();
+
+            services.AddTransient<IRepairTypeService, RepairTypeService>();
+            services.AddTransient<IRepairTypeRepository, RepairTypeRepository>();
         }
     }
 }
