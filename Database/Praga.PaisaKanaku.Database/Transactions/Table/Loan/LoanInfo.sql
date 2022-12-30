@@ -4,8 +4,9 @@
 	[LoanType] NVARCHAR(25) NOT NULL DEFAULT 'PERSONAL_LOAN',
 	[LoanAmount] DECIMAL(10,2) NOT NULL,
 	[InterestAmount] DECIMAL(10,2) NOT NULL,
-	[MemberId] UNIQUEIDENTIFIER NOT NULL,
-	[LenderId] UNIQUEIDENTIFIER NOT NULL,
+	[MemberInfoId] UNIQUEIDENTIFIER NOT NULL,
+	[CollateralInfoId] UNIQUEIDENTIFIER NULL,
+	[LenderInfoId] UNIQUEIDENTIFIER NOT NULL,
 	[BorrowedDate] DATETIME2 NOT NULL,
 	[OutstandingBalance] DECIMAL(10,2) NOT NULL,
 	[InterestDueDateOfEachMonth] TINYINT NOT NULL,
@@ -14,7 +15,7 @@
 	[LoanStatus] NVARCHAR(10) NOT NULL DEFAULT 'OPEN',
 	[GracePeriodDate] DATETIME2 NULL, -- Optional
 	[LateFee] DECIMAL(10,2) NOT NULL DEFAULT 0, -- Optional
-	[Comments] NVARCHAR(250), 
+	[Comments] NVARCHAR(250) NULL, 
 	[SequenceId] INT NOT NULL IDENTITY,
 	[CreatedBy] UNIQUEIDENTIFIER NOT NULL,
 	[CreatedDate] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
@@ -25,8 +26,9 @@
 	(
 		[Id] ASC
 	) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
-	CONSTRAINT [FK_LoanInfo_MemberId] FOREIGN KEY ([MemberId]) REFERENCES [Setup].[MemberInfo]([Id]),
-	CONSTRAINT [FK_LoanInfo_LenderId] FOREIGN KEY ([LenderId]) REFERENCES [Setup].[lenderInfo]([Id]),
+	CONSTRAINT [FK_LoanInfo_MemberInfoId] FOREIGN KEY ([MemberInfoId]) REFERENCES [Setup].[MemberInfo]([Id]),
+	CONSTRAINT [FK_LoanInfo_CollateralInfoId] FOREIGN KEY ([CollateralInfoId]) REFERENCES [Setup].[MemberInfo]([Id]),
+	CONSTRAINT [FK_LoanInfo_LenderInfoId] FOREIGN KEY ([LenderInfoId]) REFERENCES [Setup].[lenderInfo]([Id]),
 	CONSTRAINT [FK_LoanInfo_LoanType] FOREIGN KEY ([LoanType]) REFERENCES [Lookups].[LoanTypeInfo]([LoanType]),
 	CONSTRAINT [FK_LoanInfo_LoanStatus] FOREIGN KEY ([LoanStatus]) REFERENCES [Lookups].[LoanStatusInfo]([LoanStatus]),
 	CONSTRAINT [FK_LoanInfo_RowStatus] FOREIGN KEY ([RowStatus]) REFERENCES [Lookups].[RowStatusInfo]([RowStatus])

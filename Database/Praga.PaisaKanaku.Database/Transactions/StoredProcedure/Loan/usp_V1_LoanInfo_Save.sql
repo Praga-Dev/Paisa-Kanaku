@@ -2,8 +2,9 @@
 	@LoanType NVARCHAR(25),
 	@LoanAmount DECIMAL(10,2),
 	@InterestAmount DECIMAL(10,2),
-	@MemberId UNIQUEIDENTIFIER,
-	@LenderId UNIQUEIDENTIFIER,
+	@MemberInfoId UNIQUEIDENTIFIER,
+	@CollateralInfoId UNIQUEIDENTIFIER,
+	@LenderInfoId UNIQUEIDENTIFIER,
 	@BorrowedDate DATETIME2,
 	@InterestDueDateOfEachMonth TINYINT,
 	@LoanRepaymentDate DATETIME2,
@@ -16,10 +17,10 @@ AS
 DECLARE @Response INT = 0;
 
 DECLARE @EmptyGuid UNIQUEIDENTIFIER;
-set @EmptyGuid = CAST(CAST(0 AS BINARY) AS UNIQUEIDENTIFIER);
+SET @EmptyGuid = CAST(CAST(0 AS BINARY) AS UNIQUEIDENTIFIER);
 
 DECLARE @UtcCurrentDate DATETIME2;
-set @UtcCurrentDate = GETUTCDATE()
+SET @UtcCurrentDate = GETUTCDATE()
 
 BEGIN TRY 
 
@@ -69,12 +70,12 @@ BEGIN TRY
 
 	DECLARE @LoanId UNIQUEIDENTIFIER =  NEWID();
 
-	INSERT INTO [Transactions].[LoanInfo] ([Id], [LoanType], [LoanAmount], [InterestAmount], [MemberId],
-	[LenderId], [BorrowedDate], [OutstandingBalance], [InterestDueDateOfEachMonth], [OutstandingInterestAmount], 
+	INSERT INTO [Transactions].[LoanInfo] ([Id], [LoanType], [LoanAmount], [InterestAmount], [MemberInfoId], [CollateralInfoId],
+	[LenderInfoId], [BorrowedDate], [OutstandingBalance], [InterestDueDateOfEachMonth], [OutstandingInterestAmount], 
 	[LoanRepaymentDate], [GracePeriodDate], [LateFee], [Comments], [CreatedBy])
-	VALUES (@LoanId, @LoanType, @LoanAmount, @InterestAmount, @MemberId, @LenderId, 
-	@BorrowedDate, @LoanAmount, @InterestDueDateOfEachMonth, @InterestAmount, @LoanRepaymentDate, 
-	@GracePeriodDate, @LateFee, @Comments, @LoggedInUserId);
+	VALUES (@LoanId, @LoanType, @LoanAmount, @InterestAmount, @MemberInfoId, @CollateralInfoId, 
+	@LenderInfoId, @BorrowedDate, @LoanAmount, @InterestDueDateOfEachMonth, @InterestAmount, 
+	@LoanRepaymentDate, @GracePeriodDate, @LateFee, @Comments, @LoggedInUserId);
 	
 	SET @Result = @LoanId;
 	RETURN @Response;
