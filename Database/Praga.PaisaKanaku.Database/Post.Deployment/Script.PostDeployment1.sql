@@ -36,15 +36,15 @@ BEGIN
 END
 GO
 
-IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'MeasureTypeInfo') 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'CollateralTypeInfo') 
 BEGIN
-	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MeasureTypeInfo] WHERE [MeasureType] LIKE N'W')
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[CollateralTypeInfo] WHERE [CollateralType] LIKE N'JEWEL')
 	BEGIN
-		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue], [SequenceId], [RowStatus]) VALUES (N'W', N'WeightMeasure', 1, 'A');
+		INSERT INTO [Lookups].[CollateralTypeInfo] ([CollateralType], [CollateralTypeValue], [SequenceId], [RowStatus]) VALUES (N'JEWEL', N'Jewel', 1, 'A');
 	END
-	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MeasureTypeInfo] WHERE [MeasureType] LIKE N'L')
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[CollateralTypeInfo] WHERE [CollateralType] LIKE N'LAND')
 	BEGIN
-		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue], [SequenceId], [RowStatus]) VALUES (N'L', N'LiquidMeasure', 2, 'A');
+		INSERT INTO [Lookups].[CollateralTypeInfo] ([CollateralType], [CollateralTypeValue], [SequenceId], [RowStatus]) VALUES (N'LAND', N'Land', 2, 'A');
 	END
 END
 GO
@@ -176,15 +176,21 @@ BEGIN
 	BEGIN
 		INSERT INTO [Lookups].[LoanTypeInfo] ([LoanType], [LoanTypeValue], [SequenceId]) VALUES (N'PERSONAL_LOAN', N'Personal Loan', 1);
 	END
-
 	IF NOT EXISTS(SELECT 1 FROM [Lookups].[LoanTypeInfo] WHERE [LoanType] LIKE N'GOLD_LOAN')
 	BEGIN
 		INSERT INTO [Lookups].[LoanTypeInfo] ([LoanType], [LoanTypeValue], [SequenceId]) VALUES (N'GOLD_LOAN', N'Gold Loan', 2);
 	END
-
 	IF NOT EXISTS(SELECT 1 FROM [Lookups].[LoanTypeInfo] WHERE [LoanType] LIKE N'DOCUMENT')
 	BEGIN
 		INSERT INTO [Lookups].[LoanTypeInfo] ([LoanType], [LoanTypeValue], [SequenceId]) VALUES (N'DOCUMENT', N'Document', 3);
+	END
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[LoanTypeInfo] WHERE [LoanType] LIKE N'CHECK')
+	BEGIN
+		INSERT INTO [Lookups].[LoanTypeInfo] ([LoanType], [LoanTypeValue], [SequenceId]) VALUES (N'CHECK', N'Check', 3);
+	END
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[LoanTypeInfo] WHERE [LoanType] LIKE N'PROMISSORY_NOTE')
+	BEGIN
+		INSERT INTO [Lookups].[LoanTypeInfo] ([LoanType], [LoanTypeValue], [SequenceId]) VALUES (N'PROMISSORY_NOTE', N'Promissory Note', 3);
 	END
 END
 GO
@@ -204,6 +210,19 @@ BEGIN
 	IF NOT EXISTS(SELECT 1 FROM [Lookups].[LoanStatusInfo] WHERE [LoanStatus] LIKE N'HOLD')
 	BEGIN
 		INSERT INTO [Lookups].[LoanStatusInfo] ([LoanStatus], [LoanStatusValue]) VALUES (N'HOLD', N'Hold');
+	END
+END
+GO
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'MeasureTypeInfo') 
+BEGIN
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MeasureTypeInfo] WHERE [MeasureType] LIKE N'W')
+	BEGIN
+		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue], [SequenceId], [RowStatus]) VALUES (N'W', N'WeightMeasure', 1, 'A');
+	END
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MeasureTypeInfo] WHERE [MeasureType] LIKE N'L')
+	BEGIN
+		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue], [SequenceId], [RowStatus]) VALUES (N'L', N'LiquidMeasure', 2, 'A');
 	END
 END
 GO
