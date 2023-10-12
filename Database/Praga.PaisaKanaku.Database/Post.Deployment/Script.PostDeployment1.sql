@@ -110,63 +110,87 @@ BEGIN
 	BEGIN
 		INSERT INTO [Lookups].[TimePeriodTypeInfo] ([TimePeriodType], [TimePeriodTypeValue], [SequenceId], [RowStatus]) VALUES (N'BIMONTHLY', N'Bimonthly', 4, 'A');
 	END
+	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodTypeInfo] WHERE [TimePeriodType] LIKE N'QUARTERLY')
+	BEGIN
+		INSERT INTO [Lookups].[TimePeriodTypeInfo] ([TimePeriodType], [TimePeriodTypeValue], [SequenceId], [RowStatus]) VALUES (N'QUARTERLY', N'Quarterly', 5, 'A');
+	END
+	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodTypeInfo] WHERE [TimePeriodType] LIKE N'SEMI_ANNUAL')
+	BEGIN
+		INSERT INTO [Lookups].[TimePeriodTypeInfo] ([TimePeriodType], [TimePeriodTypeValue], [SequenceId], [RowStatus]) VALUES (N'SEMI_ANNUAL', N'Semi Annual', 6, 'A');
+	END
+	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodTypeInfo] WHERE [TimePeriodType] LIKE N'ANNUAL')
+	BEGIN
+		INSERT INTO [Lookups].[TimePeriodTypeInfo] ([TimePeriodType], [TimePeriodTypeValue], [SequenceId], [RowStatus]) VALUES (N'ANNUAL', N'Annual', 7, 'A');
+	END
 	IF NOT EXISTS(SELECT * FROM [Lookups].[TimePeriodTypeInfo] WHERE [TimePeriodType] LIKE N'NA')
 	BEGIN
-		INSERT INTO [Lookups].[TimePeriodTypeInfo] ([TimePeriodType], [TimePeriodTypeValue], [SequenceId], [RowStatus]) VALUES (N'NA', N'NA', 1, 'A');
+		INSERT INTO [Lookups].[TimePeriodTypeInfo] ([TimePeriodType], [TimePeriodTypeValue], [SequenceId], [RowStatus]) VALUES (N'NA', N'NA', 8, 'A');
 	END
 END
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'ExpenseTypeInfo') 
 BEGIN
-	IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'ENTERTAINMENT')
-	BEGIN
-		INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'ENTERTAINMENT', N'Entertainment', 1, 'A');
-	END
-	IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'HOUSEHOLD')
-	BEGIN
-		INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'HOUSEHOLD', N'Household', 2, 'A');
-	END
-	IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'BILLS')
-	BEGIN
-		INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'BILLS', N'Bills', 3, 'A');
-	END
-	IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'LOAN_INTEREST')
-	BEGIN
-		INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'LOAN_INTEREST', N'Loan Interest', 4, 'A');
-	END
-	IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'ELECTRONICS') 
-	BEGIN
-		INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'ELECTRONICS', N'Electronics', 5, 'A');
-	END
-	IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'REPAIRS')
-	BEGIN
-		INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'REPAIRS', N'Repairs', 6, 'A');
-	END
-	IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'BUSINESS_NEEDS')
-	BEGIN
-		INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'BUSINESS_NEEDS', N'Business Needs', 7, 'A');
-	END
-	IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'UNCATEGORIZED') -- unplanned expenses like functions
-	BEGIN
-		INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'UNCATEGORIZED', N'Uncategorized', 8, 'A');
-	END
-	IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'MEDICAL')
-	BEGIN
-		INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'MEDICAL', N'Medical', 9, 'A');
-	END
-	IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'SAVINGS')
-	BEGIN
-		INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'SAVINGS', N'Savings', 10, 'A');
-	END
-	IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'LEND')
-	BEGIN
-		INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'LEND', N'Lend', 11, 'A');
-	END
-	IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'TRAVEL')
-	BEGIN
-		INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'TRAVEL', N'Travel', 12, 'A');
-	END
+		IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'ENTERTAINMENT')
+		BEGIN
+			INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'ENTERTAINMENT', N'Entertainment', 1, 'A');
+		END
+		IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'HOUSEHOLD')
+		BEGIN
+			INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'HOUSEHOLD', N'Household', 2, 'A');
+		END
+		IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'BILLS')
+		BEGIN
+			INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'BILLS', N'Bills', 3, 'A');
+		END
+		IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'LOAN_INTEREST')
+		BEGIN
+			INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'LOAN_INTEREST', N'Loan Interest', 4, 'A');
+		END
+		IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'LOAN_REPAYMENT') 
+		BEGIN
+			INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'LOAN_REPAYMENT', N'Loan Repayment', 5, 'A');
+		END
+		IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'ELECTRONICS') 
+		BEGIN
+			INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'ELECTRONICS', N'Electronics', 6, 'A');
+		END
+		IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'REPAIRS')
+		BEGIN
+			INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'REPAIRS', N'Repairs', 7, 'A');
+		END
+		IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'BUSINESS_NEEDS')
+		BEGIN
+			INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'BUSINESS_NEEDS', N'Business Needs', 8, 'A');
+		END
+		IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'UNCATEGORIZED') -- unplanned expenses like functions
+		BEGIN
+			INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'UNCATEGORIZED', N'Uncategorized', 9, 'A');
+		END
+		IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'HEALTH_CARE')
+		BEGIN
+			INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'HEALTH_CARE', N'Health Care', 10, 'A');
+		END
+		IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'SAVINGS')
+		BEGIN
+			INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'SAVINGS', N'Savings', 11, 'A');
+		END
+		IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'LEND')
+		BEGIN
+			INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'LEND', N'Lend', 12, 'A');
+		END
+		IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'TRAVEL')
+		BEGIN
+			INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'TRAVEL', N'Travel', 13, 'A');
+		END
+		IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'GROOMING')
+		BEGIN
+			INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'GROOMING', N'Grooming', 14, 'A');
+		END
+		IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'FAMILY_WELLBEING')
+		BEGIN
+			INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'FAMILY_WELLBEING', N'Family Wellbeing', 14, 'A');
+		END
 END
 GO
 

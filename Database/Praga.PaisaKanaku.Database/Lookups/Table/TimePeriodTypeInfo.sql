@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [Lookups].[TimePeriodTypeInfo]
 (
-	[TimePeriodType] NVARCHAR(10) NOT NULL,
-	[TimePeriodTypeValue] NVARCHAR(10) NOT NULL,
+	[TimePeriodType] NVARCHAR(15) NOT NULL,
+	[TimePeriodTypeValue] NVARCHAR(15) NOT NULL,
 	[SequenceId] INT NOT NULL,
 	[RowStatus] NVARCHAR(1) NOT NULL DEFAULT 'A'
 	CONSTRAINT [PK_Lookups_TimePeriodTypeInfo] PRIMARY KEY CLUSTERED 

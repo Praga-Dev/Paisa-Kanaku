@@ -7,7 +7,7 @@
 	[ExpenseType] NVARCHAR(25) NOT NULL,
 	[Price] DECIMAL(12,3) NOT NULL,
 	[Description] NVARCHAR(250),
-	[PreferredRecurringTimePeriod] NVARCHAR(10) NOT NULL,
+	[PreferredRecurringTimePeriod] NVARCHAR(15) NOT NULL,
 	[SequenceId] INT NOT NULL IDENTITY,
 	[CreatedBy] UNIQUEIDENTIFIER NOT NULL,
 	[CreatedDate] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
