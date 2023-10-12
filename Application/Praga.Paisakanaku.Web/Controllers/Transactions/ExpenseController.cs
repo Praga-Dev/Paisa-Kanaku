@@ -3,14 +3,9 @@ using Praga.Paisakanaku.Web.Controllers.Base;
 using Praga.PaisaKanaku.Core.Common.Constants;
 using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.Common.Utils;
-using Praga.PaisaKanaku.Core.DomainEntities.Setup;
-using Praga.PaisaKanaku.Core.Operations.IServices.Setup;
-using System.IO;
-using System;
-using System.Net;
-using System.Text;
-using Praga.PaisaKanaku.Core.Operations.IServices.Transactions;
 using Praga.PaisaKanaku.Core.DomainEntities.Transactions.Expense;
+using Praga.PaisaKanaku.Core.Operations.IServices.Transactions;
+using System.Text;
 
 namespace Praga.Paisakanaku.Web.Controllers.Setup
 {
@@ -29,7 +24,6 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
         public async Task<IActionResult> Index()
         {
             Response<List<ExpenseReferenceDetailInfo>> response = new Response<List<ExpenseReferenceDetailInfo>>().GetFailedResponse(ResponseConstants.FAILED);
-
             try
             {
                 if (!Helpers.IsValidGuid(this.LoggedInUserId))
@@ -46,12 +40,59 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in ExpenseController.GetExpenseTypeInfoList({@loggedInUserId})", LoggedInUserId);
+                _logger.LogError(ex, "Error in ExpenseController.Index({@loggedInUserId})", LoggedInUserId);
 
                 response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
             }
 
             return View("~/Views/Transactions/Expense/Index.cshtml", response);
+        }
+
+        [HttpGet, Route("~/expense/list/data")]
+        public async Task<IActionResult> GetExpenseBaseInfoData()
+        {
+            Response<List<ExpenseInfo>> response = new Response<List<ExpenseInfo>>().GetFailedResponse(ResponseConstants.FAILED);
+            try
+            {
+                if (!Helpers.IsValidGuid(this.LoggedInUserId))
+                {
+                    response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return View("~/Views/Transactions/Expense/ExpenseList.cshtml", response);
+                }
+
+                var dbresponse = await _expenseService.GetExpenseBaseInfoList(LoggedInUserId);
+                if (Helpers.IsResponseValid(dbresponse))
+                {
+                    // format date of expense
+                    // yyyy-mm-dd
+                    response = dbresponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ExpenseController.GetExpenseBaseInfoList({@loggedInUserId})", LoggedInUserId);
+                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
+            }
+
+            return Json(response);
+        }
+
+        [HttpGet, Route("~/expense/calendar")]
+        public async Task<IActionResult> GetExpenseBaseInfoCalendarList()
+        {
+            try
+            {
+                if (!Helpers.IsValidGuid(this.LoggedInUserId))
+                {
+                    // TODO redirect to signin
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ExpenseController.GetExpenseBaseInfoList({@loggedInUserId})", LoggedInUserId);
+            }
+
+            return View("~/Views/Transactions/Expense/ExpenseList.cshtml");
         }
 
         [HttpPost, Route("~/expense/")]
@@ -86,7 +127,7 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
             }
         }
 
-        [HttpGet, Route("~/expense/list")]
+        [HttpGet, Route("~/expense/list/1")] // TODO
         public async Task<IActionResult> GetExpenseInfoList()
         {
             Response<List<ExpenseReferenceDetailInfo>> response = new Response<List<ExpenseReferenceDetailInfo>>().GetFailedResponse(ResponseConstants.FAILED);
@@ -113,7 +154,6 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
             }
 
             return PartialView("~/Views/Transactions/Expense/_ExpenseList.cshtml", response);
-
         }
 
         [HttpGet, Route("~/expense/{expenseInfoId:Guid}")]

@@ -117,8 +117,8 @@ $(document).ready(function () {
 });
 
 function resetTempExpenseForm() {
-    $('#selectProduct').val('');
-    $('#amount, #expenseAmount, #quantity').prop('disabled', true).val('');
+    $('#selectProduct, #expenseDescription').val('');
+    $('#amount, #expenseAmount, #quantity, #expenseDescription').prop('disabled', true).val('');
 }
 
 function createExpenseInfo() {

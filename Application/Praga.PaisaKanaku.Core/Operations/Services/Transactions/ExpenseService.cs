@@ -12,6 +12,7 @@ using Praga.PaisaKanaku.Core.Operations.IServices.Setup;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -323,9 +324,46 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
             return response;
         }
 
-        public Task<Response<List<ExpenseInfo>>> GetExpenseBaseInfoList(Guid loggedInUserId)
+        public async Task<Response<List<ExpenseInfo>>> GetExpenseBaseInfoList(Guid loggedInUserId)
         {
-            throw new NotImplementedException();
+            Response<List<ExpenseInfo>> response = new Response<List<ExpenseInfo>>().GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(loggedInUserId))
+                {
+                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return response;
+                }
+
+                var dbResponse = await _expenseRepository.GetExpenseBaseInfoList(loggedInUserId);
+                
+                if (Helpers.IsResponseValid(dbResponse))
+                {
+                    response.Data = dbResponse.Data.Select(expense => new ExpenseInfo()
+                    {
+                        Id = expense.Id,
+                        Amount = expense.Amount,
+                        Date = expense.Date,
+                        CreatedBy = expense.CreatedBy,  
+                        CreatedDate =expense.CreatedDate,
+                        ModifiedBy = expense.ModifiedBy,
+                        ModifiedDate = expense.ModifiedDate,
+                        RowStatus = expense.RowStatus
+                    }).ToList();
+
+                    response.IsSuccess = dbResponse.IsSuccess;
+                    response.StatusCode = dbResponse.StatusCode;
+                    response.Message = dbResponse.Message;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ExpenseService.GetExpenseBaseInfoList({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+            }
+
+            return response;
         }
 
         public async Task<Response<Guid>> SaveTempExpenseInfo(TempProductExpenseInfo tempProductExpenseInfo, Guid loggedInUserId)

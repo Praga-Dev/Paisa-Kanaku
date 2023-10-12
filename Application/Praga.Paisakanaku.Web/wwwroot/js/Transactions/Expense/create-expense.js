@@ -68,10 +68,10 @@ function fetchProductDetails(productId) {
             $('#quantity').val(1);
         }
         calcExpenseAmount();
-        $('#amount, #expenseAmount, #quantity').prop('disabled', false);
+        $('#amount, #expenseAmount, #quantity, #expenseDescription').prop('disabled', false);
 
     } else {
-        $('#amount, #expenseAmount, #quantity').prop('disabled', true);
+        $('#amount, #expenseAmount, #quantity, #expenseDescription').prop('disabled', true);
     }
 }
 

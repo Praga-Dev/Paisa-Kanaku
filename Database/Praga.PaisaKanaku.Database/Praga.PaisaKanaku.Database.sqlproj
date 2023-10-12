@@ -165,6 +165,8 @@
     <Build Include="Lookups\Table\CollateralType.sql" />
     <Build Include="Lookups\StoredProcedure\usp_v1_CollateralTypeInfo_Get.sql" />
     <Build Include="Setup\StoredProcedure\Product\usp_V1_ProductInfo_BulkSave.sql" />
+    <Build Include="Transactions\StoredProcedure\Expense\usp_V1_ExpenseInfo_Product_Get.sql" />
+    <Build Include="Transactions\StoredProcedure\Expense\usp_V1_ExpenseInfo_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />

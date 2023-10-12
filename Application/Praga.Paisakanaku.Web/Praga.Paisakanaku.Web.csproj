@@ -19,4 +19,8 @@
     <ProjectReference Include="..\Praga.PaisaKanaku.Core\Praga.PaisaKanaku.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\full-calendar\" />
+  </ItemGroup>
+
 </Project>

@@ -28,7 +28,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
 
             try
             {
-                string spName = DatabaseConstants.USP_TEMP_EXPENSE_INFO_PRODUCT_GET;
+                string spName = DatabaseConstants.USP_EXPENSE_INFO_GET;
                 var param = new { LoggedInUserId = loggedInUserId };
 
                 var result = await _db.Connection.QueryAsync<ExpenseInfoDb>(spName, param, commandType: CommandType.StoredProcedure);

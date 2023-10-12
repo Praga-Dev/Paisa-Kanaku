@@ -37,6 +37,7 @@
 
         // Expense
         public const string USP_EXPENSE_INFO_PRODUCT_SAVE = "Transactions.usp_V1_ExpenseInfo_Product_Save";
+        public const string USP_EXPENSE_INFO_GET = "Transactions.usp_V1_ExpenseInfo_Get";
         public const string USP_TEMP_EXPENSE_INFO_PRODUCT_GET = "Transactions.usp_V1_TempExpenseInfo_Product_Get";
         public const string USP_TEMP_EXPENSE_INFO_PRODUCT_GET_BY_ID = "Transactions.usp_V1_TempExpenseInfo_Product_Get_By_Id";
         public const string USP_TEMP_EXPENSE_INFO_PRODUCT_SAVE = "Transactions.usp_V1_TempExpenseInfo_Product_Save";
