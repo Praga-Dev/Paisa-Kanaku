@@ -85,6 +85,8 @@ $(document).ready(function () {
                 'Description' : description
             }
 
+            debugger;
+
             $.ajax({
                 url: `./expense/temp`,
                 method: 'PUT',

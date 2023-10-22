@@ -8,19 +8,15 @@
     max-width: 1800px;
 }
 
-.pk-create-expense-container {
-    max-width: 1600px;
-    margin-left: 210px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background: white;
-    /*box-shadow: 1rem 1rem 1rem 1rem rgb(0 0 0 / 10%);*/
-}
-
 .pk-table-border{
     border: 0.1px solid grey;
 }
 
 .form-group {
     padding: 0.2rem 0 !important;
+}
+
+.scrollable-table-container{
+    height: 300px;
+    overflow:scroll;
 }

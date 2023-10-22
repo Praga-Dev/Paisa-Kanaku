@@ -1,3 +1,18 @@
+// required to get $orange variable
+@import "functions";
+@import "variables";
+
+$primary: $indigo; // set the $primary variable
+
+// merge with existing $theme-colors map
+$theme-colors: map-merge($theme-colors, (
+  "primary": $primary
+));
+
+// set changes
+@import "bootstrap";
+
+
 html {
     font-size: 14px;
 }
@@ -281,6 +296,7 @@ table.table td a {
 }
 
 .pk-cart {
+    /*max-width: fit-content;*/
     /*padding-left: 200px;*/
     /*padding-top: 50px;*/
 }
@@ -308,6 +324,16 @@ table.table td a {
     margin-bottom: 50px;
 }
 
-.pk-create-expense-container{
-    max-width: 1800px;
+.pk-create-expense-container {
+    max-width: 1450px;
+    margin: 0 30px;
+    padding: 20px;
+    background: white;
+}
+
+.pk-cart-table-wrapper {
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 1px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.247);
 }

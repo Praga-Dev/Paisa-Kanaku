@@ -1,5 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
+// TODO
+//feature for travel, groceries UI LOGIC
+//date change on product entry
+//DINNER
+//SALEM HOME NEEDS
+// outing
+// Money Transfer / Transactions
+
 namespace Praga.Paisakanaku.Web.Controllers.Base
 {
     public class BaseController : Controller
