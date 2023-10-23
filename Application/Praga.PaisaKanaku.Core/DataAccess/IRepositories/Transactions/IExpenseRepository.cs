@@ -17,5 +17,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.IRepositories.Transactions
         Task<Response<Guid>> SaveTempExpenseInfo(TempProductExpenseInfoDb tempProductExpenseInfoDb, Guid loggedInUserId);
         Task<Response<List<TempProductExpenseInfoDb>>> GetTempExpenseInfo(DateTime expenseDate, Guid loggedInUserId);
         Task<Response<TempProductExpenseInfoDb>> GetTempExpenseInfoById(Guid tempExpenseInfoId, Guid loggedInUserId);
+        Task<Response<Guid>> DeleteTempExpenseInfo(Guid tempExpenseInfoId, Guid loggedInUserId);
+
     }
 }

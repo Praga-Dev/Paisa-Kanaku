@@ -562,5 +562,26 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
 
             return response;
         }
+
+        public async Task<Response<Guid>> DeleteTempExpenseInfo(Guid tempExpenseInfoId, Guid loggedInUserId)
+        {
+            Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
+
+            try
+            {                
+                if (!Helpers.IsValidGuid(tempExpenseInfoId))
+                {
+                    return response;
+                }
+
+                return await _expenseRepository.DeleteTempExpenseInfo(tempExpenseInfoId, loggedInUserId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ExpenseService.SaveTempExpenseInfo({@tempProductExpenseInfo}, {@loggedInUserId})", tempProductExpenseInfo.ToString(), loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+                return response;
+            }
+        }
     }
 }

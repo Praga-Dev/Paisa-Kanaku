@@ -3,6 +3,7 @@ using Praga.Paisakanaku.Web.Controllers.Base;
 using Praga.PaisaKanaku.Core.Common.Constants;
 using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.Common.Utils;
+using Praga.PaisaKanaku.Core.DataEntities.Transactions.Expense;
 using Praga.PaisaKanaku.Core.DomainEntities.Transactions.Expense;
 using Praga.PaisaKanaku.Core.Operations.IServices.Transactions;
 using System.Text;
@@ -222,6 +223,7 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
                 return StatusCode(StatusCodes.Status200OK, response);
             }
         }
+      
 
         [HttpGet, Route("~/expense/temp/date/{expenseDate:DateTime}")]
         public async Task<IActionResult> GetTempExpenseInfoList(DateTime expenseDate)
@@ -310,6 +312,39 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
             byte[] bytes = Encoding.ASCII.GetBytes(response.Data);
             var file = File(bytes, "application/text", "ExpenseList.csv");
             return file;
+        }
+
+
+        [HttpDelete, Route("~/expense/temp/{tempExpenseInfoId:Guid}")]
+        public async Task<IActionResult> DeleteTempExpenseInfo(Guid tempExpenseInfoId)
+        {
+            Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(this.LoggedInUserId))
+                {
+                    response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return StatusCode(StatusCodes.Status200OK, response);
+                }
+
+                if (!Helpers.IsValidGuid(tempExpenseInfoId))
+                {
+                    response.Message ??= ResponseConstants.INVALID_ID; // TODO add constants
+                    return StatusCode(StatusCodes.Status200OK, response);
+                }
+
+                var dbresponse = await _expenseService.SaveTempExpenseInfo(tempProductExpenseInfo, LoggedInUserId);
+
+                return StatusCode(StatusCodes.Status200OK, Helpers.IsResponseValid(dbresponse) ? dbresponse : response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ExpenseController.DeleteTempExpenseInfo({@tempProductExpenseInfo}, {@loggedInUserId})", tempExpenseInfoId, LoggedInUserId);
+
+                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
+                return StatusCode(StatusCodes.Status200OK, response);
+            }
         }
     }
 }
