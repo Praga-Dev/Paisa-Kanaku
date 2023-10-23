@@ -85,19 +85,21 @@ $(document).on('change', '#formCreateExpense #quantity', function () {
 
 
 function calcExpenseAmount() {
-    let isCreate = $('#formCreateExpense').data('isupdate') == 'False';
-    if (isCreate) {
-        let amount = parseFloat($('#amount').val());
-        let quantity = parseInt($('#quantity').val());
-        let expenseAmount = Math.ceil(amount * quantity);
-        $('#expenseAmount').val(expenseAmount);
-    }
+    let amount = parseFloat($('#amount').val());
+    let quantity = parseInt($('#quantity').val());
+    let expenseAmount = Math.ceil(amount * quantity);
+    $('#expenseAmount').val(expenseAmount);
+
+    //let isCreate = $('#formCreateExpense').data('isupdate') == 'False';
+    //if (isCreate) {
+    //    let amount = parseFloat($('#amount').val());
+    //    let quantity = parseInt($('#quantity').val());
+    //    let expenseAmount = Math.ceil(amount * quantity);
+    //    $('#expenseAmount').val(expenseAmount);
+    //}
 
 }
 
-$(document).on('change', '#formCreateExpense #amount', function () {
-    calcExpenseAmount();
-});
 
 $(document).on('change', '#formCreateExpense #expenseDate', function () {
     getTempExpenseInfoList();
@@ -140,13 +142,17 @@ function editCartItem(id) {
             success: function (response) {
                 if (response) {
                     $('#divTempExpenseFormContainer').html(response);
+
                     let memberId = $('#memberListDDContainer').data('val');
                     getMemberDDList(memberId);
+
                     getProductDDList();
                     let productId = $('#productListDDContainer').data('val');
                     if (productId) {
                         fetchProductDetails(productId)
                     }
+
+                    $('#btnAddExpenseSubmit').text('Update Expense');
                 }
                 else {
                     // TODO Alert
@@ -160,5 +166,40 @@ function editCartItem(id) {
             }
         })
     }
+}
 
+function deleteCartItem(id, ItemName) {
+    if (id) {
+        // TODO ask for Confirmation
+        loadSpinner();
+        $.ajax({
+            url: `./expense/temp/${id}/`,
+            method: 'GET',
+            success: function (response) {
+                if (response) {
+                    $('#divTempExpenseFormContainer').html(response);
+
+                    let memberId = $('#memberListDDContainer').data('val');
+                    getMemberDDList(memberId);
+
+                    getProductDDList();
+                    let productId = $('#productListDDContainer').data('val');
+                    if (productId) {
+                        fetchProductDetails(productId)
+                    }
+
+                    $('#btnAddExpenseSubmit').text('Update Expense');
+                }
+                else {
+                    // TODO Alert
+                }
+            },
+            error: function () {
+                // TODO Alert
+            },
+            complete: function () {
+                hideSpinner();
+            }
+        })
+    }
 }

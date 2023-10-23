@@ -41,9 +41,9 @@ function getMemberDDList(memberId = '') {
         success: function (response) {
             if (typeof response !== undefined && response !== null) {
                 $('#memberListDDContainer').html(response);
-                let val = $('#selectMember').val(memberId)
-                if (val) {
-                    $('#selectMember').val(val);
+
+                if (memberId) {
+                    $('#selectMember').val(memberId);
                 }
             }
             else {

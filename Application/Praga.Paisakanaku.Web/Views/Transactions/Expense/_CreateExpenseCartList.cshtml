@@ -68,24 +68,6 @@
                                                     <p>@cartItem.ProductInfo.Name</p>
                                                 }
                                             </th>
-@*                                            <th scope="row">
-                                                @if (cartItem.ProductInfo.Price > 0)
-                                                {
-                                                    <p>@cartItem.ProductInfo.Price.ToString("c")</p>
-                                                }
-                                            </th>
-                                            <th scope="row">
-                                                @if (!string.IsNullOrWhiteSpace(cartItem.ProductInfo.ProductCategoryInfo?.Name))
-                                                {
-                                                    <p>@cartItem.ProductInfo.ProductCategoryInfo?.Name</p>
-                                                }
-                                            </th>
-                                            <th scope="row">
-                                                @if (!string.IsNullOrWhiteSpace(cartItem.ProductInfo.BrandInfo?.Name))
-                                                {
-                                                    <p>@cartItem.ProductInfo.BrandInfo?.Name</p>
-                                                }
-                                            </th>*@
                                             <th scope="row">
                                                 @if (cartItem.Quantity > 0)
                                                 {
