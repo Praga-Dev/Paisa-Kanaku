@@ -8,8 +8,10 @@
 	[CollateralInfoId] UNIQUEIDENTIFIER NULL,
 	[LenderInfoId] UNIQUEIDENTIFIER NOT NULL,
 	[BorrowedDate] DATETIME2 NOT NULL,
-	[OutstandingBalance] DECIMAL(10,2) NOT NULL,
-	[InterestDueDateOfEachMonth] TINYINT NOT NULL,
+	[OutstandingBalance] DECIMAL(10,2) NOT NULL, -- TODO ADD FIELD, IF PREPAYMENT ALLOWED, THEN IS_INTEREST_DEDUCTION_ON_PREPAYMENT_APPLICABLE ALLOWED ?
+	[InterestDueDate] TINYINT NOT NULL,
+	[IsPrePaymentApplicable] BIT NOT NULL DEFAULT 1,
+	[IsPrePaymentAffectsInterest] BIT NOT NULL DEFAULT 1,
 	[OutstandingInterestAmount] DECIMAL(10,2) NOT NULL DEFAULT 0, -- Pending Interest Amount
 	[LoanRepaymentDate] DATETIME2 NOT NULL,
 	[LoanStatus] NVARCHAR(10) NOT NULL DEFAULT 'OPEN',

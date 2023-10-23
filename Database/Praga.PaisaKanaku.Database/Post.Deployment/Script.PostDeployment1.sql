@@ -49,6 +49,52 @@ BEGIN
 END
 GO
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'MetricSystemInfo') 
+BEGIN
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MetricSystemInfo] WHERE [MetricSystem] LIKE N'C')
+	BEGIN
+		INSERT INTO [Lookups].[MetricSystemInfo] ([MetricSystem], [MetricSystemValue], [SequenceId], [RowStatus]) VALUES (N'C', N'Count Measure', 1, 'A');
+	END
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MetricSystemInfo] WHERE [MetricSystem] LIKE N'L')
+	BEGIN
+		INSERT INTO [Lookups].[MetricSystemInfo] ([MetricSystem], [MetricSystemValue], [SequenceId], [RowStatus]) VALUES (N'L', N'Liquid Measure', 2, 'A');
+	END
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MetricSystemInfo] WHERE [MetricSystem] LIKE N'W')
+	BEGIN
+		INSERT INTO [Lookups].[MetricSystemInfo] ([MetricSystem], [MetricSystemValue], [SequenceId], [RowStatus]) VALUES (N'W', N'Weight Measure', 3, 'A');
+	END
+END
+GO
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'MeasureTypeInfo') 
+BEGIN
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MeasureTypeInfo] WHERE [MeasureType] LIKE N'KILOGRAM')
+	BEGIN
+		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue], [MetricSystem], [SequenceId], [RowStatus]) VALUES (N'KILOGRAM', N'Kilogram', 'W', 1, 'A');
+	END
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MeasureTypeInfo] WHERE [MeasureType] LIKE N'GRAM')
+	BEGIN
+		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue], [MetricSystem], [SequenceId], [RowStatus]) VALUES (N'GRAM', N'Gram', 'W', 2, 'A');
+	END
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MeasureTypeInfo] WHERE [MeasureType] LIKE N'LITRE')
+	BEGIN
+		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue], [MetricSystem], [SequenceId], [RowStatus]) VALUES (N'LITRE', N'Litre', 'L', 3, 'A');
+	END
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MeasureTypeInfo] WHERE [MeasureType] LIKE N'MILLILITRE')
+	BEGIN
+		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue], [MetricSystem], [SequenceId], [RowStatus]) VALUES (N'MILLILITRE', N'Millilitre', 'L', 4, 'A');
+	END
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MeasureTypeInfo] WHERE [MeasureType] LIKE N'UNIT')
+	BEGIN
+		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue], [MetricSystem], [SequenceId], [RowStatus]) VALUES (N'UNIT', N'Unit', 'C', 5, 'A');
+	END
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MeasureTypeInfo] WHERE [MeasureType] LIKE N'DOZEN')
+	BEGIN
+		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue], [MetricSystem], [SequenceId], [RowStatus]) VALUES (N'DOZEN', N'Dozen', 'C', 6, 'A');
+	END
+END
+GO
+
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'WeightMeasureInfo') 
 BEGIN
 	IF NOT EXISTS(SELECT * FROM [Lookups].[WeightMeasureInfo] WHERE [WeightMeasure] LIKE N'kg')
@@ -71,6 +117,19 @@ BEGIN
     IF NOT EXISTS(SELECT * FROM [Lookups].[LiquidMeasureInfo] WHERE [LiquidMeasure] LIKE N'ml')
 	BEGIN
 		INSERT INTO [Lookups].[LiquidMeasureInfo] ([LiquidMeasure], [LiquidMeasureValue], [ConversionValue], [SequenceId], [RowStatus]) VALUES (N'ml', N'Milliliter', 0.001, 2, 'A');
+	END
+END
+GO
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'CountMeasureInfo') 
+BEGIN
+	IF NOT EXISTS(SELECT * FROM [Lookups].[LiquidMeasureInfo] WHERE [LiquidMeasure] LIKE N'u')
+	BEGIN
+		INSERT INTO [Lookups].[LiquidMeasureInfo] ([LiquidMeasure], [LiquidMeasureValue], [ConversionValue], [SequenceId], [RowStatus]) VALUES (N'u', N'Unit', 1, 1, 'A');
+	END
+    IF NOT EXISTS(SELECT * FROM [Lookups].[LiquidMeasureInfo] WHERE [LiquidMeasure] LIKE N'dz')
+	BEGIN
+		INSERT INTO [Lookups].[LiquidMeasureInfo] ([LiquidMeasure], [LiquidMeasureValue], [ConversionValue], [SequenceId], [RowStatus]) VALUES (N'dz', N'Dozen', 12, 2, 'A');
 	END
 END
 GO
@@ -234,19 +293,6 @@ BEGIN
 	IF NOT EXISTS(SELECT 1 FROM [Lookups].[LoanStatusInfo] WHERE [LoanStatus] LIKE N'HOLD')
 	BEGIN
 		INSERT INTO [Lookups].[LoanStatusInfo] ([LoanStatus], [LoanStatusValue]) VALUES (N'HOLD', N'Hold');
-	END
-END
-GO
-
-IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'MeasureTypeInfo') 
-BEGIN
-	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MeasureTypeInfo] WHERE [MeasureType] LIKE N'W')
-	BEGIN
-		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue], [SequenceId], [RowStatus]) VALUES (N'W', N'WeightMeasure', 1, 'A');
-	END
-	IF NOT EXISTS(SELECT 1 FROM [Lookups].[MeasureTypeInfo] WHERE [MeasureType] LIKE N'L')
-	BEGIN
-		INSERT INTO [Lookups].[MeasureTypeInfo] ([MeasureType], [MeasureTypeValue], [SequenceId], [RowStatus]) VALUES (N'L', N'LiquidMeasure', 2, 'A');
 	END
 END
 GO

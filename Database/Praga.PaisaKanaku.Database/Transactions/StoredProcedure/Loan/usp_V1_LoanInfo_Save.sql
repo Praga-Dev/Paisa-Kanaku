@@ -6,7 +6,7 @@
 	@CollateralInfoId UNIQUEIDENTIFIER,
 	@LenderInfoId UNIQUEIDENTIFIER,
 	@BorrowedDate DATETIME2,
-	@InterestDueDateOfEachMonth TINYINT,
+	@InterestDueDate TINYINT,
 	@LoanRepaymentDate DATETIME2,
 	@GracePeriodDate DATETIME2,
 	@LateFee DECIMAL(10,2),
@@ -46,7 +46,7 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_BORROWED_DATE', 16, 1);
 	END
 
-	IF(@InterestDueDateOfEachMonth <= 0 OR @InterestDueDateOfEachMonth > 31)
+	IF(@InterestDueDate <= 0 OR @InterestDueDate > 31)
 	BEGIN
 		RAISERROR('INVALID_PARAM_INTEREST_DUE_DATE_OF_EACH_MONTH', 16, 1);
 	END
@@ -71,10 +71,10 @@ BEGIN TRY
 	DECLARE @LoanId UNIQUEIDENTIFIER =  NEWID();
 
 	INSERT INTO [Transactions].[LoanInfo] ([Id], [LoanType], [LoanAmount], [InterestAmount], [MemberInfoId], [CollateralInfoId],
-	[LenderInfoId], [BorrowedDate], [OutstandingBalance], [InterestDueDateOfEachMonth], [OutstandingInterestAmount], 
+	[LenderInfoId], [BorrowedDate], [OutstandingBalance], [InterestDueDate], [OutstandingInterestAmount], 
 	[LoanRepaymentDate], [GracePeriodDate], [LateFee], [Comments], [CreatedBy])
 	VALUES (@LoanId, @LoanType, @LoanAmount, @InterestAmount, @MemberInfoId, @CollateralInfoId, 
-	@LenderInfoId, @BorrowedDate, @LoanAmount, @InterestDueDateOfEachMonth, @InterestAmount, 
+	@LenderInfoId, @BorrowedDate, @LoanAmount, @InterestDueDate, @InterestAmount, 
 	@LoanRepaymentDate, @GracePeriodDate, @LateFee, @Comments, @LoggedInUserId);
 	
 	SET @Result = @LoanId;

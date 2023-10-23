@@ -1,8 +1,7 @@
 ﻿CREATE PROCEDURE [Setup].[usp_V1_ProductInfo_Save]
 	@Id UNIQUEIDENTIFIER,
 	@ProductName NVARCHAR(25),
-	@ProductCategoryId UNIQUEIDENTIFIER,
-	@ProductCategoryName NVARCHAR(25),
+	@ProductCategory NVARCHAR(25),
 	@BrandId UNIQUEIDENTIFIER,
 	@BrandName NVARCHAR(50),
 	@ExpenseType NVARCHAR(25),
@@ -30,26 +29,20 @@ BEGIN TRY
 	END
 
 	DECLARE @TempProductInfoId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
-	DECLARE @TempProductCategoryId UNIQUEIDENTIFIER = CASE WHEN (@ProductCategoryId IS NULL OR @ProductCategoryId = @EmptyGuid) THEN NEWID() ELSE @ProductCategoryId END;
-
-	IF(@ProductCategoryId IS NULL OR @ProductCategoryId = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[ProductCategoryInfo] WHERE [Id] = @ProductCategoryId))
-	BEGIN
-		EXEC [Setup].[usp_V1_ProductCategoryInfo_Save] @EmptyGuid, @ProductCategoryName, @LoggedInUserId, @TempProductCategoryId OUTPUT;
-	END
 	
 	IF (@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[ProductInfo] WHERE [Id] = @Id))
 	BEGIN 		
 		INSERT INTO [Setup].[ProductInfo] 
-		([Id], [Name], [ProductCategoryId], [BrandId], [ExpenseType], [Price], [Description], [PreferredRecurringTimePeriod], [CreatedBy])
+		([Id], [Name], [ProductCategory], [BrandId], [ExpenseType], [Price], [Description], [PreferredRecurringTimePeriod], [CreatedBy])
 		VALUES 
-		(@TempProductInfoId, @ProductName, @TempProductCategoryId, @BrandId, @ExpenseType, @Price, @Description, @PreferredRecurringTimePeriod, @LoggedInUserId);
+		(@TempProductInfoId, @ProductName, @ProductCategory, @BrandId, @ExpenseType, @Price, @Description, @PreferredRecurringTimePeriod, @LoggedInUserId);
 	END
 	ELSE
 	BEGIN
 		UPDATE [Setup].[ProductInfo]
 			SET	
 				[Name] = @ProductName,
-				[ProductCategoryId] = @TempProductCategoryId,
+				[ProductCategory] = @ProductCategory,
 				[BrandId] = @BrandId,
 				[ExpenseType] = @ExpenseType,
 				[Price] = @Price,
