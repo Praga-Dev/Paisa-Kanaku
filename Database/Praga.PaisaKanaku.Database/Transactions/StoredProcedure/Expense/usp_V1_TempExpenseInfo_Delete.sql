@@ -27,6 +27,10 @@ BEGIN TRY
 
 	UPDATE [Transactions].[TempExpenseInfo] SET [RowStatus] = 'D' WHERE [Id] = @TempExpenseInfoId
 
+	SET @Result = @TempExpenseInfoId;
+
+	RETURN @Response;
+
 END TRY  
 BEGIN CATCH  
 	DECLARE @ErrorNumber INT = ERROR_NUMBER();  
