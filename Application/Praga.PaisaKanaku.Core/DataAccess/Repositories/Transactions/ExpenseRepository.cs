@@ -220,7 +220,8 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in ExpenseRepository.SaveTempExpenseInfo({@expenseInfoDb}, {@loggedInUserId})", tempProductExpenseInfoDb.ToString(), loggedInUserId);
+                _logger.LogError(ex, "Error in ExpenseRepository.DeleteTempExpenseInfo({@tempExpenseInfoId}, {@loggedInUserId})", tempExpenseInfoId, loggedInUserId);
+
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
             }
 

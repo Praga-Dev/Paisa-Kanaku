@@ -168,34 +168,23 @@ function editCartItem(id) {
     }
 }
 
-function deleteCartItem(id, ItemName) {
-    if (id) {
-        // TODO ask for Confirmation
+function deleteCartItem(tempExpenseInfoId, ItemName) {
+    if (tempExpenseInfoId) {
         loadSpinner();
         $.ajax({
-            url: `./expense/temp/${id}/`,
-            method: 'GET',
+            url: `./expense/temp/${tempExpenseInfoId}/`,
+            method: 'DELETE',
             success: function (response) {
-                if (response) {
-                    $('#divTempExpenseFormContainer').html(response);
-
-                    let memberId = $('#memberListDDContainer').data('val');
-                    getMemberDDList(memberId);
-
-                    getProductDDList();
-                    let productId = $('#productListDDContainer').data('val');
-                    if (productId) {
-                        fetchProductDetails(productId)
-                    }
-
-                    $('#btnAddExpenseSubmit').text('Update Expense');
+                if (response && response.data && response.isSuccess) {
+                    getTempExpenseInfoList();
+                    showSuccessMsg('Expense deleted successfully');
                 }
                 else {
-                    // TODO Alert
+                    showErrorMsg('Expense delete failed');
                 }
             },
             error: function () {
-                // TODO Alert
+                showErrorMsg('Expense delete failed');
             },
             complete: function () {
                 hideSpinner();

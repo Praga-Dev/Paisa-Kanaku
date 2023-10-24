@@ -578,7 +578,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in ExpenseService.SaveTempExpenseInfo({@tempProductExpenseInfo}, {@loggedInUserId})", tempProductExpenseInfo.ToString(), loggedInUserId);
+                _logger.LogError(ex, "Error in ExpenseService.DeleteTempExpenseInfo({@tempExpenseInfoId}, {@loggedInUserId})", tempExpenseInfoId, loggedInUserId);
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
                 return response;
             }

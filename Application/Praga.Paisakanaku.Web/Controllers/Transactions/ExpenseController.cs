@@ -334,13 +334,13 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
                     return StatusCode(StatusCodes.Status200OK, response);
                 }
 
-                var dbresponse = await _expenseService.SaveTempExpenseInfo(tempProductExpenseInfo, LoggedInUserId);
+                var dbresponse = await _expenseService.DeleteTempExpenseInfo(tempExpenseInfoId, LoggedInUserId);
 
                 return StatusCode(StatusCodes.Status200OK, Helpers.IsResponseValid(dbresponse) ? dbresponse : response);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in ExpenseController.DeleteTempExpenseInfo({@tempProductExpenseInfo}, {@loggedInUserId})", tempExpenseInfoId, LoggedInUserId);
+                _logger.LogError(ex, "Error in ExpenseController.DeleteTempExpenseInfo({@tempExpenseInfoId}, {@loggedInUserId})", tempExpenseInfoId, LoggedInUserId);
 
                 response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
                 return StatusCode(StatusCodes.Status200OK, response);
