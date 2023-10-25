@@ -1,16 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Praga.Paisakanaku.Web.Controllers.Base;
-using Praga.Paisakanaku.Web.Controllers.Setup;
 using Praga.PaisaKanaku.Core.Common.Constants;
 using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.Common.Utils;
 using Praga.PaisaKanaku.Core.DomainEntities.Lookups;
-using Praga.PaisaKanaku.Core.DomainEntities.Setup;
 using Praga.PaisaKanaku.Core.Operations.IServices;
-using Praga.PaisaKanaku.Core.Operations.IServices.Setup;
-using Praga.PaisaKanaku.Core.Operations.Services;
-using Praga.PaisaKanaku.Core.Operations.Services.Setup;
-using System.Net;
 namespace Praga.Paisakanaku.Web.Controllers
 {
     public class LookupController : BaseController
@@ -80,6 +74,35 @@ namespace Praga.Paisakanaku.Web.Controllers
             }
 
             return PartialView("~/Views/Common/_TimePeriodList.cshtml", response);
+        }
+
+        [HttpGet, Route("~/lookup/product-category")]
+        public async Task<IActionResult> GetProductCategoryInfoList()
+        {
+            Response<List<ProductCategoryInfo>> response = new Response<List<ProductCategoryInfo>>().GetFailedResponse(ResponseConstants.FAILED);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(this.LoggedInUserId))
+                {
+                    response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return PartialView("~/Views/Common/_ProductCategoryList.cshtml", response);
+                }
+
+                var dbresponse = await _lookupService.GetProductCategoryInfoList(LoggedInUserId);
+                if (Helpers.IsResponseValid(dbresponse))
+                {
+                    response = dbresponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupController.GetProductCategoryInfoList({@loggedInUserId})", LoggedInUserId);
+
+                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
+            }
+
+            return PartialView("~/Views/Common/_ProductCategoryList.cshtml", response);
         }
 
     }

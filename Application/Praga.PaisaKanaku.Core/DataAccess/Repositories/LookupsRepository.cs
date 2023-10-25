@@ -105,5 +105,25 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories
                 return response;
             }
         }
+
+        public async Task<Response<List<ProductCategoryInfoDB>>> GetProductCategoryInfoList(Guid loggedInUserId)
+        {
+            Response<List<ProductCategoryInfoDB>> response = new Response<List<ProductCategoryInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+
+            try
+            {
+                string spName = DatabaseConstants.USP_PRODUCT_CATEGORY_INFO_GET;
+                var param = new { LoggedInUserId = loggedInUserId };
+
+                var result = await _db.Connection.QueryAsync<ProductCategoryInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
+                return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupsRepository.GetExpenseTypeInfoList({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+                return response;
+            }
+        }
     }
 }

@@ -6,8 +6,8 @@ namespace Praga.PaisaKanaku.Core.DataEntities.Setup
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }
-        public Guid ProductCategoryId { get; set; }
-        public string? ProductCategoryName { get; set; }
+        public string? ProductCategory { get; set; }
+        public string? ProductCategoryValue { get; set; }
         public Guid BrandId { get; set; }
         public string? BrandName { get; set; }
         public string? ExpenseType { get; set; }

@@ -10,13 +10,13 @@
         {
             @foreach (var productCategory in Model.Data)
             {
-                @if (productCategory.Name == "NA")
+                @if (productCategory.ProductCategory == "NA")
                 {
-                    <option value="@productCategory.Id" selected>@productCategory.Name</option>
+                    <option value="@productCategory.ProductCategory" selected>@productCategory.ProductCategoryValue</option>
                 }
                 else
                 {
-                    <option value="@productCategory.Id">@productCategory.Name</option>                    
+                    <option value="@productCategory.ProductCategory">@productCategory.ProductCategoryValue</option>
                 }
             }
         }

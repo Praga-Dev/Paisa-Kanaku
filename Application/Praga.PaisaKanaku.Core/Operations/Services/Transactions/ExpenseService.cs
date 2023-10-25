@@ -2,21 +2,13 @@
 using Praga.PaisaKanaku.Core.Common.Constants;
 using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.Common.Utils;
-using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Setup;
 using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Transactions;
-using Praga.PaisaKanaku.Core.DataEntities.Setup;
 using Praga.PaisaKanaku.Core.DataEntities.Transactions.Expense;
+using Praga.PaisaKanaku.Core.DomainEntities.Lookups;
 using Praga.PaisaKanaku.Core.DomainEntities.Setup;
 using Praga.PaisaKanaku.Core.DomainEntities.Transactions.Expense;
 using Praga.PaisaKanaku.Core.Operations.IServices.Setup;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
 {
@@ -84,10 +76,9 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                                 TimePeriodTypeValue = dbResponse.Data.PreferredRecurringTimePeriodValue ?? String.Empty,
                             },
                             Price = dbResponse.Data.ExpenseAmount,
-                            ProductCategoryInfo = new()
+                            ProductCategoryInfo = new ProductCategoryInfo()
                             {
-                                Id = dbResponse.Data.ProductCategoryId,
-                                Name = dbResponse.Data.ProductCategoryName ?? String.Empty
+
                             }
                         },
                         SequenceId = dbResponse.Data.SequenceId,
@@ -158,8 +149,8 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                             Price = expense.ExpenseAmount,
                             ProductCategoryInfo = new()
                             {
-                                Id = expense.ProductCategoryId,
-                                Name = expense.ProductCategoryName ?? String.Empty
+                                ProductCategory = expense.ProductCategory ?? String.Empty,
+                                ProductCategoryValue = expense.ProductCategoryValue ?? String.Empty
                             }
                         },
                         SequenceId = expense.SequenceId,

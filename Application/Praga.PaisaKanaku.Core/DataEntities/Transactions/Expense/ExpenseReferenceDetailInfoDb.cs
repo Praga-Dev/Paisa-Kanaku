@@ -20,8 +20,8 @@ namespace Praga.PaisaKanaku.Core.DataEntities.Transactions.Expense
         public bool IsChangeInProduct { get; set; }
         public Guid ProductId { get; set; }
         public string? ProductName { get; set; }
-        public Guid ProductCategoryId { get; set; }
-        public string? ProductCategoryName { get; set; }
+        public string ProductCategory { get; set; }
+        public string? ProductCategoryValue { get; set; }
         public Guid BrandId { get; set; }
         public string? BrandName { get; set; }
         public double ProductPrice { get; set; }

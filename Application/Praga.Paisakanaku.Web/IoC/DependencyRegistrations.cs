@@ -28,9 +28,6 @@ namespace Praga.PaisaKanaku.Web.IoC
             services.AddTransient<IMemberService, MemberService>();
             services.AddTransient<IMemberRepository, MemberRepository>();
 
-            services.AddTransient<IProductCategoryService, ProductCategoryService>();
-            services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
-
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProductRepository, ProductRepository>();
 

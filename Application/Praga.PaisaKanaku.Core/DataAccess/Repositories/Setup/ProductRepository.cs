@@ -75,8 +75,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
                 DynamicParameters parameters = new();
                 parameters.Add("@Id", productInfoDb.Id, DbType.Guid);
                 parameters.Add("@ProductName", productInfoDb.Name, DbType.String);
-                parameters.Add("@ProductCategoryId", productInfoDb.ProductCategoryId, DbType.Guid);
-                parameters.Add("@ProductCategoryName", productInfoDb.ProductCategoryName, DbType.String);
+                parameters.Add("@ProductCategory", productInfoDb.ProductCategory, DbType.String);
                 parameters.Add("@BrandId", productInfoDb.BrandId, DbType.Guid);
                 parameters.Add("@BrandName", productInfoDb.BrandName, DbType.String);
                 parameters.Add("@ExpenseType", productInfoDb.ExpenseType, DbType.String);

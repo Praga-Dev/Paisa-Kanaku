@@ -15,7 +15,12 @@ function getBrandDDList() {
         success: function (response) {
             if (typeof response !== undefined && response !== null) {
                 $('#brandListDDContainer').html(response);
-                let val = $('#brandListDDContainer').data('val')
+
+                if ($('#selectBrand option').length == 1) {
+                    $('#brandNameContainer').show();
+                }
+
+                let val = $('#brandListDDContainer').data('val');
                 if (val) {
                     $('#selectBrand').val(val);
                 }
@@ -62,12 +67,17 @@ function getMemberDDList(memberId = '') {
 function getProductCategoryDDList() {
     loadSpinner();
     $.ajax({
-        url: `./product-category/data-list`,
+        url: `./lookup/product-category`,
         method: 'GET',
         success: function (response) {
             if (typeof response !== undefined && response !== null) {
                 $('#productCategoryListDDContainer').html(response);
-                let val = $('#productCategoryListDDContainer').data('val')
+
+                if ($('#selectProductCategory option').length == 1) {
+                    $('#productCategoryNameContainer').show();
+                }
+
+                let val = $('#productCategoryListDDContainer').data('val');
                 if (val) {
                     $('#selectProductCategory').val(val);
                 }

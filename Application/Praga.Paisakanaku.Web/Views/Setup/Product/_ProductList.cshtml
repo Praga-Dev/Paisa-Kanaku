@@ -37,9 +37,9 @@
                                     }
                                 </th>
                                 <th scope="row">
-                                    @if (product.ProductCategoryInfo != null && !string.IsNullOrWhiteSpace(product.ProductCategoryInfo.Name))
+                                    @if (product.ProductCategoryInfo != null && !string.IsNullOrWhiteSpace(product.ProductCategoryInfo.ProductCategoryValue))
                                     {
-                                        <p>@product.ProductCategoryInfo.Name</p>
+                                        <p>@product.ProductCategoryInfo.ProductCategoryValue</p>
                                     }
                                 </th>
                                 <th scope="row">

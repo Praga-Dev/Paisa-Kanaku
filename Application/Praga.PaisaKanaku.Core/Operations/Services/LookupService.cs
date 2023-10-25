@@ -157,5 +157,39 @@ namespace Praga.PaisaKanaku.Core.Operations.Services
 
             return response;
         }
+
+        public async Task<Response<List<ProductCategoryInfo>>> GetProductCategoryInfoList(Guid loggedInUserId)
+        {
+            Response<List<ProductCategoryInfo>> response = new Response<List<ProductCategoryInfo>>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
+
+            try
+            {
+
+                if (!Helpers.IsValidGuid(loggedInUserId))
+                {
+                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return response;
+                }
+
+                var dbResponse = await _lookupsRepository.GetProductCategoryInfoList(loggedInUserId);
+
+                if (Helpers.IsResponseValid(dbResponse))
+                {
+                    response.Data = dbResponse.Data
+                  .Select(productCategory => new ProductCategoryInfo() { ProductCategory = productCategory.ProductCategory, ProductCategoryValue = productCategory.ProductCategoryValue })
+                  .ToList();
+
+                    response = response.GetSuccessResponse(response.Data);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupsRepository.GetProductCategoryInfoList({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+            }
+
+            return response;
+        }
     }
 }

@@ -10,7 +10,7 @@
         {
             @foreach (var product in Model.Data)
             {
-                <option value="@product.Id">@product.Name - @product.BrandInfo?.Name - @product.ProductCategoryInfo?.Name</option>
+                <option value="@product.Id">@product.Name - @product.BrandInfo?.Name - @product.ProductCategoryInfo?.ProductCategoryValue</option>
             }
         }
         <option value="NEW">New</option>

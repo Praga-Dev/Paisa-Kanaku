@@ -32,23 +32,19 @@
                                         <div id="product-price-help" style="display:none;" class="form-text">Enter valid price of the product. Example : 50.95</div>
                                     </div>
                                     <div class="">
+                                        <div id="productCategoryListDDContainer" class="form-group"
+                                             data-val="@(!string.IsNullOrWhiteSpace(Model?.ProductCategoryInfo?.ProductCategory) ? Model?.ProductCategoryInfo?.ProductCategory : "")">
+                                            <partial name="~/Views/Common/_ProductCategoryList.cshtml" model="null" />
+                                        </div>
+                                    </div>
+                                    <div class="">
                                         <div id="brandListDDContainer" class="form-group" data-val="@(Model?.BrandInfo?.Id != Guid.Empty ? Model?.BrandInfo?.Id : "")">
                                             <partial name="~/Views/Common/_ProductCategoryList.cshtml" model="null" />
                                         </div>
                                         <div id="brandNameContainer" class="form-group" style="display:none">
                                             <label for="brandName" class="form-label">Brand Name <span class="mandatory">*</span></label>
-                                            <input id="brandName" name="brandName" asp-for="@Model.ProductCategoryInfo.Name" type="text" class="form-control form-control-sm" aria-describedby="product-brand-help" maxlength="50">
+                                            <input id="brandName" name="brandName" asp-for="@Model.BrandInfo.Name" type="text" class="form-control form-control-sm" aria-describedby="product-brand-help" maxlength="50">
                                             <div id="product-brand-help" style="display:none;" class="form-text">Brand Name is case sensitive, ranges between 2 and 50 characters.</div>
-                                        </div>
-                                    </div>
-                                    <div class="">
-                                        <div id="productCategoryListDDContainer" class="form-group" data-val="@(Model?.ProductCategoryInfo?.Id != Guid.Empty ? Model?.ProductCategoryInfo?.Id : "")">
-                                            <partial name="~/Views/Common/_ProductCategoryList.cshtml" model="null" />
-                                        </div>
-                                        <div id="productCategoryNameContainer" class="form-group" style="display:none">
-                                            <label for="productCategoryName" class="form-label">Product Category Name <span class="mandatory">*</span></label>
-                                            <input id="productCategoryName" name="productCategoryName" asp-for="@Model.ProductCategoryInfo.Name" type="text" class="form-control form-control-sm" aria-describedby="product-product-category-help" maxlength="50">
-                                            <div id="product-product-category-help" style="display:none;" class="form-text">Product Category Name is case sensitive, ranges between 2 and 50 characters.</div>
                                         </div>
                                     </div>
                                     <div id="timePeriodListDDContainer" class="form-group" data-val="@(string.IsNullOrEmpty(@Model?.PreferredTimePeriodInfo?.TimePeriodType) ? "" : @Model?.PreferredTimePeriodInfo?.TimePeriodType)">

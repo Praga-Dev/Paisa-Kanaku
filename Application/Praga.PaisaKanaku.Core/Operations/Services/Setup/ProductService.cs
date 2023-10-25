@@ -71,8 +71,8 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                         Price = dbResponse.Data.Price,
                         ProductCategoryInfo = new()
                         {
-                            Id = dbResponse.Data.ProductCategoryId,
-                            Name = dbResponse.Data.ProductCategoryName
+                            ProductCategory = dbResponse.Data.ProductCategory,
+                            ProductCategoryValue = dbResponse.Data.ProductCategoryValue
                         },
                         SequenceId = dbResponse.Data.SequenceId,
                         CreatedBy = dbResponse.Data.CreatedBy,
@@ -135,8 +135,8 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                       Price = product.Price,
                       ProductCategoryInfo = new()
                       {
-                          Id = product.ProductCategoryId,
-                          Name = product.ProductCategoryName
+                          ProductCategory = product.ProductCategory,
+                          ProductCategoryValue = product.ProductCategoryValue
                       },
                       SequenceId = product.SequenceId,
                       CreatedBy = product.CreatedBy,
@@ -192,7 +192,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     response.ValidationErrorMessages.Add("Invalid Brand");
                 }
 
-                if (productInfo.ProductCategoryInfo == null || (!Helpers.IsValidGuid(productInfo.ProductCategoryInfo.Id) && string.IsNullOrWhiteSpace(productInfo.ProductCategoryInfo.Name)))
+                if (productInfo.ProductCategoryInfo == null || string.IsNullOrWhiteSpace(productInfo.ProductCategoryInfo.ProductCategory))
                 {
                     response.ValidationErrorMessages.Add("Invalid Product Category");
                 }
@@ -221,8 +221,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     ExpenseType = productInfo.ExpenseTypeInfo.ExpenseType,
                     PreferredRecurringTimePeriod = productInfo.PreferredTimePeriodInfo?.TimePeriodType,
                     Price = productInfo.Price,
-                    ProductCategoryId = productInfo.ProductCategoryInfo.Id,
-                    ProductCategoryName = productInfo.ProductCategoryInfo.Name,
+                    ProductCategory = productInfo.ProductCategoryInfo.ProductCategory
                 };
 
                 if (isUpdate)
@@ -273,7 +272,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     {
                         csv += product.Name?.Replace(",", ";") + ',';
                         csv += Convert.ToString(product.Price).Replace(",", ";") + ',';
-                        csv += product.ProductCategoryName?.Replace(",", ";") + ',';
+                        csv += product.ProductCategoryValue?.Replace(",", ";") + ',';
                         csv += product.BrandName?.Replace(",", ";") + ',';
                         csv += product.ExpenseTypeValue?.Replace(",", ";") + ',';
                         csv += product.PreferredRecurringTimePeriodValue?.Replace(",", ";");

@@ -9,5 +9,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.IRepositories
         Task<Response<List<LiquidMeasureInfoDb>>> GetLiquidMeasureInfoList(Guid loggedInUserId);
         Task<Response<List<MeasureTypeInfoDb>>> GetMeasureTypeInfoList(Guid loggedInUserId);
         Task<Response<List<TimePeriodInfoDb>>> GetTimePeriodInfoList(Guid loggedInUserId);
+        Task<Response<List<ProductCategoryInfoDB>>> GetProductCategoryInfoList(Guid loggedInUserId);
+
     }
 }
