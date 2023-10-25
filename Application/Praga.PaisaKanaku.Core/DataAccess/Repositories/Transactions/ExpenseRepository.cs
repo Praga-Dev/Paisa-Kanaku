@@ -206,7 +206,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
                 string spName = DatabaseConstants.USP_TEMP_EXPENSE_INFO_DELETE;
 
                 DynamicParameters parameters = new();
-                parameters.Add("@Id", tempExpenseInfoId, DbType.Guid);
+                parameters.Add("@TempExpenseInfoId", tempExpenseInfoId, DbType.Guid);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
                 parameters.Add("@Result", null, DbType.Guid, direction: ParameterDirection.Output);
 
