@@ -8,22 +8,21 @@ SET @EmptyGuid = CAST(CAST(0 AS BINARY) AS UNIQUEIDENTIFIER);
 
 BEGIN TRY 
 
-
 	IF([Auth].[udp_v1_ValidateAccount](@LoggedInUserId) = 0)
 	BEGIN
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	IF([Common].[udp_v1_ValidateGuid](@ProductInfoId) = 0)
+	IF NOT EXISTS(SELECT 1 FROM [Setup].[ProductInfo] WHERE [Id] LIKE @ProductInfoId)
 	BEGIN
-		RAISERROR('INVALID_PARAM_PRODUCT_INFO_ID', 16, 1);
+		RAISERROR('INVALID_PARAM_PRODUCT_INFO_ID', 16, 1);		
 	END
 
 	DECLARE @ProductInfo TABLE(
 		[Id] UNIQUEIDENTIFIER,
 		[Name] NVARCHAR(25),
-		[ProductCategoryId] UNIQUEIDENTIFIER,
-		[ProductCategoryName] NVARCHAR(50),
+		[ProductCategory] NVARCHAR(25),
+		[ProductCategoryValue] NVARCHAR(25),
 		[BrandId] UNIQUEIDENTIFIER,
 		[BrandName] NVARCHAR(50),
 		[ExpenseType] NVARCHAR(25),
@@ -40,14 +39,14 @@ BEGIN TRY
 		[RowStatus] NVARCHAR(1)
 	);
 
-	INSERT INTO @ProductInfo([Id], [Name], [ProductCategoryId], [ProductCategoryName], [BrandId], [BrandName], [ExpenseType], [ExpenseTypeValue], 
+	INSERT INTO @ProductInfo([Id], [Name], [ProductCategory], [ProductCategoryValue], [BrandId], [BrandName], [ExpenseType], [ExpenseTypeValue], 
 	[Price], [Description], [PreferredRecurringTimePeriod], [PreferredRecurringTimePeriodValue], [SequenceId], [CreatedBy], [CreatedDate], 
 	[ModifiedBy], [ModifiedDate], [RowStatus])
 	SELECT	
 	PI.[Id], 
 	PI.[Name], 
-	PCI.[Id] AS [ProductCategoryId], 
-	PCI.[Name] AS [ProductCategoryName], 
+	PCI.[ProductCategory], 
+	PCI.[ProductCategoryValue], 
 	BI.[Id] AS [BrandId], 
 	BI.[Name] AS [BrandName], 
 	ET.[ExpenseType], 
@@ -64,12 +63,12 @@ BEGIN TRY
 	PI.[RowStatus]
 	FROM [Setup].[ProductInfo] PI
 	LEFT JOIN [Setup].[BrandInfo] BI ON PI.[BrandId] = BI.[Id]
-	LEFT JOIN [Setup].[ProductCategoryInfo] PCI ON PI.[ProductCategoryId] = PCI.[Id]
+	LEFT JOIN [Lookups].[ProductCategoryInfo] PCI ON PI.[ProductCategory] = PCI.[ProductCategory]
 	LEFT JOIN [Lookups].[ExpenseTypeInfo] ET ON PI.[ExpenseType] = ET.[ExpenseType]
 	LEFT JOIN [Lookups].[TimePeriodTypeInfo] TPTI ON PI.[PreferredRecurringTimePeriod] = TPTI.[TimePeriodType]
-	WHERE PI.[RowStatus] = 'A' AND PI.[Id] = @ProductInfoId AND PI.CreatedBy = @LoggedInUserId;
+	WHERE PI.[Id] = @ProductInfoId AND PI.[RowStatus] = 'A' AND PI.CreatedBy = @LoggedInUserId;
 
-	SELECT * FROM @ProductInfo ORDER BY [Name];;
+	SELECT * FROM @ProductInfo;
 
 	RETURN 0
 END TRY  

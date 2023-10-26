@@ -7,6 +7,10 @@
 
 // #endregion
 
+$(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
 function getBrandDDList() {
     loadSpinner();
     $.ajax({

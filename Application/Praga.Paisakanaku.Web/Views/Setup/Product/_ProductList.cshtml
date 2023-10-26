@@ -24,7 +24,8 @@
                                 <th scope="row">
                                     @if (!string.IsNullOrWhiteSpace(product.Name))
                                     {
-                                        <p>@product.Name</p>
+                                        <p data-bs-toggle="tooltip" data-bs-placement="top" title="@product.Description">@product.Name</p> 
+                                        @* TODO Check Tooltip functionality *@
                                     }
                                 </th>
                                 <th scope="row">
