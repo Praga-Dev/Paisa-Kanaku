@@ -15,8 +15,8 @@ BEGIN TRY
 	DECLARE @ProductInfo TABLE(
 		[Id] UNIQUEIDENTIFIER,
 		[Name] NVARCHAR(25),
-		[ProductCategoryId] UNIQUEIDENTIFIER,
-		[ProductCategoryName] NVARCHAR(50),
+		[ProductCategory] NVARCHAR(25),
+		[ProductCategoryValue] NVARCHAR(25),
 		[BrandId] UNIQUEIDENTIFIER,
 		[BrandName] NVARCHAR(50),
 		[ExpenseType] NVARCHAR(25),
@@ -33,14 +33,14 @@ BEGIN TRY
 		[RowStatus] NVARCHAR(1)
 	);
 
-	INSERT INTO @ProductInfo([Id], [Name], [ProductCategoryId], [ProductCategoryName], [BrandId], [BrandName], [ExpenseType], [ExpenseTypeValue], 
+	INSERT INTO @ProductInfo([Id], [Name], [ProductCategory], [ProductCategoryValue], [BrandId], [BrandName], [ExpenseType], [ExpenseTypeValue], 
 	[Price], [Description], [PreferredRecurringTimePeriod], [PreferredRecurringTimePeriodValue], [SequenceId], [CreatedBy], [CreatedDate], 
 	[ModifiedBy], [ModifiedDate], [RowStatus])
 	SELECT	
 	PI.[Id], 
 	PI.[Name], 
-	PCI.[Id] AS [ProductCategoryId], 
-	PCI.[Name] AS [ProductCategoryName], 
+	PCI.[ProductCategory], 
+	PCI.[ProductCategoryValue], 
 	BI.[Id] AS [BrandId], 
 	BI.[Name] AS [BrandName], 
 	ET.[ExpenseType], 
@@ -57,7 +57,7 @@ BEGIN TRY
 	PI.[RowStatus]
 	FROM [Setup].[ProductInfo] PI
 	LEFT JOIN [Setup].[BrandInfo] BI ON PI.[BrandId] = BI.[Id]
-	LEFT JOIN [Setup].[ProductCategoryInfo] PCI ON PI.[ProductCategoryId] = PCI.[Id]
+	LEFT JOIN [Lookups].[ProductCategoryInfo] PCI ON PI.[ProductCategory] = PCI.[ProductCategory]
 	LEFT JOIN [Lookups].[ExpenseTypeInfo] ET ON PI.[ExpenseType] = ET.[ExpenseType]
 	LEFT JOIN [Lookups].[TimePeriodTypeInfo] TPTI ON PI.[PreferredRecurringTimePeriod] = TPTI.[TimePeriodType]
 	WHERE PI.[RowStatus] = 'A' AND PI.CreatedBy = @LoggedInUserId;
