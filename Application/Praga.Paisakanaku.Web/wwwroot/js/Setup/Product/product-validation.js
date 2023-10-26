@@ -28,12 +28,8 @@ $(function () {
                 required: true,
                 minlength: 2,
             },
-            productCategoryId: {
+            productCategory: {
                 isDropDownValueValid: true
-            },
-            productCategoryName: {
-                required: true,
-                minlength: 2,
             },
             expenseType: {
                 isDropDownValueValid: true
@@ -57,12 +53,8 @@ $(function () {
                 required: 'Brand Name is required',
                 minlength: 'Brand Name is too short'
             },
-            productCategoryId: {
+            productCategory: {
                 isProductCategoryIdValid: 'Product Category is required'
-            },
-            productCategoryName: {
-                required: 'Product Category Name is required',
-                minlength: 'Product Category Name is too short'
             },
             expenseType: {
                 isExpenseTypeValid: 'Expense Type is required'
@@ -81,15 +73,12 @@ $(function () {
             let price = $('#formCreateProduct #price').val();
             let brandId = $('#formCreateProduct #selectBrand').val();
             let brandName = $('#formCreateProduct #brandName').val();
-            let productCategoryId = $('#formCreateProduct #selectProductCategory').val();            
-            let productCategoryName = $('#formCreateProduct #productCategoryName').val();
+            let productCategory = $('#formCreateProduct #selectProductCategory').val();            
             let timePeriod = $('#formCreateProduct #selectTimePeriod').val();
             let expenseTypeInfo = $('#formCreateProduct #selectExpenseType').val();
 
             if (brandId === 'NEW')
                 brandId = ''
-            if (productCategoryId === 'NEW')
-                productCategoryId = ''
 
             let productInfo = {
                 'Id': id,
@@ -101,8 +90,7 @@ $(function () {
                     'Name': brandName
                 },
                 'ProductCategoryInfo': {
-                    'Id': productCategoryId,
-                    'Name': productCategoryName
+                    'ProductCategory': productCategory
                 },
                 'ExpenseTypeInfo': {
                     'ExpenseType': expenseTypeInfo
