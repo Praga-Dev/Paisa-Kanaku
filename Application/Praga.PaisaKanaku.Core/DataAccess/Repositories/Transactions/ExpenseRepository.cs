@@ -86,7 +86,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             return response;
         }
 
-        public async Task<Response<List<TempProductExpenseInfoDb>>> GetTempExpenseInfo(DateTime expenseDate, Guid loggedInUserId)
+        public async Task<Response<List<TempProductExpenseInfoDb>>> GetTempProductExpenseInfo(DateTime expenseDate, Guid loggedInUserId)
         {
             Response<List<TempProductExpenseInfoDb>> response = new Response<List<TempProductExpenseInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
@@ -139,7 +139,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             return response;
         }
 
-        public async Task<Response<Guid>> SaveTempExpenseInfo(TempProductExpenseInfoDb tempProductExpenseInfoDb, Guid loggedInUserId)
+        public async Task<Response<Guid>> SaveTempProductExpenseInfo(TempProductExpenseInfoDb tempProductExpenseInfoDb, Guid loggedInUserId)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
 
@@ -175,7 +175,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             return response;
         }
 
-        public async Task<Response<TempProductExpenseInfoDb>> GetTempExpenseInfoById(Guid tempExpenseInfoId, Guid loggedInUserId)
+        public async Task<Response<TempProductExpenseInfoDb>> GetTempProductExpenseInfoById(Guid tempExpenseInfoId, Guid loggedInUserId)
         {
             Response<TempProductExpenseInfoDb> response = new Response<TempProductExpenseInfoDb>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 

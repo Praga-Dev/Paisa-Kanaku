@@ -192,8 +192,8 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
             return PartialView("~/Views/Transactions/Expense/_CreateExpense.cshtml", response.Data);
         }
 
-        [HttpPut, Route("~/expense/temp")]
-        public async Task<IActionResult> SaveTempExpenseInfo(TempProductExpenseInfo tempProductExpenseInfo)
+        [HttpPut, Route("~/expense/product/temp")]
+        public async Task<IActionResult> SaveTempProductExpenseInfo(TempProductExpenseInfo tempProductExpenseInfo)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
 
@@ -211,7 +211,7 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
                     return StatusCode(StatusCodes.Status200OK, response);
                 }
 
-                var dbresponse = await _expenseService.SaveTempExpenseInfo(tempProductExpenseInfo, LoggedInUserId);
+                var dbresponse = await _expenseService.SaveTempProductExpenseInfo(tempProductExpenseInfo, LoggedInUserId);
 
                 return StatusCode(StatusCodes.Status200OK, Helpers.IsResponseValid(dbresponse) ? dbresponse : response);
             }
@@ -225,8 +225,8 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
         }
       
 
-        [HttpGet, Route("~/expense/temp/date/{expenseDate:DateTime}")]
-        public async Task<IActionResult> GetTempExpenseInfoList(DateTime expenseDate)
+        [HttpGet, Route("~/expense/product/temp/date/{expenseDate:DateTime}")]
+        public async Task<IActionResult> GetTempProductExpenseInfo(DateTime expenseDate)
         {
             Response<List<TempProductExpenseInfo>> response = new Response<List<TempProductExpenseInfo>>().GetFailedResponse(ResponseConstants.FAILED);
 
@@ -238,7 +238,7 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
                     return PartialView("~/Views/Transactions/Expense/_CreateExpenseCartList.cshtml", response);
                 }
 
-                var dbresponse = await _expenseService.GetTempExpenseInfo(expenseDate, LoggedInUserId);
+                var dbresponse = await _expenseService.GetTempProductExpenseInfo(expenseDate, LoggedInUserId);
                 if (Helpers.IsResponseValid(dbresponse))
                 {
                     return PartialView("~/Views/Transactions/Expense/_CreateExpenseCartList.cshtml", dbresponse);

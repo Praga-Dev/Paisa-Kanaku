@@ -110,7 +110,7 @@ function getTempExpenseInfoList(date) {
     if (expenseDate) {
         loadSpinner();
         $.ajax({
-            url: `./expense/temp/date/${expenseDate}/`,
+            url: `./expense/product/temp/date/${expenseDate}/`,
             method: 'GET',
             success: function (response) {
                 if (response) {

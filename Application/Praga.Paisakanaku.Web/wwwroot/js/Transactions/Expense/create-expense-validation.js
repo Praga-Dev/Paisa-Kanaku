@@ -88,7 +88,7 @@ $(document).ready(function () {
             debugger;
 
             $.ajax({
-                url: `./expense/temp`,
+                url: `./expense/product/temp`,
                 method: 'PUT',
                 data: tempProductExpenseInfo,
                 success: function (response) {

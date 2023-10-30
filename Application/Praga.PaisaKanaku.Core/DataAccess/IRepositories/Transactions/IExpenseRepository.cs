@@ -14,9 +14,9 @@ namespace Praga.PaisaKanaku.Core.DataAccess.IRepositories.Transactions
         Task<Response<List<ExpenseReferenceDetailInfoDb>>> GetExpenseInfoList(Guid loggedInUserId);
         Task<Response<ExpenseReferenceDetailInfoDb>> GetExpenseInfoById(Guid expenseInfoId, Guid loggedInUserId);
         Task<Response<List<ExpenseInfoDb>>> GetExpenseBaseInfoList(Guid loggedInUserId);
-        Task<Response<Guid>> SaveTempExpenseInfo(TempProductExpenseInfoDb tempProductExpenseInfoDb, Guid loggedInUserId);
-        Task<Response<List<TempProductExpenseInfoDb>>> GetTempExpenseInfo(DateTime expenseDate, Guid loggedInUserId);
-        Task<Response<TempProductExpenseInfoDb>> GetTempExpenseInfoById(Guid tempExpenseInfoId, Guid loggedInUserId);
+        Task<Response<Guid>> SaveTempProductExpenseInfo(TempProductExpenseInfoDb tempProductExpenseInfoDb, Guid loggedInUserId);
+        Task<Response<List<TempProductExpenseInfoDb>>> GetTempProductExpenseInfo(DateTime expenseDate, Guid loggedInUserId);
+        Task<Response<TempProductExpenseInfoDb>> GetTempProductExpenseInfoById(Guid tempExpenseInfoId, Guid loggedInUserId);
         Task<Response<Guid>> DeleteTempExpenseInfo(Guid tempExpenseInfoId, Guid loggedInUserId);
 
     }

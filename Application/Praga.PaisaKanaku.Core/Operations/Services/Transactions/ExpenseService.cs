@@ -357,7 +357,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
             return response;
         }
 
-        public async Task<Response<Guid>> SaveTempExpenseInfo(TempProductExpenseInfo tempProductExpenseInfo, Guid loggedInUserId)
+        public async Task<Response<Guid>> SaveTempProductExpenseInfo(TempProductExpenseInfo tempProductExpenseInfo, Guid loggedInUserId)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
 
@@ -410,7 +410,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                     Description = tempProductExpenseInfo.Description
                 };
 
-                return await _expenseRepository.SaveTempExpenseInfo(tempProductExpenseInfoDb, loggedInUserId);
+                return await _expenseRepository.SaveTempProductExpenseInfo(tempProductExpenseInfoDb, loggedInUserId);
             }
             catch (Exception ex)
             {
@@ -420,7 +420,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
             }
         }
 
-        public async Task<Response<List<TempProductExpenseInfo>>> GetTempExpenseInfo(DateTime expenseDate, Guid loggedInUserId)
+        public async Task<Response<List<TempProductExpenseInfo>>> GetTempProductExpenseInfo(DateTime expenseDate, Guid loggedInUserId)
         {
             Response<List<TempProductExpenseInfo>> response = new Response<List<TempProductExpenseInfo>>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
 
@@ -443,7 +443,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                     return response;
                 }
 
-                var dbResponse = await _expenseRepository.GetTempExpenseInfo(expenseDate, loggedInUserId);
+                var dbResponse = await _expenseRepository.GetTempProductExpenseInfo(expenseDate, loggedInUserId);
                 if (Helpers.IsResponseValid(dbResponse))
                 {
                     response.Data = dbResponse.Data.Select(expense => new TempProductExpenseInfo()
@@ -513,7 +513,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                     return response;
                 }
 
-                var dbResponse = await _expenseRepository.GetTempExpenseInfoById(tempExpenseInfoId, loggedInUserId);
+                var dbResponse = await _expenseRepository.GetTempProductExpenseInfoById(tempExpenseInfoId, loggedInUserId);
                 if (Helpers.IsResponseValid(dbResponse))
                 {
                     response.Data = new ExpenseReferenceDetailInfo()
