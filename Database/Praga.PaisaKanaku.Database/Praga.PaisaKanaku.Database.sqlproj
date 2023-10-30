@@ -92,6 +92,7 @@
     <Folder Include="Transactions\Table\Loan" />
     <Folder Include="Transactions\StoredProcedure\Loan" />
     <Folder Include="Setup\Table\Grocery" />
+    <Folder Include="Setup\StoredProcedure\Grocery" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Account.sql" />
@@ -175,6 +176,9 @@
     <Build Include="Transactions\StoredProcedure\Expense\usp_V1_TempExpenseInfo_Delete.sql" />
     <Build Include="Lookups\StoredProcedure\usp_v1_ProductCategoryInfo_Get.sql" />
     <Build Include="Lookups\StoredProcedure\usp_v1_GroceryCategoryInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Grocery\usp_V1_GroceryInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Grocery\usp_V1_GroceryInfo_Get_By_Id.sql" />
+    <Build Include="Setup\StoredProcedure\Grocery\usp_V1_GroceryInfo_Save.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />
