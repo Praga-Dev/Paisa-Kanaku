@@ -21,10 +21,11 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_PRODUCT_CATEGORY_ALREADY_EXIST', 16, 1);
 	END
 
-	DECLARE @ProductCategoryId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
 
     IF(@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[ProductCategoryInfo] WHERE [Id] = @Id))
 	BEGIN
+		DECLARE @ProductCategoryId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
+
 		INSERT INTO [Setup].[ProductCategoryInfo] ([Id], [Name], [CreatedBy])
 		VALUES (@ProductCategoryId, @Name, @LoggedInUserId);
 	END

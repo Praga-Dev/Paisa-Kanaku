@@ -21,10 +21,11 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_BRAND_ALREADY_EXIST', 16, 1);
 	END
 
-	DECLARE @BrandId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
 
     IF(@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[BrandInfo] WHERE [Id] = @Id))
 	BEGIN
+		DECLARE @BrandId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
+
 		INSERT INTO [Setup].[BrandInfo] ([Id], [Name], [CreatedBy])
 		VALUES (@BrandId, @Name, @LoggedInUserId);
 	END

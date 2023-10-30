@@ -13,7 +13,7 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	IF NOT EXISTS(SELECT 1 FROM [Setup].[ProductInfo] WHERE [Id] LIKE @ProductInfoId)
+	IF NOT EXISTS(SELECT 1 FROM [Setup].[ProductInfo] WHERE [Id] LIKE @ProductInfoId AND [RowStatus] = 'A')
 	BEGIN
 		RAISERROR('INVALID_PARAM_PRODUCT_INFO_ID', 16, 1);		
 	END
@@ -29,8 +29,8 @@ BEGIN TRY
 		[ExpenseTypeValue] NVARCHAR(25),
 		[Price] DECIMAL(12,3),
 		[Description] NVARCHAR(250),
-		[PreferredRecurringTimePeriod] NVARCHAR(10),
-		[PreferredRecurringTimePeriodValue] NVARCHAR(10),
+		[PreferredRecurringTimePeriod] NVARCHAR(15),
+		[PreferredRecurringTimePeriodValue] NVARCHAR(15),
 		[SequenceId] INT,
 		[CreatedBy] UNIQUEIDENTIFIER,
 		[CreatedDate] DATETIME2,
