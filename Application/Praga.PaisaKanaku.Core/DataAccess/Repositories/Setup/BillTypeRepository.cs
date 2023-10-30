@@ -21,9 +21,9 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             _db = db;
         }
 
-        public async Task<Response<BillTypeInfoDb>> GetBillTypeInfoById(Guid billTypeInfoId, Guid loggedInUserId)
+        public async Task<Response<BillTypeInfoDB>> GetBillTypeInfoById(Guid billTypeInfoId, Guid loggedInUserId)
         {
-            Response<BillTypeInfoDb> response = new Response<BillTypeInfoDb>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<BillTypeInfoDB> response = new Response<BillTypeInfoDB>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
@@ -33,7 +33,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
                 parameters.Add("@BillTypeInfoId", billTypeInfoId, DbType.Guid);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
 
-                var result = await _db.Connection.QueryAsync<BillTypeInfoDb>(spName, parameters, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<BillTypeInfoDB>(spName, parameters, commandType: CommandType.StoredProcedure);
                 return result != null ? response.GetSuccessResponse(result.FirstOrDefault()) : response;
             }
             catch (Exception ex)
@@ -44,16 +44,16 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             }
         }
 
-        public async Task<Response<List<BillTypeInfoDb>>> GetBillTypeInfoList(Guid loggedInUserId)
+        public async Task<Response<List<BillTypeInfoDB>>> GetBillTypeInfoList(Guid loggedInUserId)
         {
-            Response<List<BillTypeInfoDb>> response = new Response<List<BillTypeInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<List<BillTypeInfoDB>> response = new Response<List<BillTypeInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
                 string spName = DatabaseConstants.USP_BILL_TYPE_INFO_GET;
                 var param = new { LoggedInUserId = loggedInUserId };
 
-                var result = await _db.Connection.QueryAsync<BillTypeInfoDb>(spName, param, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<BillTypeInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
                 return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             }
         }
 
-        public async Task<Response<Guid>> SaveBillTypeInfo(BillTypeInfoDb billTypeInfoDb, Guid loggedInUserId)
+        public async Task<Response<Guid>> SaveBillTypeInfo(BillTypeInfoDB billTypeInfoDb, Guid loggedInUserId)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
 

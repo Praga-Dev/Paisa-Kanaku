@@ -21,9 +21,9 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             _db = db;
         }
 
-        public async Task<Response<BrandInfoDb>> GetBrandInfoById(Guid brandInfoId, Guid loggedInUserId)
+        public async Task<Response<BrandInfoDB>> GetBrandInfoById(Guid brandInfoId, Guid loggedInUserId)
         {
-            Response<BrandInfoDb> response = new Response<BrandInfoDb>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<BrandInfoDB> response = new Response<BrandInfoDB>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
@@ -33,7 +33,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
                 parameters.Add("@BrandInfoId", brandInfoId, DbType.Guid);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
 
-                var result = await _db.Connection.QueryAsync<BrandInfoDb>(spName, parameters, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<BrandInfoDB>(spName, parameters, commandType: CommandType.StoredProcedure);
                 return result != null ? response.GetSuccessResponse(result.FirstOrDefault()) : response;
             }
             catch (Exception ex)
@@ -44,16 +44,16 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             }
         }
 
-        public async Task<Response<List<BrandInfoDb>>> GetBrandInfoList(Guid loggedInUserId)
+        public async Task<Response<List<BrandInfoDB>>> GetBrandInfoList(Guid loggedInUserId)
         {
-            Response<List<BrandInfoDb>> response = new Response<List<BrandInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<List<BrandInfoDB>> response = new Response<List<BrandInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
                 string spName = DatabaseConstants.USP_BRAND_INFO_GET;
                 var param = new { LoggedInUserId = loggedInUserId };
 
-                var result = await _db.Connection.QueryAsync<BrandInfoDb>(spName, param, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<BrandInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
                 return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             }
         }
 
-        public async Task<Response<Guid>> SaveBrandInfo(BrandInfoDb brandInfoDb, Guid loggedInUserId)
+        public async Task<Response<Guid>> SaveBrandInfo(BrandInfoDB brandInfoDb, Guid loggedInUserId)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
 

@@ -44,7 +44,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     return response;
                 }
 
-                Response<RepairTypeInfoDb> dbResponse = await _repairTypeRepository.GetRepairTypeInfoById(repairTypeInfoId, loggedInUserId);
+                Response<RepairTypeInfoDB> dbResponse = await _repairTypeRepository.GetRepairTypeInfoById(repairTypeInfoId, loggedInUserId);
                 if (Helpers.IsResponseValid(dbResponse))
                 {
                     response.Data = new RepairTypeInfo()
@@ -142,7 +142,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     response.ValidationErrorMessages.Add("RepairType Name must be between 2 and 50 Characters long.");
                 }
 
-                RepairTypeInfoDb repairTypeInfoDb = new RepairTypeInfoDb()
+                RepairTypeInfoDB repairTypeInfoDb = new RepairTypeInfoDB()
                 {
                     Name = repairTypeInfo.Name
                 };

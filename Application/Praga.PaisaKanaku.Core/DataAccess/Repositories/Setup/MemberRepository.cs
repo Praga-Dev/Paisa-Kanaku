@@ -21,9 +21,9 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             _db = db;
         }
 
-        public async Task<Response<MemberInfoDb>> GetMemberInfoById(Guid memberInfoId, Guid loggedInUserId)
+        public async Task<Response<MemberInfoDB>> GetMemberInfoById(Guid memberInfoId, Guid loggedInUserId)
         {
-            Response<MemberInfoDb> response = new Response<MemberInfoDb>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<MemberInfoDB> response = new Response<MemberInfoDB>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
@@ -33,7 +33,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
                 parameters.Add("@MemberInfoId", memberInfoId, DbType.Guid);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
 
-                var result = await _db.Connection.QueryAsync<MemberInfoDb>(spName, parameters, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<MemberInfoDB>(spName, parameters, commandType: CommandType.StoredProcedure);
                 return result != null ? response.GetSuccessResponse(result.FirstOrDefault()) : response;
             }
             catch (Exception ex)
@@ -44,16 +44,16 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             }
         }
 
-        public async Task<Response<List<MemberInfoDb>>> GetMemberInfoList(Guid loggedInUserId)
+        public async Task<Response<List<MemberInfoDB>>> GetMemberInfoList(Guid loggedInUserId)
         {
-            Response<List<MemberInfoDb>> response = new Response<List<MemberInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<List<MemberInfoDB>> response = new Response<List<MemberInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
                 string spName = DatabaseConstants.USP_MEMBER_INFO_GET;
                 var param = new { LoggedInUserId = loggedInUserId };
 
-                var result = await _db.Connection.QueryAsync<MemberInfoDb>(spName, param, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<MemberInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
                 return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             }
         }
 
-        public async Task<Response<Guid>> SaveMemberInfo(MemberInfoDb memberInfoDb, Guid loggedInUserId)
+        public async Task<Response<Guid>> SaveMemberInfo(MemberInfoDB memberInfoDb, Guid loggedInUserId)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
 

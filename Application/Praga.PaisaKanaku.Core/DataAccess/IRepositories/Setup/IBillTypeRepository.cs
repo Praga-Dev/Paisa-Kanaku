@@ -10,8 +10,8 @@ namespace Praga.PaisaKanaku.Core.DataAccess.IRepositories.Setup
 {
     public interface IBillTypeRepository
     {
-        Task<Response<Guid>> SaveBillTypeInfo(BillTypeInfoDb billTypeInfoDb, Guid loggedInUserId);
-        Task<Response<List<BillTypeInfoDb>>> GetBillTypeInfoList(Guid loggedInUserId);
-        Task<Response<BillTypeInfoDb>> GetBillTypeInfoById(Guid billTypeInfoId, Guid loggedInUserId);
+        Task<Response<Guid>> SaveBillTypeInfo(BillTypeInfoDB BillTypeInfoDB, Guid loggedInUserId);
+        Task<Response<List<BillTypeInfoDB>>> GetBillTypeInfoList(Guid loggedInUserId);
+        Task<Response<BillTypeInfoDB>> GetBillTypeInfoById(Guid billTypeInfoId, Guid loggedInUserId);
     }
 }

@@ -44,7 +44,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     return response;
                 }
 
-                Response<BillTypeInfoDb> dbResponse = await _billTypeRepository.GetBillTypeInfoById(billTypeInfoId, loggedInUserId);
+                Response<BillTypeInfoDB> dbResponse = await _billTypeRepository.GetBillTypeInfoById(billTypeInfoId, loggedInUserId);
                 if (Helpers.IsResponseValid(dbResponse))
                 {
                     response.Data = new BillTypeInfo()
@@ -142,7 +142,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     response.ValidationErrorMessages.Add("BillType Name must be between 2 and 50 Characters long.");
                 }
 
-                BillTypeInfoDb billTypeInfoDb = new BillTypeInfoDb()
+                BillTypeInfoDB billTypeInfoDb = new BillTypeInfoDB()
                 {
                     Name = billTypeInfo.Name
                 };

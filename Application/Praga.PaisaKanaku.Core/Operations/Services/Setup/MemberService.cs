@@ -44,7 +44,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     return response;
                 }
 
-                Response<MemberInfoDb> dbResponse = await _memberRepository.GetMemberInfoById(memberInfoId, loggedInUserId);
+                Response<MemberInfoDB> dbResponse = await _memberRepository.GetMemberInfoById(memberInfoId, loggedInUserId);
                 if (Helpers.IsResponseValid(dbResponse))
                 {
                     response.Data = new MemberInfo()
@@ -142,7 +142,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     response.ValidationErrorMessages.Add("Member Name must be between 2 and 50 Characters long.");
                 }
 
-                MemberInfoDb memberInfoDb = new MemberInfoDb()
+                MemberInfoDB memberInfoDb = new MemberInfoDB()
                 {
                     Name = memberInfo.Name
                 };

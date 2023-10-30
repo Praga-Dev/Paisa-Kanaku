@@ -23,16 +23,16 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             _db = db;
         }
 
-        public async Task<Response<List<ExpenseInfoDb>>> GetExpenseBaseInfoList(Guid loggedInUserId)
+        public async Task<Response<List<ExpenseInfoDB>>> GetExpenseBaseInfoList(Guid loggedInUserId)
         {
-            Response<List<ExpenseInfoDb>> response = new Response<List<ExpenseInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<List<ExpenseInfoDB>> response = new Response<List<ExpenseInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
                 string spName = DatabaseConstants.USP_EXPENSE_INFO_GET;
                 var param = new { LoggedInUserId = loggedInUserId };
 
-                var result = await _db.Connection.QueryAsync<ExpenseInfoDb>(spName, param, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<ExpenseInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
                 return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
             }
             catch (Exception ex)
@@ -43,9 +43,9 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             return response;
         }
 
-        public async Task<Response<ExpenseReferenceDetailInfoDb>> GetExpenseInfoById(Guid expenseInfoId, Guid loggedInUserId)
+        public async Task<Response<ExpenseReferenceDetailInfoDB>> GetExpenseInfoById(Guid expenseInfoId, Guid loggedInUserId)
         {
-            Response<ExpenseReferenceDetailInfoDb> response = new Response<ExpenseReferenceDetailInfoDb>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<ExpenseReferenceDetailInfoDB> response = new Response<ExpenseReferenceDetailInfoDB>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
@@ -55,7 +55,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
                 parameters.Add("@ExpenseInfoId", expenseInfoId, DbType.Guid);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
 
-                var result = await _db.Connection.QueryAsync<ExpenseReferenceDetailInfoDb>(spName, parameters, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<ExpenseReferenceDetailInfoDB>(spName, parameters, commandType: CommandType.StoredProcedure);
                 return result != null && result.Any() ? response.GetSuccessResponse(result.FirstOrDefault()) : response;
             }
             catch (Exception ex)
@@ -66,16 +66,16 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             return response;
         }
 
-        public async Task<Response<List<ExpenseReferenceDetailInfoDb>>> GetExpenseInfoList(Guid loggedInUserId)
+        public async Task<Response<List<ExpenseReferenceDetailInfoDB>>> GetExpenseInfoList(Guid loggedInUserId)
         {
-            Response<List<ExpenseReferenceDetailInfoDb>> response = new Response<List<ExpenseReferenceDetailInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<List<ExpenseReferenceDetailInfoDB>> response = new Response<List<ExpenseReferenceDetailInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
                 string spName = DatabaseConstants.USP_BRAND_INFO_GET;
                 var param = new { LoggedInUserId = loggedInUserId };
 
-                var result = await _db.Connection.QueryAsync<ExpenseReferenceDetailInfoDb>(spName, param, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<ExpenseReferenceDetailInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
                 return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
             }
             catch (Exception ex)
@@ -86,9 +86,9 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             return response;
         }
 
-        public async Task<Response<List<TempProductExpenseInfoDb>>> GetTempProductExpenseInfo(DateTime expenseDate, Guid loggedInUserId)
+        public async Task<Response<List<TempProductExpenseInfoDB>>> GetTempProductExpenseInfo(DateTime expenseDate, Guid loggedInUserId)
         {
-            Response<List<TempProductExpenseInfoDb>> response = new Response<List<TempProductExpenseInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<List<TempProductExpenseInfoDB>> response = new Response<List<TempProductExpenseInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
@@ -97,7 +97,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
                 parameters.Add("@ExpenseDate", expenseDate, DbType.DateTime);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
 
-                var result = await _db.Connection.QueryAsync<TempProductExpenseInfoDb>(spName, parameters, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<TempProductExpenseInfoDB>(spName, parameters, commandType: CommandType.StoredProcedure);
                 return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
             }
             catch (Exception ex)
@@ -108,7 +108,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             }
         }
 
-        public async Task<Response<Guid>> CreateExpenseInfo(ExpenseSaveInfoDb expenseSaveInfoDb, Guid loggedInUserId)
+        public async Task<Response<Guid>> CreateExpenseInfo(ExpenseSaveInfoDB expenseSaveInfoDb, Guid loggedInUserId)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
 
@@ -139,7 +139,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             return response;
         }
 
-        public async Task<Response<Guid>> SaveTempProductExpenseInfo(TempProductExpenseInfoDb tempProductExpenseInfoDb, Guid loggedInUserId)
+        public async Task<Response<Guid>> SaveTempProductExpenseInfo(TempProductExpenseInfoDB tempProductExpenseInfoDB, Guid loggedInUserId)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
 
@@ -148,13 +148,13 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
                 string spName = DatabaseConstants.USP_TEMP_EXPENSE_INFO_PRODUCT_SAVE;
 
                 DynamicParameters parameters = new();
-                parameters.Add("@Id", tempProductExpenseInfoDb.Id, DbType.Guid);
-                parameters.Add("@ExpenseBy", tempProductExpenseInfoDb.MemberId, DbType.Guid);
-                parameters.Add("@ExpenseDate", tempProductExpenseInfoDb.Date, DbType.Date);
-                parameters.Add("@ProductId", tempProductExpenseInfoDb.ProductId, DbType.Guid);
-                parameters.Add("@Quantity", tempProductExpenseInfoDb.Quantity, DbType.Double);
-                parameters.Add("@ExpenseAmount", tempProductExpenseInfoDb.Amount, DbType.Double);
-                parameters.Add("@Description", tempProductExpenseInfoDb.Description, DbType.String);
+                parameters.Add("@Id", tempProductExpenseInfoDB.Id, DbType.Guid);
+                parameters.Add("@ExpenseBy", tempProductExpenseInfoDB.MemberId, DbType.Guid);
+                parameters.Add("@ExpenseDate", tempProductExpenseInfoDB.Date, DbType.Date);
+                parameters.Add("@ProductId", tempProductExpenseInfoDB.ProductId, DbType.Guid);
+                parameters.Add("@Quantity", tempProductExpenseInfoDB.Quantity, DbType.Double);
+                parameters.Add("@ExpenseAmount", tempProductExpenseInfoDB.Amount, DbType.Double);
+                parameters.Add("@Description", tempProductExpenseInfoDB.Description, DbType.String);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
                 parameters.Add("@Result", null, DbType.Guid, direction: ParameterDirection.Output);
 
@@ -168,16 +168,16 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in ExpenseRepository.SaveTempExpenseInfo({@expenseInfoDb}, {@loggedInUserId})", tempProductExpenseInfoDb.ToString(), loggedInUserId);
+                _logger.LogError(ex, "Error in ExpenseRepository.SaveTempExpenseInfo({@expenseInfoDb}, {@loggedInUserId})", tempProductExpenseInfoDB.ToString(), loggedInUserId);
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
             }
 
             return response;
         }
 
-        public async Task<Response<TempProductExpenseInfoDb>> GetTempProductExpenseInfoById(Guid tempExpenseInfoId, Guid loggedInUserId)
+        public async Task<Response<TempProductExpenseInfoDB>> GetTempProductExpenseInfoById(Guid tempExpenseInfoId, Guid loggedInUserId)
         {
-            Response<TempProductExpenseInfoDb> response = new Response<TempProductExpenseInfoDb>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<TempProductExpenseInfoDB> response = new Response<TempProductExpenseInfoDB>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
@@ -186,7 +186,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
                 parameters.Add("@TempExpenseId", tempExpenseInfoId, DbType.Guid);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
 
-                var result = await _db.Connection.QueryAsync<TempProductExpenseInfoDb>(spName, parameters, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<TempProductExpenseInfoDB>(spName, parameters, commandType: CommandType.StoredProcedure);
                 return result != null ? response.GetSuccessResponse(result.First()) : response;
             }
             catch (Exception ex)

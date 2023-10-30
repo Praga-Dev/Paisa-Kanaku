@@ -26,16 +26,16 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories
             _db = db;
         }
 
-        public async Task<Response<List<ExpenseTypeInfoDb>>> GetExpenseTypeInfoList(Guid loggedInUserId)
+        public async Task<Response<List<ExpenseTypeInfoDB>>> GetExpenseTypeInfoList(Guid loggedInUserId)
         {
-            Response<List<ExpenseTypeInfoDb>> response = new Response<List<ExpenseTypeInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<List<ExpenseTypeInfoDB>> response = new Response<List<ExpenseTypeInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
                 string spName = DatabaseConstants.USP_EXPENSE_TYPE_INFO_GET;
                 var param = new { LoggedInUserId = loggedInUserId };
 
-                var result = await _db.Connection.QueryAsync<ExpenseTypeInfoDb>(spName, param, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<ExpenseTypeInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
                 return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
             }
             catch (Exception ex)
@@ -46,16 +46,16 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories
             }
         }
 
-        public async Task<Response<List<LiquidMeasureInfoDb>>> GetLiquidMeasureInfoList(Guid loggedInUserId)
+        public async Task<Response<List<LiquidMeasureInfoDB>>> GetLiquidMeasureInfoList(Guid loggedInUserId)
         {
-            Response<List<LiquidMeasureInfoDb>> response = new Response<List<LiquidMeasureInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<List<LiquidMeasureInfoDB>> response = new Response<List<LiquidMeasureInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
                 string spName = DatabaseConstants.USP_LIQUID_MEASURE_INFO_GET;
                 var param = new { LoggedInUserId = loggedInUserId };
 
-                var result = await _db.Connection.QueryAsync<LiquidMeasureInfoDb>(spName, param, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<LiquidMeasureInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
                 return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
             }
             catch (Exception ex)
@@ -66,16 +66,16 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories
             }
         }
 
-        public async Task<Response<List<MeasureTypeInfoDb>>> GetMeasureTypeInfoList(Guid loggedInUserId)
+        public async Task<Response<List<MeasureTypeInfoDB>>> GetMeasureTypeInfoList(Guid loggedInUserId)
         {
-            Response<List<MeasureTypeInfoDb>> response = new Response<List<MeasureTypeInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<List<MeasureTypeInfoDB>> response = new Response<List<MeasureTypeInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
                 string spName = DatabaseConstants.USP_MEASURE_TYPE_INFO_GET;
                 var param = new { LoggedInUserId = loggedInUserId };
 
-                var result = await _db.Connection.QueryAsync<MeasureTypeInfoDb>(spName, param, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<MeasureTypeInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
                 return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
             }
             catch (Exception ex)
@@ -86,16 +86,16 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories
             }
         }
 
-        public async Task<Response<List<TimePeriodInfoDb>>> GetTimePeriodInfoList(Guid loggedInUserId)
+        public async Task<Response<List<TimePeriodInfoDB>>> GetTimePeriodInfoList(Guid loggedInUserId)
         {
-            Response<List<TimePeriodInfoDb>> response = new Response<List<TimePeriodInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<List<TimePeriodInfoDB>> response = new Response<List<TimePeriodInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
                 string spName = DatabaseConstants.USP_TIME_PERIOD_TYPE_INFO_GET;
                 var param = new { LoggedInUserId = loggedInUserId };
 
-                var result = await _db.Connection.QueryAsync<TimePeriodInfoDb>(spName, param, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<TimePeriodInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
                 return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
             }
             catch (Exception ex)

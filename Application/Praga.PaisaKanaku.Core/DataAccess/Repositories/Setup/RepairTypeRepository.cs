@@ -21,9 +21,9 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             _db = db;
         }
 
-        public async Task<Response<RepairTypeInfoDb>> GetRepairTypeInfoById(Guid repairTypeInfoId, Guid loggedInUserId)
+        public async Task<Response<RepairTypeInfoDB>> GetRepairTypeInfoById(Guid repairTypeInfoId, Guid loggedInUserId)
         {
-            Response<RepairTypeInfoDb> response = new Response<RepairTypeInfoDb>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<RepairTypeInfoDB> response = new Response<RepairTypeInfoDB>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
@@ -33,7 +33,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
                 parameters.Add("@RepairTypeInfoId", repairTypeInfoId, DbType.Guid);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
 
-                var result = await _db.Connection.QueryAsync<RepairTypeInfoDb>(spName, parameters, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<RepairTypeInfoDB>(spName, parameters, commandType: CommandType.StoredProcedure);
                 return result != null ? response.GetSuccessResponse(result.FirstOrDefault()) : response;
             }
             catch (Exception ex)
@@ -44,16 +44,16 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             }
         }
 
-        public async Task<Response<List<RepairTypeInfoDb>>> GetRepairTypeInfoList(Guid loggedInUserId)
+        public async Task<Response<List<RepairTypeInfoDB>>> GetRepairTypeInfoList(Guid loggedInUserId)
         {
-            Response<List<RepairTypeInfoDb>> response = new Response<List<RepairTypeInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<List<RepairTypeInfoDB>> response = new Response<List<RepairTypeInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
                 string spName = DatabaseConstants.USP_REPAIR_TYPE_INFO_GET;
                 var param = new { LoggedInUserId = loggedInUserId };
 
-                var result = await _db.Connection.QueryAsync<RepairTypeInfoDb>(spName, param, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<RepairTypeInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
                 return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             }
         }
 
-        public async Task<Response<Guid>> SaveRepairTypeInfo(RepairTypeInfoDb repairTypeInfoDb, Guid loggedInUserId)
+        public async Task<Response<Guid>> SaveRepairTypeInfo(RepairTypeInfoDB repairTypeInfoDb, Guid loggedInUserId)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
 

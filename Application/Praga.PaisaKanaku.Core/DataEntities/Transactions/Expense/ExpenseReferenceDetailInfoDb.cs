@@ -3,7 +3,7 @@ using Praga.PaisaKanaku.Core.DataEntities.Setup;
 
 namespace Praga.PaisaKanaku.Core.DataEntities.Transactions.Expense
 {
-    public class ExpenseReferenceDetailInfoDb : BaseInfo
+    public class ExpenseReferenceDetailInfoDB : BaseInfo
     {
         public Guid Id { get; set; }
         public Guid ExpenseInfoId { get; set; }

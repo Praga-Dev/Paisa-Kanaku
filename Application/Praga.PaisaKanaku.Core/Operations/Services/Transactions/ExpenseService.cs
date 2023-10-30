@@ -44,7 +44,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                     return response;
                 }
 
-                Response<ExpenseReferenceDetailInfoDb> dbResponse = await _expenseRepository.GetExpenseInfoById(expenseInfoId, loggedInUserId);
+                Response<ExpenseReferenceDetailInfoDB> dbResponse = await _expenseRepository.GetExpenseInfoById(expenseInfoId, loggedInUserId);
                 if (Helpers.IsResponseValid(dbResponse))
                 {
                     response.Data = new ExpenseReferenceDetailInfo()
@@ -259,7 +259,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                         )
                     ));
 
-                ExpenseSaveInfoDb expenseInfoDb = new()
+                ExpenseSaveInfoDB expenseInfoDb = new()
                 {
                     ExpenseDate = expenseSaveInfo.ExpenseDate,
                     ExpenseData = expenseData
@@ -292,7 +292,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                 //Add new line.
                 csv += "\r\n";
 
-                Response<List<ExpenseReferenceDetailInfoDb>> expenseInfoList = await _expenseRepository.GetExpenseInfoList(loggedInUserId);
+                Response<List<ExpenseReferenceDetailInfoDB>> expenseInfoList = await _expenseRepository.GetExpenseInfoList(loggedInUserId);
 
                 if (Helpers.IsResponseValid(expenseInfoList))
                 {
@@ -399,7 +399,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                     return response;
                 }
 
-                TempProductExpenseInfoDb tempProductExpenseInfoDb = new()
+                TempProductExpenseInfoDB tempProductExpenseInfoDb = new()
                 {
                     Amount = tempProductExpenseInfo.ExpenseAmount,
                     MemberId = tempProductExpenseInfo.ExpenseBy?.Id ?? Guid.Empty,

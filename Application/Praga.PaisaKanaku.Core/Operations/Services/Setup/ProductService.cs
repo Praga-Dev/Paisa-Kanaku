@@ -45,7 +45,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     return response;
                 }
 
-                Response<ProductInfoDb> dbResponse = await _productRepository.GetProductInfoById(productInfoId, loggedInUserId);
+                Response<ProductInfoDB> dbResponse = await _productRepository.GetProductInfoById(productInfoId, loggedInUserId);
                 if (Helpers.IsResponseValid(dbResponse))
                 {
                     response.Data = new ProductInfo()
@@ -212,7 +212,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     return response;
                 }
 
-                ProductInfoDb productInfoDb = new ProductInfoDb()
+                ProductInfoDB productInfoDb = new ProductInfoDB()
                 {
                     Name = productInfo.Name,
                     BrandId = productInfo.BrandInfo.Id,
@@ -264,7 +264,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                 //Add new line.
                 csv += "\r\n";
 
-                Response<List<ProductInfoDb>> productInfoList = await _productRepository.GetProductInfoList(loggedInUserId);
+                Response<List<ProductInfoDB>> productInfoList = await _productRepository.GetProductInfoList(loggedInUserId);
 
                 if (Helpers.IsResponseValid(productInfoList))
                 {

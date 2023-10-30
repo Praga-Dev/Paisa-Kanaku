@@ -2,7 +2,7 @@
 
 namespace Praga.PaisaKanaku.Core.DataEntities.Setup
 {
-    public class ProductInfoDb : BaseInfo
+    public class ProductInfoDB : BaseInfo
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }

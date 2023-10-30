@@ -44,7 +44,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     return response;
                 }
 
-                Response<BrandInfoDb> dbResponse = await _brandRepository.GetBrandInfoById(brandInfoId, loggedInUserId);
+                Response<BrandInfoDB> dbResponse = await _brandRepository.GetBrandInfoById(brandInfoId, loggedInUserId);
                 if (Helpers.IsResponseValid(dbResponse))
                 {
                     response.Data = new BrandInfo()
@@ -142,7 +142,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     response.ValidationErrorMessages.Add("Brand Name must be between 2 and 50 Characters long.");
                 }
 
-                BrandInfoDb brandInfoDb = new BrandInfoDb()
+                BrandInfoDB brandInfoDb = new BrandInfoDB()
                 {
                     Name = brandInfo.Name
                 };

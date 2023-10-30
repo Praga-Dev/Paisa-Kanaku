@@ -10,8 +10,8 @@ namespace Praga.PaisaKanaku.Core.DataAccess.IRepositories.Setup
 {
     public interface IRepairTypeRepository
     {
-        Task<Response<Guid>> SaveRepairTypeInfo(RepairTypeInfoDb repairTypeInfoDb, Guid loggedInUserId);
-        Task<Response<List<RepairTypeInfoDb>>> GetRepairTypeInfoList(Guid loggedInUserId);
-        Task<Response<RepairTypeInfoDb>> GetRepairTypeInfoById(Guid repairTypeInfoId, Guid loggedInUserId);
+        Task<Response<Guid>> SaveRepairTypeInfo(RepairTypeInfoDB repairTypeInfoDb, Guid loggedInUserId);
+        Task<Response<List<RepairTypeInfoDB>>> GetRepairTypeInfoList(Guid loggedInUserId);
+        Task<Response<RepairTypeInfoDB>> GetRepairTypeInfoById(Guid repairTypeInfoId, Guid loggedInUserId);
     }
 }

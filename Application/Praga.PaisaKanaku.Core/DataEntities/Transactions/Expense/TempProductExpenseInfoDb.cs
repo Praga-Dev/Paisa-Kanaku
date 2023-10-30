@@ -2,7 +2,7 @@
 
 namespace Praga.PaisaKanaku.Core.DataEntities.Transactions.Expense
 {
-    public class TempProductExpenseInfoDb : BaseInfo
+    public class TempProductExpenseInfoDB : BaseInfo
     {
         public Guid Id { get; set; }
         public Guid MemberId { get; set; }

@@ -10,13 +10,13 @@ namespace Praga.PaisaKanaku.Core.DataAccess.IRepositories.Transactions
 {
     public interface IExpenseRepository
     {
-        Task<Response<Guid>> CreateExpenseInfo(ExpenseSaveInfoDb expenseSaveInfoDb, Guid loggedInUserId);
-        Task<Response<List<ExpenseReferenceDetailInfoDb>>> GetExpenseInfoList(Guid loggedInUserId);
-        Task<Response<ExpenseReferenceDetailInfoDb>> GetExpenseInfoById(Guid expenseInfoId, Guid loggedInUserId);
-        Task<Response<List<ExpenseInfoDb>>> GetExpenseBaseInfoList(Guid loggedInUserId);
-        Task<Response<Guid>> SaveTempProductExpenseInfo(TempProductExpenseInfoDb tempProductExpenseInfoDb, Guid loggedInUserId);
-        Task<Response<List<TempProductExpenseInfoDb>>> GetTempProductExpenseInfo(DateTime expenseDate, Guid loggedInUserId);
-        Task<Response<TempProductExpenseInfoDb>> GetTempProductExpenseInfoById(Guid tempExpenseInfoId, Guid loggedInUserId);
+        Task<Response<Guid>> CreateExpenseInfo(ExpenseSaveInfoDB expenseSaveInfoDb, Guid loggedInUserId);
+        Task<Response<List<ExpenseReferenceDetailInfoDB>>> GetExpenseInfoList(Guid loggedInUserId);
+        Task<Response<ExpenseReferenceDetailInfoDB>> GetExpenseInfoById(Guid expenseInfoId, Guid loggedInUserId);
+        Task<Response<List<ExpenseInfoDB>>> GetExpenseBaseInfoList(Guid loggedInUserId);
+        Task<Response<Guid>> SaveTempProductExpenseInfo(TempProductExpenseInfoDB tempProductExpenseInfoDb, Guid loggedInUserId);
+        Task<Response<List<TempProductExpenseInfoDB>>> GetTempProductExpenseInfo(DateTime expenseDate, Guid loggedInUserId);
+        Task<Response<TempProductExpenseInfoDB>> GetTempProductExpenseInfoById(Guid tempExpenseInfoId, Guid loggedInUserId);
         Task<Response<Guid>> DeleteTempExpenseInfo(Guid tempExpenseInfoId, Guid loggedInUserId);
 
     }

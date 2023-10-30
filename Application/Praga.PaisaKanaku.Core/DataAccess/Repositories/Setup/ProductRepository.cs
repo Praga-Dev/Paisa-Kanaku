@@ -21,9 +21,9 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             _db = db;
         }
 
-        public async Task<Response<ProductInfoDb>> GetProductInfoById(Guid productInfoId, Guid loggedInUserId)
+        public async Task<Response<ProductInfoDB>> GetProductInfoById(Guid productInfoId, Guid loggedInUserId)
         {
-            Response<ProductInfoDb> response = new Response<ProductInfoDb>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<ProductInfoDB> response = new Response<ProductInfoDB>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
@@ -33,7 +33,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
                 parameters.Add("@ProductInfoId", productInfoId, DbType.Guid);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
 
-                var result = await _db.Connection.QueryAsync<ProductInfoDb>(spName, parameters, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<ProductInfoDB>(spName, parameters, commandType: CommandType.StoredProcedure);
                 return result != null ? response.GetSuccessResponse(result.FirstOrDefault()) : response;
             }
             catch (Exception ex)
@@ -44,16 +44,16 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             }
         }
 
-        public async Task<Response<List<ProductInfoDb>>> GetProductInfoList(Guid loggedInUserId)
+        public async Task<Response<List<ProductInfoDB>>> GetProductInfoList(Guid loggedInUserId)
         {
-            Response<List<ProductInfoDb>> response = new Response<List<ProductInfoDb>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<List<ProductInfoDB>> response = new Response<List<ProductInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
                 string spName = DatabaseConstants.USP_PRODUCT_INFO_GET;
                 var param = new { LoggedInUserId = loggedInUserId };
 
-                var result = await _db.Connection.QueryAsync<ProductInfoDb>(spName, param, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<ProductInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
                 return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             }
         }
 
-        public async Task<Response<Guid>> SaveProductInfo(ProductInfoDb productInfoDb, Guid loggedInUserId)
+        public async Task<Response<Guid>> SaveProductInfo(ProductInfoDB productInfoDb, Guid loggedInUserId)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
 

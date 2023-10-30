@@ -5,10 +5,10 @@ namespace Praga.PaisaKanaku.Core.DataAccess.IRepositories
 {
     public interface ILookupsRepository
     {
-        Task<Response<List<ExpenseTypeInfoDb>>> GetExpenseTypeInfoList(Guid loggedInUserId);
-        Task<Response<List<LiquidMeasureInfoDb>>> GetLiquidMeasureInfoList(Guid loggedInUserId);
-        Task<Response<List<MeasureTypeInfoDb>>> GetMeasureTypeInfoList(Guid loggedInUserId);
-        Task<Response<List<TimePeriodInfoDb>>> GetTimePeriodInfoList(Guid loggedInUserId);
+        Task<Response<List<ExpenseTypeInfoDB>>> GetExpenseTypeInfoList(Guid loggedInUserId);
+        Task<Response<List<LiquidMeasureInfoDB>>> GetLiquidMeasureInfoList(Guid loggedInUserId);
+        Task<Response<List<MeasureTypeInfoDB>>> GetMeasureTypeInfoList(Guid loggedInUserId);
+        Task<Response<List<TimePeriodInfoDB>>> GetTimePeriodInfoList(Guid loggedInUserId);
         Task<Response<List<ProductCategoryInfoDB>>> GetProductCategoryInfoList(Guid loggedInUserId);
 
     }

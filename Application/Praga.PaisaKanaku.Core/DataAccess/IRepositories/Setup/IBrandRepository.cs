@@ -10,8 +10,8 @@ namespace Praga.PaisaKanaku.Core.DataAccess.IRepositories.Setup
 {
     public interface IBrandRepository
     {
-        Task<Response<Guid>> SaveBrandInfo(BrandInfoDb brandInfoDb, Guid loggedInUserId);
-        Task<Response<List<BrandInfoDb>>> GetBrandInfoList(Guid loggedInUserId);
-        Task<Response<BrandInfoDb>> GetBrandInfoById(Guid brandInfoId, Guid loggedInUserId);
+        Task<Response<Guid>> SaveBrandInfo(BrandInfoDB brandInfoDb, Guid loggedInUserId);
+        Task<Response<List<BrandInfoDB>>> GetBrandInfoList(Guid loggedInUserId);
+        Task<Response<BrandInfoDB>> GetBrandInfoById(Guid brandInfoId, Guid loggedInUserId);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Praga.PaisaKanaku.Core.DataEntities.Setup
 {
-    public class MemberInfoDb : BaseInfo
+    public class MemberInfoDB : BaseInfo
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

@@ -10,8 +10,8 @@ namespace Praga.PaisaKanaku.Core.DataAccess.IRepositories.Setup
 {
     public interface IProductRepository
     {
-        Task<Response<Guid>> SaveProductInfo(ProductInfoDb productInfoDb, Guid loggedInUserId);
-        Task<Response<List<ProductInfoDb>>> GetProductInfoList(Guid loggedInUserId);
-        Task<Response<ProductInfoDb>> GetProductInfoById(Guid productInfoId, Guid loggedInUserId);
+        Task<Response<Guid>> SaveProductInfo(ProductInfoDB productInfoDb, Guid loggedInUserId);
+        Task<Response<List<ProductInfoDB>>> GetProductInfoList(Guid loggedInUserId);
+        Task<Response<ProductInfoDB>> GetProductInfoById(Guid productInfoId, Guid loggedInUserId);
     }
 }

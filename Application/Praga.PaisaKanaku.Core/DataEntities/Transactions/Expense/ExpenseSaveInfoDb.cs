@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Praga.PaisaKanaku.Core.DataEntities.Transactions.Expense
 {
-    public class ExpenseSaveInfoDb
+    public class ExpenseSaveInfoDB
     {
         public Guid ExpenseBy { get; set; }
         public DateTime ExpenseDate { get; set; }
