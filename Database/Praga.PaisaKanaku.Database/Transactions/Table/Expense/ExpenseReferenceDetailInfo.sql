@@ -4,7 +4,7 @@
 	[ExpenseInfoId] UNIQUEIDENTIFIER NOT NULL,
 	[ReferenceId] UNIQUEIDENTIFIER NOT NULL,
 	[ExpenseById] UNIQUEIDENTIFIER NOT NULL,
-	[DateOfExpense] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
+	[ExpenseDate] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
 	[Quantity] INT NOT NULL DEFAULT 1, -- If Applicable else 1
 	[ExpenseAmount] DECIMAL(12,3) NOT NULL, -- The Rate in the product may differ from the actual expense
 	[Description] NVARCHAR(250),

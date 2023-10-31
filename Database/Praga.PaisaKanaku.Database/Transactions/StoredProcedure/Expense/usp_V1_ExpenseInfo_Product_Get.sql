@@ -36,7 +36,7 @@ BEGIN TRY
 		[ERDI].[Id],
 		[ERDI].[ExpenseById],
 		[MI].[Name] AS [MemberName],
-		[ERDI].[DateOfExpense],
+		[ERDI].[ExpenseDate],
 		[ERDI].[ReferenceId],
 		[ERDI].[Quantity],
 		[ERDI].[ExpenseAmount],
@@ -49,7 +49,7 @@ BEGIN TRY
 	FROM [Transactions].[ExpenseReferenceDetailInfo] ERDI 
 	LEFT JOIN [Setup].[MemberInfo] MI ON ERDI.[ExpenseById] = MI.[Id]
 	WHERE [ERDI].[CreatedBy] = @LoggedInUserId
-	--AND [ERDI].[DateOfExpense] = @ExpenseDate 
+	--AND [ERDI].[ExpenseDate] = @ExpenseDate 
 	AND [ERDI].[RowStatus] = 'A'
 
 	SELECT * FROM @TempExpenseInfo ORDER BY [MemberName];

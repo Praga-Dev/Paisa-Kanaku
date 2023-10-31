@@ -43,11 +43,11 @@ BEGIN TRY
 
 	-- Before Insertion move all the items in EI tbl to EIL tbl
 	INSERT INTO [Transactions].[ExpenseReferenceDetailLog] ([Id], [ExpenseInfoId], [ReferenceId]
-		, [ExpenseById], [DateOfExpense], [Quantity], [ExpenseAmount], [Description], [CreatedBy])
+		, [ExpenseById], [ExpenseDate], [Quantity], [ExpenseAmount], [Description], [CreatedBy])
 	SELECT 
-		[Id], [ExpenseInfoId], [ReferenceId], [ExpenseById], [DateOfExpense], [Quantity], [ExpenseAmount], [Description], [CreatedBy]
+		[Id], [ExpenseInfoId], [ReferenceId], [ExpenseById], [ExpenseDate], [Quantity], [ExpenseAmount], [Description], [CreatedBy]
 	FROM [Transactions].[ExpenseReferenceDetailInfo] 
-	WHERE [DateOfExpense] = @ExpenseDate AND [RowStatus] = 'A'
+	WHERE [ExpenseDate] = @ExpenseDate AND [RowStatus] = 'A'
 
 	-- TODO NEED TO HARD DELETE IN TABLES 
 	--		[ExpenseReferenceDetailInfo]
@@ -55,10 +55,10 @@ BEGIN TRY
 
 	UPDATE [Transactions].[ExpenseReferenceDetailInfo]
 	SET [RowStatus] = 'D'
-	WHERE [DateOfExpense] = @ExpenseDate;
+	WHERE [ExpenseDate] = @ExpenseDate;
 
 	INSERT INTO [Transactions].[ExpenseReferenceDetailInfo] ([Id], [ExpenseInfoId], [ReferenceId]
-		, [ExpenseById], [DateOfExpense], [Quantity], [ExpenseAmount], [Description], [CreatedBy])
+		, [ExpenseById], [ExpenseDate], [Quantity], [ExpenseAmount], [Description], [CreatedBy])
 	SELECT
 		NEWID(),
 		@ExpenseInfoId,
