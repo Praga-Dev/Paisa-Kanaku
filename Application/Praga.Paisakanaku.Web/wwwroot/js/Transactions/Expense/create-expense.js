@@ -114,7 +114,7 @@ function getTempExpenseInfoList(date) {
             method: 'GET',
             success: function (response) {
                 if (response) {
-                    $('#divTempProductExpenseInfoListContainer').html(response);
+                    $('#divExpenseProductInfoListContainer').html(response);
                     $('#formCreateExpense input[type="select"]').val('');
                     $('#formCreateExpense input[type="number"]').val('');
                 }

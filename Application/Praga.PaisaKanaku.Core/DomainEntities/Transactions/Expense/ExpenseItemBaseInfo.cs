@@ -8,7 +8,7 @@
         public int Quantity { get; set; } = 1;
 
         /// <summary>
-        /// The expense amount is the amount spent for the product. i.e expenseAmount is equalto (productAmount * Quantity)
+        /// The expense amount is the amount spent for the product. i.e expenseAmount is equal to (productAmount * Quantity)
         /// </summary>
         public double ExpenseAmount { get; set; } 
         

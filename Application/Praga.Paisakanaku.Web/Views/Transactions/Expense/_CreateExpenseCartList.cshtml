@@ -1,4 +1,4 @@
-﻿@model Response<List<TempProductExpenseInfo>>
+﻿@model Response<List<ExpenseProductInfo>>
 
 @if (Model != null )
 {
@@ -11,8 +11,8 @@
             {
                  <text>
                     product = {};
-                    product.Id = `@cartItem.ProductInfo?.Id`;
-                    product.ExpenseById = `@cartItem.ExpenseBy?.Id`;
+                    product.Id = `@cartItem.ProductBaseInfo?.Id`;
+                    product.ExpenseById = `@cartItem.ExpenseByInfo?.Id`;
                     product.Quantity = @cartItem.Quantity;
                     product.ExpenseAmount = @cartItem.ExpenseAmount;
                     product.Description = `@cartItem.Description`;
@@ -52,20 +52,20 @@
                             {
                                 @foreach (var cartItem in Model.Data)
                                 {
-                                    @if (cartItem != null && cartItem.ProductInfo != null)
+                                    @if (cartItem != null && cartItem.ProductBaseInfo != null)
                                     {
                                         totalExpenseAmount += cartItem.ExpenseAmount;
                                         <tr>
                                             <th scope="row">
-                                                @if (cartItem.ExpenseBy != null && !string.IsNullOrWhiteSpace(cartItem.ExpenseBy.Name))
+                                                @if (cartItem.ExpenseByInfo != null && !string.IsNullOrWhiteSpace(cartItem.ExpenseByInfo.Name))
                                                 {
-                                                    <p>@cartItem.ExpenseBy.Name</p>
+                                                    <p>@cartItem.ExpenseByInfo.Name</p>
                                                 }
                                             </th>
                                             <th scope="row">
-                                                @if (!string.IsNullOrWhiteSpace(cartItem.ProductInfo.Name))
+                                                @if (!string.IsNullOrWhiteSpace(cartItem.ProductBaseInfo.Name))
                                                 {
-                                                    <p>@cartItem.ProductInfo.Name</p>
+                                                    <p>@cartItem.ProductBaseInfo.Name</p>
                                                 }
                                             </th>
                                             <th scope="row">
@@ -84,7 +84,7 @@
                                                 <span class="material-icons-outlined arrow btn-icon" id="btnEditCartItem_@cartItem.Id" title="Edit" onclick="editCartItem('@cartItem.Id')">
                                                     edit
                                                 </span>
-                                                <span class="material-icons-outlined arrow btn-icon" id="btnDeleteCartItem_@cartItem.Id" title="Delete" onclick="deleteCartItem('@cartItem.Id', '@cartItem.ProductInfo.Name')">
+                                                <span class="material-icons-outlined arrow btn-icon" id="btnDeleteCartItem_@cartItem.Id" title="Delete" onclick="deleteCartItem('@cartItem.Id', '@cartItem.ProductBaseInfo.Name')">
                                                     delete
                                                 </span>
                                             </td>

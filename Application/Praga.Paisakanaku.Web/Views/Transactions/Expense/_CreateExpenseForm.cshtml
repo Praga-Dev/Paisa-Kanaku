@@ -10,7 +10,7 @@
                     <div class="form-group">
                         <div class="form-group">
                             <label for="expenseDate" class="form-label">Expense Date <span class="mandatory">*</span></label>
-                            <input id="expenseDate" name="expenseDate" asp-for="@Model.DateOfExpense" type="date" class="form-control form-control-sm" aria-describedby="product-expense-date-help">
+                            <input id="expenseDate" name="expenseDate" asp-for="@Model.ExpenseDate" type="date" class="form-control form-control-sm" aria-describedby="product-expense-date-help">
                             <div id="product-expense-date-help" style="display:none;" class="form-text">Date should be past or present date of the expense made.</div>
                         </div>
                         <div id="memberListDDContainer" class="form-group" data-val="@Model?.ExpenseBy?.Id">

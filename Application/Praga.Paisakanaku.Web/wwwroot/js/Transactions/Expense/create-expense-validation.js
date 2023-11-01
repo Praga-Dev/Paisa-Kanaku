@@ -75,7 +75,7 @@ $(document).ready(function () {
                 'Id': expenseById,                
             }
 
-            let tempProductExpenseInfo = {
+            let expenseProductInfo = {
                 'Id': id,
                 'ExpenseBy': expenseBy,
                 'ExpenseDate': expenseDate,
@@ -90,7 +90,7 @@ $(document).ready(function () {
             $.ajax({
                 url: `./expense/product/temp`,
                 method: 'PUT',
-                data: tempProductExpenseInfo,
+                data: expenseProductInfo,
                 success: function (response) {
                     if (typeof response !== undefined && response !== null && response.isSuccess && response.data != null) {
                         showSuccessMsg('Expense saved successfully');

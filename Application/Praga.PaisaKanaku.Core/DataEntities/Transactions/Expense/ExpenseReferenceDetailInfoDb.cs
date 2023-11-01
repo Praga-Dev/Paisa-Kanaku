@@ -8,7 +8,7 @@ namespace Praga.PaisaKanaku.Core.DataEntities.Transactions.Expense
         public Guid Id { get; set; }
         public Guid ExpenseInfoId { get; set; }
         public Guid ExpenseBy { get; set; }
-        public DateTime DateOfExpense { get; set; }
+        public DateTime ExpenseDate { get; set; }
         public string? ExpenseDescription { get; set; }
         public string? ExpenseType { get; set; }
         public string? ExpenseTypeValue { get; set; }

@@ -5,20 +5,13 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
 {
     public interface IExpenseService
     {
-        Task<Response<Guid>> CreateExpenseInfo(ExpenseSaveInfo expenseSaveInfo, Guid loggedInUserId);
         Task<Response<List<ExpenseInfo>>> GetExpenseBaseInfoList(Guid loggedInUserId);
-
-        Task<Response<List<ExpenseReferenceDetailInfo>>> GetExpenseInfoList(Guid loggedInUserId);
-        Task<Response<ExpenseReferenceDetailInfo>> GetExpenseInfoById(Guid expenseInfoId, Guid loggedInUserId);
-        Task<Response<ExpenseReferenceDetailInfo>> GetTempExpenseInfoById(Guid tempExpenseInfoId, Guid loggedInUserId);
+        Task<Response<Guid>> CreateExpenseInfo(ExpenseSaveInfo expenseSaveInfo, Guid loggedInUserId);
         Task<Response<Guid>> DeleteTempExpenseInfo(Guid tempExpenseInfoId, Guid loggedInUserId);
         Task<Response<string>> ExportExpenseInfoData(Guid loggedInUserId);
 
-        #region ProductExponse
 
-        Task<Response<Guid>> SaveTempProductExpenseInfo(TempProductExpenseInfo tempProductExpenseInfo, Guid loggedInUserId);
-        Task<Response<List<TempProductExpenseInfo>>> GetTempProductExpenseInfo(DateTime expenseDate, Guid loggedInUserId);
-
-        #endregion
+        Task<Response<List<ExpenseReferenceDetailInfo>>> GetExpenseInfoList(Guid loggedInUserId);
+        Task<Response<ExpenseReferenceDetailInfo>> GetExpenseInfoById(Guid expenseInfoId, Guid loggedInUserId);
     }
 }

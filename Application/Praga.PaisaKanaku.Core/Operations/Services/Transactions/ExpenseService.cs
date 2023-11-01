@@ -3,6 +3,7 @@ using Praga.PaisaKanaku.Core.Common.Constants;
 using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.Common.Utils;
 using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Transactions;
+using Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions;
 using Praga.PaisaKanaku.Core.DataEntities.Transactions.Expense;
 using Praga.PaisaKanaku.Core.DomainEntities.Lookups;
 using Praga.PaisaKanaku.Core.DomainEntities.Setup;
@@ -50,7 +51,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                     response.Data = new ExpenseReferenceDetailInfo()
                     {
                         Id = dbResponse.Data.Id,
-                        DateOfExpense = dbResponse.Data.DateOfExpense,
+                        ExpenseDate = dbResponse.Data.ExpenseDate,
                         ExpenseAmount = dbResponse.Data.ExpenseAmount,
                         ExpenseInfoId = dbResponse.Data.ExpenseInfoId,
                         ReferenceId = dbResponse.Data.ReferenceId,
@@ -121,7 +122,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                     response.Data = dbResponse.Data.Select(expense => new ExpenseReferenceDetailInfo()
                     {
                         Id = expense.Id,
-                        DateOfExpense = expense.DateOfExpense,
+                        ExpenseDate = expense.ExpenseDate,
                         ExpenseAmount = expense.ExpenseAmount,
                         ExpenseInfoId = expense.ExpenseInfoId,
                         ReferenceId = expense.ReferenceId,
@@ -298,7 +299,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                 {
                     foreach (var expense in expenseInfoList.Data)
                     {
-                        csv += expense.DateOfExpense.ToString().Replace(",", ";") + ',';
+                        csv += expense.ExpenseDate.ToString().Replace(",", ";") + ',';
                         csv += Convert.ToString(expense.ExpenseAmount).Replace(",", ";") + ',';
                         csv += "\r\n";
                     }
@@ -352,203 +353,6 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
             {
                 _logger.LogError(ex, "Error in ExpenseService.GetExpenseBaseInfoList({@loggedInUserId})", loggedInUserId);
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
-            }
-
-            return response;
-        }
-
-        public async Task<Response<Guid>> SaveTempProductExpenseInfo(TempProductExpenseInfo tempProductExpenseInfo, Guid loggedInUserId)
-        {
-            Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
-
-            try
-            {
-                if (tempProductExpenseInfo == null)
-                {
-                    return response;
-                }
-
-                if (!Helpers.IsValidGuid(tempProductExpenseInfo.ProductId))
-                {
-                    response.ValidationErrorMessages.Add("Invalid Product Id");
-                }
-
-
-                if (tempProductExpenseInfo.ExpenseBy == null || !Helpers.IsValidGuid(tempProductExpenseInfo.ExpenseBy?.Id))
-                {
-                    response.ValidationErrorMessages.Add("Invalid Expense By Id");
-                }
-
-                if (tempProductExpenseInfo.ExpenseDate > DateTime.UtcNow.Date)
-                {
-                    response.ValidationErrorMessages.Add("Invalid Expense Date");
-                }
-
-                if (tempProductExpenseInfo.ExpenseAmount <= 0)
-                {
-                    response.ValidationErrorMessages.Add("Invalid Expense Amount");
-                }
-
-                if (tempProductExpenseInfo.Quantity <= 0)
-                {
-                    response.ValidationErrorMessages.Add("Invalid Quantity");
-                }
-
-                if (response.ValidationErrorMessages.Count > 0)
-                {
-                    return response;
-                }
-
-                TempProductExpenseInfoDB tempProductExpenseInfoDb = new()
-                {
-                    Amount = tempProductExpenseInfo.ExpenseAmount,
-                    MemberId = tempProductExpenseInfo.ExpenseBy?.Id ?? Guid.Empty,
-                    Date = tempProductExpenseInfo.ExpenseDate,
-                    Id = tempProductExpenseInfo.Id,
-                    ProductId = tempProductExpenseInfo.ProductId,
-                    Quantity = tempProductExpenseInfo.Quantity,
-                    Description = tempProductExpenseInfo.Description
-                };
-
-                return await _expenseRepository.SaveTempProductExpenseInfo(tempProductExpenseInfoDb, loggedInUserId);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in ExpenseService.SaveTempExpenseInfo({@tempProductExpenseInfo}, {@loggedInUserId})", tempProductExpenseInfo.ToString(), loggedInUserId);
-                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
-                return response;
-            }
-        }
-
-        public async Task<Response<List<TempProductExpenseInfo>>> GetTempProductExpenseInfo(DateTime expenseDate, Guid loggedInUserId)
-        {
-            Response<List<TempProductExpenseInfo>> response = new Response<List<TempProductExpenseInfo>>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
-
-            try
-            {
-
-                if (!Helpers.IsValidGuid(loggedInUserId))
-                {
-                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
-                    return response;
-                }
-
-                if (expenseDate > DateTime.UtcNow)
-                {
-                    response.ValidationErrorMessages.Add("Invalid ExpenseDate");
-                }
-
-                if (response.ValidationErrorMessages.Count > 0)
-                {
-                    return response;
-                }
-
-                var dbResponse = await _expenseRepository.GetTempProductExpenseInfo(expenseDate, loggedInUserId);
-                if (Helpers.IsResponseValid(dbResponse))
-                {
-                    response.Data = dbResponse.Data.Select(expense => new TempProductExpenseInfo()
-                    {
-                        Id = expense.Id,
-                        ExpenseDate = expense.Date,
-                        ExpenseAmount = expense.Amount,
-                        ProductId = expense.ProductId,
-                        ExpenseBy = new MemberInfo()
-                        {
-                            Id = expense.MemberId,
-                            Name = expense.MemberName,
-                        },
-                        Quantity = expense.Quantity,
-                        SequenceId = expense.SequenceId,
-                        CreatedBy = expense.CreatedBy,
-                        CreatedDate = expense.CreatedDate,
-                        ModifiedBy = expense.ModifiedBy,
-                        ModifiedDate = expense.ModifiedDate,
-                        RowStatus = expense.RowStatus,
-                        Description = expense.Description
-                    }).ToList();
-
-                    // Todo Get from DB
-                    foreach (var item in response.Data)
-                    {
-                        if (item != null && Helpers.IsValidGuid(item.ProductId))
-                        {
-                            var productInfo = await _productService.GetProductInfoById(item.ProductId, loggedInUserId);
-                            if (Helpers.IsResponseValid(productInfo))
-                            {
-                                item.ProductInfo = productInfo.Data;
-                            }
-                        }
-                    }
-
-
-                    response = response.GetSuccessResponse(response.Data);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in ExpenseService.GetTempExpenseInfo({@expenseDate}, {@loggedInUserId})", expenseDate, loggedInUserId);
-                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
-                return response;
-            }
-
-            return response;
-        }
-
-        public async Task<Response<ExpenseReferenceDetailInfo>> GetTempExpenseInfoById(Guid tempExpenseInfoId, Guid loggedInUserId)
-        {
-            Response<ExpenseReferenceDetailInfo> response = new Response<ExpenseReferenceDetailInfo>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
-
-            try
-            {
-
-                if (!Helpers.IsValidGuid(loggedInUserId))
-                {
-                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
-                    return response;
-                }
-
-                if (!Helpers.IsValidGuid(tempExpenseInfoId))
-                {
-                    return response;
-                }
-
-                var dbResponse = await _expenseRepository.GetTempProductExpenseInfoById(tempExpenseInfoId, loggedInUserId);
-                if (Helpers.IsResponseValid(dbResponse))
-                {
-                    response.Data = new ExpenseReferenceDetailInfo()
-                    {
-                        Id = dbResponse.Data.Id,
-                        DateOfExpense = dbResponse.Data.Date,
-                        ExpenseAmount = dbResponse.Data.Amount,
-                        ProductInfo = new()
-                        {
-                         Id = dbResponse.Data.ProductId
-                        },
-                        ExpenseBy = new MemberInfo()
-                        {
-                            Id = dbResponse.Data.MemberId,
-                        },
-                        Quantity = dbResponse.Data.Quantity,
-                        SequenceId = dbResponse.Data.SequenceId,
-                        CreatedBy = dbResponse.Data.CreatedBy,
-                        CreatedDate = dbResponse.Data.CreatedDate,
-                        ModifiedBy = dbResponse.Data.ModifiedBy,
-                        ModifiedDate = dbResponse.Data.ModifiedDate,
-                        RowStatus = dbResponse.Data.RowStatus,
-                        Description = dbResponse.Data.Description
-                    };
-
-
-                    response = response.GetSuccessResponse(response.Data);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in ExpenseService.GetTempExpenseInfoById({@tempExpenseInfoId}, {@loggedInUserId})", tempExpenseInfoId, loggedInUserId);
-                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
-                return response;
             }
 
             return response;
