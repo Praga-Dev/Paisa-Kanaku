@@ -3,12 +3,12 @@ using Praga.Paisakanaku.Web.Controllers.Base;
 using Praga.PaisaKanaku.Core.Common.Constants;
 using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.Common.Utils;
-using Praga.PaisaKanaku.Core.DomainEntities.Setup;
 using Praga.PaisaKanaku.Core.Operations.IServices.Setup;
 using System.IO;
 using System;
 using System.Net;
 using System.Text;
+using Praga.PaisaKanaku.Core.DomainEntities.Setup.Product;
 
 namespace Praga.Paisakanaku.Web.Controllers.Setup
 {

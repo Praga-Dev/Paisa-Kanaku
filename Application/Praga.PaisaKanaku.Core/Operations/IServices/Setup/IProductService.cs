@@ -1,5 +1,5 @@
 ﻿using Praga.PaisaKanaku.Core.Common.Model;
-using Praga.PaisaKanaku.Core.DomainEntities.Setup;
+using Praga.PaisaKanaku.Core.DomainEntities.Setup.Product;
 
 namespace Praga.PaisaKanaku.Core.Operations.IServices.Setup
 {

@@ -1,13 +1,9 @@
-﻿using Praga.PaisaKanaku.Core.Common.Model;
-using Praga.PaisaKanaku.Core.DomainEntities.Lookups;
+﻿using Praga.PaisaKanaku.Core.DomainEntities.Lookups;
 
-namespace Praga.PaisaKanaku.Core.DomainEntities.Setup
+namespace Praga.PaisaKanaku.Core.DomainEntities.Setup.Product
 {
-    public class ProductInfo : BaseInfo
+    public class ProductInfo : ProductBaseInfo
     {
-        public Guid Id { get; set; }
-        public bool IsChangeInProduct { get; set; }
-        public string? Name { get; set; }
         public double Price { get; set; }
         public string? Description { get; set; }
         public ProductCategoryInfo ProductCategoryInfo { get; set; } = new();
