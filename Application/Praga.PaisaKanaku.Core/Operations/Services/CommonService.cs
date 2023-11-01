@@ -25,7 +25,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services
             _commonRepository = commonRepository;
         }
 
-        public async Task<Response<Guid>> UpdateRowStatus(Guid id, string tableName, string schemaName, string rowStatus, Guid loggedInUserId)
+        public async Task<Response<Guid>> DeleteRecord(Guid id, string tableName, string schemaName, Guid loggedInUserId)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
             try
@@ -52,21 +52,16 @@ namespace Praga.PaisaKanaku.Core.Operations.Services
                     return response;
                 }
 
-                if (!Helpers.IsValidRowStatus(rowStatus))
-                {
-                    response.ValidationErrorMessages.Add(ResponseConstants.INVALID_PARAM_ROW_STATUS);
-                }
-
                 if (response.ValidationErrorMessages.Count > 0)
                 {
                     return response;
                 }
 
-                return await _commonRepository.UpdateRowStatus(id, tableName, schemaName, rowStatus, loggedInUserId);
+                return await _commonRepository.UpdateRowStatus(id, tableName, schemaName, RowStatusInfo.ROW_STATUS_DELETE, loggedInUserId);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in CommonService.UpdateRowStatus({@id}, {@tableName}, {@schemaName}, {@rowStatus}, {@loggedInUserId})", id, tableName, schemaName, rowStatus, loggedInUserId);
+                _logger.LogError(ex, "Error in CommonService.UpdateRowStatus({@id}, {@tableName}, {@schemaName}, {@loggedInUserId})", id, tableName, schemaName, loggedInUserId);
 
                 response.Message = ex.Message;
                 return response;

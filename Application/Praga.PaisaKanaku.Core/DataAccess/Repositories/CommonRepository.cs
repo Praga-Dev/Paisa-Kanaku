@@ -6,12 +6,7 @@ using Praga.PaisaKanaku.Core.Common.Utils;
 using Praga.PaisaKanaku.Core.DataAccess.ConnectionManager;
 using Praga.PaisaKanaku.Core.DataAccess.IRepositories;
 using Praga.PaisaKanaku.Core.DataAccess.Utils;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Praga.PaisaKanaku.Core.DataAccess.Repositories
 {
@@ -26,7 +21,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories
             _db = db;
         }
 
-        public async Task<Response<Guid>> UpdateRowStatus(Guid id, string tableName, string schemaName, string rowStatus, Guid loggedInUserId)
+        public async Task<Response<Guid>> UpdateRowStatus(Guid id, string tableName, string schemaName, char rowStatus, Guid loggedInUserId)
         {
             Response<Guid> Response = new();
             try
