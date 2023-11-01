@@ -9,8 +9,8 @@
             { "D", "ROW_STATUS_DELETED"},
         };
 
-        public const string ROW_STATUS_ACTIVE = "A";
-        public const string ROW_STATUS_INACTIVE = "I";
-        public const string ROW_STATUS_DELETED = "D";
+        public const char ROW_STATUS_ACTIVE = 'A';
+        public const char ROW_STATUS_INACTIVE = 'I';
+        public const char ROW_STATUS_DELETE = 'D';
     }
 }
