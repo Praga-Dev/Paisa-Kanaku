@@ -17,10 +17,10 @@ BEGIN TRY
 
 	DECLARE @ExpenseProductInfo TABLE(
 		[ExpenseDate] DATETIME2,
-		[Amount] DECIMAL(12,3)
+		[TotalExpenseAmount] DECIMAL(12,3)
 	);
 	
-	INSERT INTO @ExpenseProductInfo([ExpenseDate], [Amount])
+	INSERT INTO @ExpenseProductInfo([ExpenseDate], [TotalExpenseAmount])
 	SELECT 
 		[ExpenseDate],
 		SUM([ExpenseAmount])
