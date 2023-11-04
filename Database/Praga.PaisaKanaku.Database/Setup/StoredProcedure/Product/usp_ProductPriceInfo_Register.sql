@@ -16,6 +16,11 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
+	IF(@ProductInfoId IS NULL OR @ProductInfoId = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[ProductInfo] WHERE [Id] = @ProductInfoId))
+	BEGIN
+		RAISERROR('INVALID_PARAM_PRODUCT_INFO_ID_IN_USP_PRODUCT_PRICE_INFO_REGISTER', 16, 1);		
+	END
+
 	IF(@Price <= 0)
 	BEGIN
 		RAISERROR('INVALID_PARAM_PRICE', 16, 1);
@@ -25,10 +30,13 @@ BEGIN TRY
 
 	SELECT TOP 1 @OldPrice = [Price] FROM [Setup].[ProductPriceInfo]
 	WHERE [ProductInfoId] = @ProductInfoId AND [RowStatus] = 'A'
-	ORDER BY [SequenceId]
+	ORDER BY [SequenceId] DESC
 
-	IF(@OldPrice IS NULL OR @OldPrice < @Price)
+	IF(@OldPrice IS NULL OR @OldPrice != @Price)
 	BEGIN 		
+		
+		UPDATE [Setup].[ProductPriceInfo] SET [RowStatus] = 'I' WHERE [ProductInfoId] = @ProductInfoId		
+
 		DECLARE @TempProductPriceInfoId UNIQUEIDENTIFIER = NEWID();
 
 		INSERT INTO [Setup].[ProductPriceInfo] 

@@ -5,6 +5,7 @@
 	[ProductInfoId] UNIQUEIDENTIFIER NOT NULL,
 	[ExpenseById] UNIQUEIDENTIFIER NOT NULL,
 	[ExpenseDate] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
+	[ProductPrice] DECIMAL(12,3) NOT NULL,
 	[Quantity] INT NOT NULL DEFAULT 1,
 	[ExpenseAmount] DECIMAL(12,3) NOT NULL, -- The Rate in the product may differ from the actual expense
 	[Description] NVARCHAR(250),

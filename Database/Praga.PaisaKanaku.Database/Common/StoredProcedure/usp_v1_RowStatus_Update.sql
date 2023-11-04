@@ -3,7 +3,7 @@
 	@TableSchema NVARCHAR(50),
 	@TableName NVARCHAR(255),
 	@RowStatus NVARCHAR(1),
-	@LoggedInUserId UNIQUEIDENTIFIER,
+	@LoggedInUser UNIQUEIDENTIFIER,
 	@Result UNIQUEIDENTIFIER OUTPUT
 AS
 DECLARE @Response INT = 0;
@@ -13,7 +13,7 @@ SET @EmptyGuid = CAST(CAST(0 AS BINARY) AS UNIQUEIDENTIFIER);
 
 BEGIN TRY
 
-	IF([Auth].[udp_v1_ValidateAccount](@LoggedInUserId) = 0)
+	IF([Auth].[udp_v1_ValidateAccount](@LoggedInUser) = 0)
 	BEGIN
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
@@ -37,7 +37,7 @@ BEGIN TRY
 	BEGIN
 		DECLARE @RowStatusUpdateQuery NVARCHAR(1000);
 
-		SET @RowStatusUpdateQuery = CONCAT('UPDATE ',@TableSchema,'.',@TableName,' SET [RowStatus] = ''',@RowStatus,''', [ModifiedBy] = ''',@LoggedInUserId,''', [ModifiedDate] = ''',GETUTCDATE(),''' WHERE [Id] = ''',@Id,'''');
+		SET @RowStatusUpdateQuery = CONCAT('UPDATE ',@TableSchema,'.',@TableName,' SET [RowStatus] = ''',@RowStatus,''', [ModifiedBy] = ''',@LoggedInUser,''', [ModifiedDate] = ''',GETUTCDATE(),''' WHERE [Id] = ''',@Id,'''');
 		EXEC (@RowStatusUpdateQuery)
 	END
 

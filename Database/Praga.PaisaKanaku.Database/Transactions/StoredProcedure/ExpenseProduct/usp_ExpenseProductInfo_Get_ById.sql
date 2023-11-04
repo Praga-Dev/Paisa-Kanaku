@@ -1,4 +1,4 @@
-CREATE PROCEDURE [Transactions].[usp_ExpenseInfo_Product_Get_ById]
+CREATE PROCEDURE [Transactions].[usp_ExpenseProductInfo_Get_ById]
 	@ExpenseProductInfoId UNIQUEIDENTIFIER,
 	@LoggedInUserId UNIQUEIDENTIFIER
 AS
@@ -21,10 +21,12 @@ BEGIN TRY
 
 	DECLARE @ExpenseProductInfo TABLE(
 		[Id] UNIQUEIDENTIFIER,
-		[MemberId] UNIQUEIDENTIFIER,
-		[MemberName] NVARCHAR(25),
+		[ExpenseDate] DATETIME2,
+		[ExpenseById] UNIQUEIDENTIFIER,
+		[ExpenseByName] NVARCHAR(50),
 		[ProductInfoId] UNIQUEIDENTIFIER,
 		[ProductInfoName] NVARCHAR(25),
+		[ProductPrice] DECIMAL(12,3),
 		[Quantity] INT,
 		[ExpenseAmount] DECIMAL(12,3),
 		[Description] NVARCHAR(250),
@@ -35,13 +37,16 @@ BEGIN TRY
 		[RowStatus] NVARCHAR(1)
 	);
 	
-	INSERT INTO @ExpenseProductInfo([Id], [MemberId], [MemberName], [ProductInfoId], [ProductInfoName], [Quantity], [ExpenseAmount], [Description], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
+	-- Expense Items
+	INSERT INTO @ExpenseProductInfo([Id], [ExpenseDate], [ExpenseById], [ExpenseByName], [ProductInfoId], [ProductInfoName], [ProductPrice], [Quantity], [ExpenseAmount], [Description], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
 	SELECT 
 		[EPI].[Id],
+		[EPI].[ExpenseDate],
 		[EPI].[ExpenseById],
 		[MI].[Name] AS [ExpenseByName],
 		[EPI].[ProductInfoId],
 		[PDTI].[Name],
+		[EPI].[ProductPrice],
 		[EPI].[Quantity],
 		[EPI].[ExpenseAmount],
 		[EPI].[Description],

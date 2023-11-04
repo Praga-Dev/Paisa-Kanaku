@@ -56,7 +56,8 @@ BEGIN TRY
 	LEFT JOIN [Setup].[ProductPriceInfo] PPI ON PI.[Id] = PPI.[ProductInfoId]
 	LEFT JOIN [Lookups].[ProductCategoryInfo] PCI ON PI.[ProductCategory] = PCI.[ProductCategory]
 	LEFT JOIN [Lookups].[TimePeriodTypeInfo] TPTI ON PI.[PreferredRecurringTimePeriod] = TPTI.[TimePeriodType]
-	WHERE PI.[RowStatus] = 'A' AND PI.CreatedBy = @LoggedInUserId;
+	WHERE PI.[RowStatus] = 'A' AND PPI.RowStatus = 'A' AND PI.CreatedBy = @LoggedInUserId
+	ORDER BY PI.[Name];
 
 	SELECT * FROM @ProductInfo ORDER BY [Name];
 

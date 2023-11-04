@@ -33,6 +33,11 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_EXPENSE_PRODUCT_INFO_ID', 16, 1);
 	END
 
+	IF(@ProductPrice <= 0)
+	BEGIN
+		RAISERROR('INVALID_PARAM_PRODUCT_PRICE', 16, 1);
+	END
+
 	IF(@Quantity <= 0)
 	BEGIN
 		RAISERROR('INVALID_PARAM_QUANTITY', 16, 1);
@@ -47,7 +52,7 @@ BEGIN TRY
 
 	SET @ExpenseDate = DATEADD(dd, 0, DATEDIFF(dd, 0, @ExpenseDate))
 
-	IF(@ExpenseInfoId IS NULL)
+	IF(@ExpenseInfoId IS NULL OR @ExpenseInfoId = @EmptyGuid)
 	BEGIN
 		IF(EXISTS(SELECT TOP 1 1 FROM [Transactions].[ExpenseInfo] WHERE [Date] = @ExpenseDate))
 		BEGIN
@@ -76,9 +81,9 @@ BEGIN TRY
 	IF(@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Transactions].[ExpenseProductInfo] WHERE [Id] = @Id))
 	BEGIN
 		INSERT INTO [Transactions].[ExpenseProductInfo]
-		([Id], [ExpenseInfoId], [ProductInfoId], [ExpenseById], [ExpenseDate], [Quantity], [ExpenseAmount], [Description], [CreatedBy])
+		([Id], [ExpenseInfoId], [ProductInfoId], [ExpenseById], [ExpenseDate], [ProductPrice], [Quantity], [ExpenseAmount], [Description], [CreatedBy])
 		VALUES
-		(@ExpenseProductInfoId, @ExpenseInfoId, @ProductInfoId, @ExpenseById, @ExpenseDate, @Quantity, @ExpenseAmount, @Description, @LoggedInUserId)
+		(@ExpenseProductInfoId, @ExpenseInfoId, @ProductInfoId, @ExpenseById, @ExpenseDate, @ProductPrice, @Quantity, @ExpenseAmount, @Description, @LoggedInUserId)
 
 		EXEC [Common].[usp_v1_Add_To_ExpenseAmount] @ExpenseInfoId = @ExpenseInfoId, @Amount = @ExpenseAmount, @Result = @ExpenseAmountResult OUTPUT;
 	END
@@ -90,7 +95,8 @@ BEGIN TRY
 
 		UPDATE [Transactions].[ExpenseProductInfo]
 			SET	[ProductInfoId] = @ProductInfoId, 
-				[ExpenseById] = @ExpenseById, 
+				[ExpenseById] = @ExpenseById,
+				[ProductPrice] = @ProductPrice,
 				[Quantity] = @Quantity, 
 				[ExpenseAmount] = @ExpenseAmount, 
 				[Description] = @Description,
@@ -107,14 +113,15 @@ BEGIN TRY
 		BEGIN
 			RAISERROR('EXPENSE_AMOUNT_NOT_UPDATED_ON_EXPENSE_INFO_TABLE', 16, 1);
 		END
-
-		DECLARE @ProductPriceInfoId UNIQUEIDENTIFIER;
-		EXEC [Setup].[usp_ProductPriceInfo_Register] @Id, @ProductPrice, @LoggedInUserId, @ProductPriceInfoId OUTPUT;
-		IF (@ProductPriceInfoId IS NULL OR @ProductPriceInfoId = @EmptyGuid)
-		BEGIN
-			RAISERROR('PRODUCT_PRICE_UPDATE_FAILED', 16, 1);
-		END
 	END	
+
+	DECLARE @ProductPriceInfoId UNIQUEIDENTIFIER;
+	EXEC [Setup].[usp_ProductPriceInfo_Register] @ProductInfoId, @ProductPrice, @LoggedInUserId, @ProductPriceInfoId OUTPUT;
+
+	IF (@ProductPriceInfoId IS NULL OR @ProductPriceInfoId = @EmptyGuid)
+	BEGIN
+		RAISERROR('PRODUCT_PRICE_UPDATE_FAILED', 16, 1);
+	END
 
 	SET @Result = @ExpenseProductInfoId;
 
