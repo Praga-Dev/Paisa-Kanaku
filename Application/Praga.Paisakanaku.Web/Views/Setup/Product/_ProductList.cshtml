@@ -8,9 +8,8 @@
                     <tr>
                         <th scope="col">Product Name</th>
                         <th scope="col">Price</th>
-                        <th scope="col">Brand</th>
                         <th scope="col">Product Category</th>
-                        <th scope="col">Expense Type</th>
+                        <th scope="col">Brand</th>
                         <th scope="col">Preferred Time Period</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -21,40 +20,34 @@
                         @foreach (var product in Model.Data)
                         {
                             <tr>
-                                <th scope="row">
+                                <td scope="row">
                                     @if (!string.IsNullOrWhiteSpace(product.Name))
                                     {
                                         <p data-bs-toggle="tooltip" data-bs-placement="top" title="@product.Description">@product.Name</p> 
                                         @* TODO Check Tooltip functionality *@
                                     }
-                                </th>
-                                <th scope="row">
+                                </td>
+                                <td scope="row">
                                     <p>@product.Price.ToString("C")</p>
-                                </th>
-                                <th scope="row">
-                                    @if (product.BrandInfo != null && !string.IsNullOrWhiteSpace(product.BrandInfo.Name))
-                                    {
-                                        <p>@product.BrandInfo.Name</p>
-                                    }
-                                </th>
-                                <th scope="row">
+                                </td>
+                                <td scope="row">
                                     @if (product.ProductCategoryInfo != null && !string.IsNullOrWhiteSpace(product.ProductCategoryInfo.ProductCategoryValue))
                                     {
                                         <p>@product.ProductCategoryInfo.ProductCategoryValue</p>
                                     }
-                                </th>
-                                <th scope="row">
-                                    @if (product.ExpenseTypeInfo != null && !string.IsNullOrWhiteSpace(product.ExpenseTypeInfo.ExpenseTypeValue))
+                                </td>
+                                <td scope="row">
+                                    @if (product.BrandInfo != null && !string.IsNullOrWhiteSpace(product.BrandInfo.Name))
                                     {
-                                        <p>@product.ExpenseTypeInfo.ExpenseTypeValue</p>
+                                        <p>@product.BrandInfo.Name</p>
                                     }
-                                </th>
-                                <th scope="row">
+                                </td>
+                                <td scope="row">
                                     @if (product.PreferredTimePeriodInfo != null && !string.IsNullOrWhiteSpace(product.PreferredTimePeriodInfo.TimePeriodTypeValue))
                                     {
                                         <p>@product.PreferredTimePeriodInfo.TimePeriodTypeValue</p>
                                     }
-                                </th>
+                                </td>
                                 <td class="d-flex justify-content-end">
                                     <span class="material-icons-outlined arrow btn-icon" id="btnEditProduct_@product.Id"
                                   title="Update Product" onclick="editProduct('@product.Id')">

@@ -11,7 +11,7 @@
 <div class="container pk-create-expense-container">
     <div class="row align-items-start">
         <div id="divTempExpenseFormContainer" class="col-5">
-            <partial name="_CreateExpenseForm.cshtml" model="new ExpenseReferenceDetailInfo()">
+            <partial name="_CreateExpenseForm.cshtml" model="new ExpenseProductInfo()">
         </div>
         <div id="divExpenseProductInfoListContainer" class="col-7 pk-cart">
             <partial name="_CreateExpenseCartList.cshtml" model="new Response<List<ExpenseProductInfo>>()">
@@ -25,4 +25,4 @@
 
 
 
-<script src="~/js/transactions/expense/create-expense.js" asp-append-version="true"></script>
+<script src="~/js/Transactions/ExpenseProduct/create-expense.js" asp-append-version="true"></script>

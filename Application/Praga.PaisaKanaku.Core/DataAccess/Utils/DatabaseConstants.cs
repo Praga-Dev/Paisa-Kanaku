@@ -40,6 +40,7 @@
         public const string USP_EXPENSE_PRODUCT_INFO_SAVE = "Transactions.usp_ExpenseProductInfo_Save";
         public const string USP_EXPENSE_PRODUCT_INFO_GET_SUM_AMOUNT_BY_DATE = "Transactions.usp_ExpenseProductInfo_Get_SumAmountByDate";
         public const string USP_EXPENSE_INFO_PRODUCT_GET_BY_DATE = "Transactions.usp_ExpenseInfo_Product_Get_ByDate";
+        public const string USP_EXPENSE_PRODUCT_INFO_GET_BY_ID = "Transactions.usp_ExpenseProductInfo_Get_ById";
 
         public const string USP_TEMP_EXPENSE_INFO_DELETE = "Transactions.usp_V1_TempExpenseInfo_Delete";
 

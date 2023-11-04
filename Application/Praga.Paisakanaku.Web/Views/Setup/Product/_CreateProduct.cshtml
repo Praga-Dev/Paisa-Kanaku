@@ -50,10 +50,6 @@
                                     <div id="timePeriodListDDContainer" class="form-group" data-val="@(string.IsNullOrEmpty(@Model?.PreferredTimePeriodInfo?.TimePeriodType) ? "" : @Model?.PreferredTimePeriodInfo?.TimePeriodType)">
                                         <partial name="~/Views/Common/_TimePeriodList.cshtml" model="null" />
                                     </div>
-                                    <div id="expenseTypeListDDContainer" class="form-group" data-val="@(string.IsNullOrEmpty(@Model?.ExpenseTypeInfo?.ExpenseType) ? "" : @Model?.ExpenseTypeInfo?.ExpenseType)">
-                                        <partial name="~/Views/Common/_ExpenseTypeList.cshtml" model="null" />
-                                    </div>
-
                                     <button type="submit" id="btnProductSaveSubmit" class="display-none" />
                                 </form>
                             </div>

@@ -66,11 +66,6 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                                 Name = dbResponse.Data.BrandName ?? String.Empty,
                             },
                             Description = dbResponse.Data.ProductDescription,
-                            ExpenseTypeInfo = new()
-                            {
-                                ExpenseType = dbResponse.Data.ExpenseType ?? String.Empty,
-                                ExpenseTypeValue = dbResponse.Data.ExpenseTypeValue ?? String.Empty
-                            },
                             PreferredTimePeriodInfo = new()
                             {
                                 TimePeriodType = dbResponse.Data.PreferredRecurringTimePeriod ?? String.Empty,
@@ -79,7 +74,8 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                             Price = dbResponse.Data.ExpenseAmount,
                             ProductCategoryInfo = new ProductCategoryInfo()
                             {
-
+                                ProductCategory = dbResponse.Data.ProductCategory ?? String.Empty,
+                                ProductCategoryValue = dbResponse.Data.ProductCategoryValue ?? String.Empty
                             }
                         },
                         SequenceId = dbResponse.Data.SequenceId,
@@ -137,11 +133,6 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                                 Name = expense.BrandName ?? String.Empty,
                             },
                             Description = expense.ProductDescription,
-                            ExpenseTypeInfo = new()
-                            {
-                                ExpenseType = expense.ExpenseType ?? String.Empty,
-                                ExpenseTypeValue = expense.ExpenseTypeValue ?? String.Empty
-                            },
                             PreferredTimePeriodInfo = new()
                             {
                                 TimePeriodType = expense.PreferredRecurringTimePeriod ?? String.Empty,

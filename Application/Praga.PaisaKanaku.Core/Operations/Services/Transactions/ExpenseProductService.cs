@@ -3,13 +3,10 @@ using Praga.PaisaKanaku.Core.Common.Constants;
 using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.Common.Utils;
 using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Transactions;
-using Praga.PaisaKanaku.Core.DataEntities.Transactions.Expense;
 using Praga.PaisaKanaku.Core.DataEntities.Transactions.ExpenseProduct;
-using Praga.PaisaKanaku.Core.DomainEntities.Setup;
-using Praga.PaisaKanaku.Core.DomainEntities.Transactions.Expense;
 using Praga.PaisaKanaku.Core.DomainEntities.Transactions.ExpenseProduct;
+using Praga.PaisaKanaku.Core.DTO.Transactions.ExpenseProduct;
 using Praga.PaisaKanaku.Core.Operations.IServices;
-using Praga.PaisaKanaku.Core.Operations.IServices.Setup;
 using Praga.PaisaKanaku.Core.Operations.IServices.Transactions;
 
 namespace Praga.PaisaKanaku.Core.Operations.Services.Transactions
@@ -29,40 +26,40 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Transactions
             _expenseProductRepository = expenseProductRepository;
         }
 
-        public async Task<Response<Guid>> SaveExpenseProductInfo(ExpenseProductInfo expenseProductInfo, Guid loggedInUserId)
+        public async Task<Response<Guid>> SaveExpenseProductInfo(ExpenseProductSaveRequestDTO expenseProductSaveRequestDTO, Guid loggedInUserId)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
 
             try
             {
-                if (expenseProductInfo == null)
+                if (expenseProductSaveRequestDTO == null)
                 {
                     return response;
                 }
 
-                if (expenseProductInfo.ProductBaseInfo == null || !Helpers.IsValidGuid(expenseProductInfo.ProductBaseInfo.Id))
+                if (!Helpers.IsValidGuid(expenseProductSaveRequestDTO.ProductInfoId))
                 {
                     response.ValidationErrorMessages.Add("Invalid ProductInfo Id");
                 }
 
-                if (expenseProductInfo.ExpenseByInfo == null || !Helpers.IsValidGuid(expenseProductInfo.ExpenseByInfo.Id))
-                {
-                    response.ValidationErrorMessages.Add("Invalid ExpenseByInfo Id");
-                }
-
-                if (expenseProductInfo.ExpenseDate > DateTime.UtcNow.Date)
+                if (expenseProductSaveRequestDTO.ExpenseDate > DateTime.UtcNow.Date)
                 {
                     response.ValidationErrorMessages.Add("Invalid Expense Date");
                 }
 
-                if (expenseProductInfo.ExpenseAmount <= 0)
+                if (expenseProductSaveRequestDTO.ProductPrice <= 0)
                 {
-                    response.ValidationErrorMessages.Add("Invalid Expense Amount");
+                    response.ValidationErrorMessages.Add("Invalid Product Price");
                 }
 
-                if (expenseProductInfo.Quantity <= 0)
+                if (expenseProductSaveRequestDTO.Quantity <= 0)
                 {
                     response.ValidationErrorMessages.Add("Invalid Quantity");
+                }
+
+                if (expenseProductSaveRequestDTO.ExpenseAmount <= 0)
+                {
+                    response.ValidationErrorMessages.Add("Invalid Expense Amount");
                 }
 
                 if (response.ValidationErrorMessages.Count > 0)
@@ -72,21 +69,22 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Transactions
 
                 ExpenseProductInfoDB expenseProductInfoDB = new()
                 {
-                    Id = expenseProductInfo.Id,
-                    ExpenseInfoId = expenseProductInfo.ExpenseInfoId,
-                    ExpenseAmount = expenseProductInfo.ExpenseAmount,
-                    ExpenseById = expenseProductInfo.ExpenseByInfo.Id,
-                    ExpenseDate = expenseProductInfo.ExpenseDate,
-                    ProductInfoId = expenseProductInfo.ProductBaseInfo.Id,
-                    Quantity = expenseProductInfo.Quantity,
-                    Description = expenseProductInfo.Description
+                    Id = expenseProductSaveRequestDTO.Id,
+                    ExpenseInfoId = expenseProductSaveRequestDTO.ExpenseInfoId,
+                    ProductPrice = expenseProductSaveRequestDTO.ProductPrice,
+                    Quantity = expenseProductSaveRequestDTO.Quantity,
+                    ExpenseAmount = expenseProductSaveRequestDTO.ExpenseAmount,
+                    ExpenseById = expenseProductSaveRequestDTO.ExpenseByInfoId,
+                    ExpenseDate = expenseProductSaveRequestDTO.ExpenseDate,
+                    ProductInfoId = expenseProductSaveRequestDTO.ProductInfoId,
+                    Description = expenseProductSaveRequestDTO.Description
                 };
 
                 return await _expenseProductRepository.SaveExpenseProductInfoDB(expenseProductInfoDB, loggedInUserId);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in ExpenseProductService.SaveTempExpenseInfo({@expenseProductInfo}, {@loggedInUserId})", expenseProductInfo.ToString(), loggedInUserId);
+                _logger.LogError(ex, "Error in ExpenseProductService.SaveTempExpenseInfo({@expenseProductSaveRequestDTO}, {@loggedInUserId})", expenseProductSaveRequestDTO.ToString(), loggedInUserId);
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
                 return response;
             }
@@ -191,6 +189,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Transactions
                             Id = expenseProduct.ExpenseById,
                             Name = expenseProduct.ExpenseByName
                         },
+                        ProductPrice = expenseProduct.ProductPrice,
                         Quantity = expenseProduct.Quantity,
                         Description = expenseProduct.Description,
                         SequenceId = expenseProduct.SequenceId,
@@ -251,6 +250,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Transactions
                         Id = expenseProductInfoDB .Id,
                         ExpenseInfoId = expenseProductInfoDB .ExpenseInfoId,
                         ExpenseDate = expenseProductInfoDB .ExpenseDate,
+                        ProductPrice = expenseProductInfoDB.ProductPrice,
                         ExpenseAmount = expenseProductInfoDB .ExpenseAmount,
                         ProductBaseInfo = new()
                         {

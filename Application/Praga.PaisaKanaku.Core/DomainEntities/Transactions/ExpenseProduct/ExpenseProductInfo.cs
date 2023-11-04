@@ -8,9 +8,10 @@ namespace Praga.PaisaKanaku.Core.DomainEntities.Transactions.ExpenseProduct
     {
         public Guid Id { get; set; }
         public Guid ExpenseInfoId { get; set; }
-        public DateTime ExpenseDate { get; set; }
+        public DateTime ExpenseDate { get; set; } = DateTime.UtcNow;
         public ProductBaseInfo ProductBaseInfo { get; set; }
         public MemberInfo ExpenseByInfo { get; set; }
+        public double ProductPrice { get; set; }
         public int Quantity { get; set; }
         public double ExpenseAmount { get; set; }
         public string Description { get; set; }

@@ -63,7 +63,6 @@ function InitializeCalendar(calEvents) {
             eventDisplay: 'block',
             displayEventEnd: false,
             eventDidMount: function (event) {
-                debugger;
                 if (event) {
                     var title = $(event.el).find('.fc-event-title')
                     title.html(title.text());

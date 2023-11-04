@@ -104,13 +104,17 @@ function getProductDDList(productId = '') {
         success: function (response) {
             if (typeof response !== undefined && response !== null) {
                 $('#productListDDContainer').html(response);
+
+                let val = $('#productListDDContainer').data('val')
+                if (val) {
+                    $('#selectProduct').val(val);
+                }
                 if (productId) {
                     $('#selectProduct').val(productId);
-                } else {
-                    let val = $('#productListDDContainer').data('val') 
-                    if (val) {
-                        $('#selectProduct').val(val);
-                    }
+                }
+
+                if (!(productId || val)) {
+                    $('#selectProduct').val('');   
                 }
             }
             else {

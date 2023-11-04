@@ -10,8 +10,6 @@ namespace Praga.PaisaKanaku.Core.DataEntities.Setup
         public string? ProductCategoryValue { get; set; }
         public Guid BrandId { get; set; }
         public string? BrandName { get; set; }
-        public string? ExpenseType { get; set; }
-        public string? ExpenseTypeValue { get; set; }
         public double Price { get; set; }
         public string? Description { get; set; }
         public string? PreferredRecurringTimePeriod { get; set; }

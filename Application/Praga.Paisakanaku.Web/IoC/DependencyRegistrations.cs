@@ -10,6 +10,7 @@ using Praga.PaisaKanaku.Core.Operations.IServices.Setup;
 using Praga.PaisaKanaku.Core.Operations.IServices.Transactions;
 using Praga.PaisaKanaku.Core.Operations.Services;
 using Praga.PaisaKanaku.Core.Operations.Services.Setup;
+using Praga.PaisaKanaku.Core.Operations.Services.Transactions;
 
 namespace Praga.PaisaKanaku.Web.IoC
 {
@@ -34,11 +35,18 @@ namespace Praga.PaisaKanaku.Web.IoC
             services.AddTransient<IExpenseService, ExpenseService>();
             services.AddTransient<IExpenseRepository, ExpenseRepository>();
 
+            services.AddTransient<ICommonService, CommonService>();
+            services.AddTransient<ICommonRepository, CommonRepository>();
+
+            services.AddTransient<IExpenseProductService, ExpenseProductService>();
+            services.AddTransient<IExpenseProductRepository, ExpenseProductRepository>();
+
             services.AddTransient<IBillTypeService, BillTypeService>();
             services.AddTransient<IBillTypeRepository, BillTypeRepository>();
 
             services.AddTransient<IRepairTypeService, RepairTypeService>();
             services.AddTransient<IRepairTypeRepository, RepairTypeRepository>();
+
         }
     }
 }

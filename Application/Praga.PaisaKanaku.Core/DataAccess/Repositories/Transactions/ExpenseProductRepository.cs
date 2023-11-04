@@ -5,14 +5,12 @@ using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.DataAccess.ConnectionManager;
 using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Transactions;
 using Praga.PaisaKanaku.Core.DataAccess.Utils;
-using Praga.PaisaKanaku.Core.DataEntities.Transactions.Expense;
 using Praga.PaisaKanaku.Core.DataEntities.Transactions.ExpenseProduct;
-using Praga.PaisaKanaku.Core.DomainEntities.Transactions.ExpenseProduct;
 using System.Data;
 
 namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
 {
-    internal class ExpenseProductRepository : IExpenseProductRepository
+    public class ExpenseProductRepository : IExpenseProductRepository
     {
         private readonly ILogger<ExpenseProductRepository> _logger;
         private readonly IDataBaseConnection _db;
@@ -37,6 +35,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
                 parameters.Add("@ExpenseInfoId", expenseProductInfoDB.ExpenseInfoId, DbType.Guid);
                 parameters.Add("@ProductInfoId", expenseProductInfoDB.ProductInfoId, DbType.Guid);
                 parameters.Add("@ExpenseById", expenseProductInfoDB.ExpenseById, DbType.Guid);
+                parameters.Add("@ProductPrice", expenseProductInfoDB.ProductPrice, DbType.Double);
                 parameters.Add("@Quantity", expenseProductInfoDB.Quantity, DbType.Int64);
                 parameters.Add("@ExpenseAmount", expenseProductInfoDB.ExpenseAmount, DbType.Double);
                 parameters.Add("@Description", expenseProductInfoDB.Description, DbType.String);
@@ -112,7 +111,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
 
             try
             {
-                string spName = DatabaseConstants.USP_EXPENSE_INFO_PRODUCT_GET_BY_DATE;
+                string spName = DatabaseConstants.USP_EXPENSE_PRODUCT_INFO_GET_BY_ID;
                 DynamicParameters parameters = new();
                 parameters.Add("@ExpenseProductInfoId", expenseProductInfoId, DbType.Guid);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);

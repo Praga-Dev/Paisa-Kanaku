@@ -1,0 +1,41 @@
+﻿@model Response<List<ExpenseProductInfoSumAmountByDate>>
+
+@{
+    ViewData["Title"] = "Product - Expense";
+}
+
+@* <div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Product - Expense</h2>
+                </div>
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-primary-outline" onclick="onCreateBrand()">
+                        <span>Create &nbsp;</span><i class="material-icons">&#xE147;</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="brandListContainer">
+            @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
+            {
+                <partial name="_ExpenseProductList.cshtml" />
+            }
+            else
+            {
+                <p>
+                    NO RECORDS FOUND
+                </p>
+            }
+        </div>
+    </div>
+    <div>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary-outline"> <span>&#8592; &nbsp;</span> Go to Home</a>
+    </div>
+</div> *@
+
+<div class="pk-expense-container">
+    <partial name="_CreateExpense.cshtml" model="new ExpenseProductInfo()" />
+</div>

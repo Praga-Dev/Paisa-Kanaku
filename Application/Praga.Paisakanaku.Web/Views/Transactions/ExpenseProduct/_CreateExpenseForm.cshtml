@@ -1,4 +1,4 @@
-﻿@model ExpenseReferenceDetailInfo
+﻿@model ExpenseProductInfo
 
 @if (Model != null)
 {
@@ -6,18 +6,18 @@
     <div id="ExpenseCreateFormContainer">
         <div class="row">
             <div class="col-sm-12">
-                <form id="formCreateExpense" data-id="@Model.Id" data-isupdate="@(Guid.Empty != Model.Id)" autocomplete="off">
+                <form id="formCreateExpense" data-id="@Model.Id" data-expense-id="@Model.ExpenseInfoId" data-isupdate="@(Guid.Empty != Model.Id)" autocomplete="off">
                     <div class="form-group">
                         <div class="form-group">
                             <label for="expenseDate" class="form-label">Expense Date <span class="mandatory">*</span></label>
                             <input id="expenseDate" name="expenseDate" asp-for="@Model.ExpenseDate" type="date" class="form-control form-control-sm" aria-describedby="product-expense-date-help">
                             <div id="product-expense-date-help" style="display:none;" class="form-text">Date should be past or present date of the expense made.</div>
                         </div>
-                        <div id="memberListDDContainer" class="form-group" data-val="@Model?.ExpenseBy?.Id">
+                        <div id="memberListDDContainer" class="form-group" data-val="@Model?.ExpenseByInfo?.Id">
                             <partial name="~/Views/Common/_MemberList.cshtml" model="null" />
                         </div>
                         <div class="">
-                            <div id="productListDDContainer" class="form-group" data-val="@Model?.ProductInfo?.Id">
+                            <div id="productListDDContainer" class="form-group" data-val="@Model.ProductBaseInfo?.Id" data-price="@Model.ProductPrice">
                                 <partial name="~/Views/Common/_ProductList.cshtml" model="null" />
                             </div>
                         </div>
@@ -25,7 +25,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="amount" class="form-label">Product Amount <span class="mandatory">*</span></label>
-                                    <input id="amount" name="amount" asp-for="@Model.ProductInfo.Price" type="number" class="form-control form-control-sm" aria-describedby="product-amount-help" min="0">
+                                    <input id="amount" name="amount" asp-for="@Model.ProductBaseInfo.Price" type="number" class="form-control form-control-sm" aria-describedby="product-amount-help" min="0">
                                     <div id="product-amount-help" style="display:none;" class="form-text">Enter valid expense amount of the product. Example : 50.95</div>
                                 </div>
                             </div>
@@ -62,5 +62,6 @@
     <div id="createProductFormContainer">
         <partial name="~/Views/Setup/Product/_CreateProduct.cshtml" model="new ProductInfo()" />
     </div>
-    <script src="~/js/transactions/expense/create-expense-validation.js" asp-append-version="true"></script>
+
+    <script src="~/js/Transactions/ExpenseProduct/create-expense-validation.js" asp-append-version="true"></script>
 }

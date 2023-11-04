@@ -64,38 +64,39 @@ $(document).ready(function () {
             disableBtnById('btnAddExpenseSubmit');
 
             let id = $('#formCreateExpense').data('id');
-            let expenseById = $('#selectMember').val();
+            let expenseInfoId = $('#formCreateExpense').data('expense-id');
             let expenseDate = $('#expenseDate').val();
-            let productId = $('#selectProduct').val();
+            let productInfoId = $('#selectProduct').val();
+            let expenseByInfoId = $('#selectMember').val();
+            let productPrice = $('#amount').val();
             let quantity = $('#quantity').val();
             let expenseAmount = $('#expenseAmount').val();
             let description = $('#expenseDescription').val();
 
-            let expenseBy = {
-                'Id': expenseById,                
-            }
-
             let expenseProductInfo = {
                 'Id': id,
-                'ExpenseBy': expenseBy,
+                'ExpenseInfoId': expenseInfoId,
                 'ExpenseDate': expenseDate,
-                'ProductId': productId,
+                'ProductInfoId': productInfoId,
+                'ExpenseByInfoId': expenseByInfoId,
+                'ProductPrice': productPrice,
                 'Quantity': quantity,
                 'ExpenseAmount': expenseAmount,
                 'Description' : description
             }
 
-            debugger;
-
             $.ajax({
-                url: `./expense/product/temp`,
+                url: `./expense-product`,
                 method: 'PUT',
                 data: expenseProductInfo,
                 success: function (response) {
                     if (typeof response !== undefined && response !== null && response.isSuccess && response.data != null) {
                         showSuccessMsg('Expense saved successfully');
-                        getTempExpenseInfoList();
+                        getExpenseProductInfoList();
                         resetTempExpenseForm();
+                        if (id) {
+                            getCreateFormView()
+                        }
                     } else {
                         showErrorMsg('Expense save failed');
                     }
@@ -121,6 +122,10 @@ $(document).ready(function () {
 function resetTempExpenseForm() {
     $('#selectProduct, #expenseDescription').val('');
     $('#amount, #expenseAmount, #quantity, #expenseDescription').prop('disabled', true).val('');
+}
+
+function getCreateFormView() {
+    $('#btnAddExpenseSubmit').text('Create Expense');
 }
 
 function createExpenseInfo() {

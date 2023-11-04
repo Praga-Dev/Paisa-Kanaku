@@ -35,7 +35,6 @@ function onCreateProduct() {
     getBrandDDList();
     getProductCategoryDDList();
     getTimePeriodDDList();
-    getExpenseTypeDDList();
     hideSpinner();
 }
 
@@ -51,7 +50,6 @@ function editProduct(productInfoId) {
                     $('#createProductFormContainer').empty().html(response);
                     getBrandDDList();
                     getProductCategoryDDList();
-                    getExpenseTypeDDList();
                     getTimePeriodDDList();
                     $('#createProductTitle').text('Update Product');
                     $('#createProductModal').modal('show');
@@ -71,33 +69,4 @@ function editProduct(productInfoId) {
     } else {
         showErrorMsg('Something went wrong !');
     }
-}
-
-function downloadProduct() {
-    loadSpinner();
-    disableBtnById('btnDownloadProduct');
-    $.ajax({
-        url: `./product/${productInfoId}`,
-        success: function (response) {
-            if (typeof response !== undefined && response !== null) {
-                $('#createProductFormContainer').empty().html(response);
-                getBrandDDList();
-                getProductCategoryDDList();
-                getExpenseTypeDDList();
-                getTimePeriodDDList();
-                $('#createProductTitle').text('Update Product');
-                $('#createProductModal').modal('show');
-            }
-            else {
-                showErrorMsg('Something went wrong !');
-            }
-        },
-        error: function (err) {
-            showErrorMsg('Something went wrong !');
-        },
-        complete: function () {
-            hideSpinner();
-            enableBtnById('btnDownloadProduct');
-        }
-    })
 }

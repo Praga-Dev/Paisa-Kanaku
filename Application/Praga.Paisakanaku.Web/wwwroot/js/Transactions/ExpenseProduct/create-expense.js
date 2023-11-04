@@ -2,12 +2,19 @@
     // TODO switch this to onCreateExpense method
     getMemberDDList();
     getProductDDList();
-    $('#amount, #expenseAmount, #quantity').prop('disabled', true);
-    getTempExpenseInfoList();
+    getExpenseProductInfoList();
+    resetForm();
 });
+
+function resetForm() {
+    $('#selectMember').val('')
+    $('#selectMember').val('')
+    $('#amount, #expenseAmount, #quantity').prop('disabled', true);
+}
 
 function onCreateProduct() {
     loadSpinner();
+    resetForm();
     $('#formCreateProduct').trigger("reset");
     $('#formCreateProduct').data('id', '');
     $('#formCreateProduct').data('isupdate', 'False');
@@ -35,6 +42,12 @@ function getProductDataById(productId) {
                 if (response && response.data && response.isSuccess) {
                     let productVal = response.data.price;
                     $('#amount').val(productVal);
+
+                    let price = $('#productListDDContainer').data('price')
+                    if (price) {
+                        $('#amount').val(price)
+                    }
+
                     calcExpenseAmount();
                 }
                 else {
@@ -89,28 +102,19 @@ function calcExpenseAmount() {
     let quantity = parseInt($('#quantity').val());
     let expenseAmount = Math.ceil(amount * quantity);
     $('#expenseAmount').val(expenseAmount);
-
-    //let isCreate = $('#formCreateExpense').data('isupdate') == 'False';
-    //if (isCreate) {
-    //    let amount = parseFloat($('#amount').val());
-    //    let quantity = parseInt($('#quantity').val());
-    //    let expenseAmount = Math.ceil(amount * quantity);
-    //    $('#expenseAmount').val(expenseAmount);
-    //}
-
 }
 
 
 $(document).on('change', '#formCreateExpense #expenseDate', function () {
-    getTempExpenseInfoList();
+    getExpenseProductInfoList();
 });
 
-function getTempExpenseInfoList(date) {
+function getExpenseProductInfoList(date) {
     let expenseDate = date ?? $('#expenseDate').val();
     if (expenseDate) {
         loadSpinner();
         $.ajax({
-            url: `./expense/product/temp/date/${expenseDate}/`,
+            url: `./expense-product/${expenseDate}/cart`,
             method: 'GET',
             success: function (response) {
                 if (response) {
@@ -137,7 +141,7 @@ function editCartItem(id) {
     if (id) {
         loadSpinner();
         $.ajax({
-            url: `./expense/temp/${id}/`,
+            url: `./expense-product/${id}/`,
             method: 'GET',
             success: function (response) {
                 if (response) {
@@ -172,11 +176,11 @@ function deleteCartItem(tempExpenseInfoId, ItemName) {
     if (tempExpenseInfoId) {
         loadSpinner();
         $.ajax({
-            url: `./expense/temp/${tempExpenseInfoId}/`,
+            url: `./expense-product/${tempExpenseInfoId}/`,
             method: 'DELETE',
             success: function (response) {
                 if (response && response.data && response.isSuccess) {
-                    getTempExpenseInfoList();
+                    getExpenseProductInfoList();
                     showSuccessMsg('Expense deleted successfully');
                 }
                 else {

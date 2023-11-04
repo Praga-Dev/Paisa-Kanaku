@@ -102,34 +102,3 @@
 </div>
 
 <script src="~/js/transactions/expense/expense.js" asp-append-version="true"></script>
-
-@* <div class="action-body-container">
-    <div class="main-grid-container">
-        <div class="table-responsive">
-            <table class="table table-bordered  align-middle">
-                <thead>
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Expense Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
-                    {
-                        @foreach (var expense in Model.Data)
-                        {
-                            <tr>
-                                <th scope="row">
-                                    <span>@expense.Date</span>
-                                </th>
-                                <th scope="row">
-                                    <span>@expense.Amount</span>
-                                </th>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div> *@

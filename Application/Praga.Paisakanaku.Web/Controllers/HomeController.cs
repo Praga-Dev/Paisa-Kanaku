@@ -15,7 +15,7 @@ namespace Praga.Paisakanaku.Web.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Expense");
+            return RedirectToAction("Index", "ExpenseProduct");
             //return View();
         }
 

@@ -10,7 +10,7 @@ using System.Data;
 
 namespace Praga.PaisaKanaku.Core.DataAccess.Repositories
 {
-    internal class CommonRepository : ICommonRepository
+    public class CommonRepository : ICommonRepository
     {
         private readonly ILogger<CommonRepository> _logger;
         private readonly IDataBaseConnection _db;

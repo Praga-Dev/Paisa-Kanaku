@@ -31,9 +31,6 @@ $(function () {
             productCategory: {
                 isDropDownValueValid: true
             },
-            expenseType: {
-                isDropDownValueValid: true
-            },
             preferredRecurringTimePeriod: {
                 isDropDownValueValid: true
             },
@@ -56,9 +53,6 @@ $(function () {
             productCategory: {
                 isProductCategoryIdValid: 'Product Category is required'
             },
-            expenseType: {
-                isExpenseTypeValid: 'Expense Type is required'
-            },
             preferredRecurringTimePeriod: {
                 isPreferredRecurringTimePeriod: 'Preferred Recurring Time Period is required'
             },
@@ -75,7 +69,6 @@ $(function () {
             let brandName = $('#formCreateProduct #brandName').val();
             let productCategory = $('#formCreateProduct #selectProductCategory').val();            
             let timePeriod = $('#formCreateProduct #selectTimePeriod').val();
-            let expenseTypeInfo = $('#formCreateProduct #selectExpenseType').val();
 
             if (brandId === 'NEW')
                 brandId = ''
@@ -91,9 +84,6 @@ $(function () {
                 },
                 'ProductCategoryInfo': {
                     'ProductCategory': productCategory
-                },
-                'ExpenseTypeInfo': {
-                    'ExpenseType': expenseTypeInfo
                 },
                 'PreferredTimePeriodInfo': {
                     'TimePeriodType': timePeriod

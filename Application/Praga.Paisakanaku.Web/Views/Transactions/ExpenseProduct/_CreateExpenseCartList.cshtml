@@ -1,6 +1,6 @@
 ﻿@model Response<List<ExpenseProductInfo>>
 
-@if (Model != null )
+@if (Model != null)
 {
     <script type="text/javascript">
         expenseData = [];
@@ -9,22 +9,22 @@
         {
             @foreach (var cartItem in Model.Data)
             {
-                 <text>
-                    product = {};
-                    product.Id = `@cartItem.ProductBaseInfo?.Id`;
-                    product.ExpenseById = `@cartItem.ExpenseByInfo?.Id`;
-                    product.Quantity = @cartItem.Quantity;
-                    product.ExpenseAmount = @cartItem.ExpenseAmount;
-                    product.Description = `@cartItem.Description`;
+                <text>
+                    product = { };
+                product.Id = `@cartItem.ProductBaseInfo?.Id`;
+                product.ExpenseById = `@cartItem.ExpenseByInfo?.Id`;
+                product.Quantity = @cartItem.Quantity;
+                product.ExpenseAmount = @cartItem.ExpenseAmount;
+                product.Description = `@cartItem.Description`;
 
-                    expenseData.push(product);
-                 </text>
+                expenseData.push(product);
+                </text>
             }
         }
 
     </script>
-    
-    
+
+
     double totalExpenseAmount = 0;
     <div class="pk-cart-table-wrapper pk-table-border">
         <div class="table-title">
@@ -56,30 +56,30 @@
                                     {
                                         totalExpenseAmount += cartItem.ExpenseAmount;
                                         <tr>
-                                            <th scope="row">
+                                            <td scope="row">
                                                 @if (cartItem.ExpenseByInfo != null && !string.IsNullOrWhiteSpace(cartItem.ExpenseByInfo.Name))
                                                 {
                                                     <p>@cartItem.ExpenseByInfo.Name</p>
                                                 }
-                                            </th>
-                                            <th scope="row">
+                                            </td>
+                                            <td scope="row">
                                                 @if (!string.IsNullOrWhiteSpace(cartItem.ProductBaseInfo.Name))
                                                 {
                                                     <p>@cartItem.ProductBaseInfo.Name</p>
                                                 }
-                                            </th>
-                                            <th scope="row">
+                                            </td>
+                                            <td scope="row">
                                                 @if (cartItem.Quantity > 0)
                                                 {
                                                     <p>@cartItem.Quantity</p>
                                                 }
-                                            </th>
-                                            <th scope="row">
+                                            </td>
+                                            <td scope="row">
                                                 @if (cartItem.ExpenseAmount > 0)
                                                 {
                                                     <p>@cartItem.ExpenseAmount.ToString("c")</p>
                                                 }
-                                            </th>
+                                            </td>
                                             <td class="d-flex justify-content-end">
                                                 <span class="material-icons-outlined arrow btn-icon" id="btnEditCartItem_@cartItem.Id" title="Edit" onclick="editCartItem('@cartItem.Id')">
                                                     edit
