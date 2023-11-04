@@ -95,6 +95,8 @@
     <Folder Include="Setup\StoredProcedure\Grocery" />
     <Folder Include="Transactions\Table\ExpenseProduct" />
     <Folder Include="Transactions\StoredProcedure\ExpenseProduct" />
+    <Folder Include="Transactions\Table\ExpenseGrocery" />
+    <Folder Include="Transactions\StoredProcedure\ExpenseGrocery" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Account.sql" />
@@ -189,6 +191,13 @@
     <Build Include="Transactions\StoredProcedure\ExpenseProduct\usp_ExpenseProductInfo_Get_ById.sql" />
     <Build Include="Setup\Table\Product\ProductPriceInfo.sql" />
     <Build Include="Setup\StoredProcedure\Product\usp_ProductPriceInfo_Register.sql" />
+    <Build Include="Transactions\Table\ExpenseGrocery\ExpenseGroceryInfo.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseGrocery\usp_ExpenseGroceryInfo_Save.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseGrocery\usp_ExpenseGroceryInfo_Get_SumAmountByDate.sql" />
+    <Build Include="Common\ScalarFunction\udp_v1_ValidateMonth.sql" />
+    <Build Include="Common\ScalarFunction\udp_v1_ValidateYear.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseGrocery\usp_ExpenseGroceryInfo_Get_ById.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseGrocery\usp_ExpenseGroceryInfo_Get_ByDate.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />

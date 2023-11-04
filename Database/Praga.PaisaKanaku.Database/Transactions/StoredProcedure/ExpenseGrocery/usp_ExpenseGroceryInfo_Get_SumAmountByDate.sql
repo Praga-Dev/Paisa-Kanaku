@@ -1,4 +1,4 @@
-CREATE PROCEDURE [Transactions].[usp_ExpenseProductInfo_Get_SumAmountByDate]
+CREATE PROCEDURE [Transactions].[usp_ExpenseGroceryInfo_Get_SumAmountByDate]
 	@Month INT,
 	@Year INT,
 	@LoggedInUserId UNIQUEIDENTIFIER
@@ -25,22 +25,22 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_YEAR', 16, 1);
 	END
 
-	DECLARE @ExpenseProductInfo TABLE(
+	DECLARE @ExpenseGroceryInfo TABLE(
 		[ExpenseDate] DATETIME2,
 		[TotalExpenseAmount] DECIMAL(12,3)
 	);
 	
-	INSERT INTO @ExpenseProductInfo([ExpenseDate], [TotalExpenseAmount])
+	INSERT INTO @ExpenseGroceryInfo([ExpenseDate], [TotalExpenseAmount])
 	SELECT 
 		[ExpenseDate],
 		SUM([ExpenseAmount])
-	FROM [Transactions].[ExpenseProductInfo]
+	FROM [Transactions].[ExpenseGroceryInfo]
 	WHERE MONTH([ExpenseDate]) = @Month AND YEAR([ExpenseDate]) = @Year
 		AND [CreatedBy] = @LoggedInUserId
 		AND [RowStatus] = 'A'
 	GROUP BY [ExpenseDate];
 
-	SELECT * FROM @ExpenseProductInfo;
+	SELECT * FROM @ExpenseGroceryInfo;
 
 END TRY  
 BEGIN CATCH  
