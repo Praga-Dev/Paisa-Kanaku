@@ -1,8 +1,7 @@
 CREATE PROCEDURE [Setup].[usp_ProductPriceInfo_Register]
 	@ProductInfoId UNIQUEIDENTIFIER,
 	@Price DECIMAL(12,3),
-	@LoggedInUserId UNIQUEIDENTIFIER,
-	@Result UNIQUEIDENTIFIER OUTPUT
+	@LoggedInUserId UNIQUEIDENTIFIER
 AS
 DECLARE @Response INT = 0;
 
@@ -45,7 +44,6 @@ BEGIN TRY
 		(@TempProductPriceInfoId, @ProductInfoId, @Price, @LoggedInUserId);
 	END
 
-	SET @Result = @TempProductPriceInfoId;
 	RETURN @Response;
 
 END TRY  

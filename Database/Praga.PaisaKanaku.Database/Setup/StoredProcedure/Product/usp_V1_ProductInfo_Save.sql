@@ -54,8 +54,7 @@ BEGIN TRY
 		WHERE [Id] = @Id AND [RowStatus] = 'A';
 	END	
 
-	DECLARE @ProductPriceInfoId UNIQUEIDENTIFIER;
-	EXEC [Setup].[usp_ProductPriceInfo_Register] @Id, @Price, @LoggedInUserId, @ProductPriceInfoId OUTPUT;
+	EXEC [Setup].[usp_ProductPriceInfo_Register] @Id, @Price, @LoggedInUserId;
 
 	SET @Result = @Id;
 	RETURN @Response;

@@ -115,13 +115,7 @@ BEGIN TRY
 		END
 	END	
 
-	DECLARE @ProductPriceInfoId UNIQUEIDENTIFIER;
-	EXEC [Setup].[usp_ProductPriceInfo_Register] @ProductInfoId, @ProductPrice, @LoggedInUserId, @ProductPriceInfoId OUTPUT;
-
-	IF (@ProductPriceInfoId IS NULL OR @ProductPriceInfoId = @EmptyGuid)
-	BEGIN
-		RAISERROR('PRODUCT_PRICE_UPDATE_FAILED', 16, 1);
-	END
+	EXEC [Setup].[usp_ProductPriceInfo_Register] @ProductInfoId, @ProductPrice, @LoggedInUserId;
 
 	SET @Result = @ExpenseProductInfoId;
 
