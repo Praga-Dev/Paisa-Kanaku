@@ -25,8 +25,6 @@ BEGIN TRY
 		[ProductCategoryValue] NVARCHAR(25),
 		[BrandId] UNIQUEIDENTIFIER,
 		[BrandName] NVARCHAR(50),
-		[ExpenseType] NVARCHAR(25),
-		[ExpenseTypeValue] NVARCHAR(25),
 		[Price] DECIMAL(12,3),
 		[Description] NVARCHAR(250),
 		[PreferredRecurringTimePeriod] NVARCHAR(15),
@@ -39,7 +37,7 @@ BEGIN TRY
 		[RowStatus] NVARCHAR(1)
 	);
 
-	INSERT INTO @ProductInfo([Id], [Name], [ProductCategory], [ProductCategoryValue], [BrandId], [BrandName], [ExpenseType], [ExpenseTypeValue], 
+	INSERT INTO @ProductInfo([Id], [Name], [ProductCategory], [ProductCategoryValue], [BrandId], [BrandName], 
 	[Price], [Description], [PreferredRecurringTimePeriod], [PreferredRecurringTimePeriodValue], [SequenceId], [CreatedBy], [CreatedDate], 
 	[ModifiedBy], [ModifiedDate], [RowStatus])
 	SELECT	
@@ -49,9 +47,7 @@ BEGIN TRY
 	PCI.[ProductCategoryValue], 
 	BI.[Id] AS [BrandId], 
 	BI.[Name] AS [BrandName], 
-	ET.[ExpenseType], 
-	ET.[ExpenseTypeValue], 
-	PI.[Price], 
+	PPI.[Price], 
 	PI.[Description], 
 	TPTI.[TimePeriodType] AS [PreferredRecurringTimePeriod], 
 	TPTI.[TimePeriodTypeValue] AS [PreferredRecurringTimePeriodValue], 
@@ -63,8 +59,8 @@ BEGIN TRY
 	PI.[RowStatus]
 	FROM [Setup].[ProductInfo] PI
 	LEFT JOIN [Setup].[BrandInfo] BI ON PI.[BrandId] = BI.[Id]
+	LEFT JOIN [Setup].[ProductPriceInfo] PPI ON PI.[Id] = PPI.[ProductInfoId]
 	LEFT JOIN [Lookups].[ProductCategoryInfo] PCI ON PI.[ProductCategory] = PCI.[ProductCategory]
-	LEFT JOIN [Lookups].[ExpenseTypeInfo] ET ON PI.[ExpenseType] = ET.[ExpenseType]
 	LEFT JOIN [Lookups].[TimePeriodTypeInfo] TPTI ON PI.[PreferredRecurringTimePeriod] = TPTI.[TimePeriodType]
 	WHERE PI.[Id] = @ProductInfoId AND PI.[RowStatus] = 'A' AND PI.CreatedBy = @LoggedInUserId;
 

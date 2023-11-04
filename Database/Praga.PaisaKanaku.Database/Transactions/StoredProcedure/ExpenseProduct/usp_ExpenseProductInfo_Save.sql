@@ -4,6 +4,7 @@ CREATE PROCEDURE [Transactions].[usp_ExpenseProductInfo_Save]
 	@ExpenseInfoId UNIQUEIDENTIFIER,
 	@ProductInfoId UNIQUEIDENTIFIER,
 	@ExpenseById UNIQUEIDENTIFIER,
+	@ProductPrice DECIMAL(12,3),
 	@Quantity INT,
 	@ExpenseAmount DECIMAL(12,3),
 	@Description NVARCHAR(250),
@@ -105,6 +106,13 @@ BEGIN TRY
 		IF (@ExpenseAmountResult <= 0)
 		BEGIN
 			RAISERROR('EXPENSE_AMOUNT_NOT_UPDATED_ON_EXPENSE_INFO_TABLE', 16, 1);
+		END
+
+		DECLARE @ProductPriceInfoId UNIQUEIDENTIFIER;
+		EXEC [Setup].[usp_ProductPriceInfo_Register] @Id, @ProductPrice, @LoggedInUserId, @ProductPriceInfoId OUTPUT;
+		IF (@ProductPriceInfoId IS NULL OR @ProductPriceInfoId = @EmptyGuid)
+		BEGIN
+			RAISERROR('PRODUCT_PRICE_UPDATE_FAILED', 16, 1);
 		END
 	END	
 

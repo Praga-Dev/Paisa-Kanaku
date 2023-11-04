@@ -187,6 +187,8 @@
     <Build Include="Transactions\StoredProcedure\ExpenseProduct\usp_ExpenseProductInfo_Get_SumAmountByDate.sql" />
     <Build Include="Transactions\StoredProcedure\ExpenseProduct\usp_ExpenseProductInfo_Get_ByDate.sql" />
     <Build Include="Transactions\StoredProcedure\ExpenseProduct\usp_ExpenseProductInfo_Get_ById.sql" />
+    <Build Include="Setup\Table\Product\ProductPriceInfo.sql" />
+    <Build Include="Setup\StoredProcedure\Product\usp_ProductPriceInfo_Register.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />

@@ -297,7 +297,6 @@ BEGIN
 END
 GO
 
-
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'GroceryCategoryInfo') 
 BEGIN
 
@@ -316,9 +315,9 @@ BEGIN
         INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'BEVERAGES', N'Beverages', 3, 'A');
     END
                         
-    IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'CEREAL')
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'CEREALS_&_GRAINS')
     BEGIN
-        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'CEREAL', N'Cereal', 4, 'A');
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'CEREALS_&_GRAINS', N'Cereals & Grains', 4, 'A');
     END
                         
     IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'CLEANING_SUPPLIES')
@@ -366,69 +365,89 @@ BEGIN
         INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'HEALTH_CARE', N'Health Care', 13, 'A');
     END
                         
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'LEAVES')
+    BEGIN
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'LEAVES', N'Leaves', 14, 'A');
+    END
+                        
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'MASALA')
+    BEGIN
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'MASALA', N'Masala', 15, 'A');
+    END
+                        
     IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'MEAT')
     BEGIN
-        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'MEAT', N'Meat', 14, 'A');
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'MEAT', N'Meat', 16, 'A');
     END
                         
     IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'OILS')
     BEGIN
-        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'OILS', N'Oils', 15, 'A');
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'OILS', N'Oils', 17, 'A');
     END
                         
     IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'OTHER_ITEMS')
     BEGIN
-        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'OTHER_ITEMS', N'Other items', 16, 'A');
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'OTHER_ITEMS', N'Other items', 18, 'A');
+    END
+                        
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'PACKETED_FOODS')
+    BEGIN
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'PACKETED_FOODS', N'Packeted Foods', 19, 'A');
     END
                         
     IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'PAPER_&_WRAP')
     BEGIN
-        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'PAPER_&_WRAP', N'Paper & Wrap ', 17, 'A');
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'PAPER_&_WRAP', N'Paper & Wrap ', 20, 'A');
     END
                         
     IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'PERSONAL_CARE')
     BEGIN
-        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'PERSONAL_CARE', N'Personal Care', 18, 'A');
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'PERSONAL_CARE', N'Personal Care', 21, 'A');
     END
                         
     IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'PET_CARE')
     BEGIN
-        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'PET_CARE', N'Pet Care', 19, 'A');
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'PET_CARE', N'Pet Care', 22, 'A');
     END
                         
     IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'PULSES')
     BEGIN
-        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'PULSES', N'Pulses', 20, 'A');
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'PULSES', N'Pulses', 23, 'A');
     END
                         
     IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'RICE')
     BEGIN
-        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'RICE', N'Rice', 21, 'A');
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'RICE', N'Rice', 24, 'A');
     END
                         
     IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'SAUCES')
     BEGIN
-        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'SAUCES', N'Sauces', 22, 'A');
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'SAUCES', N'Sauces', 25, 'A');
+    END
+                        
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'SEA_FOOD')
+    BEGIN
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'SEA_FOOD', N'Sea Food', 26, 'A');
     END
                         
     IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'SNACKS')
     BEGIN
-        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'SNACKS', N'Snacks', 23, 'A');
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'SNACKS', N'Snacks', 27, 'A');
     END
                         
     IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'SPICES_&_CONDIMENTS')
     BEGIN
-        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'SPICES_&_CONDIMENTS', N'Spices & Condiments', 24, 'A');
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'SPICES_&_CONDIMENTS', N'Spices & Condiments', 28, 'A');
     END
                         
     IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'TOOLS_&_SUPPLIES')
     BEGIN
-        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'TOOLS_&_SUPPLIES', N'Tools & Supplies', 25, 'A');
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'TOOLS_&_SUPPLIES', N'Tools & Supplies', 29, 'A');
     END
                         
     IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'VEGETABLES')
     BEGIN
-        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'VEGETABLES', N'Vegetables', 26, 'A');
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'VEGETABLES', N'Vegetables', 30, 'A');
     END
                         
 END
@@ -471,11 +490,14 @@ BEGIN
     BEGIN
         INSERT INTO [Lookups].[ProductCategoryInfo] ([ProductCategory], [ProductCategoryValue], [SequenceId], [RowStatus]) VALUES (N'SPORTS_&_OUTDOORS', N'Sports & Outdoors', 7, 'A');
     END
+
+	IF NOT EXISTS(SELECT 1 FROM [Lookups].[ProductCategoryInfo] WHERE [ProductCategory] LIKE N'UNCATEGORIZED')
+    BEGIN
+        INSERT INTO [Lookups].[ProductCategoryInfo] ([ProductCategory], [ProductCategoryValue], [SequenceId], [RowStatus]) VALUES (N'UNCATEGORIZED', N'Uncategorized', 8, 'A');
+    END
                         
 END
 GO
-
-
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Setup' AND T.TABLE_NAME = 'MemberInfo') 
 BEGIN
