@@ -5,6 +5,7 @@ using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.DataAccess.ConnectionManager;
 using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Transactions;
 using Praga.PaisaKanaku.Core.DataAccess.Utils;
+using Praga.PaisaKanaku.Core.DataEntities.Transactions.Common;
 using Praga.PaisaKanaku.Core.DataEntities.Transactions.ExpenseProduct;
 using System.Data;
 
@@ -59,9 +60,9 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             return response;
         }
 
-        public async Task<Response<List<ExpenseProductInfoSumAmountByDateDB>>> GetExpenseProductInfoListByMonth(int month, int year, Guid loggedInUserId)
+        public async Task<Response<List<ExpenseInfoSumAmountByDateDB>>> GetExpenseProductInfoListByMonth(int month, int year, Guid loggedInUserId)
         {
-            Response<List<ExpenseProductInfoSumAmountByDateDB>> response = new Response<List<ExpenseProductInfoSumAmountByDateDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<List<ExpenseInfoSumAmountByDateDB>> response = new Response<List<ExpenseInfoSumAmountByDateDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
@@ -71,7 +72,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
                 parameters.Add("@Year", year, DbType.Int16);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
 
-                var result = await _db.Connection.QueryAsync<ExpenseProductInfoSumAmountByDateDB>(spName, parameters, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<ExpenseInfoSumAmountByDateDB>(spName, parameters, commandType: CommandType.StoredProcedure);
                 return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
             }
             catch (Exception ex)
