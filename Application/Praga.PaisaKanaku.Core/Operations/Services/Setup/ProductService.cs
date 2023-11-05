@@ -1,5 +1,4 @@
-﻿using Dapper;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Praga.PaisaKanaku.Core.Common.Constants;
 using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.Common.Utils;
@@ -7,11 +6,6 @@ using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Setup;
 using Praga.PaisaKanaku.Core.DataEntities.Setup;
 using Praga.PaisaKanaku.Core.DomainEntities.Setup.Product;
 using Praga.PaisaKanaku.Core.Operations.IServices.Setup;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
 {
