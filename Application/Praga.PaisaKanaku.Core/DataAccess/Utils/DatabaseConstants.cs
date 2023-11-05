@@ -30,6 +30,11 @@
         public const string USP_PRODUCT_INFO_GET = "Setup.usp_V1_ProductInfo_Get";
         public const string USP_PRODUCT_INFO_GET_BY_ID = "Setup.usp_V1_ProductInfo_Get_By_Id";
 
+        // Grocery
+        public const string USP_GROCERY_INFO_SAVE = "Setup.usp_V1_GroceryInfo_Save";
+        public const string USP_GROCERY_INFO_GET = "Setup.usp_V1_GroceryInfo_Get";
+        public const string USP_GROCERY_INFO_GET_BY_ID = "Setup.usp_V1_GroceryInfo_Get_By_Id";
+
         // Expense
         public const string USP_EXPENSE_INFO_PRODUCT_SAVE = "Transactions.usp_V1_ExpenseInfo_Product_Save";
         public const string USP_EXPENSE_INFO_GET = "Transactions.usp_V1_ExpenseInfo_Get";

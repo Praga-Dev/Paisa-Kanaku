@@ -7,7 +7,6 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Setup
     {
         Task<Response<Guid>> SaveGroceryInfo(GroceryInfo groceryInfoDb, bool isUpdate, Guid loggedInUserId);
         Task<Response<List<GroceryInfo>>> GetGroceryInfoList(Guid loggedInUserId);
-        Task<Response<string>> ExportGroceryInfoData(Guid loggedInUserId);
         Task<Response<GroceryInfo>> GetGroceryInfoById(Guid groceryInfoId, Guid loggedInUserId);
     }
 }
