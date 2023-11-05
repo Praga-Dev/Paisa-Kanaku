@@ -6,12 +6,7 @@ using Praga.PaisaKanaku.Core.DataAccess.ConnectionManager;
 using Praga.PaisaKanaku.Core.DataAccess.IRepositories;
 using Praga.PaisaKanaku.Core.DataAccess.Utils;
 using Praga.PaisaKanaku.Core.DataEntities.Lookups;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Praga.PaisaKanaku.Core.DataAccess.Repositories
 {
@@ -41,26 +36,6 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error in LookupsRepository.GetExpenseTypeInfoList({@loggedInUserId})", loggedInUserId );
-                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
-                return response;
-            }
-        }
-
-        public async Task<Response<List<LiquidMeasureInfoDB>>> GetLiquidMeasureInfoList(Guid loggedInUserId)
-        {
-            Response<List<LiquidMeasureInfoDB>> response = new Response<List<LiquidMeasureInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
-
-            try
-            {
-                string spName = DatabaseConstants.USP_LIQUID_MEASURE_INFO_GET;
-                var param = new { LoggedInUserId = loggedInUserId };
-
-                var result = await _db.Connection.QueryAsync<LiquidMeasureInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
-                return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in LookupsRepository.GetLiquidMeasureInfoList({@loggedInUserId})", loggedInUserId);
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
                 return response;
             }
@@ -121,6 +96,26 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error in LookupsRepository.GetExpenseTypeInfoList({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+                return response;
+            }
+        }
+
+        public async Task<Response<List<MetricSystemInfoDB>>> GetMetricSystemInfoList(Guid loggedInUserId)
+        {
+            Response<List<MetricSystemInfoDB>> response = new Response<List<MetricSystemInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+
+            try
+            {
+                string spName = DatabaseConstants.USP_MEASURE_TYPE_INFO_GET;
+                var param = new { LoggedInUserId = loggedInUserId };
+
+                var result = await _db.Connection.QueryAsync<MetricSystemInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
+                return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupsRepository.GetMetricSystemInfoList({@loggedInUserId})", loggedInUserId);
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
                 return response;
             }

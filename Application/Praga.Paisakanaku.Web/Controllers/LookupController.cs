@@ -105,5 +105,63 @@ namespace Praga.Paisakanaku.Web.Controllers
             return PartialView("~/Views/Common/_ProductCategoryList.cshtml", response);
         }
 
+        [HttpGet, Route("~/lookup/metric-system")]
+        public async Task<IActionResult> GetMetricSystemInfoList()
+        {
+            Response<List<MetricSystemInfo>> response = new Response<List<MetricSystemInfo>>().GetFailedResponse(ResponseConstants.FAILED);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(this.LoggedInUserId))
+                {
+                    response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return PartialView("~/Views/Common/_MetricSystemList.cshtml", response);
+                }
+
+                var dbresponse = await _lookupService.GetMetricSystemInfoList(LoggedInUserId);
+                if (Helpers.IsResponseValid(dbresponse))
+                {
+                    response = dbresponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupController.GetMetricSystemInfoList({@loggedInUserId})", LoggedInUserId);
+
+                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
+            }
+
+            return PartialView("~/Views/Common/_MetricSystemList.cshtml", response);
+        }
+
+        [HttpGet, Route("~/lookup/measure-type")]
+        public async Task<IActionResult> GetMeasureTypeInfoList()
+        {
+            Response<List<MeasureTypeInfo>> response = new Response<List<MeasureTypeInfo>>().GetFailedResponse(ResponseConstants.FAILED);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(this.LoggedInUserId))
+                {
+                    response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return PartialView("~/Views/Common/_MeasureTypeList.cshtml", response);
+                }
+
+                var dbresponse = await _lookupService.GetMeasureTypeInfoList(LoggedInUserId);
+                if (Helpers.IsResponseValid(dbresponse))
+                {
+                    response = dbresponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupController.GetMeasureTypeInfoList({@loggedInUserId})", LoggedInUserId);
+
+                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
+            }
+
+            return PartialView("~/Views/Common/_MeasureTypeList.cshtml", response);
+        }
+
     }
 }

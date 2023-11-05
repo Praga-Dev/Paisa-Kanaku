@@ -7,7 +7,6 @@
 
         // Lookups
         public const string USP_EXPENSE_TYPE_INFO_GET = "Lookups.usp_v1_ExpenseTypeInfo_Get";
-        public const string USP_LIQUID_MEASURE_INFO_GET = "Lookups.usp_v1_LiquidMeasureInfo_Get";
         public const string USP_MEASURE_TYPE_INFO_GET = "Lookups.usp_v1_MeasureTypeInfo_Get";
         public const string USP_PAYMENT_METHOD_INFO_GET = "Lookups.usp_v1_PaymentMethodInfo_Get";
         public const string USP_WEIGHT_MEASURE_INFO_GET = "Lookups.usp_v1_WeightMeasureInfo_Get";
