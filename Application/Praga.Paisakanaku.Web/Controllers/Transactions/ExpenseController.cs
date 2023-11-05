@@ -157,41 +157,6 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
             return PartialView("~/Views/Transactions/Expense/_ExpenseList.cshtml", response);
         }
 
-        [HttpGet, Route("~/expense/{expenseInfoId:Guid}")]
-        public async Task<IActionResult> GetExpenseInfoById(Guid expenseInfoId)
-        {
-            Response<ExpenseReferenceDetailInfo> response = new Response<ExpenseReferenceDetailInfo>().GetFailedResponse(ResponseConstants.FAILED);
-
-            try
-            {
-                if (!Helpers.IsValidGuid(this.LoggedInUserId))
-                {
-                    response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
-                    return PartialView("~/Views/Transactions/Expense/_CreateExpense.cshtml", null);
-                }
-
-                if (!Helpers.IsValidGuid(expenseInfoId))
-                {
-                    response.Message ??= ResponseConstants.INVALID_PARAM;
-                    return PartialView("~/Views/Transactions/Expense/_CreateExpense.cshtml", null);
-                }
-
-                var dbresponse = await _expenseService.GetExpenseInfoById(expenseInfoId, LoggedInUserId);
-                if (Helpers.IsResponseValid(dbresponse))
-                {
-                    response = dbresponse;
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in ExpenseController.GetExpenseInfoById({@expenseInfoId}, {@loggedInUserId})", expenseInfoId, LoggedInUserId);
-
-                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
-            }
-
-            return PartialView("~/Views/Transactions/Expense/_CreateExpense.cshtml", response.Data);
-        }
-
         [HttpGet, Route("~/expense/export")]
         public async Task<IActionResult> ExportExpenseInfoData()
         {
