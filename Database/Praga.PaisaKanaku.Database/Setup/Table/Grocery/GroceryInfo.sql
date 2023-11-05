@@ -4,9 +4,9 @@
 	[Name] NVARCHAR(25) NOT NULL,
 	[GroceryCategory] NVARCHAR(25) NOT NULL,
 	[BrandId] UNIQUEIDENTIFIER NULL,
-	[PreferredRecurringTimePeriod] NVARCHAR(15) NOT NULL DEFAULT 'NA',
 	[MetricSystem] NVARCHAR(1) NOT NULL,
-	[MeasureType] NVARCHAR(25) NOT NULL,
+	[MeasureType] NVARCHAR(25) NOT NULL, -- TODO ADD A TABLE TO SUPPORT MULTI-MEASURE TYPE GROCERY ITEMS
+	[PreferredRecurringTimePeriod] NVARCHAR(15) NOT NULL DEFAULT 'NA',
 	--[Price] DECIMAL(12,3) NOT NULL, -- Added on GroceryExpenseTable
 	--[Description] NVARCHAR(250),
 	[SequenceId] INT NOT NULL IDENTITY,
