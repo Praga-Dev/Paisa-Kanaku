@@ -32,11 +32,17 @@ namespace Praga.PaisaKanaku.Web.IoC
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProductRepository, ProductRepository>();
 
-            services.AddTransient<IExpenseService, ExpenseService>();
-            services.AddTransient<IExpenseRepository, ExpenseRepository>();
+            services.AddTransient<IGroceryService, GroceryService>();
+            services.AddTransient<IGroceryRepository, GroceryRepository>();
 
             services.AddTransient<ICommonService, CommonService>();
             services.AddTransient<ICommonRepository, CommonRepository>();
+
+            services.AddTransient<IExpenseService, ExpenseService>();
+            services.AddTransient<IExpenseRepository, ExpenseRepository>();
+
+            services.AddTransient<IExpenseGroceryService, ExpenseGroceryService>();
+            services.AddTransient<IExpenseGroceryRepository, ExpenseGroceryRepository>();
 
             services.AddTransient<IExpenseProductService, ExpenseProductService>();
             services.AddTransient<IExpenseProductRepository, ExpenseProductRepository>();
