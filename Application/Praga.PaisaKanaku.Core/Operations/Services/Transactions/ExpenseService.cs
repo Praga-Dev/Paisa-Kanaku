@@ -3,10 +3,8 @@ using Praga.PaisaKanaku.Core.Common.Constants;
 using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.Common.Utils;
 using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Transactions;
-using Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions;
 using Praga.PaisaKanaku.Core.DataEntities.Transactions.Expense;
 using Praga.PaisaKanaku.Core.DomainEntities.Lookups;
-using Praga.PaisaKanaku.Core.DomainEntities.Setup;
 using Praga.PaisaKanaku.Core.DomainEntities.Transactions.Expense;
 using Praga.PaisaKanaku.Core.Operations.IServices.Setup;
 using System.Xml.Linq;
@@ -19,12 +17,14 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
 
         private readonly IExpenseRepository _expenseRepository;
         private readonly IProductService _productService;
+        private readonly ICommonService _commonService;
 
-        public ExpenseService(ILogger<ExpenseService> logger, IExpenseRepository expenseRepository, IProductService productService)
+        public ExpenseService(ILogger<ExpenseService> logger, IExpenseRepository expenseRepository, IProductService productService, ICommonService commonService)
         {
             _logger = logger;
             _expenseRepository = expenseRepository;
             _productService = productService;
+            _commonService = commonService;
         }
 
         public async Task<Response<ExpenseReferenceDetailInfo>> GetExpenseInfoById(Guid expenseInfoId, Guid loggedInUserId)
@@ -348,26 +348,6 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
 
             return response;
         }
-
-        public async Task<Response<Guid>> DeleteTempExpenseInfo(Guid tempExpenseInfoId, Guid loggedInUserId)
-        {
-            Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
-
-            try
-            {                
-                if (!Helpers.IsValidGuid(tempExpenseInfoId))
-                {
-                    return response;
-                }
-
-                return await _expenseRepository.DeleteTempExpenseInfo(tempExpenseInfoId, loggedInUserId);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in ExpenseService.DeleteTempExpenseInfo({@tempExpenseInfoId}, {@loggedInUserId})", tempExpenseInfoId, loggedInUserId);
-                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
-                return response;
-            }
-        }
+    
     }
 }

@@ -116,37 +116,5 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             }
             return response;
         }
-
-        public async Task<Response<Guid>> DeleteTempExpenseInfo(Guid tempExpenseInfoId, Guid loggedInUserId)
-        {
-            Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
-
-            try
-            {
-                string spName = DatabaseConstants.USP_TEMP_EXPENSE_INFO_DELETE;
-
-                DynamicParameters parameters = new();
-                parameters.Add("@TempExpenseInfoId", tempExpenseInfoId, DbType.Guid);
-                parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
-                parameters.Add("@Result", null, DbType.Guid, direction: ParameterDirection.Output);
-
-                var returnValue = await _db.Connection.QueryAsync<Guid>(spName, parameters, commandType: CommandType.StoredProcedure);
-                var result = parameters.Get<Guid>("@Result");
-
-                if (!returnValue.Any() && result != Guid.Empty)
-                {
-                    response = response.GetSuccessResponse(result);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in ExpenseRepository.DeleteTempExpenseInfo({@tempExpenseInfoId}, {@loggedInUserId})", tempExpenseInfoId, loggedInUserId);
-
-                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
-            }
-
-            return response;
-        }
-
     }
 }

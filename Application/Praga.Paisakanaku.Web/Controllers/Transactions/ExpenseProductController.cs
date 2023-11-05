@@ -3,6 +3,7 @@ using Praga.Paisakanaku.Web.Controllers.Base;
 using Praga.PaisaKanaku.Core.Common.Constants;
 using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.Common.Utils;
+using Praga.PaisaKanaku.Core.DomainEntities.Transactions.Common;
 using Praga.PaisaKanaku.Core.DomainEntities.Transactions.ExpenseProduct;
 using Praga.PaisaKanaku.Core.DTO.Transactions.ExpenseProduct;
 using Praga.PaisaKanaku.Core.Operations.IServices.Transactions;
@@ -23,7 +24,7 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
         [HttpGet, Route("~/expense-product/")]
         public async Task<IActionResult> Index()
         {
-            Response<List<ExpenseProductInfoSumAmountByDate>> response = new Response<List<ExpenseProductInfoSumAmountByDate>>().GetFailedResponse(ResponseConstants.FAILED);
+            Response<List<ExpenseInfoSumAmountByDate>> response = new Response<List<ExpenseInfoSumAmountByDate>>().GetFailedResponse(ResponseConstants.FAILED);
             try
             {
                 if (!Helpers.IsValidGuid(LoggedInUserId))
@@ -85,7 +86,7 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
         [HttpGet, Route("~/expense-product/{month:int}/{year:int}")]
         public async Task<IActionResult> GetExpenseProductInfo(int month, int year)
         {
-            Response<List<ExpenseProductInfoSumAmountByDate>> response = new Response<List<ExpenseProductInfoSumAmountByDate>>().GetFailedResponse(ResponseConstants.FAILED);
+            Response<List<ExpenseInfoSumAmountByDate>> response = new Response<List<ExpenseInfoSumAmountByDate>>().GetFailedResponse(ResponseConstants.FAILED);
 
             try
             {

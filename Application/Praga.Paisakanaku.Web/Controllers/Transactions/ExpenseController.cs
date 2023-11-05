@@ -220,38 +220,5 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
             var file = File(bytes, "application/text", "ExpenseList.csv");
             return file;
         }
-
-
-        [HttpDelete, Route("~/expense/temp/{tempExpenseInfoId:Guid}")]
-        public async Task<IActionResult> DeleteTempExpenseInfo(Guid tempExpenseInfoId)
-        {
-            Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
-
-            try
-            {
-                if (!Helpers.IsValidGuid(this.LoggedInUserId))
-                {
-                    response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
-                    return StatusCode(StatusCodes.Status200OK, response);
-                }
-
-                if (!Helpers.IsValidGuid(tempExpenseInfoId))
-                {
-                    response.Message ??= ResponseConstants.INVALID_ID; // TODO add constants
-                    return StatusCode(StatusCodes.Status200OK, response);
-                }
-
-                var dbresponse = await _expenseService.DeleteTempExpenseInfo(tempExpenseInfoId, LoggedInUserId);
-
-                return StatusCode(StatusCodes.Status200OK, Helpers.IsResponseValid(dbresponse) ? dbresponse : response);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in ExpenseController.DeleteTempExpenseInfo({@tempExpenseInfoId}, {@loggedInUserId})", tempExpenseInfoId, LoggedInUserId);
-
-                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
-                return StatusCode(StatusCodes.Status200OK, response);
-            }
-        }
     }
 }

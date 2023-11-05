@@ -7,7 +7,6 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
     {
         Task<Response<List<ExpenseInfo>>> GetExpenseBaseInfoList(Guid loggedInUserId);
         Task<Response<Guid>> CreateExpenseInfo(ExpenseSaveInfo expenseSaveInfo, Guid loggedInUserId);
-        Task<Response<Guid>> DeleteTempExpenseInfo(Guid tempExpenseInfoId, Guid loggedInUserId);
         Task<Response<string>> ExportExpenseInfoData(Guid loggedInUserId);
 
 

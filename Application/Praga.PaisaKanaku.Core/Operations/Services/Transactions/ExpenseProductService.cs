@@ -4,6 +4,7 @@ using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.Common.Utils;
 using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Transactions;
 using Praga.PaisaKanaku.Core.DataEntities.Transactions.ExpenseProduct;
+using Praga.PaisaKanaku.Core.DomainEntities.Transactions.Common;
 using Praga.PaisaKanaku.Core.DomainEntities.Transactions.ExpenseProduct;
 using Praga.PaisaKanaku.Core.DTO.Transactions.ExpenseProduct;
 using Praga.PaisaKanaku.Core.Operations.IServices;
@@ -90,9 +91,9 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Transactions
             }
         }
 
-        public async Task<Response<List<ExpenseProductInfoSumAmountByDate>>> GetExpenseProductInfoListByMonth(int month, int year, Guid loggedInUserId)
+        public async Task<Response<List<ExpenseInfoSumAmountByDate>>> GetExpenseProductInfoListByMonth(int month, int year, Guid loggedInUserId)
         {
-            Response<List<ExpenseProductInfoSumAmountByDate>> response = new Response<List<ExpenseProductInfoSumAmountByDate>>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
+            Response<List<ExpenseInfoSumAmountByDate>> response = new Response<List<ExpenseInfoSumAmountByDate>>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
 
             try
             {
@@ -124,7 +125,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Transactions
                 var dbResponse = await _expenseProductRepository.GetExpenseProductInfoListByMonth(month, year, loggedInUserId);
                 if (Helpers.IsResponseValid(dbResponse))
                 {
-                    response.Data = dbResponse.Data.Select(expense => new ExpenseProductInfoSumAmountByDate()
+                    response.Data = dbResponse.Data.Select(expense => new ExpenseInfoSumAmountByDate()
                     {
                         ExpenseDate = expense.ExpenseDate,
                         TotalExpenseAmount = expense.TotalExpenseAmount,
@@ -317,7 +318,6 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Transactions
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
                 return response;
             }
-
         }
     }
 }
