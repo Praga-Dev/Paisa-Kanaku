@@ -177,7 +177,6 @@
     <Build Include="Lookups\Table\MetricSystemInfo.sql" />
     <Build Include="Lookups\Table\ProductCategoryInfo.sql" />
     <Build Include="Lookups\Table\GroceryCategoryInfo.sql" />
-    <Build Include="Transactions\StoredProcedure\Expense\usp_V1_TempExpenseInfo_Delete.sql" />
     <Build Include="Lookups\StoredProcedure\usp_v1_ProductCategoryInfo_Get.sql" />
     <Build Include="Lookups\StoredProcedure\usp_v1_GroceryCategoryInfo_Get.sql" />
     <Build Include="Setup\StoredProcedure\Grocery\usp_V1_GroceryInfo_Get.sql" />
