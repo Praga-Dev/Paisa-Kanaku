@@ -12,7 +12,7 @@ namespace Praga.PaisaKanaku.Core.DomainEntities.Transactions.ExpenseProduct
         public ProductBaseInfo ProductBaseInfo { get; set; }
         public MemberInfo ExpenseByInfo { get; set; }
         public double ProductPrice { get; set; }
-        public int Quantity { get; set; }
+        public int Quantity { get; set; } = 1;
         public double ExpenseAmount { get; set; }
         public string Description { get; set; }
     }
