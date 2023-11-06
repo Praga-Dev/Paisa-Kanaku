@@ -51,7 +51,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
 
             try
             {
-                string spName = DatabaseConstants.USP_EXPENSE_INFO_GROCERY_GET_BY_DATE;
+                string spName = DatabaseConstants.USP_EXPENSE_GROCERY_INFO_GET_BY_DATE;
                 DynamicParameters parameters = new();
                 parameters.Add("@ExpenseDate", expenseDate, DbType.Date);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);

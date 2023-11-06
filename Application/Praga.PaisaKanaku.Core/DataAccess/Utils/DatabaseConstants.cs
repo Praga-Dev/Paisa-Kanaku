@@ -49,7 +49,7 @@
         // ExpenseGrocery
         public const string USP_EXPENSE_GROCERY_INFO_SAVE = "Transactions.usp_ExpenseGroceryInfo_Save";
         public const string USP_EXPENSE_GROCERY_INFO_GET_SUM_AMOUNT_BY_DATE = "Transactions.usp_ExpenseGroceryInfo_Get_SumAmountByDate";
-        public const string USP_EXPENSE_INFO_GROCERY_GET_BY_DATE = "Transactions.usp_ExpenseInfo_Grocery_Get_ByDate";
+        public const string USP_EXPENSE_GROCERY_INFO_GET_BY_DATE = "Transactions.usp_ExpenseGroceryInfo_Get_ByDate";
         public const string USP_EXPENSE_GROCERY_INFO_GET_BY_ID = "Transactions.usp_ExpenseGroceryInfo_Get_ById";
 
         // BillType
