@@ -42,7 +42,7 @@ function onCreateProduct() {
 function editProduct(productInfoId) {
     if (productInfoId) {
         loadSpinner();
-        disableBtnById('btnEditBusiness');
+        disableBtnById(`btnEditProduct_${productInfoId}`);
         $.ajax({
             url: `./product/${productInfoId}`,
             success: function (response) {
@@ -63,7 +63,7 @@ function editProduct(productInfoId) {
             },
             complete: function () {
                 hideSpinner();
-                enableBtnById('btnEditBusiness');
+                enableBtnById(`btnEditProduct_${productInfoId}`);
             }
         })
     } else {

@@ -37,7 +37,7 @@ function onCreateRepairType() {
 function editRepairType(repairTypeInfoId) {
     if (repairTypeInfoId) {
         loadSpinner();
-        disableBtnById('btnEditBusiness');
+        disableBtnById(`btnEditRepairType_${repairTypeInfoId}`);
         $.ajax({
             url: `./repair-type/${repairTypeInfoId}`,
             success: function (response) {
@@ -55,7 +55,7 @@ function editRepairType(repairTypeInfoId) {
             },
             complete: function () {
                 hideSpinner();
-                enableBtnById('btnEditBusiness');
+                enableBtnById(`btnEditRepairType_${repairTypeInfoId}`);
             }
         })
     } else {

@@ -37,7 +37,7 @@ function onCreateMember() {
 function editMember(memberInfoId) {
     if (memberInfoId) {
         loadSpinner();
-        disableBtnById('btnEditBusiness');
+        disableBtnById(`btnEditMember_${memberInfoId}`);
         $.ajax({
             url: `./member/${memberInfoId}`,
             success: function (response) {
@@ -55,7 +55,7 @@ function editMember(memberInfoId) {
             },
             complete: function () {
                 hideSpinner();
-                enableBtnById('btnEditBusiness');
+                enableBtnById(`btnEditMember_${memberInfoId}`);
             }
         })
     } else {

@@ -37,7 +37,7 @@ function onCreateBillType() {
 function editBillType(billTypeInfoId) {
     if (billTypeInfoId) {
         loadSpinner();
-        disableBtnById('btnEditBusiness');
+        disableBtnById(`btnEditBillType_${billTypeInfoId}`);
         $.ajax({
             url: `./bill-type/${billTypeInfoId}`,
             success: function (response) {
@@ -55,7 +55,7 @@ function editBillType(billTypeInfoId) {
             },
             complete: function () {
                 hideSpinner();
-                enableBtnById('btnEditBusiness');
+                enableBtnById(`btnEditBillType_${billTypeInfoId}`);
             }
         })
     } else {

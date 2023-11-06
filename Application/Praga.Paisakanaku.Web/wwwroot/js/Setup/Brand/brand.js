@@ -37,7 +37,7 @@ function onCreateBrand() {
 function editBrand(brandInfoId) {
     if (brandInfoId) {
         loadSpinner();
-        disableBtnById('btnEditBusiness');
+        disableBtnById(`btnEditBrand_${brandInfoId}`);
         $.ajax({
             url: `./brand/${brandInfoId}`,
             success: function (response) {
@@ -55,7 +55,7 @@ function editBrand(brandInfoId) {
             },
             complete: function () {
                 hideSpinner();
-                enableBtnById('btnEditBusiness');
+                enableBtnById(`btnEditBrand_${brandInfoId}`);
             }
         })
     } else {
