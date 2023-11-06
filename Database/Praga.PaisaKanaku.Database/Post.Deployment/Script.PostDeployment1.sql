@@ -703,6 +703,13 @@ BEGIN
         VALUES
         (N'DD57F476-7F7C-4AB2-A31D-4F2A4825EF29', N'Curd', N'DAIRY', NULL, N'NA', N'L', N'LITRE', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
     END
+    IF NOT EXISTS(SELECT 1 FROM [Setup].[GroceryInfo] WHERE [Id] LIKE N'130635A1-DB9E-48B5-88D2-99C74366F479')
+    BEGIN
+        INSERT INTO [Setup].[GroceryInfo]
+        ([Id], [Name], [GroceryCategory], [BrandId], [PreferredRecurringTimePeriod], [MetricSystem], [MeasureType], [CreatedBy])
+        VALUES
+        (N'130635A1-DB9E-48B5-88D2-99C74366F479', N'Egg', N'DAIRY', NULL, N'NA', N'C', N'UNIT', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
+    END
     IF NOT EXISTS(SELECT 1 FROM [Setup].[GroceryInfo] WHERE [Id] LIKE N'9FF21B40-ACE3-495E-BE54-BEFA0987E262')
     BEGIN
         INSERT INTO [Setup].[GroceryInfo]
