@@ -1,0 +1,48 @@
+﻿@model Response<List<GroceryInfo>>
+
+@{
+    ViewData["Title"] = "Grocery";
+}
+
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Grocery</h2>
+                </div>
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-primary-outline" onclick="onCreateGrocery()">
+                        <span>Create &nbsp;</span><i class="material-icons">&#xE147;</i>
+                    </button>
+                    <a id="btnDownloadGrocery" class="btn btn-primary-outline" asp-area="" asp-controller="Grocery" asp-action="ExportGroceryInfoData">
+                        <i class="material-icons">
+                            file_download
+                        </i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="groceryListContainer">
+            @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
+            {
+                <partial name="_GroceryList.cshtml" />
+            }
+            else
+            {
+                <p>
+                    NO RECORDS FOUND
+                </p>
+            }
+        </div>
+    </div>
+    <div>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary-outline"> <span>&#8592; &nbsp;</span> Go to Home</a>
+    </div>
+</div>
+
+<div id="createGroceryFormContainer">
+    <partial name="_CreateGrocery.cshtml" model="new GroceryInfo()" />
+</div>
+
+<script src="~/js/Setup/Grocery/grocery.js" asp-append-version="true"></script>

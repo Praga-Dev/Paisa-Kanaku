@@ -317,6 +317,7 @@ table.table td a {
 }
 
 .pk-cart-table-wrapper {
+    height: 470px;
     background: #fff;
     padding: 20px 25px;
     border-radius: 1px;

@@ -130,6 +130,39 @@ function getProductDDList(productId = '') {
     })
 }
 
+function getGroceryDDList(groceryId = '') {
+    loadSpinner();
+    $.ajax({
+        url: `./grocery/data-list`,
+        method: 'GET',
+        success: function (response) {
+            if (typeof response !== undefined && response !== null) {
+                $('#groceryListDDContainer').html(response);
+                let val = $('#groceryListDDContainer').data('val')
+                if (val) {
+                    $('#selectGrocery').val(val);
+                }
+                if (groceryId) {
+                    $('#selectGrocery').val(groceryId);
+                }
+
+                if (!(groceryId || val)) {
+                    $('#selectGrocery').val('');
+                }
+            }
+            else {
+                // TODO Alert
+            }
+        },
+        error: function () {
+            // TODO Alert
+        },
+        complete: function () {
+            hideSpinner();
+        }
+    })
+}
+
 function getTimePeriodDDList() {
     loadSpinner();
     $.ajax({

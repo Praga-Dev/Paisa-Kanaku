@@ -1,0 +1,71 @@
+﻿@model Response<List<GroceryInfo>>
+
+<div class="action-body-container">
+    <div class="main-grid-container">
+        <div class="table-responsive">
+            <table class="table table-bordered  align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Grocery Name</th>
+                        <th scope="col">Grocery Category</th>
+                        <th scope="col">Metric System</th>
+                        <th scope="col">Measure Type</th>
+                        <th scope="col">Preferred Time Period</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
+                    {
+                        @foreach (var grocery in Model.Data)
+                        {
+                            <tr>
+                                <td scope="row">
+                                    @if (!string.IsNullOrWhiteSpace(grocery.Name))
+                                    {
+                                        <p>@grocery.Name</p>
+                                        @* TODO Check Tooltip functionality *@
+                                    }
+                                </td>
+                                <td scope="row">
+                                    @if (grocery.GroceryCategoryInfo != null && !string.IsNullOrWhiteSpace(grocery.GroceryCategoryInfo.GroceryCategoryValue))
+                                    {
+                                        <p>@grocery.GroceryCategoryInfo.GroceryCategoryValue</p>
+                                    }
+                                </td>
+                                <td scope="row">
+                                    @if (grocery.MetricSystemInfo != null && !string.IsNullOrWhiteSpace(grocery.MetricSystemInfo.MetricSystem))
+                                    {
+                                        <p>@grocery.MetricSystemInfo.MetricSystemValue</p>
+                                    }
+                                </td>
+                                <td scope="row">
+                                    @if (grocery.MeasureTypeInfo != null && !string.IsNullOrWhiteSpace(grocery.MeasureTypeInfo.MeasureTypeValue))
+                                    {
+                                        <p>@grocery.MeasureTypeInfo.MeasureTypeValue</p>
+                                    }
+                                </td>
+                                <td scope="row">
+                                    @if (grocery.PreferredTimePeriodInfo != null && !string.IsNullOrWhiteSpace(grocery.PreferredTimePeriodInfo.TimePeriodTypeValue))
+                                    {
+                                        <p>@grocery.PreferredTimePeriodInfo.TimePeriodTypeValue</p>
+                                    }
+                                </td>
+                                <td class="d-flex justify-content-end">
+                                    <span class="material-icons-outlined arrow btn-icon" id="btnEditGrocery_@grocery.Id"
+                                          title="Update Grocery" onclick="editGrocery('@grocery.Id')">
+                                        edit
+                                    </span>
+                                    <span class="material-icons-outlined arrow btn-icon" id="btnDeleteGrocery_@grocery.Id"
+                                          title="Delete Grocery" onclick="deleteGrocery('@grocery.Id', '@grocery.Name')">
+                                        delete
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
