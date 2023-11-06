@@ -32,7 +32,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="quantity" class="form-label">Quantity<span class="mandatory">*</span></label>
-                                    <input id="quantity" name="quantity" asp-for="@Model.Quantity" type="number" class="form-control form-control-sm" aria-describedby="product-expense-quantity-help" min="1" value="1" max="100">
+                                    <input id="quantity" name="quantity" asp-for="@Model.Quantity" type="number" class="form-control form-control-sm" aria-describedby="product-expense-quantity-help" min="1" value="@Model.Quantity" max="100">
                                     <div id="product-expense-quantity-help" style="display:none;" class="form-text">Enter valid quantity of the product. Example : 3</div>
                                 </div>
                             </div>
