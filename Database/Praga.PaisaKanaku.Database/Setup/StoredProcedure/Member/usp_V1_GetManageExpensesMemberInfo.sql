@@ -1,4 +1,4 @@
-CREATE PROCEDURE [Setup].[usp_V1_GetManageExpensesMemberInfo]
+CREATE PROCEDURE [Setup].[usp_V1_GetManagesExpenseMemberInfo]
 	@LoggedInUserId UNIQUEIDENTIFIER
 
 AS
@@ -12,7 +12,7 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	SELECT * FROM [Setup].[MemberInfo] WHERE [ManageExpenses] = 1
+	SELECT * FROM [Setup].[MemberInfo] WHERE [ManagesExpense] = 1
 	AND [CreatedBy] = @LoggedInUserId
 	AND [RowStatus] = 'A' ;
 
