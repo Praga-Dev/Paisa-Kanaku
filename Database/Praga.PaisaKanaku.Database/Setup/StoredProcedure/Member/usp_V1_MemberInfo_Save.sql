@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [Setup].[usp_V1_MemberInfo_Save]
 	@Id UNIQUEIDENTIFIER,
 	@Name NVARCHAR(50),
+	@ManageExpenses BIT, 
 	@LoggedInUserId UNIQUEIDENTIFIER,
 	@Result UNIQUEIDENTIFIER OUTPUT
 AS
@@ -25,13 +26,14 @@ BEGIN TRY
 
     IF(@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[MemberInfo] WHERE [Id] = @Id))
 	BEGIN
-		INSERT INTO [Setup].[MemberInfo] ([Id], [Name], [CreatedBy])
-		VALUES (@MemberId, @Name, @LoggedInUserId);
+		INSERT INTO [Setup].[MemberInfo] ([Id], [Name], [ManageExpenses], [CreatedBy])
+		VALUES (@MemberId, @Name, @ManageExpenses, @LoggedInUserId);
 	END
 	ELSE
 	BEGIN  
 		UPDATE [Setup].[MemberInfo]
 			SET	[Name] = @Name,
+				[ManageExpenses] = @ManageExpenses, 
                 [ModifiedBy] = @LoggedInUserId,
 				[ModifiedDate] = GETUTCDATE()
 		WHERE [Id] = @MemberId AND [RowStatus] = 'A';
