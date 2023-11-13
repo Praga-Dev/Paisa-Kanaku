@@ -6,11 +6,6 @@ using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Setup;
 using Praga.PaisaKanaku.Core.DataEntities.Setup;
 using Praga.PaisaKanaku.Core.DomainEntities.Setup;
 using Praga.PaisaKanaku.Core.Operations.IServices.Setup;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
 {
@@ -51,6 +46,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     {
                         Id = dbResponse.Data.Id,
                         Name = dbResponse.Data.Name,
+                        ManageExpenses = dbResponse.Data.ManageExpenses,
                         SequenceId = dbResponse.Data.SequenceId,
                         CreatedBy = dbResponse.Data.CreatedBy,
                         CreatedDate = dbResponse.Data.CreatedDate,
@@ -93,6 +89,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                   {
                       Id = member.Id,
                       Name = member.Name,
+                      ManageExpenses = member.ManageExpenses,
                       SequenceId = member.SequenceId,
                       CreatedBy = member.CreatedBy,
                       CreatedDate = member.CreatedDate,
@@ -142,9 +139,10 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     response.ValidationErrorMessages.Add("Member Name must be between 2 and 50 Characters long.");
                 }
 
-                MemberInfoDB memberInfoDb = new MemberInfoDB()
+                MemberInfoDB memberInfoDb = new()
                 {
-                    Name = memberInfo.Name
+                    Name = memberInfo.Name,
+                    ManageExpenses = memberInfo.ManageExpenses
                 };
 
                 if (isUpdate)

@@ -19,9 +19,11 @@
 
             let id = $('#formCreateMember').data('id');
             let name = $('#name').val();
+            let manageExpenses = $('#toggleManageExpenses').prop('checked');
             let memberInfo = {
                 'Id': id,
-                'Name': name
+                'Name': name, 
+                'ManageExpenses': manageExpenses ? 'True' : 'False'
             }
 
             let isUpdate = $('#formCreateMember').data('isupdate') === 'True';

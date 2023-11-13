@@ -24,6 +24,7 @@
 function onCreateMember() {
     loadSpinner();
     $('#formCreateMember').trigger("reset");
+    $('#toggleManageExpenses').prop('checked', false);
     $('#formCreateMember').data('id', '');
     $('#formCreateMember').data('isupdate', 'False');
     $('#formCreateMember').find(':input,select').val('');

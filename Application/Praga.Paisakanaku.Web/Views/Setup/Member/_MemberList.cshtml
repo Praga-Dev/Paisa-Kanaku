@@ -22,7 +22,11 @@
                                         <p>@member.Name</p>
                                     }
                                 </th>
-                                <td class="d-flex justify-content-end">
+                                <td>
+                                    <span class="material-icons-outlined btn-icon @(member.ManageExpenses ? "text-success" : "text-danger")"
+                                          title="@(!member.ManageExpenses ? "Don't" : "") Manage Expenses">
+                                        @(member.ManageExpenses ? "check_circle" : "cancel")
+                                    </span>
                                     <span class="material-icons-outlined arrow btn-icon" id="btnEditMember_@member.Id"
                                   title="Update Member" onclick="editMember('@member.Id')">
                                         edit
