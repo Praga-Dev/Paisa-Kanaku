@@ -42,7 +42,7 @@ function getBrandDDList() {
 function getMemberDDList(memberId = '') {
     loadSpinner();
     $.ajax({
-        url: `./member/data-list`,
+        url: `./member/manages-expense/data-list`,
         method: 'GET',
         success: function (response) {
             if (typeof response !== undefined && response !== null) {

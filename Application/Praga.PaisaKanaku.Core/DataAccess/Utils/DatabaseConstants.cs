@@ -23,6 +23,7 @@
         public const string USP_MEMBER_INFO_SAVE = "Setup.usp_V1_MemberInfo_Save";
         public const string USP_MEMBER_INFO_GET = "Setup.usp_V1_MemberInfo_Get";
         public const string USP_MEMBER_INFO_GET_BY_ID = "Setup.usp_V1_MemberInfo_Get_By_Id";
+        public const string USP_GET_MANAGE_EXPENSES_MEMBER_INFO = "Setup.usp_V1_GetManagesExpenseMemberInfo";
 
         // Product
         public const string USP_PRODUCT_INFO_SAVE = "Setup.usp_V1_ProductInfo_Save";

@@ -6,6 +6,6 @@ namespace Praga.PaisaKanaku.Core.DomainEntities.Setup
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public bool ManageExpenses { get; set; }
+        public bool ManagesExpense { get; set; }
     }
 }

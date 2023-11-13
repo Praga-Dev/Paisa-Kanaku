@@ -21,6 +21,26 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
             _db = db;
         }
 
+        public async Task<Response<List<MemberInfoDB>>> GetManagesExpenseMemberInfoList(Guid loggedInUserId)
+        {
+            Response<List<MemberInfoDB>> response = new Response<List<MemberInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+
+            try
+            {
+                string spName = DatabaseConstants.USP_GET_MANAGE_EXPENSES_MEMBER_INFO;
+                var param = new { LoggedInUserId = loggedInUserId };
+
+                var result = await _db.Connection.QueryAsync<MemberInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
+                return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in MemberRepository.GetManagesExpenseMemberInfoList({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+                return response;
+            }
+        }
+
         public async Task<Response<MemberInfoDB>> GetMemberInfoById(Guid memberInfoId, Guid loggedInUserId)
         {
             Response<MemberInfoDB> response = new Response<MemberInfoDB>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
@@ -75,7 +95,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
                 DynamicParameters parameters = new();
                 parameters.Add("@Id", memberInfoDb.Id, DbType.Guid);
                 parameters.Add("@Name", memberInfoDb.Name, DbType.String);
-                parameters.Add("@ManageExpenses", memberInfoDb.ManageExpenses, DbType.Boolean);
+                parameters.Add("@ManagesExpense", memberInfoDb.ManagesExpense, DbType.Boolean);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
                 parameters.Add("@Result", null, DbType.Guid, direction: ParameterDirection.Output);
 

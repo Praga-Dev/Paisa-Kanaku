@@ -12,6 +12,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.IRepositories.Setup
     {
         Task<Response<Guid>> SaveMemberInfo(MemberInfoDB memberInfoDb, Guid loggedInUserId);
         Task<Response<List<MemberInfoDB>>> GetMemberInfoList(Guid loggedInUserId);
+        Task<Response<List<MemberInfoDB>>> GetManagesExpenseMemberInfoList(Guid loggedInUserId);
         Task<Response<MemberInfoDB>> GetMemberInfoById(Guid memberInfoId, Guid loggedInUserId);
     }
 }

@@ -21,6 +21,49 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
             _memberRepository = memberRepository;
         }
 
+        public async Task<Response<List<MemberInfo>>> GetManagesExpenseMemberInfoList(Guid loggedInUserId)
+        {
+            Response<List<MemberInfo>> response = new Response<List<MemberInfo>>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
+
+            try
+            {
+
+                if (!Helpers.IsValidGuid(loggedInUserId))
+                {
+                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return response;
+                }
+
+                var dbResponse = await _memberRepository.GetManagesExpenseMemberInfoList(loggedInUserId);
+                if (Helpers.IsResponseValid(dbResponse))
+                {
+                    response.Data = dbResponse.Data
+                  .Select(member => new MemberInfo()
+                  {
+                      Id = member.Id,
+                      Name = member.Name,
+                      ManagesExpense = member.ManagesExpense,
+                      SequenceId = member.SequenceId,
+                      CreatedBy = member.CreatedBy,
+                      CreatedDate = member.CreatedDate,
+                      ModifiedBy = member.ModifiedBy,
+                      ModifiedDate = member.ModifiedDate,
+                      RowStatus = member.RowStatus
+                  }).ToList();
+
+                    response = response.GetSuccessResponse(response.Data);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in MemberService.GetMemberInfoList({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+            }
+
+            return response;
+        }
+
         public async Task<Response<MemberInfo>> GetMemberInfoById(Guid memberInfoId, Guid loggedInUserId)
         {
             Response<MemberInfo> response = new Response<MemberInfo>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
@@ -46,7 +89,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     {
                         Id = dbResponse.Data.Id,
                         Name = dbResponse.Data.Name,
-                        ManageExpenses = dbResponse.Data.ManageExpenses,
+                        ManagesExpense = dbResponse.Data.ManagesExpense,
                         SequenceId = dbResponse.Data.SequenceId,
                         CreatedBy = dbResponse.Data.CreatedBy,
                         CreatedDate = dbResponse.Data.CreatedDate,
@@ -89,7 +132,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                   {
                       Id = member.Id,
                       Name = member.Name,
-                      ManageExpenses = member.ManageExpenses,
+                      ManagesExpense = member.ManagesExpense,
                       SequenceId = member.SequenceId,
                       CreatedBy = member.CreatedBy,
                       CreatedDate = member.CreatedDate,
@@ -142,7 +185,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                 MemberInfoDB memberInfoDb = new()
                 {
                     Name = memberInfo.Name,
-                    ManageExpenses = memberInfo.ManageExpenses
+                    ManagesExpense = memberInfo.ManagesExpense
                 };
 
                 if (isUpdate)
