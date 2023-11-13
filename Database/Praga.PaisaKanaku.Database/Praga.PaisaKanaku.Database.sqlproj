@@ -197,7 +197,7 @@
     <Build Include="Common\ScalarFunction\udp_v1_ValidateYear.sql" />
     <Build Include="Transactions\StoredProcedure\ExpenseGrocery\usp_ExpenseGroceryInfo_Get_ById.sql" />
     <Build Include="Transactions\StoredProcedure\ExpenseGrocery\usp_ExpenseGroceryInfo_Get_ByDate.sql" />
-    <Build Include="Setup\StoredProcedure\Member\usp_V1_GetManageExpensesMemberInfo.sql" />
+    <Build Include="Setup\StoredProcedure\Member\usp_V1_GetManagesExpenseMemberInfo.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />
