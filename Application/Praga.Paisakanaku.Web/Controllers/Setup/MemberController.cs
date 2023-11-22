@@ -180,8 +180,8 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
             return PartialView("~/Views/Setup/Member/_CreateMember.cshtml", response.Data);
         }
 
-        [HttpGet, Route("~/member/data-list")]
-        public async Task<IActionResult> GetMemberInfoDataList()
+        [HttpGet, Route("~/member/data-list/{excludedMemberInfoId:Guid}")]
+        public async Task<IActionResult> GetMemberInfoDataList(Guid excludedMemberInfoId)
         {
             Response<List<MemberInfo>> response = new Response<List<MemberInfo>>().GetFailedResponse(ResponseConstants.FAILED);
 
@@ -193,10 +193,14 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
                     return PartialView("~/Views/Common/_MemberList.cshtml", response);
                 }
 
+                ViewData["SelectMemberLableText"] = "Recipient";
+
                 var dbresponse = await _memberService.GetMemberInfoList(LoggedInUserId);
                 if (Helpers.IsResponseValid(dbresponse))
                 {
                     response = dbresponse;
+                    if (Helpers.IsValidGuid(excludedMemberInfoId))
+                        response.Data = dbresponse.Data.Where(member => member.Id != excludedMemberInfoId).ToList();
                 }
             }
             catch (Exception ex)

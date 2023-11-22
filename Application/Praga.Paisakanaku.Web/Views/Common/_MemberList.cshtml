@@ -1,13 +1,24 @@
 ﻿@model Response<List<MemberInfo>>
+@{
+    string labelText = "Member";
+    string selectElementId = "selectMember";
+
+    if (ViewData["SelectMemberLableText"] != null)
+    {
+        labelText = Convert.ToString(ViewData["SelectMemberLableText"]);
+        selectElementId = "selectRecipient";
+    }
+}
 
 <div class="form-group">
-    <label class="form-label">
-        Member
+    <label id="lblSelectMemberContainer" class="form-label">
+        @labelText
         <span class="required">*</span>
     </label>
-    <select id="selectMember" name="member" class="form-control form-control-sm">
+    <select id="@selectElementId" name="@selectElementId" class="form-control form-control-sm">
         @if (Model != null && Model.Data != null && Model.Data.Any())
         {
+            <option selected="true" style='display: none'></option>
             @foreach (var member in Model.Data)
             {
                 <option value="@member.Id">@member.Name</option>
