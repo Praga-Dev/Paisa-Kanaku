@@ -36,7 +36,6 @@
         public const string USP_GROCERY_INFO_GET_BY_ID = "Setup.usp_V1_GroceryInfo_Get_By_Id";
 
         // Expense
-        public const string USP_EXPENSE_INFO_PRODUCT_SAVE = "Transactions.usp_V1_ExpenseInfo_Product_Save";
         public const string USP_EXPENSE_INFO_GET = "Transactions.usp_V1_ExpenseInfo_Get";
         public const string USP_TEMP_EXPENSE_INFO_PRODUCT_GET = "Transactions.usp_V1_TempExpenseInfo_Product_Get";
         public const string USP_TEMP_EXPENSE_INFO_PRODUCT_GET_BY_ID = "Transactions.usp_V1_TempExpenseInfo_Product_Get_By_Id";
@@ -52,6 +51,12 @@
         public const string USP_EXPENSE_GROCERY_INFO_GET_SUM_AMOUNT_BY_DATE = "Transactions.usp_ExpenseGroceryInfo_Get_SumAmountByDate";
         public const string USP_EXPENSE_GROCERY_INFO_GET_BY_DATE = "Transactions.usp_ExpenseGroceryInfo_Get_ByDate";
         public const string USP_EXPENSE_GROCERY_INFO_GET_BY_ID = "Transactions.usp_ExpenseGroceryInfo_Get_ById";
+
+        // ExpenseFamilyFund
+        public const string USP_EXPENSE_FAMILY_FUND_INFO_SAVE = "Transactions.usp_ExpenseFamilyFundInfo_Save";
+        public const string USP_EXPENSE_FAMILY_FUND_INFO_GET_SUM_AMOUNT_BY_DATE = "Transactions.usp_ExpenseFamilyFundInfo_Get_SumAmountByDate";
+        public const string USP_EXPENSE_FAMILY_FUND_INFO_GET_BY_DATE = "Transactions.usp_ExpenseFamilyFundInfo_Get_ByDate";
+        public const string USP_EXPENSE_FAMILY_FUND_INFO_GET_BY_ID = "Transactions.usp_ExpenseFamilyFundInfo_Get_ById";
 
         // BillType
         public const string USP_BILL_TYPE_INFO_SAVE = "Setup.usp_V1_BillTypeInfo_Save";
