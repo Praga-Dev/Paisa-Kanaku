@@ -85,7 +85,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Transactions
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in ExpenseProductService.SaveTempExpenseInfo({@expenseProductSaveRequestDTO}, {@loggedInUserId})", expenseProductSaveRequestDTO.ToString(), loggedInUserId);
+                _logger.LogError(ex, "Error in ExpenseProductService.SaveExpenseProductInfo({@expenseProductSaveRequestDTO}, {@loggedInUserId})", expenseProductSaveRequestDTO.ToString(), loggedInUserId);
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
                 return response;
             }
