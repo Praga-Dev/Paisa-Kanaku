@@ -45,33 +45,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
 
         public async Task<Response<Guid>> CreateExpenseInfo(ExpenseSaveInfoDB expenseSaveInfoDb, Guid loggedInUserId)
         {
-            Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
-
-            try
-            {
-                string spName = DatabaseConstants.USP_EXPENSE_INFO_PRODUCT_SAVE;
-
-                DynamicParameters parameters = new();
-                parameters.Add("@ExpenseDate", expenseSaveInfoDb.ExpenseDate, DbType.Date);
-                parameters.Add("@ExpenseData", expenseSaveInfoDb.ExpenseData.ToString(), DbType.String);                
-                parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
-                parameters.Add("@Result", null, DbType.Guid, direction: ParameterDirection.Output);
-
-                var returnValue = await _db.Connection.QueryAsync<Guid>(spName, parameters, commandType: CommandType.StoredProcedure);
-                var result = parameters.Get<Guid>("@Result");
-
-                if (!returnValue.Any() && result != Guid.Empty)
-                {
-                    response = response.GetSuccessResponse(result);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in ExpenseRepository.SaveExpenseInfo({@expenseSaveInfoDb}, {@loggedInUserId})", expenseSaveInfoDb.ToString(), loggedInUserId);
-                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
-            }
-
-            return response;
+            throw new NotImplementedException();           
         }
 
         public async Task<Response<List<ExpenseReferenceDetailInfoDB>>> GetExpenseInfoList(Guid loggedInUserId)
