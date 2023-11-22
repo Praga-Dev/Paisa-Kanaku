@@ -67,7 +67,7 @@ BEGIN TRY
 		VALUES
 		(@ExpenseFamilyFundInfoId, @ExpenseInfoId, @ExpenseDate, @ExpenseById, @RecipientId, @ExpenseAmount, @Description, @LoggedInUserId)
 
-		EXEC [Common].[usp_v1_Add_To_ExpenseAmount] @ExpenseInfoId = @ExpenseInfoId, @ExpenseAmount = @ExpenseAmount, @Result = @ExpenseAmountResult OUTPUT;
+		EXEC [Common].[usp_v1_Add_To_ExpenseAmount] @ExpenseInfoId = @ExpenseInfoId, @Amount = @ExpenseAmount, @Result = @ExpenseAmountResult OUTPUT;
 	END
 	ELSE
 	BEGIN  	
@@ -87,7 +87,7 @@ BEGIN TRY
 		DECLARE @UpdatedExpenseAmount DECIMAL(12,3);
 		SET @UpdatedExpenseAmount = @ExpenseAmount - @OldExpenseAmount;
 
-		EXEC [Common].[usp_v1_Add_To_ExpenseAmount] @ExpenseInfoId = @ExpenseInfoId, @ExpenseAmount = @UpdatedExpenseAmount, @Result = @ExpenseAmountResult OUTPUT;
+		EXEC [Common].[usp_v1_Add_To_ExpenseAmount] @ExpenseInfoId = @ExpenseInfoId, @Amount = @UpdatedExpenseAmount, @Result = @ExpenseAmountResult OUTPUT;
 
 		IF (@ExpenseAmountResult <= 0)
 		BEGIN
