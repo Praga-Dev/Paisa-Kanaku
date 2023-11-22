@@ -1,4 +1,4 @@
-CREATE PROCEDURE [Setup].[usp_V1_GetManagesExpenseMemberInfo]
+CREATE PROCEDURE [Setup].[usp_V1_GetFamilyMemberInfo]
 	@LoggedInUserId UNIQUEIDENTIFIER
 
 AS
@@ -12,7 +12,7 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	SELECT * FROM [Setup].[MemberInfo] WHERE [RelationshipType] = 'SELF'
+	SELECT * FROM [Setup].[MemberInfo] WHERE [RelationshipType] = 'FAMILY'
 	AND [CreatedBy] = @LoggedInUserId
 	AND [RowStatus] = 'A' ;
 
