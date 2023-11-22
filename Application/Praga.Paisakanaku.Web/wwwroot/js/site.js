@@ -39,7 +39,7 @@ function getBrandDDList() {
     })
 }
 
-function getMemberDDList(memberId = '') {
+function getMemberDDList(memberId = '', callbackFn = '') {
     loadSpinner();
     $.ajax({
         url: `./member/manages-expense/data-list`,
@@ -50,6 +50,10 @@ function getMemberDDList(memberId = '') {
 
                 if (memberId) {
                     $('#selectMember').val(memberId);
+                }
+
+                if (callbackFn) {
+                    callbackFn();
                 }
             }
             else {

@@ -1,0 +1,18 @@
+﻿@model Response<List<MemberInfo>>
+
+<div class="form-group">
+    <label id="lblSelectMemberContainer" class="form-label">
+        Recipient
+        <span class="required">*</span>
+    </label>
+    <select id="selectRecipient" name="selectRecipient" class="form-control form-control-sm">
+        @if (Model != null && Model.Data != null && Model.Data.Any())
+        {
+            <option selected="true" style='display: none'></option>
+            @foreach (var member in Model.Data)
+            {
+                <option value="@member.Id">@member.Name</option>
+            }
+        }
+    </select>
+</div>

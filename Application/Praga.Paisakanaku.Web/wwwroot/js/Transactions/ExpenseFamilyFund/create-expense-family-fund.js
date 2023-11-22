@@ -17,10 +17,17 @@ function getRecipientDDList(recipientId = '') {
             success: function (response) {
                 if (typeof response !== undefined && response !== null) {
                     $('#recipientListDDContainer').html(response);
+                    debugger;
+                    if (!recipientId) {
+                        recipientId = $('#recipientListDDContainer').data('val')
+                    }
 
                     if (recipientId) {
                         $('#selectRecipient').val(recipientId);
                     }
+
+
+
                     $('#selectRecipient').prop('disabled', false);
                 }
                 else {
@@ -95,9 +102,9 @@ function editCartItem(id) {
                 if (response) {
                     $('#divTempExpenseFormContainer').html(response);
                     getRecipientDDList();
-
+                    debugger;
                     let memberId = $('#memberListDDContainer').data('val');
-                    getMemberDDList(memberId);
+                    getMemberDDList(memberId, getRecipientDDList);
 
                     let familyMemberId = $('#recipientListDDContainer').data('val');
                     if (familyMemberId) {

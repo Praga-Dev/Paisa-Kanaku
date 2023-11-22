@@ -190,7 +190,7 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
                 if (!Helpers.IsValidGuid(this.LoggedInUserId))
                 {
                     response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
-                    return PartialView("~/Views/Common/_MemberList.cshtml", response);
+                    return PartialView("~/Views/Common/_RecipientList.cshtml", response);
                 }
 
                 ViewData["SelectMemberLableText"] = "Recipient";
@@ -210,7 +210,7 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
                 response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
             }
 
-            return PartialView("~/Views/Common/_MemberList.cshtml", response);
+            return PartialView("~/Views/Common/_RecipientList.cshtml", response);
         }
 
         [HttpGet, Route("~/member/manages-expense/data-list")]
