@@ -557,46 +557,46 @@ IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Set
 BEGIN
     IF NOT EXISTS(SELECT 1 FROM [Setup].[MemberInfo] WHERE [Id] LIKE N'A881317E-45DA-4CA0-A595-0A63D90169D3')
     BEGIN
-	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [ManagesExpense], [RelationshipType], [CreatedBy]) 
-	    VALUES (N'A881317E-45DA-4CA0-A595-0A63D90169D3', N'Chithra', 1, 'SELF', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [RelationshipType], [CreatedBy]) 
+	    VALUES (N'A881317E-45DA-4CA0-A595-0A63D90169D3', N'Chithra', 'SELF', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
     END
     IF NOT EXISTS(SELECT 1 FROM [Setup].[MemberInfo] WHERE [Id] LIKE N'D2D0F25A-5FBC-4F1A-A0B2-EB1E7FF39AB3')
     BEGIN
-	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [ManagesExpense], [RelationshipType], [CreatedBy]) 
-	    VALUES (N'D2D0F25A-5FBC-4F1A-A0B2-EB1E7FF39AB3', N'Praga', 1, 'SELF', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [RelationshipType], [CreatedBy]) 
+	    VALUES (N'D2D0F25A-5FBC-4F1A-A0B2-EB1E7FF39AB3', N'Praga', 'SELF', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
     END
 
     -----------------------------------------------------------------------------------------------------------
 
     IF NOT EXISTS(SELECT 1 FROM [Setup].[MemberInfo] WHERE [Id] LIKE N'3CCFE639-E769-4AAA-B99B-D085D154FD20')
     BEGIN
-	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [ManagesExpense], [RelationshipType], [CreatedBy]) 
-	    VALUES (N'3CCFE639-E769-4AAA-B99B-D085D154FD20', N'Pasupathi', 0, 'FAMILY', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [RelationshipType], [CreatedBy]) 
+	    VALUES (N'3CCFE639-E769-4AAA-B99B-D085D154FD20', N'Pasupathi', 'FAMILY', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
     END
     IF NOT EXISTS(SELECT 1 FROM [Setup].[MemberInfo] WHERE [Id] LIKE N'BA2600A2-6F3E-4AAA-86F5-8AC7DA348C91')
     BEGIN
-	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [ManagesExpense], [RelationshipType], [CreatedBy]) 
-	    VALUES (N'BA2600A2-6F3E-4AAA-86F5-8AC7DA348C91', N'Sivagami', 0, 'FAMILY', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [RelationshipType], [CreatedBy]) 
+	    VALUES (N'BA2600A2-6F3E-4AAA-86F5-8AC7DA348C91', N'Sivagami', 'FAMILY', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
     END
     IF NOT EXISTS(SELECT 1 FROM [Setup].[MemberInfo] WHERE [Id] LIKE N'4670CBFB-164E-4F5C-B006-D41A5025047E')
     BEGIN
-	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [ManagesExpense], [RelationshipType], [CreatedBy]) 
-	    VALUES (N'4670CBFB-164E-4F5C-B006-D41A5025047E', N'Mahendran', 0, 'FAMILY', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [RelationshipType], [CreatedBy]) 
+	    VALUES (N'4670CBFB-164E-4F5C-B006-D41A5025047E', N'Mahendran', 'FAMILY', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
     END
     IF NOT EXISTS(SELECT 1 FROM [Setup].[MemberInfo] WHERE [Id] LIKE N'AB6BD0B3-1548-4EFF-8D30-111D373ECBBA')
     BEGIN
-	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [ManagesExpense], [RelationshipType], [CreatedBy]) 
-	    VALUES (N'AB6BD0B3-1548-4EFF-8D30-111D373ECBBA', N'Sumathi', 0, 'FAMILY', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [RelationshipType], [CreatedBy]) 
+	    VALUES (N'AB6BD0B3-1548-4EFF-8D30-111D373ECBBA', N'Sumathi', 'FAMILY', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
     END
     IF NOT EXISTS(SELECT 1 FROM [Setup].[MemberInfo] WHERE [Id] LIKE N'98C43AC4-7425-40DE-9E42-789563A50093')
     BEGIN
-	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [ManagesExpense], [RelationshipType], [CreatedBy]) 
-	    VALUES (N'98C43AC4-7425-40DE-9E42-789563A50093', N'Sailesh', 0, 'FAMILY', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [RelationshipType], [CreatedBy]) 
+	    VALUES (N'98C43AC4-7425-40DE-9E42-789563A50093', N'Sailesh', 'FAMILY', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
     END
     IF NOT EXISTS(SELECT 1 FROM [Setup].[MemberInfo] WHERE [Id] LIKE N'7713009D-F14F-4859-A872-FE8052BEEBF0')
     BEGIN
-	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [ManagesExpense], [RelationshipType], [CreatedBy]) 
-	    VALUES (N'7713009D-F14F-4859-A872-FE8052BEEBF0', N'Shiva', 0, 'FAMILY', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	    INSERT INTO [Setup].[MemberInfo]([Id], [Name], [RelationshipType], [CreatedBy]) 
+	    VALUES (N'7713009D-F14F-4859-A872-FE8052BEEBF0', N'Shiva', 'FAMILY', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
     END
 END
 GO
