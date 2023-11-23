@@ -21,11 +21,9 @@
                                         <input id="name" name="name" asp-for="@Model.Name" type="text" class="form-control form-control-sm" aria-describedby="groceryHelp" maxlength="50">
                                         <div id="groceryHelp" style="display:none;" class="form-text">Name is case sensitive, ranges between 2 and 50 characters.</div>
                                     </div>
-                                    <div class="">
-                                        <div id="groceryCategoryListDDContainer" class="form-group"
-                                             data-val="@(!string.IsNullOrWhiteSpace(Model?.GroceryCategoryInfo?.GroceryCategory) ? Model?.GroceryCategoryInfo?.GroceryCategory : "")">
-                                            <partial name="~/Views/Common/_GroceryCategoryList.cshtml" model="null" />
-                                        </div>
+                                    <div id="groceryCategoryListDDContainer" class="form-group"
+                                            data-val="@(!string.IsNullOrWhiteSpace(Model?.GroceryCategoryInfo?.GroceryCategory) ? Model?.GroceryCategoryInfo?.GroceryCategory : "")">
+                                        <partial name="~/Views/Common/_GroceryCategoryList.cshtml" model="null" />
                                     </div>
                                     <div class="">
                                         <div id="brandListDDContainer" class="form-group" data-val="@(Model?.BrandInfo?.Id != Guid.Empty ? Model?.BrandInfo?.Id : "")">

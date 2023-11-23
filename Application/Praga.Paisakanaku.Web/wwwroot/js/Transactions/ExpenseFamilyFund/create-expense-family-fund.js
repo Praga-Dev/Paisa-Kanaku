@@ -7,7 +7,6 @@ $(document).ready(function () {
 });
 
 function getRecipientDDList(recipientId = '') {
-    debugger;
     loadSpinner();
     let excludedMemberInfoId = $('#selectMember').val();
     if (excludedMemberInfoId) {
@@ -17,7 +16,6 @@ function getRecipientDDList(recipientId = '') {
             success: function (response) {
                 if (typeof response !== undefined && response !== null) {
                     $('#recipientListDDContainer').html(response);
-                    debugger;
                     if (!recipientId) {
                         recipientId = $('#recipientListDDContainer').data('val')
                     }
@@ -102,7 +100,6 @@ function editCartItem(id) {
                 if (response) {
                     $('#divTempExpenseFormContainer').html(response);
                     getRecipientDDList();
-                    debugger;
                     let memberId = $('#memberListDDContainer').data('val');
                     getMemberDDList(memberId, getRecipientDDList);
 
