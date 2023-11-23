@@ -24,11 +24,9 @@
                                            data-err-min-length="Name is too short">
                                         <div id="memberHelp" style="display:none;" class="form-text">Name is case sensitive, ranges between 2 and 50 characters.</div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="form-check form-switch">
-                                            <input id="toggleManagesExpense" class="form-check-input" asp-for="@Model.ManagesExpense" type="checkbox" id="toggleManagesExpense" name="toggleManagesExpense">
-                                            <label asp-for="@Model.ManagesExpense" class="form-check-label">Manage Expenses</label>
-                                        </div>
+                                    <div id="RelationshipTypeListDDContainer" class="form-group"
+                                         data-val="@(!string.IsNullOrWhiteSpace(Model?.RelationshipTypeInfo?.RelationshipType) ? Model?.RelationshipTypeInfo?.RelationshipType  : "")">
+                                        <partial name="~/Views/Common/_RelationshipTypeList.cshtml" model="null" />
                                     </div>
                                     <button type="submit" id="btnMemberSaveSubmit" class="display-none" />
                                 </form>

@@ -6,6 +6,7 @@ using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Setup;
 using Praga.PaisaKanaku.Core.DataEntities.Setup;
 using Praga.PaisaKanaku.Core.DomainEntities.Setup;
 using Praga.PaisaKanaku.Core.Operations.IServices.Setup;
+using System.Diagnostics.Metrics;
 
 namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
 {
@@ -42,7 +43,11 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                   {
                       Id = member.Id,
                       Name = member.Name,
-                      ManagesExpense = member.ManagesExpense,
+                      RelationshipTypeInfo = new()
+                      {
+                          RelationshipType = member.RelationshipType,
+                          RelationshipTypeValue = member.RelationshipTypeValue
+                      },
                       SequenceId = member.SequenceId,
                       CreatedBy = member.CreatedBy,
                       CreatedDate = member.CreatedDate,
@@ -89,7 +94,11 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     {
                         Id = dbResponse.Data.Id,
                         Name = dbResponse.Data.Name,
-                        ManagesExpense = dbResponse.Data.ManagesExpense,
+                        RelationshipTypeInfo = new()
+                        {
+                            RelationshipType = dbResponse.Data.RelationshipType,
+                            RelationshipTypeValue = dbResponse.Data.RelationshipTypeValue
+                        },
                         SequenceId = dbResponse.Data.SequenceId,
                         CreatedBy = dbResponse.Data.CreatedBy,
                         CreatedDate = dbResponse.Data.CreatedDate,
@@ -132,7 +141,11 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                   {
                       Id = member.Id,
                       Name = member.Name,
-                      ManagesExpense = member.ManagesExpense,
+                      RelationshipTypeInfo = new()
+                      {
+                          RelationshipType = member.RelationshipType,
+                          RelationshipTypeValue = member.RelationshipTypeValue
+                      },
                       SequenceId = member.SequenceId,
                       CreatedBy = member.CreatedBy,
                       CreatedDate = member.CreatedDate,
@@ -182,10 +195,21 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     response.ValidationErrorMessages.Add("Member Name must be between 2 and 50 Characters long.");
                 }
 
+                if (memberInfo.RelationshipTypeInfo == null || string.IsNullOrWhiteSpace(memberInfo.RelationshipTypeInfo.RelationshipType))
+                {
+                    response.ValidationErrorMessages.Add("Invalid Member Relationship");
+                }
+
+                if (response.ValidationErrorMessages.Any())
+                {
+                    response.Message = ResponseConstants.INVALID_PARAM;
+                    return response;
+                }
+
                 MemberInfoDB memberInfoDb = new()
                 {
                     Name = memberInfo.Name,
-                    ManagesExpense = memberInfo.ManagesExpense
+                    RelationshipType = memberInfo.RelationshipTypeInfo.RelationshipType
                 };
 
                 if (isUpdate)

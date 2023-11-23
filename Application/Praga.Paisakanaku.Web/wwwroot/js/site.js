@@ -218,6 +218,7 @@ function getExpenseTypeDDList() {
         }
     })
 }
+
 function getRelationshipTypeDDList(relationshipType = '') {
     loadSpinner();
     $.ajax({

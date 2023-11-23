@@ -1,17 +1,27 @@
-﻿$(function () {
+﻿jQuery.validator.addMethod('isDropDownValueValid', function (value, element) {
+    return this.optional(element) || value;
+});
+
+$(function () {
     $('#formCreateMember').validate({
         errorElement: 'span',
         rules: {
             name: {
                 required: true,
                 minlength: 2,
-            }
+            },
+            relationshipType: {
+                isDropDownValueValid: true
+            },
         },
         messages: {
             name: {
                 required: $('#name').data('err-required'),
                 minlength: $('#name').data('err-min-length')
-            }
+            },
+            relationshipType: {
+                isDropDownValueValid: 'Relationship is required'
+            },
         },
         submitHandler: function () {
             loadSpinner();
@@ -19,11 +29,14 @@
 
             let id = $('#formCreateMember').data('id');
             let name = $('#name').val();
-            let manageExpenses = $('#toggleManagesExpense').prop('checked');
+            let relationshipType = $('#selectRelationshipType').val();
+
             let memberInfo = {
                 'Id': id,
-                'Name': name, 
-                'ManagesExpense': manageExpenses ? 'True' : 'False'
+                'Name': name,
+                'RelationshipTypeInfo': {
+                    'RelationshipType': relationshipType
+                }
             }
 
             let isUpdate = $('#formCreateMember').data('isupdate') === 'True';

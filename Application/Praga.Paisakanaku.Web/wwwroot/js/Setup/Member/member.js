@@ -23,8 +23,8 @@
 
 function onCreateMember() {
     loadSpinner();
+    getRelationshipTypeDDList();
     $('#formCreateMember').trigger("reset");
-    $('#toggleManagesExpense').prop('checked', false);
     $('#formCreateMember').data('id', '');
     $('#formCreateMember').data('isupdate', 'False');
     $('#formCreateMember').find(':input,select').val('');
@@ -44,6 +44,7 @@ function editMember(memberInfoId) {
             success: function (response) {
                 if (typeof response !== undefined && response !== null) {
                     $('#createMemberFormContainer').empty().html(response);
+                    getRelationshipTypeDDList();
                     $('#createMemberTitle').text('Update Member');
                     $('#createMemberModal').modal('show');
                 }

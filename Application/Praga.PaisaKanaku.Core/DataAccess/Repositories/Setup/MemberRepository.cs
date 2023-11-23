@@ -95,7 +95,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
                 DynamicParameters parameters = new();
                 parameters.Add("@Id", memberInfoDb.Id, DbType.Guid);
                 parameters.Add("@Name", memberInfoDb.Name, DbType.String);
-                parameters.Add("@ManagesExpense", memberInfoDb.ManagesExpense, DbType.Boolean);
+                parameters.Add("@RelationshipType", memberInfoDb.RelationshipType, DbType.String);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
                 parameters.Add("@Result", null, DbType.Guid, direction: ParameterDirection.Output);
 

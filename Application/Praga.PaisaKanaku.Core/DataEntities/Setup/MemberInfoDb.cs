@@ -6,6 +6,7 @@ namespace Praga.PaisaKanaku.Core.DataEntities.Setup
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public bool ManagesExpense { get; set; }
+        public string RelationshipType { get; set; }
+        public string RelationshipTypeValue { get; set; }
     }
 }

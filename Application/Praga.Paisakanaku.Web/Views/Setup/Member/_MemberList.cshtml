@@ -7,6 +7,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Member Name</th>
+                        <th scope="col">Relationship</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -16,23 +17,25 @@
                         @foreach (var member in Model.Data)
                         {
                             <tr>
-                                <th scope="row">
+                                <td scope="row">
                                     @if (!string.IsNullOrWhiteSpace(member.Name))
                                     {
                                         <p>@member.Name</p>
                                     }
-                                </th>
-                                <td>
-                                    <span class="material-icons-outlined btn-icon @(member.ManagesExpense ? "text-success" : "text-danger")"
-                                          title="@(!member.ManagesExpense ? "Don't" : "") Manage Expenses">
-                                        @(member.ManagesExpense ? "check_circle" : "cancel")
-                                    </span>
+                                </td>
+                                <td scope="row">
+                                    @if (member.RelationshipTypeInfo != null && !string.IsNullOrWhiteSpace(member.RelationshipTypeInfo.RelationshipTypeValue))
+                                    {
+                                        <p>@member.RelationshipTypeInfo.RelationshipTypeValue</p>
+                                    }
+                                </td>
+                                <td class="d-flex justify-content-end">
                                     <span class="material-icons-outlined arrow btn-icon" id="btnEditMember_@member.Id"
-                                  title="Update Member" onclick="editMember('@member.Id')">
+                                          title="Update Member" onclick="editMember('@member.Id')">
                                         edit
                                     </span>
                                     <span class="material-icons-outlined arrow btn-icon" id="btnDeleteMember_@member.Id"
-                                  title="Delete Member" onclick="deleteMember('@member.Id', '@member.Name')">
+                                          title="Delete Member" onclick="deleteMember('@member.Id', '@member.Name')">
                                         delete
                                     </span>
                                 </td>

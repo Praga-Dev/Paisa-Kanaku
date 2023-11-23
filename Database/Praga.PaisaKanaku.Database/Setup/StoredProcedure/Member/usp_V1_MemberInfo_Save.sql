@@ -1,7 +1,6 @@
 ﻿CREATE PROCEDURE [Setup].[usp_V1_MemberInfo_Save]
 	@Id UNIQUEIDENTIFIER,
 	@Name NVARCHAR(50),
-	@ManagesExpense BIT, 
 	@RelationshipType NVARCHAR(25),
 	@LoggedInUserId UNIQUEIDENTIFIER,
 	@Result UNIQUEIDENTIFIER OUTPUT
@@ -27,14 +26,13 @@ BEGIN TRY
 
     IF(@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Setup].[MemberInfo] WHERE [Id] = @Id))
 	BEGIN
-		INSERT INTO [Setup].[MemberInfo] ([Id], [Name], [ManagesExpense], [RelationshipType], [CreatedBy])
-		VALUES (@MemberId, @Name, @ManagesExpense, @RelationshipType, @LoggedInUserId);
+		INSERT INTO [Setup].[MemberInfo] ([Id], [Name], [RelationshipType], [CreatedBy])
+		VALUES (@MemberId, @Name, @RelationshipType, @LoggedInUserId);
 	END
 	ELSE
 	BEGIN  
 		UPDATE [Setup].[MemberInfo]
 			SET	[Name] = @Name,
-				[ManagesExpense] = @ManagesExpense, 
 				[RelationshipType] = @RelationshipType,
                 [ModifiedBy] = @LoggedInUserId,
 				[ModifiedDate] = GETUTCDATE()
