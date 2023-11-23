@@ -218,6 +218,35 @@ function getExpenseTypeDDList() {
         }
     })
 }
+function getRelationshipTypeDDList(relationshipType = '') {
+    loadSpinner();
+    $.ajax({
+        url: `./lookup/relationship-type`,
+        method: 'GET',
+        success: function (response) {
+            if (typeof response !== undefined && response !== null) {
+                $('#RelationshipTypeListDDContainer').html(response);
+
+                if (relationshipType === '') {
+                    relationshipType = $('#RelationshipTypeListDDContainer').data('val')
+                }
+
+                if (relationshipType) {
+                    $('#selectRelationshipType').val(relationshipType);
+                }
+            }
+            else {
+                // TODO Alert
+            }
+        },
+        error: function () {
+            // TODO Alert
+        },
+        complete: function () {
+            hideSpinner();
+        }
+    })
+}
 
 
 // #region Common

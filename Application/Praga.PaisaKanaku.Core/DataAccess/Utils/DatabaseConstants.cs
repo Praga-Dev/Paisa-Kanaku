@@ -12,6 +12,7 @@
         public const string USP_WEIGHT_MEASURE_INFO_GET = "Lookups.usp_v1_WeightMeasureInfo_Get";
         public const string USP_TIME_PERIOD_TYPE_INFO_GET = "Lookups.usp_v1_TimePeriodTypeInfo_Get";
         public const string USP_PRODUCT_CATEGORY_INFO_GET = "Lookups.usp_v1_ProductCategoryInfo_Get";
+        public const string USP_RELATIONSHIP_TYPE_INFO_GET = "Lookups.usp_v1_RelationshipTypeInfo_Get";
 
 
         // Brand

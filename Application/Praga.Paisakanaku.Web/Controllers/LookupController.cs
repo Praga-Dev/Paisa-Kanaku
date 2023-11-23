@@ -134,6 +134,35 @@ namespace Praga.Paisakanaku.Web.Controllers
             return PartialView("~/Views/Common/_MetricSystemList.cshtml", response);
         }
 
+        [HttpGet, Route("~/lookup/relationship-type")]
+        public async Task<IActionResult> GetRelationshipTypeInfoList()
+        {
+            Response<List<RelationshipTypeInfo>> response = new Response<List<RelationshipTypeInfo>>().GetFailedResponse(ResponseConstants.FAILED);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(this.LoggedInUserId))
+                {
+                    response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return PartialView("~/Views/Common/_RelationshipTypeList.cshtml", response);
+                }
+
+                var dbresponse = await _lookupService.GetRelationshipTypeInfoList(LoggedInUserId);
+                if (Helpers.IsResponseValid(dbresponse))
+                {
+                    response = dbresponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupController.GetMeasureTypeInfoList({@loggedInUserId})", LoggedInUserId);
+
+                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
+            }
+
+            return PartialView("~/Views/Common/_RelationshipTypeList.cshtml", response);
+        }
+        
         [HttpGet, Route("~/lookup/measure-type")]
         public async Task<IActionResult> GetMeasureTypeInfoList()
         {

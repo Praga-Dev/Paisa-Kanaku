@@ -69,7 +69,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services
                 if (Helpers.IsResponseValid(dbResponse))
                 {
                     response.Data = dbResponse.Data
-                  .Select(measure => new MeasureTypeInfo() { MeasureType = measure.MeasureType, MeasureTypeValue= measure.MeasureTypeValue })
+                  .Select(measure => new MeasureTypeInfo() { MeasureType = measure.MeasureType, MeasureTypeValue = measure.MeasureTypeValue })
                   .ToList();
 
                     response = response.GetSuccessResponse(response.Data);
@@ -179,6 +179,42 @@ namespace Praga.PaisaKanaku.Core.Operations.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error in LookupsRepository.GetMetricSystemInfoList({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+            }
+
+            return response;
+        }
+
+        public async Task<Response<List<RelationshipTypeInfo>>> GetRelationshipTypeInfoList(Guid loggedInUserId)
+        {
+            Response<List<RelationshipTypeInfo>> response = new Response<List<RelationshipTypeInfo>>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
+
+            try
+            {
+
+                if (!Helpers.IsValidGuid(loggedInUserId))
+                {
+                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return response;
+                }
+
+                var dbResponse = await _lookupsRepository.GetRelationshipTypeInfoList(loggedInUserId);
+                if (Helpers.IsResponseValid(dbResponse))
+                {
+                    response.Data = dbResponse.Data.Select(
+                        relationship => new RelationshipTypeInfo()
+                        {
+                            RelationshipType = relationship.RelationshipType,
+                            RelationshipTypeValue = relationship.RelationshipType
+                        }).ToList();
+
+                    response = response.GetSuccessResponse(response.Data);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupsRepository.GetRelationshipTypeInfoList({@loggedInUserId})", loggedInUserId);
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
             }
 

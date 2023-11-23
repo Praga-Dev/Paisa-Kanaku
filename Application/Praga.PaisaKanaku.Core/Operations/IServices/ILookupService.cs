@@ -10,6 +10,8 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices
         Task<Response<List<MeasureTypeInfo>>> GetMeasureTypeInfoList(Guid loggedInUserId);
         Task<Response<List<TimePeriodTypeInfo>>> GetTimePeriodInfoList(Guid loggedInUserId);
         Task<Response<List<ProductCategoryInfo>>> GetProductCategoryInfoList(Guid loggedInUserId);
+        Task<Response<List<RelationshipTypeInfo>>> GetRelationshipTypeInfoList(Guid loggedInUserId);
+
 
     }
 }

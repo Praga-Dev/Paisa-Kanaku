@@ -1,0 +1,25 @@
+﻿@model Response<List<RelationshipTypeInfo>>
+
+<div class="form-group">
+    <label class="form-label">
+        Relationship Type
+        <span class="required">*</span>
+    </label>
+    <select id="selectRelationshipType" name="relationshipType" class="form-control form-control-sm">
+        @if (Model != null && Model.Data != null && Model.Data.Any())
+        {
+            @foreach (var relationshipType in Model.Data)
+            {
+                @if (relationshipType.RelationshipType == "UNCATEGORIZED")
+                {
+                    <option value="@relationshipType.RelationshipType" selected>@relationshipType.RelationshipTypeValue</option>
+                }
+                else
+                {
+                    <option value="@relationshipType.RelationshipType">@relationshipType.RelationshipTypeValue</option>
+
+                }
+            }
+        }
+    </select>
+</div>
