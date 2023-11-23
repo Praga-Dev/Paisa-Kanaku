@@ -207,6 +207,7 @@
     <Build Include="Transactions\StoredProcedure\ExpenseFamilyFund\usp_ExpenseFamilyFundInfo_Get_ByDate.sql" />
     <Build Include="Lookups\Table\RelationshipTypeInfo.sql" />
     <Build Include="Setup\StoredProcedure\Member\usp_V1_GetFamilyMemberInfo.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_RelationshipTypeInfo_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />
