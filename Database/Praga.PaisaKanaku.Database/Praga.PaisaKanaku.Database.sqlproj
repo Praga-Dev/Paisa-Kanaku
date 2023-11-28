@@ -9,8 +9,7 @@
     <ProjectGuid>{51053208-0db0-4aab-80c7-749adf07bb8c}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
-    <RootPath>
-    </RootPath>
+    <RootPath />
     <RootNamespace>Praga.PaisaKanaku.Database</RootNamespace>
     <AssemblyName>Praga.PaisaKanaku.Database</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
@@ -48,7 +47,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
-    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
     <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
     <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
   </PropertyGroup>
@@ -208,6 +206,7 @@
     <Build Include="Lookups\Table\RelationshipTypeInfo.sql" />
     <Build Include="Setup\StoredProcedure\Member\usp_V1_GetFamilyMemberInfo.sql" />
     <Build Include="Lookups\StoredProcedure\usp_v1_RelationshipTypeInfo_Get.sql" />
+    <Build Include="Transactions\StoredProcedure\Expense\usp_V1_DeleteExpense.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />
