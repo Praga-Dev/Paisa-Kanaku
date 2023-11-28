@@ -16,15 +16,11 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
         private readonly ILogger<ExpenseService> _logger;
 
         private readonly IExpenseRepository _expenseRepository;
-        private readonly IProductService _productService;
-        private readonly ICommonService _commonService;
 
-        public ExpenseService(ILogger<ExpenseService> logger, IExpenseRepository expenseRepository, IProductService productService, ICommonService commonService)
+        public ExpenseService(ILogger<ExpenseService> logger, IExpenseRepository expenseRepository)
         {
             _logger = logger;
             _expenseRepository = expenseRepository;
-            _productService = productService;
-            _commonService = commonService;
         }
 
         public async Task<Response<ExpenseReferenceDetailInfo>> GetExpenseInfoById(Guid expenseInfoId, Guid loggedInUserId)
@@ -348,6 +344,49 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
 
             return response;
         }
-    
+
+        public async Task<Response<Guid>> DeleteExpenseByType(Guid id, string expenseCategory, Guid loggedInUserId)
+        {
+            Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(loggedInUserId))
+                {
+                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return response;
+                }
+
+                if (!Helpers.IsValidGuid(id))
+                {
+                    response.ValidationErrorMessages.Add("Invalid Id");
+                }
+
+                if (string.IsNullOrWhiteSpace(expenseCategory))
+                {
+                    response.ValidationErrorMessages.Add("Invalid Expense Category");
+                }
+
+                //if (!AppConstants.EXPENSE_TYPE_INFO_LIST.Contains(expenseCategory))
+                //{
+                //    response.ValidationErrorMessages.Add("Invalid Expense Category Not Exist");
+                //}
+
+                if (response.ValidationErrorMessages.Count > 0)
+                {
+                    response = new Response<Guid>().GetValidationFailedResponse(response.ValidationErrorMessages);
+                    return response;
+                }
+
+                return await _expenseRepository.DeleteExpenseByType(id, expenseCategory, loggedInUserId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ExpenseService.GetExpenseBaseInfoList({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+            }
+
+            return response;
+        }
     }
 }

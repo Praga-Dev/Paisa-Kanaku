@@ -18,5 +18,24 @@
 
         #endregion
 
+        public static class ExpenseTypeConstants
+        {
+            public const string EXPENSE_TYPE_BILLS = "BILLS";
+            public const string EXPENSE_TYPE_BUSINESS_NEEDS = "BUSINESS_NEEDS";
+            public const string EXPENSE_TYPE_ELECTRONICS = "ELECTRONICS";
+            public const string EXPENSE_TYPE_ENTERTAINMENT = "ENTERTAINMENT";
+            public const string EXPENSE_TYPE_FAMILY_WELLBEING = "FAMILY_WELLBEING";
+            public const string EXPENSE_TYPE_GROCERY = "GROCERY";
+            public const string EXPENSE_TYPE_GROOMING = "GROOMING";
+            public const string EXPENSE_TYPE_HEALTH_CARE = "HEALTH_CARE";
+            public const string EXPENSE_TYPE_LEND = "LEND";
+            public const string EXPENSE_TYPE_LOAN_INTEREST = "LOAN_INTEREST";
+            public const string EXPENSE_TYPE_LOAN_REPAYMENT = "LOAN_REPAYMENT";
+            public const string EXPENSE_TYPE_PRODUCT = "PRODUCT";
+            public const string EXPENSE_TYPE_REPAIRS = "REPAIRS";
+            public const string EXPENSE_TYPE_SAVINGS = "SAVINGS";
+            public const string EXPENSE_TYPE_TRAVEL = "TRAVEL";
+            public const string EXPENSE_TYPE_UNCATEGORIZED = "UNCATEGORIZED";
+        }
     }
 }

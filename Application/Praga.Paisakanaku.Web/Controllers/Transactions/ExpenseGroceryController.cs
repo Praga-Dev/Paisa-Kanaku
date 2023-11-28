@@ -7,6 +7,7 @@ using Praga.PaisaKanaku.Core.DomainEntities.Transactions.Common;
 using Praga.PaisaKanaku.Core.DomainEntities.Transactions.ExpenseGrocery;
 using Praga.PaisaKanaku.Core.DTO.Transactions.ExpenseGrocery;
 using Praga.PaisaKanaku.Core.Operations.IServices.Transactions;
+using static Praga.PaisaKanaku.Core.Common.Constants.AppConstants;
 
 namespace Praga.Paisakanaku.Web.Controllers.Setup
 {
@@ -14,11 +15,13 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
     {
         private readonly ILogger<ExpenseGroceryController> _logger;
         private readonly IExpenseGroceryService _expenseGroceryService;
+        private readonly IExpenseService _expenseService;
 
-        public ExpenseGroceryController(ILogger<ExpenseGroceryController> logger, IExpenseGroceryService expenseGroceryService) : base()
+        public ExpenseGroceryController(ILogger<ExpenseGroceryController> logger, IExpenseGroceryService expenseGroceryService, IExpenseService expenseService) : base()
         {
             _logger = logger; ;
             _expenseGroceryService = expenseGroceryService;
+            _expenseService = expenseService;
         }
 
         [HttpGet, Route("~/expense-grocery/")]
@@ -201,7 +204,7 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
         }
 
         [HttpDelete, Route("~/expense-grocery/{expenseGroceryInfoId:Guid}")]
-        public async Task<IActionResult> DeleteTempExpenseInfo(Guid expenseGroceryInfoId)
+        public async Task<IActionResult> DeleteGroceryExpenseInfo(Guid expenseGroceryInfoId)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
 
@@ -213,7 +216,8 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
                     return StatusCode(StatusCodes.Status200OK, response);
                 }
 
-                var dbresponse = await _expenseGroceryService.DeleteExpenseGroceryInfo(expenseGroceryInfoId, LoggedInUserId);
+                var dbresponse = await _expenseService.DeleteExpenseByType(expenseGroceryInfoId
+                    , ExpenseTypeConstants.EXPENSE_TYPE_GROCERY, LoggedInUserId);
 
                 return StatusCode(StatusCodes.Status200OK, Helpers.IsResponseValid(dbresponse) ? dbresponse : response);
             }

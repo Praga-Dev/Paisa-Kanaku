@@ -7,6 +7,7 @@ using Praga.PaisaKanaku.Core.DomainEntities.Transactions.Common;
 using Praga.PaisaKanaku.Core.DomainEntities.Transactions.ExpenseFamilyFund;
 using Praga.PaisaKanaku.Core.DTO.Transactions.ExpenseFamilyFund;
 using Praga.PaisaKanaku.Core.Operations.IServices.Transactions;
+using static Praga.PaisaKanaku.Core.Common.Constants.AppConstants;
 
 namespace Praga.Paisakanaku.Web.Controllers.Setup
 {
@@ -14,11 +15,15 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
     {
         private readonly ILogger<ExpenseFamilyFundController> _logger;
         private readonly IExpenseFamilyFundService _expenseFamilyFundService;
+        private readonly IExpenseService _expenseService;
 
-        public ExpenseFamilyFundController(ILogger<ExpenseFamilyFundController> logger, IExpenseFamilyFundService expenseFamilyFundService) : base()
+
+        public ExpenseFamilyFundController(ILogger<ExpenseFamilyFundController> logger, 
+            IExpenseFamilyFundService expenseFamilyFundService, IExpenseService expenseService) : base()
         {
             _logger = logger; ;
             _expenseFamilyFundService = expenseFamilyFundService;
+            _expenseService = expenseService;
         }
 
         [HttpGet, Route("~/expense-family-fund/")]
@@ -213,7 +218,8 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
                     return StatusCode(StatusCodes.Status200OK, response);
                 }
 
-                var dbresponse = await _expenseFamilyFundService.DeleteExpenseFamilyFundInfo(expenseFamilyFundInfoId, LoggedInUserId);
+                var dbresponse = await _expenseService.DeleteExpenseByType(expenseFamilyFundInfoId
+                    , ExpenseTypeConstants.EXPENSE_TYPE_FAMILY_WELLBEING, LoggedInUserId);
 
                 return StatusCode(StatusCodes.Status200OK, Helpers.IsResponseValid(dbresponse) ? dbresponse : response);
             }
