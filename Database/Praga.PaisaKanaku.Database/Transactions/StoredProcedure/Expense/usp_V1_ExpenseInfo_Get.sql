@@ -14,7 +14,7 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	SELECT * FROM [Transactions].[ExpenseInfo] ORDER BY [Date]
+	SELECT * FROM [Transactions].[ExpenseInfo] WHERE [Amount] > 0 ORDER BY [Date]
 
 END TRY  
 BEGIN CATCH  
