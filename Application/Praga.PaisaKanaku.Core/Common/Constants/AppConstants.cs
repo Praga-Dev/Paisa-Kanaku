@@ -22,7 +22,6 @@
         {
             public const string EXPENSE_TYPE_BILLS = "BILLS";
             public const string EXPENSE_TYPE_BUSINESS_NEEDS = "BUSINESS_NEEDS";
-            public const string EXPENSE_TYPE_ELECTRONICS = "ELECTRONICS";
             public const string EXPENSE_TYPE_ENTERTAINMENT = "ENTERTAINMENT";
             public const string EXPENSE_TYPE_FAMILY_WELLBEING = "FAMILY_WELLBEING";
             public const string EXPENSE_TYPE_GROCERY = "GROCERY";

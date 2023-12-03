@@ -214,49 +214,45 @@ BEGIN
     BEGIN
 	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'LOAN_REPAYMENT', N'Loan Repayment', 5, 'A');
     END
-    IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'ELECTRONICS') 
-    BEGIN
-	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'ELECTRONICS', N'Electronics', 6, 'A');
-    END
     IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'REPAIRS')
     BEGIN
-	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'REPAIRS', N'Repairs', 7, 'A');
-    END
-    IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'BUSINESS_NEEDS')
-    BEGIN
-	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'BUSINESS_NEEDS', N'Business Needs', 8, 'A');
-    END
-    IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'UNCATEGORIZED') -- unplanned expenses like functions
-    BEGIN
-	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'UNCATEGORIZED', N'Uncategorized', 9, 'A');
+	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'REPAIRS', N'Repairs', 6, 'A');
     END
     IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'HEALTH_CARE')
     BEGIN
-	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'HEALTH_CARE', N'Health Care', 10, 'A');
+	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'HEALTH_CARE', N'Health Care', 7, 'A');
     END
     IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'SAVINGS')
     BEGIN
-	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'SAVINGS', N'Savings', 11, 'A');
+	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'SAVINGS', N'Savings', 8, 'A');
     END
     IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'LEND')
     BEGIN
-	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'LEND', N'Lend', 12, 'A');
+	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'LEND', N'Lend', 9, 'A');
     END
     IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'TRAVEL')
     BEGIN
-	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'TRAVEL', N'Travel', 13, 'A');
+	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'TRAVEL', N'Travel', 10, 'A');
     END
     IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'GROOMING')
     BEGIN
-	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'GROOMING', N'Grooming', 14, 'A');
+	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'GROOMING', N'Grooming', 11, 'A');
     END
     IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'FAMILY_WELLBEING')
     BEGIN
-	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'FAMILY_WELLBEING', N'Family Wellbeing', 14, 'A');
+	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'FAMILY_WELLBEING', N'Family Wellbeing', 12, 'A');
     END
     IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'ENTERTAINMENT')
     BEGIN
-	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'ENTERTAINMENT', N'Entertainment', 1, 'A');
+	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'ENTERTAINMENT', N'Entertainment', 13, 'A');
+    END
+    IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'BUSINESS_NEEDS')
+    BEGIN
+	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'BUSINESS_NEEDS', N'Business Needs', 14, 'A');
+    END  
+    IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'UNCATEGORIZED') -- unplanned expenses like functions
+    BEGIN
+	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'UNCATEGORIZED', N'Uncategorized', 15, 'A');
     END
 END
 GO
@@ -706,7 +702,7 @@ BEGIN
         INSERT INTO [Setup].[GroceryInfo]
         ([Id], [Name], [GroceryCategory], [BrandId], [PreferredRecurringTimePeriod], [MetricSystem], [MeasureType], [CreatedBy])
         VALUES
-        (N'6CA6CBC0-E5F4-4D07-936A-266F515CBE89', N'Ragi Semiya', N'CEREALS_&_GRAINS', NULL, N'AS_NEEDED', N'W', N'KILOGRAM', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
+        (N'6CA6CBC0-E5F4-4D07-936A-266F515CBE89', N'Ragi Semiya', N'CEREALS_&_GRAINS', NULL, N'AS_NEEDED', N'W', N'GRAM', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
     END
     IF NOT EXISTS(SELECT 1 FROM [Setup].[GroceryInfo] WHERE [Id] LIKE N'8844E6CC-5716-493D-B5A1-ABB765FD78B5')
     BEGIN
@@ -1644,7 +1640,7 @@ BEGIN
         INSERT INTO [Setup].[GroceryInfo]
         ([Id], [Name], [GroceryCategory], [BrandId], [PreferredRecurringTimePeriod], [MetricSystem], [MeasureType], [CreatedBy])
         VALUES
-        (N'65F3AC3D-10F6-4BE6-9636-5FAE7B07F1D4', N'Garlic', N'VEGETABLES', NULL, N'AS_NEEDED', N'W', N'KILOGRAM', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
+        (N'65F3AC3D-10F6-4BE6-9636-5FAE7B07F1D4', N'Garlic', N'VEGETABLES', NULL, N'AS_NEEDED', N'W', N'GRAM', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
     END
     IF NOT EXISTS(SELECT 1 FROM [Setup].[GroceryInfo] WHERE [Id] LIKE N'D807BD18-9154-4A32-9F5C-66ACF61602D1')
     BEGIN
