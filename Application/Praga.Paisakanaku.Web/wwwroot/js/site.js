@@ -7,6 +7,7 @@
 
 // #endregion
 
+let SPINNER_CURRENT_LOAD = 0;
 
 function getBrandDDList() {
     loadSpinner();
@@ -274,13 +275,23 @@ function showErrorMsg(message) {
 }
 
 function loadSpinner() {
-    $('#loader').show();
-    $('main').addClass('pk-backdrop');
+    SPINNER_CURRENT_LOAD += 1
+    checkSpinnerStatus();
+}
+
+function checkSpinnerStatus() {
+    if (SPINNER_CURRENT_LOAD > 0) {
+        $('#loader').show();
+        $('main').addClass('pk-backdrop');
+    } else {
+        $('#loader').hide();
+        $('main').removeClass('pk-backdrop');
+    }
 }
 
 function hideSpinner() {
-    $('#loader').hide();
-    $('main').removeClass('pk-backdrop');
+    SPINNER_CURRENT_LOAD -= 1;
+    checkSpinnerStatus();
 }
 
 function disableBtnById(btnId) {
