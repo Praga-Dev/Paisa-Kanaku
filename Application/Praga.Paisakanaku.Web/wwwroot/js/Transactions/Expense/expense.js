@@ -14,23 +14,25 @@ function getExpenseData() {
         method: 'GET',
         success: function (response) {
             if (response && response.data && response.isSuccess) {
-                // get data
                 let expenseInfoList = response.data;
                 let calEvents = [];
-
-                //for (var exp in expenseInfoList) { 
-                //}
+                
 
                 expenseInfoList.forEach((exp) => {
+                    let color = exp.amount > 1000 ? 'darkred' : 'yellow'
+                    let textColor = exp.amount > 1000 ? 'white' : 'black'
+
                     let data = {
                         title: '- ' + formatter.format(exp.amount),
                         start: exp.date,
-                        end: null
+                        end: exp.date,
+                        color: color,
+                        textColor: textColor
                     }
 
                     calEvents.push(data);
                 });
-                console.log(calEvents);
+                
                 InitializeCalendar(calEvents);
             }
             else {
@@ -53,7 +55,7 @@ function InitializeCalendar(calEvents) {
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             height: 580,
-            initialDate: '2023-10-10',
+            initialDate: new Date(),
             //editable: true,
             selectable: true,
             //businessHours: true,
@@ -62,12 +64,12 @@ function InitializeCalendar(calEvents) {
             displayEventTime: false,
             eventDisplay: 'block',
             displayEventEnd: false,
-            eventDidMount: function (event) {
-                if (event) {
-                    var title = $(event.el).find('.fc-event-title')
-                    title.html(title.text());
-                }
-            }
+            //eventDidMount: function (event) {
+            //    if (event) {
+            //        var title = $(event.el).find('.fc-event-title')
+            //        title.html(title.text());
+            //    }
+            //}
         });
 
         calendar.render();
