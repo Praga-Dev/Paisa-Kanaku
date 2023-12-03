@@ -6,7 +6,6 @@
 	@BrandName NVARCHAR(50),
 	@PreferredRecurringTimePeriod NVARCHAR(15),
 	@MetricSystem NVARCHAR(1),
-	@MeasureType NVARCHAR(25),
 	@LoggedInUserId UNIQUEIDENTIFIER,
 	@Result UNIQUEIDENTIFIER OUTPUT
 AS
@@ -33,9 +32,9 @@ BEGIN TRY
 		DECLARE @TempGroceryInfoId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
 
 		INSERT INTO [Setup].[GroceryInfo] 
-		([Id], [Name], [GroceryCategory], [BrandId], [PreferredRecurringTimePeriod], [MetricSystem], [MeasureType], [CreatedBy])
+		([Id], [Name], [GroceryCategory], [BrandId], [PreferredRecurringTimePeriod], [MetricSystem], [CreatedBy])
 		VALUES 
-		(@TempGroceryInfoId, @Name, @GroceryCategory, @BrandId, @PreferredRecurringTimePeriod, @MetricSystem, @MeasureType, @LoggedInUserId);
+		(@TempGroceryInfoId, @Name, @GroceryCategory, @BrandId, @PreferredRecurringTimePeriod, @MetricSystem, @LoggedInUserId);
 	END
 	ELSE
 	BEGIN
@@ -46,7 +45,6 @@ BEGIN TRY
 				[BrandId] = @BrandId,
 				[PreferredRecurringTimePeriod] = @PreferredRecurringTimePeriod,
 				[MetricSystem] = @MetricSystem,
-				[MeasureType] = @MeasureType,
 				[ModifiedBy] = @LoggedInUserId,
 				[ModifiedDate] = GETUTCDATE()
 		WHERE [Id] = @Id AND [RowStatus] = 'A';

@@ -26,6 +26,8 @@ BEGIN TRY
 		[ExpenseByName] NVARCHAR(50),
 		[GroceryInfoId] UNIQUEIDENTIFIER,
 		[GroceryInfoName] NVARCHAR(25),
+		[MeasureType] NVARCHAR(25),
+		[MeasureTypeValue] NVARCHAR(25),
 		[Quantity] DECIMAL(8,3),
 		[ExpenseAmount] DECIMAL(12,3),
 		[Description] NVARCHAR(250),
@@ -37,7 +39,7 @@ BEGIN TRY
 	);
 	
 	-- Expense Items
-	INSERT INTO @ExpenseGroceryInfo([Id], [ExpenseDate], [ExpenseById], [ExpenseByName], [GroceryInfoId], [GroceryInfoName], [Quantity], [ExpenseAmount], [Description], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
+	INSERT INTO @ExpenseGroceryInfo([Id], [ExpenseDate], [ExpenseById], [ExpenseByName], [GroceryInfoId], [GroceryInfoName], [MeasureType], [MeasureTypeValue], [Quantity], [ExpenseAmount], [Description], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
 	SELECT 
 		[EGI].[Id],
 		[EGI].[ExpenseDate],
@@ -45,6 +47,8 @@ BEGIN TRY
 		[MI].[Name],
 		[EGI].[GroceryInfoId],
 		[GID].[Name],
+		[MTI].[MeasureType],
+		[MTI].[MeasureTypeValue],
 		[EGI].[Quantity],
 		[EGI].[ExpenseAmount],
 		[EGI].[Description],
@@ -56,6 +60,7 @@ BEGIN TRY
 	FROM [Transactions].[ExpenseGroceryInfo] EGI 
 	LEFT JOIN [Setup].[MemberInfo] MI ON EGI.[ExpenseById] = MI.[Id]
 	LEFT JOIN [Setup].[GroceryInfo] GID ON EGI.[GroceryInfoId] = GID.[Id]
+	LEFT JOIN [Lookups].[MeasureTypeInfo] MTI ON EGI.[MeasureType] = MTI.[MeasureType]
 	WHERE [EGI].[Id] = @ExpenseGroceryInfoId
 	AND [EGI].[CreatedBy] = @LoggedInUserId
 	AND [EGI].[RowStatus] = 'A'

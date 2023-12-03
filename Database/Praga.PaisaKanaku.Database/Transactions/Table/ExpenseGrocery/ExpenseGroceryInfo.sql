@@ -5,6 +5,7 @@ CREATE TABLE [Transactions].[ExpenseGroceryInfo]
 	[GroceryInfoId] UNIQUEIDENTIFIER NOT NULL,
 	[ExpenseById] UNIQUEIDENTIFIER NOT NULL,
 	[ExpenseDate] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
+	[MeasureType] NVARCHAR(25) NOT NULL,
 	[Quantity] DECIMAL(8,3) NOT NULL DEFAULT 1,
 	[ExpenseAmount] DECIMAL(12,3) NOT NULL, -- The Rate in the product may differ from the actual expense
 	[Description] NVARCHAR(250),
@@ -20,6 +21,7 @@ CREATE TABLE [Transactions].[ExpenseGroceryInfo]
 	CONSTRAINT [FK_ExpenseGroceryInfo_ExpenseInfo] FOREIGN KEY ([ExpenseInfoId]) REFERENCES [Transactions].[ExpenseInfo]([Id]),
 	CONSTRAINT [FK_ExpenseGroceryInfo_GroceryInfo] FOREIGN KEY ([GroceryInfoId]) REFERENCES [Setup].[GroceryInfo]([Id]),
 	CONSTRAINT [FK_ExpenseGroceryInfo_MemberInfo] FOREIGN KEY ([ExpenseById]) REFERENCES [Setup].[MemberInfo]([Id]),
+	CONSTRAINT [FK_ExpenseGroceryInfo_MeasureType] FOREIGN KEY ([MeasureType]) REFERENCES [Lookups].[MeasureTypeInfo]([MeasureType]),
 	CONSTRAINT [FK_ExpenseGroceryInfo_RowStatus] FOREIGN KEY ([RowStatus]) REFERENCES [Lookups].[RowStatusInfo]([RowStatus])
 ) ON [PRIMARY]
 GO

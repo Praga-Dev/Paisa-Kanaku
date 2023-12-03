@@ -4,6 +4,7 @@ CREATE PROCEDURE [Transactions].[usp_ExpenseGroceryInfo_Save]
 	@ExpenseInfoId UNIQUEIDENTIFIER,
 	@GroceryInfoId UNIQUEIDENTIFIER,
 	@ExpenseById UNIQUEIDENTIFIER,
+	@MeasureType NVARCHAR(25),
 	@Quantity DECIMAL(8,3),
 	@ExpenseAmount DECIMAL(12,3),
 	@Description NVARCHAR(250),
@@ -75,9 +76,9 @@ BEGIN TRY
 	IF(@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Transactions].[ExpenseGroceryInfo] WHERE [Id] = @Id))
 	BEGIN
 		INSERT INTO [Transactions].[ExpenseGroceryInfo]
-		([Id], [ExpenseInfoId], [GroceryInfoId], [ExpenseById], [ExpenseDate], [Quantity], [ExpenseAmount], [Description], [CreatedBy])
+		([Id], [ExpenseInfoId], [GroceryInfoId], [ExpenseById], [ExpenseDate], [MeasureType], [Quantity], [ExpenseAmount], [Description], [CreatedBy])
 		VALUES
-		(@ExpenseGroceryInfoId, @ExpenseInfoId, @GroceryInfoId, @ExpenseById, @ExpenseDate, @Quantity, @ExpenseAmount, @Description, @LoggedInUserId)
+		(@ExpenseGroceryInfoId, @ExpenseInfoId, @GroceryInfoId, @ExpenseById, @ExpenseDate, @MeasureType, @Quantity, @ExpenseAmount, @Description, @LoggedInUserId)
 
 		EXEC [Common].[usp_v1_Add_To_ExpenseAmount] @ExpenseInfoId = @ExpenseInfoId, @Amount = @ExpenseAmount, @Result = @ExpenseAmountResult OUTPUT;
 	END
@@ -90,6 +91,7 @@ BEGIN TRY
 		UPDATE [Transactions].[ExpenseGroceryInfo]
 			SET	[GroceryInfoId] = @GroceryInfoId, 
 				[ExpenseById] = @ExpenseById,
+				[MeasureType] = @MeasureType,
 				[Quantity] = @Quantity, 
 				[ExpenseAmount] = @ExpenseAmount, 
 				[Description] = @Description,

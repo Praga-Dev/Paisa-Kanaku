@@ -29,8 +29,6 @@ BEGIN TRY
 		[PreferredRecurringTimePeriodValue] NVARCHAR(15),
 		[MetricSystem] NVARCHAR(1),
 		[MetricSystemValue] NVARCHAR(25),
-		[MeasureType] NVARCHAR(25),
-		[MeasureTypeValue] NVARCHAR(25),
 		[SequenceId] INT,
 		[CreatedBy] UNIQUEIDENTIFIER,
 		[CreatedDate] DATETIME2,
@@ -40,7 +38,7 @@ BEGIN TRY
 	);
 
 	INSERT INTO @GroceryInfo([Id], [Name], [GroceryCategory], [GroceryCategoryValue], [BrandId], [BrandName],
-	[PreferredRecurringTimePeriod], [PreferredRecurringTimePeriodValue], [MetricSystem], [MetricSystemValue], [MeasureType], [MeasureTypeValue],
+	[PreferredRecurringTimePeriod], [PreferredRecurringTimePeriodValue], [MetricSystem], [MetricSystemValue],
 	[SequenceId], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
 	SELECT	
 	GI.[Id], 
@@ -53,8 +51,6 @@ BEGIN TRY
 	TPTI.[TimePeriodTypeValue] AS [PreferredRecurringTimePeriodValue], 
 	MSI.[MetricSystem],
 	MSI.[MetricSystemValue],
-	MTI.[MeasureType],
-	MTI.[MeasureTypeValue],
 	GI.[SequenceId], 
 	GI.[CreatedBy], 
 	GI.[CreatedDate], 
@@ -65,7 +61,6 @@ BEGIN TRY
 	LEFT JOIN [Setup].[BrandInfo] BI ON GI.[BrandId] = BI.[Id]
 	LEFT JOIN [Lookups].[GroceryCategoryInfo] PCI ON GI.[GroceryCategory] = PCI.[GroceryCategory]
 	LEFT JOIN [Lookups].[MetricSystemInfo] MSI ON GI.[MetricSystem] = MSI.[MetricSystem]
-	LEFT JOIN [Lookups].[MeasureTypeInfo] MTI ON GI.[MeasureType] = MTI.[MeasureType]
 	LEFT JOIN [Lookups].[TimePeriodTypeInfo] TPTI ON GI.[PreferredRecurringTimePeriod] = TPTI.[TimePeriodType]
 	WHERE GI.[Id] = @GroceryInfoId AND GI.[RowStatus] = 'A' AND GI.CreatedBy = @LoggedInUserId;
 
