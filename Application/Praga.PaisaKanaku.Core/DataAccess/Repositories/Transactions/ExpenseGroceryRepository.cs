@@ -5,6 +5,7 @@ using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.DataAccess.ConnectionManager;
 using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Transactions;
 using Praga.PaisaKanaku.Core.DataAccess.Utils;
+using Praga.PaisaKanaku.Core.DataEntities.Setup;
 using Praga.PaisaKanaku.Core.DataEntities.Transactions.Common;
 using Praga.PaisaKanaku.Core.DataEntities.Transactions.ExpenseGrocery;
 using System.Data;
@@ -105,7 +106,8 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
                 parameters.Add("@ExpenseInfoId", expenseGroceryInfoDB.ExpenseInfoId, DbType.Guid);
                 parameters.Add("@GroceryInfoId", expenseGroceryInfoDB.GroceryInfoId, DbType.Guid);
                 parameters.Add("@ExpenseById", expenseGroceryInfoDB.ExpenseById, DbType.Guid);
-                parameters.Add("@Quantity", expenseGroceryInfoDB.Quantity, DbType.Int64);
+                parameters.Add("@MeasureType", expenseGroceryInfoDB.MeasureType, DbType.String);
+                parameters.Add("@Quantity", expenseGroceryInfoDB.Quantity, DbType.Decimal);
                 parameters.Add("@ExpenseAmount", expenseGroceryInfoDB.ExpenseAmount, DbType.Double);
                 parameters.Add("@Description", expenseGroceryInfoDB.Description, DbType.String);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);

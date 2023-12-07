@@ -107,7 +107,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories
 
             try
             {
-                string spName = DatabaseConstants.USP_MEASURE_TYPE_INFO_GET;
+                string spName = DatabaseConstants.USP_METRIC_SYSTEM_INFO_GET;
                 var param = new { LoggedInUserId = loggedInUserId };
 
                 var result = await _db.Connection.QueryAsync<MetricSystemInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
@@ -136,6 +136,28 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error in LookupsRepository.GetRelationshipTypeInfoList({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+                return response;
+            }
+        }
+
+        public async Task<Response<List<MeasureTypeInfoDB>>> GetMeasureTypeInfoListByGroceryInfoId(Guid groceryInfoId, Guid loggedInUserId)
+        {
+            Response<List<MeasureTypeInfoDB>> response = new Response<List<MeasureTypeInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+
+            try
+            {
+                string spName = DatabaseConstants.USP_MEASURE_TYPE_INFO_BY_GROCERY_INFO_ID_GET;
+                DynamicParameters param = new();
+                param.Add("@GroceryInfoId", groceryInfoId, DbType.Guid);
+                param.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
+
+                var result = await _db.Connection.QueryAsync<MeasureTypeInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
+                return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupsRepository.GetMeasureTypeInfoListByGroceryInfoId({@groceryInfoId}, {@loggedInUserId})", groceryInfoId, loggedInUserId);
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
                 return response;
             }

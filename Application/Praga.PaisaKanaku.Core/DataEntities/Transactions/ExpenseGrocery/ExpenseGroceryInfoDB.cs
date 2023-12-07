@@ -11,7 +11,9 @@ namespace Praga.PaisaKanaku.Core.DataEntities.Transactions.ExpenseGrocery
         public string GroceryInfoName { get; set; }
         public Guid ExpenseById { get; set; }
         public string ExpenseByName { get; set; }
-        public int Quantity { get; set; }
+        public string MeasureType { get; set; }
+        public string MeasureTypeValue { get; set; }
+        public float Quantity { get; set; }
         public double ExpenseAmount { get; set; }
         public string Description { get; set; }
     }

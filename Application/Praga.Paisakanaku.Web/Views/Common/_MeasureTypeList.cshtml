@@ -5,7 +5,7 @@
         Measure Type
         <span class="required">*</span>
     </label>
-    <select id="selectMeasure" name="selectMeasure" class="form-control form-control-sm">
+    <select id="selectMeasureType" name="selectMeasureType" class="form-control form-control-sm" onchange="updateMeasureTypeTextOnQuantity()">
         @if (Model != null && Model.Data != null && Model.Data.Any())
         {
             @foreach (var measure in Model.Data)

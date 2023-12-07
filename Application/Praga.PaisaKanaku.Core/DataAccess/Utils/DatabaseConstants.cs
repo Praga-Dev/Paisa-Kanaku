@@ -8,11 +8,13 @@
         // Lookups
         public const string USP_EXPENSE_TYPE_INFO_GET = "Lookups.usp_v1_ExpenseTypeInfo_Get";
         public const string USP_MEASURE_TYPE_INFO_GET = "Lookups.usp_v1_MeasureTypeInfo_Get";
+        public const string USP_METRIC_SYSTEM_INFO_GET = "Lookups.usp_v1_MetricSystemInfo_Get";
         public const string USP_PAYMENT_METHOD_INFO_GET = "Lookups.usp_v1_PaymentMethodInfo_Get";
         public const string USP_WEIGHT_MEASURE_INFO_GET = "Lookups.usp_v1_WeightMeasureInfo_Get";
         public const string USP_TIME_PERIOD_TYPE_INFO_GET = "Lookups.usp_v1_TimePeriodTypeInfo_Get";
         public const string USP_PRODUCT_CATEGORY_INFO_GET = "Lookups.usp_v1_ProductCategoryInfo_Get";
         public const string USP_RELATIONSHIP_TYPE_INFO_GET = "Lookups.usp_v1_RelationshipTypeInfo_Get";
+        public const string USP_MEASURE_TYPE_INFO_BY_GROCERY_INFO_ID_GET = "Lookups.usp_v1_MeasureTypeInfo_By_GroceryInfoId_Get";
 
 
         // Brand

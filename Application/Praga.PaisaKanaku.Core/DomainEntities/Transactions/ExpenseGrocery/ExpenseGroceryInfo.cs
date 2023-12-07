@@ -1,4 +1,5 @@
 ﻿using Praga.PaisaKanaku.Core.Common.Model;
+using Praga.PaisaKanaku.Core.DomainEntities.Lookups;
 using Praga.PaisaKanaku.Core.DomainEntities.Setup;
 using Praga.PaisaKanaku.Core.DomainEntities.Setup.Grocery;
 
@@ -11,7 +12,8 @@ namespace Praga.PaisaKanaku.Core.DomainEntities.Transactions.ExpenseGrocery
         public DateTime ExpenseDate { get; set; } = DateTime.UtcNow;
         public GroceryBaseInfo GroceryBaseInfo { get; set; }
         public MemberInfo ExpenseByInfo { get; set; }
-        public int Quantity { get; set; } = 1;
+        public MeasureTypeInfo MeasureTypeInfo { get; set; }
+        public float Quantity { get; set; } = 1;
         public double ExpenseAmount { get; set; }
         public string Description { get; set; }
     }

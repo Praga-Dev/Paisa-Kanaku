@@ -2,11 +2,7 @@ jQuery.validator.addMethod('isExpenseDateValid', function (value, element) {
     return this.optional(element) || isNotFutureDate(value);
 });
 
-jQuery.validator.addMethod('isSelectMemberValid', function (value, element) {
-    return this.optional(element) || value;
-});
-
-jQuery.validator.addMethod('isSelectGroceryValid', function (value, element) {
+jQuery.validator.addMethod('isSelectValid', function (value, element) {
     return this.optional(element) || value;
 });
 
@@ -24,11 +20,15 @@ $(document).ready(function () {
             },
             member: {
                 required: true,
-                isSelectMemberValid: true
+                isSelectValid: true
             },
             grocery: {
                 required: true,
-                isSelectGroceryValid: true
+                isSelectValid: true
+            },
+            selectMeasureType: {
+                required: true,
+                isSelectValid: true
             },
             expenseAmount: {
                 required: true,
@@ -45,11 +45,15 @@ $(document).ready(function () {
             },
             member: {
                 required: 'Member is required',
-                isSelectMemberValid: 'Member is not valid'
+                isSelectValid: 'Member is not valid'
             },
             grocery: {
                 required: 'Grocery is required',
-                isSelectGroceryValid: 'Grocery is not valid'
+                isSelectValid: 'Grocery is not valid'
+            },
+            selectMeasureType: {
+                required: 'Measure Type is required',
+                isSelectValid: 'Measure Type is not valid'
             },
             expenseAmount: {
                 required: 'Expense Amount is required',
@@ -69,6 +73,7 @@ $(document).ready(function () {
             let groceryInfoId = $('#selectGrocery').val();
             let expenseByInfoId = $('#selectMember').val();
             let groceryPrice = $('#amount').val();
+            let measureType = $('#selectMeasureType').val();
             let quantity = $('#quantity').val();
             let expenseAmount = $('#expenseAmount').val();
             let description = $('#expenseDescription').val();
@@ -80,6 +85,7 @@ $(document).ready(function () {
                 'GroceryInfoId': groceryInfoId,
                 'ExpenseByInfoId': expenseByInfoId,
                 'GroceryPrice': groceryPrice,
+                'MeasureType': measureType,
                 'Quantity': quantity,
                 'ExpenseAmount': expenseAmount,
                 'Description': description
@@ -117,18 +123,18 @@ $(document).ready(function () {
 });
 
 function resetExpenseGroceryRelatedInputs() {
+    $('#selectGrocery, #selectMeasureType').val('');
     $('#expenseAmount, #quantity, #expenseDescription').prop('disabled', true).val('');
     $('#spanQuantityMeasureTypeInfo').text('');
 }
 
-function resetForm() {
-    $('#formCreateGrocery').trigger("reset");
-    $('#selectMember, #selectGrocery').val('');
-    resetExpenseGroceryRelatedInputs();
-}
+//function resetForm() {
+//    $('#selectMember, #selectGrocery, #selectMeasureType').val('');
+//    resetExpenseGroceryRelatedInputs();
+//}
 
 function getCreateFormView() {
     $('#formCreateExpenseGrocery').data('id', '');
     $('#btnAddExpenseSubmit').text('Create Expense');
-    resetForm();
+    resetExpenseGroceryRelatedInputs();
 }

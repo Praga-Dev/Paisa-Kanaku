@@ -12,8 +12,6 @@ namespace Praga.PaisaKanaku.Core.DataEntities.Setup
         public string BrandName { get; set; }
         public string MetricSystem { get; set; }
         public string MetricSystemValue { get; set; }
-        public string MeasureType { get; set; }
-        public string MeasureTypeValue { get; set; }
         public string PreferredRecurringTimePeriod { get; set; }
         public string PreferredRecurringTimePeriodValue { get; set; }
     }

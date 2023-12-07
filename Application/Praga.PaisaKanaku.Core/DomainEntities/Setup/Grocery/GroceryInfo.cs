@@ -7,7 +7,6 @@ namespace Praga.PaisaKanaku.Core.DomainEntities.Setup.Grocery
         public GroceryCategoryInfo GroceryCategoryInfo { get; set; } = new();
         public BrandInfo BrandInfo { get; set; } = new();
         public MetricSystemInfo MetricSystemInfo { get; set; }
-        public MeasureTypeInfo MeasureTypeInfo { get; set; }
         public TimePeriodTypeInfo PreferredTimePeriodInfo { get; set; } = new();
     }
 }

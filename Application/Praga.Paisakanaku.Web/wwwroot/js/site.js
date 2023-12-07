@@ -250,6 +250,73 @@ function getRelationshipTypeDDList(relationshipType = '') {
     })
 }
 
+function getMeasureTypeDDList(measureType = '') {
+    loadSpinner();
+    $.ajax({
+        url: `./lookup/measure-type`,
+        method: 'GET',
+        success: function (response) {
+            if (typeof response !== undefined && response !== null) {
+                $('#measureTypeListDDContainer').html(response);
+
+                if (measureType === '') {
+                    measureType = $('#measureTypeListDDContainer').data('val')
+                }
+
+                if (measureType) {
+                    $('#selectMeasureType').val(measureType);
+                }
+            }
+            else {
+                // TODO Alert
+            }
+        },
+        error: function () {
+            // TODO Alert
+        },
+        complete: function () {
+            hideSpinner();
+        }
+    })
+}
+
+function getMeasureTypeDDListByGroceryId(groceryInfoId, measureType = '') {
+    if (groceryInfoId) {
+        loadSpinner();
+        $.ajax({
+            url: `./lookup/measure-type/grocery/${groceryInfoId}`,
+            method: 'GET',
+            success: function (response) {
+                if (typeof response !== undefined && response !== null) {
+                    $('#measureTypeListDDContainer').html(response);
+
+                    if (measureType === '') {
+                        measureType = $('#measureTypeListDDContainer').data('val')
+                    }
+
+                    if (measureType) {
+                        $('#selectMeasureType').val(measureType);
+                        updateMeasureTypeTextOnQuantity();
+                    }
+
+
+                }
+                else {
+                    // TODO Alert
+                }
+            },
+            error: function () {
+                // TODO Alert
+            },
+            complete: function () {
+                hideSpinner();
+            }
+        })
+    } else {
+        // TODO Alert
+    }
+}
+
 
 // #region Common
 

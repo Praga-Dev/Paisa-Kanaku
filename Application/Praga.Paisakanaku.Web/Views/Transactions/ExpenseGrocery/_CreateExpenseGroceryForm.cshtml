@@ -20,17 +20,23 @@
                             <partial name="~/Views/Common/_MemberList.cshtml" model="null" />
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <div id="measureTypeListDDContainer" class="form-group"
+                                     data-val="@(!string.IsNullOrWhiteSpace(Model?.MeasureTypeInfo?.MeasureType) ? Model?.MeasureTypeInfo?.MeasureType : "")">
+                                    <partial name="~/Views/Common/_MeasureTypeList.cshtml" model="null" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="quantity" class="form-label">
                                         Quantity (in <span id="spanQuantityMeasureTypeInfo"></span>)
                                         <span class="mandatory">*</span>
                                     </label>
-                                    <input id="quantity" name="quantity" asp-for="@Model.Quantity" type="number" value="@(Model.Quantity)" class="form-control form-control-sm" aria-describedby="grocery-expense-quantity-help" min="1" max="100">
+                                    <input id="quantity" name="quantity" asp-for="@Model.Quantity" type="text" inputmode="decimal" value="@(Model.Quantity)" class="form-control form-control-sm" aria-describedby="grocery-expense-quantity-help" min="0.0001" pattern="[0-9]*[.]?[0-9]*">
                                     <div id="grocery-expense-quantity-help" style="display:none;" class="form-text">Enter valid quantity of the grocery. Example : 3</div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="expenseAmount" class="form-label">Expense Amount <span class="mandatory">*</span></label>
                                     <input id="expenseAmount" name="expenseAmount" asp-for="@Model.ExpenseAmount" type="number" value="@(Model.ExpenseAmount)" class="form-control form-control-sm" aria-describedby="grocery-expense-amount-help" min="0">

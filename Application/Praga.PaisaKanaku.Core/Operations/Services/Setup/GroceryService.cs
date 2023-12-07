@@ -51,11 +51,6 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                             Id = dbResponse.Data.BrandId,
                             Name = dbResponse.Data.BrandName,
                         },
-                        MeasureTypeInfo = new()
-                        {
-                            MeasureType = dbResponse.Data.MeasureType,
-                            MeasureTypeValue = dbResponse.Data.MeasureTypeValue,
-                        },
                         MetricSystemInfo = new()
                         {
                             MetricSystem = dbResponse.Data.MetricSystem,
@@ -117,11 +112,6 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                       {
                           Id = grocery.BrandId,
                           Name = grocery.BrandName,
-                      },
-                      MeasureTypeInfo = new()
-                      {
-                          MeasureType = grocery.MeasureType,
-                          MeasureTypeValue = grocery.MeasureTypeValue,
                       },
                       MetricSystemInfo = new()
                       {
@@ -197,11 +187,6 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     response.ValidationErrorMessages.Add("Invalid Grocery Category");
                 }
 
-                if (groceryInfo.MeasureTypeInfo == null || string.IsNullOrWhiteSpace(groceryInfo.MeasureTypeInfo.MeasureType))
-                {
-                    response.ValidationErrorMessages.Add("Invalid Measure Type");
-                }
-
                 if (groceryInfo.MetricSystemInfo == null || string.IsNullOrWhiteSpace(groceryInfo.MetricSystemInfo.MetricSystem))
                 {
                     response.ValidationErrorMessages.Add("Invalid Metric System");
@@ -223,7 +208,6 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     BrandId = groceryInfo.BrandInfo.Id,
                     BrandName = groceryInfo.BrandInfo.Name,
                     GroceryCategory = groceryInfo.GroceryCategoryInfo.GroceryCategory,
-                    MeasureType = groceryInfo.MeasureTypeInfo?.MeasureType,
                     MetricSystem = groceryInfo.MetricSystemInfo?.MetricSystem,
                     PreferredRecurringTimePeriod = groceryInfo.PreferredTimePeriodInfo?.TimePeriodType
                 };

@@ -1,8 +1,9 @@
 $(document).ready(function () {
     getMemberDDList();
     getGroceryDDList();
-    getExpenseGroceryInfoList();
-    resetForm();
+    getExpenseGroceryInfoList();    
+    $('#selectMember').val('');
+    resetExpenseGroceryRelatedInputs();
 });
 
 function onCreateGrocery() {
@@ -25,34 +26,9 @@ function onCreateGrocery() {
     hideSpinner();
 }
 
-function getGroceryDataById(groceryId) {
-    if (groceryId) {
-        loadSpinner();
-        disableBtnById(`btnEditExpenseGroceryCartItem_${groceryId}`);
-        $.ajax({
-            url: `./grocery/${groceryId}/data`,
-            method: 'GET',
-            success: function (response) {
-                if (response && response.data && response.isSuccess) {
-                    groceryInfo = response.data;
-                    if (groceryInfo.measureTypeInfo) {
-                        $('#spanQuantityMeasureTypeInfo').text(groceryInfo.measureTypeInfo.measureTypeValue);
-                    }
-                }
-                else {
-                    // TODO Alert
-                }
-            },
-            error: function () {
-                // TODO Alert
-            },
-            complete: function () {
-                hideSpinner();
-                enableBtnById(`btnEditExpenseGroceryCartItem_${groceryId}`);
-
-            }
-        })
-    }
+function updateMeasureTypeTextOnQuantity() {
+    let selectedGroceryItemMeasureType = $('#formCreateExpenseGrocery #selectMeasureType :selected').text()
+    $('#spanQuantityMeasureTypeInfo').text(selectedGroceryItemMeasureType);
 }
 
 $(document).on('change', '#formCreateExpenseGrocery #selectGrocery', function () {
@@ -66,13 +42,14 @@ $(document).on('change', '#formCreateExpenseGrocery #selectGrocery', function ()
 
 function fetchGroceryDetails(groceryId) {
     if (groceryId) {
-        getGroceryDataById(groceryId);
+        getMeasureTypeDDListByGroceryId(groceryId);
         $('#expenseAmount, #quantity, #expenseDescription').prop('disabled', false);
     } else {
         resetExpenseGroceryRelatedInputs()
     }
 }
 
+// TODO check is this necessary
 $(document).on('change', '#formCreateExpenseGrocery #expenseDate', function () {
     getExpenseGroceryInfoList();
 });

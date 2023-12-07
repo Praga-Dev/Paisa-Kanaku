@@ -220,5 +220,37 @@ namespace Praga.PaisaKanaku.Core.Operations.Services
 
             return response;
         }
+
+        public async Task<Response<List<MeasureTypeInfo>>> GetMeasureTypeInfoListByGroceryInfoId(Guid groceryInfoId, Guid loggedInUserId)
+        {
+            Response<List<MeasureTypeInfo>> response = new Response<List<MeasureTypeInfo>>().GetFailedResponse(ResponseConstants.INVALID_PARAM);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(loggedInUserId))
+                {
+                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return response;
+                }
+
+                var dbResponse = await _lookupsRepository.GetMeasureTypeInfoListByGroceryInfoId(groceryInfoId, loggedInUserId);
+                if (Helpers.IsResponseValid(dbResponse))
+                {
+                    response.Data = dbResponse.Data
+                    .Select(measure => new MeasureTypeInfo() { MeasureType = measure.MeasureType, MeasureTypeValue = measure.MeasureTypeValue })
+                    .ToList();
+
+                    response = response.GetSuccessResponse(response.Data);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupsRepository.GetMeasureTypeInfoList({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+            }
+
+            return response;
+        }
     }
 }

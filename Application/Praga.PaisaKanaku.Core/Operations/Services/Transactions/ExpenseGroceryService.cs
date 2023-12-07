@@ -109,6 +109,11 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Transactions
                             Name = expenseGroceryInfoDB.ExpenseByName
                         },
                         Quantity = expenseGroceryInfoDB.Quantity,
+                        MeasureTypeInfo = new()
+                        {
+                            MeasureType = expenseGroceryInfoDB.MeasureType,
+                            MeasureTypeValue = expenseGroceryInfoDB.MeasureTypeValue,
+                        },
                         Description = expenseGroceryInfoDB.Description,
                         SequenceId = expenseGroceryInfoDB.SequenceId,
                         CreatedBy = expenseGroceryInfoDB.CreatedBy,
@@ -179,6 +184,11 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Transactions
                             Name = expenseGrocery.ExpenseByName
                         },
                         Quantity = expenseGrocery.Quantity,
+                        MeasureTypeInfo = new()
+                        {
+                            MeasureType = expenseGrocery.MeasureType,
+                            MeasureTypeValue = expenseGrocery.MeasureTypeValue,
+                        },
                         Description = expenseGrocery.Description,
                         SequenceId = expenseGrocery.SequenceId,
                         CreatedBy = expenseGrocery.CreatedBy,
@@ -282,6 +292,11 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Transactions
                     response.ValidationErrorMessages.Add("Invalid Quantity");
                 }
 
+                if (string.IsNullOrWhiteSpace(expenseGrocerySaveRequestDTO.MeasureType))
+                {
+                    response.ValidationErrorMessages.Add("Invalid Measure Type");
+                }
+
                 if (expenseGrocerySaveRequestDTO.ExpenseAmount <= 0)
                 {
                     response.ValidationErrorMessages.Add("Invalid Expense Amount");
@@ -296,6 +311,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Transactions
                 {
                     Id = expenseGrocerySaveRequestDTO.Id,
                     ExpenseInfoId = expenseGrocerySaveRequestDTO.ExpenseInfoId,
+                    MeasureType = expenseGrocerySaveRequestDTO.MeasureType,
                     Quantity = expenseGrocerySaveRequestDTO.Quantity,
                     ExpenseAmount = expenseGrocerySaveRequestDTO.ExpenseAmount,
                     ExpenseById = expenseGrocerySaveRequestDTO.ExpenseByInfoId,

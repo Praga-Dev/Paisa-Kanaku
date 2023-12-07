@@ -79,7 +79,6 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Setup
                 parameters.Add("@BrandId", groceryInfoDb.BrandId, DbType.Guid);
                 parameters.Add("@BrandName", groceryInfoDb.BrandName, DbType.String);
                 parameters.Add("@MetricSystem", groceryInfoDb.MetricSystem, DbType.String);
-                parameters.Add("@MeasureType", groceryInfoDb.MeasureType, DbType.String);
                 parameters.Add("@PreferredRecurringTimePeriod", groceryInfoDb.PreferredRecurringTimePeriod, DbType.String);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
                 parameters.Add("@Result", null, DbType.Guid, direction: ParameterDirection.Output);

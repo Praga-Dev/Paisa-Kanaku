@@ -240,5 +240,40 @@ namespace Praga.Paisakanaku.Web.Controllers.Setup
 
             return StatusCode(StatusCodes.Status200OK, response);
         }
+
+        [HttpGet, Route("~/grocery/{groceryInfoId:Guid}/measure-type")]
+        public async Task<IActionResult> GetMeasureTypeInfoListByGroceryInfoId(Guid groceryInfoId)
+        {
+            Response<GroceryInfo> response = new Response<GroceryInfo>().GetFailedResponse(ResponseConstants.FAILED);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(this.LoggedInUserId))
+                {
+                    response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return StatusCode(StatusCodes.Status200OK, response);
+                }
+
+                if (!Helpers.IsValidGuid(groceryInfoId))
+                {
+                    response.Message ??= ResponseConstants.INVALID_PARAM;
+                    return StatusCode(StatusCodes.Status200OK, response);
+                }
+
+                var dbresponse = await _groceryService.GetGroceryInfoById(groceryInfoId, LoggedInUserId);
+                if (Helpers.IsResponseValid(dbresponse))
+                {
+                    response = dbresponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in GroceryController.GetGroceryInfoDataById({@groceryInfoId}, {@loggedInUserId})", groceryInfoId, LoggedInUserId);
+                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
+            }
+
+            return StatusCode(StatusCodes.Status200OK, response);
+        }
+
     }
 }

@@ -7,7 +7,8 @@
         public DateTime ExpenseDate { get; set; }
         public Guid GroceryInfoId { get; set; }
         public Guid ExpenseByInfoId { get; set; }
-        public int Quantity { get; set; }
+        public string MeasureType { get; set; }
+        public float Quantity { get; set; }
         public double ExpenseAmount { get; set; }
         public string Description { get; set; }
     }

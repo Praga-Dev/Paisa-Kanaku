@@ -192,5 +192,40 @@ namespace Praga.Paisakanaku.Web.Controllers
             return PartialView("~/Views/Common/_MeasureTypeList.cshtml", response);
         }
 
+        [HttpGet, Route("~/lookup/measure-type/grocery/{groceryInfoId:Guid}")]
+        public async Task<IActionResult> GetMeasureTypeInfoListByGroceryInfoId(Guid groceryInfoId)
+        {
+            Response<List<MeasureTypeInfo>> response = new Response<List<MeasureTypeInfo>>().GetFailedResponse(ResponseConstants.FAILED);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(LoggedInUserId))
+                {
+                    response.Message ??= ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return PartialView("~/Views/Common/_MeasureTypeList.cshtml", response);
+                }
+
+                if (!Helpers.IsValidGuid(groceryInfoId))
+                {
+                    response.Message ??= ResponseConstants.INVALID_GROCERY_INFO_ID;
+                    return PartialView("~/Views/Common/_MeasureTypeList.cshtml", response);
+                }
+
+                var dbresponse = await _lookupService.GetMeasureTypeInfoListByGroceryInfoId(groceryInfoId, LoggedInUserId);
+                if (Helpers.IsResponseValid(dbresponse))
+                {
+                    response = dbresponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupController.GetMeasureTypeInfoList({@groceryInfoId}, {@loggedInUserId})", groceryInfoId, LoggedInUserId);
+
+                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
+            }
+
+            return PartialView("~/Views/Common/_MeasureTypeList.cshtml", response);
+        }
+
     }
 }

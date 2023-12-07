@@ -40,12 +40,6 @@
                                     }
                                 </td>
                                 <td scope="row">
-                                    @if (grocery.MeasureTypeInfo != null && !string.IsNullOrWhiteSpace(grocery.MeasureTypeInfo.MeasureTypeValue))
-                                    {
-                                        <p>@grocery.MeasureTypeInfo.MeasureTypeValue</p>
-                                    }
-                                </td>
-                                <td scope="row">
                                     @if (grocery.PreferredTimePeriodInfo != null && !string.IsNullOrWhiteSpace(grocery.PreferredTimePeriodInfo.TimePeriodTypeValue))
                                     {
                                         <p>@grocery.PreferredTimePeriodInfo.TimePeriodTypeValue</p>

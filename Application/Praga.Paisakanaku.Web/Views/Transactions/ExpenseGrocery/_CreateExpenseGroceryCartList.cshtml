@@ -11,13 +11,14 @@
             {
                 <text>
                     grocery = { };
-                grocery.Id = `@cartItem.GroceryBaseInfo?.Id`;
-                grocery.ExpenseById = `@cartItem.ExpenseByInfo?.Id`;
-                grocery.Quantity = @cartItem.Quantity;
-                grocery.ExpenseAmount = @cartItem.ExpenseAmount;
-                grocery.Description = `@cartItem.Description`;
+                    grocery.Id = `@cartItem.GroceryBaseInfo?.Id`;
+                    grocery.ExpenseById = `@cartItem.ExpenseByInfo?.Id`;
+                    grocery.MeasureType = `@cartItem.MeasureTypeInfo?.MeasureType`;
+                    grocery.Quantity = @cartItem.Quantity;
+                    grocery.ExpenseAmount = @cartItem.ExpenseAmount;
+                    grocery.Description = `@cartItem.Description`;
 
-                expenseData.push(grocery);
+                    expenseData.push(grocery);
                 </text>
             }
         }
@@ -44,6 +45,7 @@
                                 <tr>
                                     <th scope="col">ExpenseBy</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Measure Type</th>
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Expense Amount</th>
                                     <th scope="col">Actions</th>
@@ -66,6 +68,12 @@
                                                 @if (!string.IsNullOrWhiteSpace(cartItem.GroceryBaseInfo.Name))
                                                 {
                                                     <p>@cartItem.GroceryBaseInfo.Name</p>
+                                                }
+                                            </td>
+                                            <td scope="row">
+                                                @if (cartItem.MeasureTypeInfo != null && !string.IsNullOrWhiteSpace(cartItem.MeasureTypeInfo.MeasureTypeValue))
+                                                {
+                                                    <p>@cartItem.MeasureTypeInfo.MeasureTypeValue</p>
                                                 }
                                             </td>
                                             <td scope="row">
