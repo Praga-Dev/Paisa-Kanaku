@@ -30,7 +30,7 @@
 	) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
 	CONSTRAINT [FK_LoanInfo_MemberInfoId] FOREIGN KEY ([MemberInfoId]) REFERENCES [Setup].[MemberInfo]([Id]),
 	CONSTRAINT [FK_LoanInfo_CollateralInfoId] FOREIGN KEY ([CollateralInfoId]) REFERENCES [Setup].[MemberInfo]([Id]),
-	CONSTRAINT [FK_LoanInfo_LenderInfoId] FOREIGN KEY ([LenderInfoId]) REFERENCES [Setup].[lenderInfo]([Id]),
+	CONSTRAINT [FK_LoanInfo_LenderInfoId] FOREIGN KEY ([LenderInfoId]) REFERENCES [Setup].[LenderInfo]([Id]),
 	CONSTRAINT [FK_LoanInfo_LoanType] FOREIGN KEY ([LoanType]) REFERENCES [Lookups].[LoanTypeInfo]([LoanType]),
 	CONSTRAINT [FK_LoanInfo_LoanStatus] FOREIGN KEY ([LoanStatus]) REFERENCES [Lookups].[LoanStatusInfo]([LoanStatus]),
 	CONSTRAINT [FK_LoanInfo_RowStatus] FOREIGN KEY ([RowStatus]) REFERENCES [Lookups].[RowStatusInfo]([RowStatus])
