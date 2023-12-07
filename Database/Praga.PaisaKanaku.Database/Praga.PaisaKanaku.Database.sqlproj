@@ -208,6 +208,8 @@
     <Build Include="Lookups\StoredProcedure\usp_v1_RelationshipTypeInfo_Get.sql" />
     <Build Include="Transactions\StoredProcedure\Expense\usp_V1_Expense_Delete_By_Type.sql" />
     <Build Include="Transactions\StoredProcedure\Expense\usp_V1_GetMonthlyExpenseByType.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_MetricSystemInfo_Get.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_MeasureTypeInfo_By_GroceryInfoId_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />
