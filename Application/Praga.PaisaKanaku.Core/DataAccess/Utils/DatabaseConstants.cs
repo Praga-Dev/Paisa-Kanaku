@@ -39,10 +39,8 @@
         public const string USP_GROCERY_INFO_GET_BY_ID = "Setup.usp_V1_GroceryInfo_Get_By_Id";
 
         // Expense
-        public const string USP_EXPENSE_INFO_GET = "Transactions.usp_V1_ExpenseInfo_Get";
-        public const string USP_TEMP_EXPENSE_INFO_PRODUCT_GET = "Transactions.usp_V1_TempExpenseInfo_Product_Get";
-        public const string USP_TEMP_EXPENSE_INFO_PRODUCT_GET_BY_ID = "Transactions.usp_V1_TempExpenseInfo_Product_Get_By_Id";
         public const string USP_EXPENSE_DELETE_BY_TYPE = "Transactions.usp_V1_Expense_Delete_By_Type";
+        public const string USP_EXPENSE_INFO_GET = "Transactions.usp_V1_ExpenseInfo_Get";
 
         // ExpenseProduct
         public const string USP_EXPENSE_PRODUCT_INFO_SAVE = "Transactions.usp_ExpenseProductInfo_Save";
