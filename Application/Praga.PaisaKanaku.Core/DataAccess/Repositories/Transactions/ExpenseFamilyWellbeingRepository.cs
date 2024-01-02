@@ -6,48 +6,48 @@ using Praga.PaisaKanaku.Core.DataAccess.ConnectionManager;
 using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Transactions;
 using Praga.PaisaKanaku.Core.DataAccess.Utils;
 using Praga.PaisaKanaku.Core.DataEntities.Transactions.Common;
-using Praga.PaisaKanaku.Core.DataEntities.Transactions.ExpenseFamilyFund;
+using Praga.PaisaKanaku.Core.DataEntities.Transactions.ExpenseFamilyWellbeing;
 using System.Data;
 
 namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
 {
-    public class ExpenseFamilyFundRepository : IExpenseFamilyFundRepository
+    public class ExpenseFamilyWellbeingRepository : IExpenseFamilyWellbeingRepository
     {
-        private readonly ILogger<ExpenseFamilyFundRepository> _logger;
+        private readonly ILogger<ExpenseFamilyWellbeingRepository> _logger;
         private readonly IDataBaseConnection _db;
 
-        public ExpenseFamilyFundRepository(ILogger<ExpenseFamilyFundRepository> logger, IDataBaseConnection db)
+        public ExpenseFamilyWellbeingRepository(ILogger<ExpenseFamilyWellbeingRepository> logger, IDataBaseConnection db)
         {
             _logger = logger;
             _db = db;
         }
 
-        public async Task<Response<ExpenseFamilyFundInfoDB>> GetExpenseFamilyFundInfoById(Guid expenseFamilyFundInfoId, Guid loggedInUserId)
+        public async Task<Response<ExpenseFamilyWellbeingInfoDB>> GetExpenseFamilyWellbeingInfoById(Guid expenseFamilyWellbeingInfoId, Guid loggedInUserId)
         {
-            Response<ExpenseFamilyFundInfoDB> response = new Response<ExpenseFamilyFundInfoDB>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<ExpenseFamilyWellbeingInfoDB> response = new Response<ExpenseFamilyWellbeingInfoDB>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
                 string spName = DatabaseConstants.USP_EXPENSE_FAMILY_FUND_INFO_GET_BY_ID;
                 DynamicParameters parameters = new();
-                parameters.Add("@ExpenseFamilyFundInfoId", expenseFamilyFundInfoId, DbType.Guid);
+                parameters.Add("@ExpenseFamilyWellbeingInfoId", expenseFamilyWellbeingInfoId, DbType.Guid);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
 
-                var result = await _db.Connection.QueryAsync<ExpenseFamilyFundInfoDB>(spName, parameters, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<ExpenseFamilyWellbeingInfoDB>(spName, parameters, commandType: CommandType.StoredProcedure);
                 return result != null ? response.GetSuccessResponse(result.First()) : response;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in ExpenseFamilyFundRepository.GetExpenseFamilyFundInfoById({@expenseFamilyFundInfoId}, {@loggedInUserId})", expenseFamilyFundInfoId, loggedInUserId);
+                _logger.LogError(ex, "Error in ExpenseFamilyWellbeingRepository.GetExpenseFamilyWellbeingInfoById({@expenseFamilyWellbeingInfoId}, {@loggedInUserId})", expenseFamilyWellbeingInfoId, loggedInUserId);
 
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
                 return response;
             }
         }
 
-        public async Task<Response<List<ExpenseFamilyFundInfoDB>>> GetExpenseFamilyFundInfoListByDate(DateTime expenseDate, Guid loggedInUserId)
+        public async Task<Response<List<ExpenseFamilyWellbeingInfoDB>>> GetExpenseFamilyWellbeingInfoListByDate(DateTime expenseDate, Guid loggedInUserId)
         {
-            Response<List<ExpenseFamilyFundInfoDB>> response = new Response<List<ExpenseFamilyFundInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+            Response<List<ExpenseFamilyWellbeingInfoDB>> response = new Response<List<ExpenseFamilyWellbeingInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
             try
             {
@@ -56,19 +56,19 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
                 parameters.Add("@ExpenseDate", expenseDate, DbType.Date);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
 
-                var result = await _db.Connection.QueryAsync<ExpenseFamilyFundInfoDB>(spName, parameters, commandType: CommandType.StoredProcedure);
+                var result = await _db.Connection.QueryAsync<ExpenseFamilyWellbeingInfoDB>(spName, parameters, commandType: CommandType.StoredProcedure);
                 return result != null ? response.GetSuccessResponse(result.ToList()) : response;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in ExpenseFamilyFundRepository.GetExpenseFamilyFundInfoListByDate({@expenseDate}, {@loggedInUserId})", expenseDate, loggedInUserId);
+                _logger.LogError(ex, "Error in ExpenseFamilyWellbeingRepository.GetExpenseFamilyWellbeingInfoListByDate({@expenseDate}, {@loggedInUserId})", expenseDate, loggedInUserId);
 
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
                 return response;
             }
         }
 
-        public async Task<Response<List<ExpenseInfoSumAmountByDateDB>>> GetExpenseFamilyFundInfoListByMonth(int month, int year, Guid loggedInUserId)
+        public async Task<Response<List<ExpenseInfoSumAmountByDateDB>>> GetExpenseFamilyWellbeingInfoListByMonth(int month, int year, Guid loggedInUserId)
         {
             Response<List<ExpenseInfoSumAmountByDateDB>> response = new Response<List<ExpenseInfoSumAmountByDateDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
 
@@ -85,13 +85,13 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in ExpenseFamilyFundRepository.GetTempExpenseInfo({@month}, {@year}, {@loggedInUserId})", month, year, loggedInUserId);
+                _logger.LogError(ex, "Error in ExpenseFamilyWellbeingRepository.GetTempExpenseInfo({@month}, {@year}, {@loggedInUserId})", month, year, loggedInUserId);
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
                 return response;
             }
         }
 
-        public async Task<Response<Guid>> SaveExpenseFamilyFundInfoDB(ExpenseFamilyFundInfoDB expenseFamilyFundInfoDB, Guid loggedInUserId)
+        public async Task<Response<Guid>> SaveExpenseFamilyWellbeingInfoDB(ExpenseFamilyWellbeingInfoDB expenseFamilyWellbeingInfoDB, Guid loggedInUserId)
         {
             Response<Guid> response = new Response<Guid>().GetFailedResponse(ResponseConstants.FAILED);
 
@@ -100,13 +100,13 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
                 string spName = DatabaseConstants.USP_EXPENSE_FAMILY_FUND_INFO_SAVE;
 
                 DynamicParameters parameters = new();
-                parameters.Add("@Id", expenseFamilyFundInfoDB.Id, DbType.Guid);
-                parameters.Add("@ExpenseInfoId", expenseFamilyFundInfoDB.ExpenseInfoId, DbType.Guid);
-                parameters.Add("@ExpenseDate", expenseFamilyFundInfoDB.ExpenseDate, DbType.Date);
-                parameters.Add("@ExpenseById", expenseFamilyFundInfoDB.ExpenseById, DbType.Guid);
-                parameters.Add("@RecipientId", expenseFamilyFundInfoDB.RecipientId, DbType.Guid);
-                parameters.Add("@ExpenseAmount", expenseFamilyFundInfoDB.ExpenseAmount, DbType.Double);
-                parameters.Add("@Description", expenseFamilyFundInfoDB.Description, DbType.String);
+                parameters.Add("@Id", expenseFamilyWellbeingInfoDB.Id, DbType.Guid);
+                parameters.Add("@ExpenseInfoId", expenseFamilyWellbeingInfoDB.ExpenseInfoId, DbType.Guid);
+                parameters.Add("@ExpenseDate", expenseFamilyWellbeingInfoDB.ExpenseDate, DbType.Date);
+                parameters.Add("@ExpenseById", expenseFamilyWellbeingInfoDB.ExpenseById, DbType.Guid);
+                parameters.Add("@RecipientId", expenseFamilyWellbeingInfoDB.RecipientId, DbType.Guid);
+                parameters.Add("@ExpenseAmount", expenseFamilyWellbeingInfoDB.ExpenseAmount, DbType.Double);
+                parameters.Add("@Description", expenseFamilyWellbeingInfoDB.Description, DbType.String);
                 parameters.Add("@LoggedInUserId", loggedInUserId, DbType.Guid);
                 parameters.Add("@Result", null, DbType.Guid, direction: ParameterDirection.Output);
 
@@ -120,7 +120,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in ExpenseFamilyFundRepository.SaveExpenseFamilyFundInfoDB({@expenseFamilyFundInfoDB}, {@loggedInUserId})", expenseFamilyFundInfoDB.ToString(), loggedInUserId);
+                _logger.LogError(ex, "Error in ExpenseFamilyWellbeingRepository.SaveExpenseFamilyWellbeingInfoDB({@expenseFamilyWellbeingInfoDB}, {@loggedInUserId})", expenseFamilyWellbeingInfoDB.ToString(), loggedInUserId);
                 response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
             }
 

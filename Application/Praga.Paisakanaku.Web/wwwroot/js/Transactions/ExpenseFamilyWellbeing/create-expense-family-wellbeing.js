@@ -1,8 +1,8 @@
-let EXPENSE_FAMILY_FUND_FORM_ID = '#formCreateExpenseFamilyFund';
+let EXPENSE_FAMILY_FUND_FORM_ID = '#formCreateExpenseFamilyWellbeing';
 
 $(document).ready(function () {
     getMemberDDList();
-    getExpenseFamilyFundInfoList();
+    getExpenseFamilyWellbeingInfoList();
     resetForm();
 });
 
@@ -51,19 +51,19 @@ $(document).on('change', `${EXPENSE_FAMILY_FUND_FORM_ID} #selectRecipient`, func
 });
 
 $(document).on('change', `${EXPENSE_FAMILY_FUND_FORM_ID} #expenseDate`, function () {
-    getExpenseFamilyFundInfoList();
+    getExpenseFamilyWellbeingInfoList();
 });
 
-function getExpenseFamilyFundInfoList(date) {
+function getExpenseFamilyWellbeingInfoList(date) {
     let expenseDate = date ?? $('#expenseDate').val();
     if (expenseDate) {
         loadSpinner();
         $.ajax({
-            url: `./expense-family-fund/${expenseDate}/cart`,
+            url: `./expense-family-wellbeing/${expenseDate}/cart`,
             method: 'GET',
             success: function (response) {
                 if (response) {
-                    $('#divExpenseFamilyFundInfoListContainer').html(response);
+                    $('#divExpenseFamilyWellbeingInfoListContainer').html(response);
                     $(`${EXPENSE_FAMILY_FUND_FORM_ID} input[type="select"]`).val('');
                     $(`${EXPENSE_FAMILY_FUND_FORM_ID} input[type="number"]`).val('');
                 }
@@ -86,7 +86,7 @@ function fetchRecipientDetails(familyMemberId) {
         getRecipientDDList(familyMemberId);
         $('#expenseAmount, #selectRecipient, #expenseDescription').prop('disabled', false);
     } else {
-        resetExpenseFamilyFundRelatedInputs();
+        resetExpenseFamilyWellbeingRelatedInputs();
     }
 }
 
@@ -94,7 +94,7 @@ function editCartItem(id) {
     if (id) {
         loadSpinner();
         $.ajax({
-            url: `./expense-family-fund/${id}/`,
+            url: `./expense-family-wellbeing/${id}/`,
             method: 'GET',
             success: function (response) {
                 if (response) {
@@ -128,11 +128,11 @@ function deleteCartItem(tempExpenseInfoId, ItemName) {
     if (tempExpenseInfoId) {
         loadSpinner();
         $.ajax({
-            url: `./expense-family-fund/${tempExpenseInfoId}/`,
+            url: `./expense-family-wellbeing/${tempExpenseInfoId}/`,
             method: 'DELETE',
             success: function (response) {
                 if (response && response.data && response.isSuccess) {
-                    getExpenseFamilyFundInfoList();
+                    getExpenseFamilyWellbeingInfoList();
                     showSuccessMsg('Expense deleted successfully');
                 }
                 else {

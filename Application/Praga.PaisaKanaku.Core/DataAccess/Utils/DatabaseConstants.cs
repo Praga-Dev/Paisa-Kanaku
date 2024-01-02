@@ -54,11 +54,11 @@
         public const string USP_EXPENSE_GROCERY_INFO_GET_BY_DATE = "Transactions.usp_ExpenseGroceryInfo_Get_ByDate";
         public const string USP_EXPENSE_GROCERY_INFO_GET_BY_ID = "Transactions.usp_ExpenseGroceryInfo_Get_ById";
 
-        // ExpenseFamilyFund
-        public const string USP_EXPENSE_FAMILY_FUND_INFO_SAVE = "Transactions.usp_ExpenseFamilyFundInfo_Save";
-        public const string USP_EXPENSE_FAMILY_FUND_INFO_GET_SUM_AMOUNT_BY_DATE = "Transactions.usp_ExpenseFamilyFundInfo_Get_SumAmountByDate";
-        public const string USP_EXPENSE_FAMILY_FUND_INFO_GET_BY_DATE = "Transactions.usp_ExpenseFamilyFundInfo_Get_ByDate";
-        public const string USP_EXPENSE_FAMILY_FUND_INFO_GET_BY_ID = "Transactions.usp_ExpenseFamilyFundInfo_Get_ById";
+        // ExpenseFamilyWellbeing
+        public const string USP_EXPENSE_FAMILY_FUND_INFO_SAVE = "Transactions.usp_ExpenseFamilyWellbeingInfo_Save";
+        public const string USP_EXPENSE_FAMILY_FUND_INFO_GET_SUM_AMOUNT_BY_DATE = "Transactions.usp_ExpenseFamilyWellbeingInfo_Get_SumAmountByDate";
+        public const string USP_EXPENSE_FAMILY_FUND_INFO_GET_BY_DATE = "Transactions.usp_ExpenseFamilyWellbeingInfo_Get_ByDate";
+        public const string USP_EXPENSE_FAMILY_FUND_INFO_GET_BY_ID = "Transactions.usp_ExpenseFamilyWellbeingInfo_Get_ById";
 
         // BillType
         public const string USP_BILL_TYPE_INFO_SAVE = "Setup.usp_V1_BillTypeInfo_Save";

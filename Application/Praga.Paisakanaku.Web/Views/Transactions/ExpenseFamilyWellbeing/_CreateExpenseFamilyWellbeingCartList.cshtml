@@ -1,4 +1,4 @@
-﻿@model Response<List<ExpenseFamilyFundInfo>>
+﻿@model Response<List<ExpenseFamilyWellbeingInfo>>
 
 @if (Model != null)
 {
@@ -10,13 +10,13 @@
             @foreach (var cartItem in Model.Data)
             {
                 <text>
-                familyFund = { };
-                familyFund.Id = `@cartItem.RecipientInfo?.Id`;
-                familyFund.ExpenseById = `@cartItem.ExpenseByInfo?.Id`;
-                familyFund.ExpenseAmount = @cartItem.ExpenseAmount;
-                familyFund.Description = `@cartItem.Description`;
+                familyWellbeing = { };
+                familyWellbeing.Id = `@cartItem.RecipientInfo?.Id`;
+                familyWellbeing.ExpenseById = `@cartItem.ExpenseByInfo?.Id`;
+                familyWellbeing.ExpenseAmount = @cartItem.ExpenseAmount;
+                familyWellbeing.Description = `@cartItem.Description`;
 
-                expenseData.push(familyFund);
+                expenseData.push(familyWellbeing);
                 </text>
             }
         }
@@ -69,14 +69,14 @@
                                             <td scope="row">
                                                 @if (cartItem.ExpenseAmount > 0)
                                                 {
-                                                    <p>@cartItem.ExpenseAmount.ToString("c")</p>
+                                                    <p data-bs-toggle="tooltip" data-bs-placement="bottom" title="@cartItem.Description">@cartItem.ExpenseAmount.ToString("c")</p>
                                                 }
                                             </td>
                                             <td class="d-flex justify-content-end">
-                                                <span class="material-icons-outlined arrow btn-icon" id="btnEditExpenseFamilyFundCartItem_@cartItem.Id" title="Edit" onclick="editCartItem('@cartItem.Id')">
+                                                <span class="material-icons-outlined arrow btn-icon" id="btnEditExpenseFamilyWellbeingCartItem_@cartItem.Id" title="Edit" onclick="editCartItem('@cartItem.Id')">
                                                     edit
                                                 </span>
-                                                <span class="material-icons-outlined arrow btn-icon" id="btnDeleteExpenseFamilyFundCartItem_@cartItem.Id" title="Delete" onclick="deleteCartItem('@cartItem.Id', '@cartItem.RecipientInfo.Name')">
+                                                <span class="material-icons-outlined arrow btn-icon" id="btnDeleteExpenseFamilyWellbeingCartItem_@cartItem.Id" title="Delete" onclick="deleteCartItem('@cartItem.Id', '@cartItem.RecipientInfo.Name')">
                                                     delete
                                                 </span>
                                             </td>

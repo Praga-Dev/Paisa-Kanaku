@@ -1,6 +1,6 @@
-﻿namespace Praga.PaisaKanaku.Core.DTO.Transactions.ExpenseFamilyFund
+﻿namespace Praga.PaisaKanaku.Core.DTO.Transactions.ExpenseFamilyWellbeing
 {
-    public class ExpenseFamilyFundSaveRequestDTO
+    public class ExpenseFamilyWellbeingSaveRequestDTO
     {
         public Guid Id { get; set; }
         public Guid ExpenseInfoId { get; set; }

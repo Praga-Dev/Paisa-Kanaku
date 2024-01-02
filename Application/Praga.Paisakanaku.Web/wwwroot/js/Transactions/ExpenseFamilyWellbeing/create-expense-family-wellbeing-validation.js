@@ -79,7 +79,7 @@ $(document).ready(function () {
             let expenseAmount = $('#expenseAmount').val();
             let description = $('#expenseDescription').val();
 
-            let expenseFamilyFundSaveRequestDTO = {
+            let expenseFamilyWellbeingSaveRequestDTO = {
                 'Id': id,
                 'ExpenseInfoId': expenseInfoId,
                 'ExpenseDate': expenseDate,
@@ -90,13 +90,13 @@ $(document).ready(function () {
             }
 
             $.ajax({
-                url: `./expense-family-fund`,
+                url: `./expense-family-wellbeing`,
                 method: 'PUT',
-                data: expenseFamilyFundSaveRequestDTO,
+                data: expenseFamilyWellbeingSaveRequestDTO,
                 success: function (response) {
                     if (typeof response !== undefined && response !== null && response.isSuccess && response.data != null) {
                         showSuccessMsg('Expense saved successfully');
-                        getExpenseFamilyFundInfoList();
+                        getExpenseFamilyWellbeingInfoList();
                         getCreateFormView();
                     }
                     else {
@@ -121,18 +121,18 @@ $(document).ready(function () {
     });
 });
 
-function resetExpenseFamilyFundRelatedInputs() {
+function resetExpenseFamilyWellbeingRelatedInputs() {
     $('#expenseAmount, #selectRecipient, #expenseDescription').prop('disabled', true).val('');
 }
 
 function resetForm() {
     $(EXPENSE_FAMILY_FUND_FORM_ID).trigger("reset");
     $('#selectMember').val('');
-    resetExpenseFamilyFundRelatedInputs();
+    resetExpenseFamilyWellbeingRelatedInputs();
 }
 
 function getCreateFormView() {
     $(EXPENSE_FAMILY_FUND_FORM_ID).data('id', '');
-    $('#btnAddExpenseSubmit').text('Create Family Fund Expense');
+    $('#btnAddExpenseSubmit').text('Create Family Wellbeing Expense');
     resetForm();
 }

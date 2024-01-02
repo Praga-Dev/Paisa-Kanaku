@@ -9,6 +9,11 @@
 
 let SPINNER_CURRENT_LOAD = 0;
 
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+
 function getBrandDDList() {
     loadSpinner();
     $.ajax({

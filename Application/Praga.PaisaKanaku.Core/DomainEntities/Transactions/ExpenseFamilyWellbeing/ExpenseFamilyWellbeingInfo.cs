@@ -1,9 +1,9 @@
 ﻿using Praga.PaisaKanaku.Core.Common.Model;
 using Praga.PaisaKanaku.Core.DomainEntities.Setup;
 
-namespace Praga.PaisaKanaku.Core.DomainEntities.Transactions.ExpenseFamilyFund
+namespace Praga.PaisaKanaku.Core.DomainEntities.Transactions.ExpenseFamilyWellbeing
 {
-    public class ExpenseFamilyFundInfo : BaseInfo
+    public class ExpenseFamilyWellbeingInfo : BaseInfo
     {
         public Guid Id { get; set; }
         public Guid ExpenseInfoId { get; set; }
