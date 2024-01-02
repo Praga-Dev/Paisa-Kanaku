@@ -254,6 +254,10 @@ BEGIN
     BEGIN
 	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'UNCATEGORIZED', N'Uncategorized', 15, 'A');
     END
+    IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'OUTDOOR_FOOD') -- unplanned expenses like functions
+    BEGIN
+	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'OUTDOOR_FOOD', N'Outdoor Food', 15, 'A');
+    END
 END
 GO
 
@@ -793,7 +797,7 @@ BEGIN
         INSERT INTO [Setup].[GroceryInfo]
         ([Id], [Name], [GroceryCategory], [BrandId], [PreferredRecurringTimePeriod], [MetricSystem], [CreatedBy])
         VALUES
-        (N'DD57F476-7F7C-4AB2-A31D-4F2A4825EF29', N'Curd', N'DAIRY', NULL, N'AS_NEEDED', N'L', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
+        (N'DD57F476-7F7C-4AB2-A31D-4F2A4825EF29', N'Curd', N'DAIRY', NULL, N'AS_NEEDED', N'W', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
     END
     IF NOT EXISTS(SELECT 1 FROM [Setup].[GroceryInfo] WHERE [Id] LIKE N'130635A1-DB9E-48B5-88D2-99C74366F479')
     BEGIN
@@ -1634,6 +1638,13 @@ BEGIN
         ([Id], [Name], [GroceryCategory], [BrandId], [PreferredRecurringTimePeriod], [MetricSystem], [CreatedBy])
         VALUES
         (N'A15AEE66-F85F-4ADE-8B58-27FA04448D43', N'Corn', N'VEGETABLES', NULL, N'AS_NEEDED', N'W', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
+    END
+    IF NOT EXISTS(SELECT 1 FROM [Setup].[GroceryInfo] WHERE [Id] LIKE N'9FEA8EF1-A128-45FF-A78D-7652932CD9CB')
+    BEGIN
+        INSERT INTO [Setup].[GroceryInfo]
+        ([Id], [Name], [GroceryCategory], [BrandId], [PreferredRecurringTimePeriod], [MetricSystem], [CreatedBy])
+        VALUES
+        (N'9FEA8EF1-A128-45FF-A78D-7652932CD9CB', N'DrumStick', N'VEGETABLES', NULL, N'AS_NEEDED', N'W', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
     END
     IF NOT EXISTS(SELECT 1 FROM [Setup].[GroceryInfo] WHERE [Id] LIKE N'65F3AC3D-10F6-4BE6-9636-5FAE7B07F1D4')
     BEGIN
