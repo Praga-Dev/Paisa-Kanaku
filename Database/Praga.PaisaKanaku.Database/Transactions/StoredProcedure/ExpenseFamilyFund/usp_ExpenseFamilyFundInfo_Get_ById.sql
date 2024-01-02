@@ -1,5 +1,5 @@
-﻿CREATE PROCEDURE [Transactions].[usp_ExpenseFamilyFundInfo_Get_ById]
-	@ExpenseFamilyFundInfoId UNIQUEIDENTIFIER,
+﻿CREATE PROCEDURE [Transactions].[usp_ExpenseFamilyWellbeingInfo_Get_ById]
+	@ExpenseFamilyWellbeingInfoId UNIQUEIDENTIFIER,
 	@LoggedInUserId UNIQUEIDENTIFIER
 AS
 DECLARE @Response INT = 0;
@@ -14,12 +14,12 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	IF NOT EXISTS(SELECT 1 FROM [Transactions].[ExpenseFamilyFundInfo] WHERE [Id] = @ExpenseFamilyFundInfoId AND [RowStatus] = 'A')
+	IF NOT EXISTS(SELECT 1 FROM [Transactions].[ExpenseFamilyWellbeingInfo] WHERE [Id] = @ExpenseFamilyWellbeingInfoId AND [RowStatus] = 'A')
 	BEGIN
 		RAISERROR('INVALID_PARAM_EXPENSE_GROCERY_INFO_ID', 16, 1);
 	END
 
-	DECLARE @ExpenseFamilyFundInfo TABLE(
+	DECLARE @ExpenseFamilyWellbeingInfo TABLE(
 		[Id] UNIQUEIDENTIFIER,
 		[ExpenseDate] DATETIME2,
 		[ExpenseById] UNIQUEIDENTIFIER,
@@ -35,7 +35,7 @@ BEGIN TRY
 		[RowStatus] NVARCHAR(1)
 	);
 	
-	INSERT INTO @ExpenseFamilyFundInfo([Id], [ExpenseDate], [ExpenseById], [ExpenseByName], [RecipientId], [RecipientName], [ExpenseAmount], [Description], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
+	INSERT INTO @ExpenseFamilyWellbeingInfo([Id], [ExpenseDate], [ExpenseById], [ExpenseByName], [RecipientId], [RecipientName], [ExpenseAmount], [Description], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
 	SELECT 
 		[EGI].[Id],
 		[EGI].[ExpenseDate],
@@ -50,14 +50,14 @@ BEGIN TRY
 		[EGI].[ModifiedBy],
 		[EGI].[ModifiedDate],
 		[EGI].[RowStatus]	
-	FROM [Transactions].[ExpenseFamilyFundInfo] EGI 
+	FROM [Transactions].[ExpenseFamilyWellbeingInfo] EGI 
 	LEFT JOIN [Setup].[MemberInfo] MI ON EGI.[ExpenseById] = MI.[Id]
 	LEFT JOIN [Setup].[MemberInfo] RI ON EGI.[RecipientId] = RI.[Id]
-	WHERE [EGI].[Id] = @ExpenseFamilyFundInfoId
+	WHERE [EGI].[Id] = @ExpenseFamilyWellbeingInfoId
 	AND [EGI].[CreatedBy] = @LoggedInUserId
 	AND [EGI].[RowStatus] = 'A'
 
-	SELECT * FROM @ExpenseFamilyFundInfo;
+	SELECT * FROM @ExpenseFamilyWellbeingInfo;
 
 END TRY  
 BEGIN CATCH  

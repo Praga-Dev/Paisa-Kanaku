@@ -32,7 +32,7 @@ BEGIN TRY
 
 	INSERT INTO @TempExpenseInfo
 	SELECT ISNULL( SUM([ExpenseAmount]),0) as [TotalAmount], 'FAMILY_WELLBEING' as [ExpenseType]
-	FROM [Transactions].ExpenseFamilyFundInfo
+	FROM [Transactions].ExpenseFamilyWellbeingInfo
 	WHERE MONTH([ExpenseDate]) = @Month AND YEAR([ExpenseDate]) = @Year
 	AND [RowStatus] = 'A'
 

@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [Transactions].[usp_ExpenseFamilyFundInfo_Save]
+﻿CREATE PROCEDURE [Transactions].[usp_ExpenseFamilyWellbeingInfo_Save]
 	@Id UNIQUEIDENTIFIER,
 	@ExpenseInfoId UNIQUEIDENTIFIER,
 	@ExpenseDate DATETIME,
@@ -30,7 +30,7 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_AMOUNT', 16, 1);
 	END
 
-	DECLARE @ExpenseFamilyFundInfoId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
+	DECLARE @ExpenseFamilyWellbeingInfoId UNIQUEIDENTIFIER = CASE WHEN (@Id IS NULL OR @Id = @EmptyGuid) THEN NEWID() ELSE @Id END;
 
 	SET @ExpenseDate = DATEADD(dd, 0, DATEDIFF(dd, 0, @ExpenseDate))
 
@@ -60,29 +60,29 @@ BEGIN TRY
 	-- EXPENSEPRODUCTINFO UPSERT
 	DECLARE @ExpenseAmountResult DECIMAL(12,3);
 
-	IF(@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Transactions].[ExpenseFamilyFundInfo] WHERE [Id] = @Id))
+	IF(@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Transactions].[ExpenseFamilyWellbeingInfo] WHERE [Id] = @Id))
 	BEGIN
-		INSERT INTO [Transactions].[ExpenseFamilyFundInfo]
+		INSERT INTO [Transactions].[ExpenseFamilyWellbeingInfo]
 		([Id], [ExpenseInfoId], [ExpenseDate], [ExpenseById], [RecipientId], [ExpenseAmount], [Description], [CreatedBy])
 		VALUES
-		(@ExpenseFamilyFundInfoId, @ExpenseInfoId, @ExpenseDate, @ExpenseById, @RecipientId, @ExpenseAmount, @Description, @LoggedInUserId)
+		(@ExpenseFamilyWellbeingInfoId, @ExpenseInfoId, @ExpenseDate, @ExpenseById, @RecipientId, @ExpenseAmount, @Description, @LoggedInUserId)
 
 		EXEC [Common].[usp_v1_Add_To_ExpenseAmount] @ExpenseInfoId = @ExpenseInfoId, @Amount = @ExpenseAmount, @Result = @ExpenseAmountResult OUTPUT;
 	END
 	ELSE
 	BEGIN  	
 		DECLARE @OldExpenseAmount DECIMAL(12,3);
-		SELECT @OldExpenseAmount = [ExpenseAmount] FROM [Transactions].[ExpenseFamilyFundInfo] 
-		WHERE [Id] = @ExpenseFamilyFundInfoId AND [RowStatus] = 'A'
+		SELECT @OldExpenseAmount = [ExpenseAmount] FROM [Transactions].[ExpenseFamilyWellbeingInfo] 
+		WHERE [Id] = @ExpenseFamilyWellbeingInfoId AND [RowStatus] = 'A'
 
-		UPDATE [Transactions].[ExpenseFamilyFundInfo]
+		UPDATE [Transactions].[ExpenseFamilyWellbeingInfo]
 			SET	[ExpenseById] = @ExpenseById,
 				[RecipientId] = @RecipientId, 				
 				[ExpenseAmount] = @ExpenseAmount, 
 				[Description] = @Description,
                 [ModifiedBy] = @LoggedInUserId,
 				[ModifiedDate] = GETUTCDATE()
-			WHERE [Id] = @ExpenseFamilyFundInfoId AND [RowStatus] = 'A';
+			WHERE [Id] = @ExpenseFamilyWellbeingInfoId AND [RowStatus] = 'A';
 
 		DECLARE @UpdatedExpenseAmount DECIMAL(12,3);
 		SET @UpdatedExpenseAmount = @ExpenseAmount - @OldExpenseAmount;
@@ -95,7 +95,7 @@ BEGIN TRY
 		END
 	END	
 
-	SET @Result = @ExpenseFamilyFundInfoId;
+	SET @Result = @ExpenseFamilyWellbeingInfoId;
 
 	RETURN @Response;
 

@@ -1,4 +1,4 @@
-CREATE TABLE [Transactions].[ExpenseFamilyFundInfo]
+CREATE TABLE [Transactions].[ExpenseFamilyWellbeingInfo]
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL,
 	[ExpenseInfoId] UNIQUEIDENTIFIER NOT NULL,
@@ -12,13 +12,13 @@ CREATE TABLE [Transactions].[ExpenseFamilyFundInfo]
 	[ModifiedBy] UNIQUEIDENTIFIER NULL,
 	[ModifiedDate] DATETIME2,
 	[RowStatus] NVARCHAR(1) NOT NULL DEFAULT 'A'
-	CONSTRAINT [PK_Transactions_ExpenseFamilyFundInfo] PRIMARY KEY NONCLUSTERED
+	CONSTRAINT [PK_Transactions_ExpenseFamilyWellbeingInfo] PRIMARY KEY NONCLUSTERED
 	(
 		[Id] ASC
 	) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
-	CONSTRAINT [FK_ExpenseFamilyFundInfo_ExpenseInfo] FOREIGN KEY ([ExpenseInfoId]) REFERENCES [Transactions].[ExpenseInfo]([Id]),
-	CONSTRAINT [FK_ExpenseFamilyFundInfo_MemberInfo] FOREIGN KEY ([ExpenseById]) REFERENCES [Setup].[MemberInfo]([Id]),
-	CONSTRAINT [FK_ExpenseFamilyFundInfo_MemberInfo_Recipient] FOREIGN KEY ([RecipientId]) REFERENCES [Setup].[MemberInfo]([Id]),
-	CONSTRAINT [FK_ExpenseFamilyFundInfo_RowStatus] FOREIGN KEY ([RowStatus]) REFERENCES [Lookups].[RowStatusInfo]([RowStatus])
+	CONSTRAINT [FK_ExpenseFamilyWellbeingInfo_ExpenseInfo] FOREIGN KEY ([ExpenseInfoId]) REFERENCES [Transactions].[ExpenseInfo]([Id]),
+	CONSTRAINT [FK_ExpenseFamilyWellbeingInfo_MemberInfo] FOREIGN KEY ([ExpenseById]) REFERENCES [Setup].[MemberInfo]([Id]),
+	CONSTRAINT [FK_ExpenseFamilyWellbeingInfo_MemberInfo_Recipient] FOREIGN KEY ([RecipientId]) REFERENCES [Setup].[MemberInfo]([Id]),
+	CONSTRAINT [FK_ExpenseFamilyWellbeingInfo_RowStatus] FOREIGN KEY ([RowStatus]) REFERENCES [Lookups].[RowStatusInfo]([RowStatus])
 ) ON [PRIMARY]
 GO

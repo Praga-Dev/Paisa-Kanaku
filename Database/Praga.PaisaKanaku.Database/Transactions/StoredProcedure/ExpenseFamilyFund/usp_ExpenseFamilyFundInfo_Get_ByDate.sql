@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [Transactions].[usp_ExpenseFamilyFundInfo_Get_ByDate]
+﻿CREATE PROCEDURE [Transactions].[usp_ExpenseFamilyWellbeingInfo_Get_ByDate]
 	@ExpenseDate DATETIME,
 	@LoggedInUserId UNIQUEIDENTIFIER
 AS
@@ -14,7 +14,7 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_LOGGED_IN_USER_ID', 16, 1);
 	END
 
-	DECLARE @ExpenseFamilyFundInfo TABLE(
+	DECLARE @ExpenseFamilyWellbeingInfo TABLE(
 		[Id] UNIQUEIDENTIFIER,
 		[ExpenseDate] DATETIME2,
 		[ExpenseById] UNIQUEIDENTIFIER,
@@ -30,7 +30,7 @@ BEGIN TRY
 		[RowStatus] NVARCHAR(1)
 	);
 	
-	INSERT INTO @ExpenseFamilyFundInfo([Id], [ExpenseDate], [ExpenseById], [ExpenseByName], [RecipientId], [RecipientName], [ExpenseAmount], [Description], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
+	INSERT INTO @ExpenseFamilyWellbeingInfo([Id], [ExpenseDate], [ExpenseById], [ExpenseByName], [RecipientId], [RecipientName], [ExpenseAmount], [Description], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
 	SELECT 
 		[EGI].[Id],
 		[EGI].[ExpenseDate],
@@ -45,7 +45,7 @@ BEGIN TRY
 		[EGI].[ModifiedBy],
 		[EGI].[ModifiedDate],
 		[EGI].[RowStatus]	
-	FROM [Transactions].[ExpenseFamilyFundInfo] EGI 
+	FROM [Transactions].[ExpenseFamilyWellbeingInfo] EGI 
 	LEFT JOIN [Setup].[MemberInfo] MI ON EGI.[ExpenseById] = MI.[Id]
 	LEFT JOIN [Setup].[MemberInfo] RI ON EGI.[RecipientId] = RI.[Id]
 	WHERE [EGI].[ExpenseDate] = @ExpenseDate 
@@ -53,7 +53,7 @@ BEGIN TRY
 	AND [EGI].[RowStatus] = 'A'
 	ORDER BY [MI].[Name]
 
-	SELECT * FROM @ExpenseFamilyFundInfo;
+	SELECT * FROM @ExpenseFamilyWellbeingInfo;
 
 END TRY  
 BEGIN CATCH  

@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [Transactions].[usp_ExpenseFamilyFundInfo_Get_SumAmountByDate]
+﻿CREATE PROCEDURE [Transactions].[usp_ExpenseFamilyWellbeingInfo_Get_SumAmountByDate]
 	@Month INT,
 	@Year INT,
 	@LoggedInUserId UNIQUEIDENTIFIER
@@ -25,20 +25,20 @@ BEGIN TRY
 		RAISERROR('INVALID_PARAM_YEAR', 16, 1);
 	END
 
-	DECLARE @ExpenseFamilyFundInfo TABLE(
+	DECLARE @ExpenseFamilyWellbeingInfo TABLE(
 		[ExpenseDate] DATETIME2,
 		[TotalExpenseAmount] DECIMAL(12,3)
 	);
 	
-	INSERT INTO @ExpenseFamilyFundInfo([ExpenseDate], [TotalExpenseAmount])
+	INSERT INTO @ExpenseFamilyWellbeingInfo([ExpenseDate], [TotalExpenseAmount])
 	SELECT [ExpenseDate], SUM([ExpenseAmount])
-	FROM [Transactions].[ExpenseFamilyFundInfo]
+	FROM [Transactions].[ExpenseFamilyWellbeingInfo]
 	WHERE MONTH([ExpenseDate]) = @Month AND YEAR([ExpenseDate]) = @Year
 		AND [CreatedBy] = @LoggedInUserId
 		AND [RowStatus] = 'A'
 	GROUP BY [ExpenseDate];
 
-	SELECT * FROM @ExpenseFamilyFundInfo;
+	SELECT * FROM @ExpenseFamilyWellbeingInfo;
 
 END TRY  
 BEGIN CATCH  

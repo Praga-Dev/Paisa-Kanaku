@@ -94,7 +94,7 @@
     <Folder Include="Transactions\StoredProcedure\ExpenseProduct" />
     <Folder Include="Transactions\Table\ExpenseGrocery" />
     <Folder Include="Transactions\StoredProcedure\ExpenseGrocery" />
-    <Folder Include="Transactions\Table\ExpenseFamilyFund" />
+    <Folder Include="Transactions\Table\ExpenseFamilyWellbeing" />
     <Folder Include="Transactions\StoredProcedure\ExpenseFamilyFund" />
   </ItemGroup>
   <ItemGroup>
@@ -183,7 +183,7 @@
     <Build Include="Transactions\StoredProcedure\ExpenseGrocery\usp_ExpenseGroceryInfo_Get_ById.sql" />
     <Build Include="Transactions\StoredProcedure\ExpenseGrocery\usp_ExpenseGroceryInfo_Get_ByDate.sql" />
     <Build Include="Setup\StoredProcedure\Member\usp_V1_GetManagesExpenseMemberInfo.sql" />
-    <Build Include="Transactions\Table\ExpenseFamilyFund\ExpenseFamilyFundInfo.sql" />
+    <Build Include="Transactions\Table\ExpenseFamilyWellbeing\ExpenseFamilyWellbeingInfo.sql" />
     <Build Include="Transactions\StoredProcedure\ExpenseFamilyFund\usp_ExpenseFamilyFundInfo_Save.sql" />
     <Build Include="Transactions\StoredProcedure\ExpenseFamilyFund\usp_ExpenseFamilyFundInfo_Get_SumAmountByDate.sql" />
     <Build Include="Transactions\StoredProcedure\ExpenseFamilyFund\usp_ExpenseFamilyFundInfo_Get_ById.sql" />

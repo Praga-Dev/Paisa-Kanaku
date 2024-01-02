@@ -45,13 +45,13 @@ BEGIN TRY
 	END
 	ELSE IF(@ExpenseType LIKE 'FAMILY_WELLBEING')
 	BEGIN
-		IF NOT EXISTS(SELECT * FROM [Transactions].[ExpenseFamilyFundInfo] WHERE [Id] = @Id)
+		IF NOT EXISTS(SELECT * FROM [Transactions].[ExpenseFamilyWellbeingInfo] WHERE [Id] = @Id)
 		BEGIN
 			RAISERROR('INVALID_PARAM_ID', 16, 1);
 		END
 
-		SELECT @ExpenseId = [ExpenseInfoId], @ExpenseAmount = [ExpenseAmount] FROM [Transactions].[ExpenseFamilyFundInfo] WHERE [Id] = @Id;
-		UPDATE [Transactions].[ExpenseFamilyFundInfo] SET [RowStatus] = 'D' WHERE [Id] = @Id
+		SELECT @ExpenseId = [ExpenseInfoId], @ExpenseAmount = [ExpenseAmount] FROM [Transactions].[ExpenseFamilyWellbeingInfo] WHERE [Id] = @Id;
+		UPDATE [Transactions].[ExpenseFamilyWellbeingInfo] SET [RowStatus] = 'D' WHERE [Id] = @Id
 	END
 
 	IF([Common].[udp_v1_ValidateGuid](@ExpenseId) = 0)
