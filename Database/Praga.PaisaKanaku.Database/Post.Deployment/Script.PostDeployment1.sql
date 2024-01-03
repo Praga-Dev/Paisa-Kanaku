@@ -462,6 +462,11 @@ BEGIN
     BEGIN
         INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'VEGETABLES', N'Vegetables', 31, 'A');
     END
+
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[GroceryCategoryInfo] WHERE [GroceryCategory] LIKE N'READY_TO_COOK_PRODUCTS')
+    BEGIN
+        INSERT INTO [Lookups].[GroceryCategoryInfo] ([GroceryCategory], [GroceryCategoryValue], [SequenceId], [RowStatus]) VALUES (N'READY_TO_COOK_PRODUCTS', N'Ready to Cook Products', 32, 'A');
+    END
                         
 END
 GO
@@ -1764,6 +1769,20 @@ BEGIN
         ([Id], [Name], [GroceryCategory], [BrandId], [PreferredRecurringTimePeriod], [MetricSystem], [CreatedBy])
         VALUES
         (N'D2AC8501-2F0F-40CE-BA46-3B7B3553248E', N'White radish', N'VEGETABLES', NULL, N'AS_NEEDED', N'W', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
+    END
+    IF NOT EXISTS(SELECT 1 FROM [Setup].[GroceryInfo] WHERE [Id] LIKE N'E70CBF48-0B19-4F76-8050-9B21C0104827')
+    BEGIN
+        INSERT INTO [Setup].[GroceryInfo]
+        ([Id], [Name], [GroceryCategory], [BrandId], [PreferredRecurringTimePeriod], [MetricSystem], [CreatedBy])
+        VALUES
+        (N'E70CBF48-0B19-4F76-8050-9B21C0104827', N'Batter', N'READY_TO_COOK_PRODUCTS', NULL, N'AS_NEEDED', N'W', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
+    END
+    IF NOT EXISTS(SELECT 1 FROM [Setup].[GroceryInfo] WHERE [Id] LIKE N'D1710784-7357-484A-B8A4-7646C1CFED90')
+    BEGIN
+        INSERT INTO [Setup].[GroceryInfo]
+        ([Id], [Name], [GroceryCategory], [BrandId], [PreferredRecurringTimePeriod], [MetricSystem], [CreatedBy])
+        VALUES
+        (N'D1710784-7357-484A-B8A4-7646C1CFED90', N'Maggie', N'READY_TO_COOK_PRODUCTS', NULL, N'AS_NEEDED', N'W', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
     END
 END
 GO
