@@ -1,0 +1,44 @@
+﻿@model Response<List<OutdoorFoodVendorInfo>>
+
+@{
+    ViewData["Title"] = "Outdoor Food Vendor";
+}
+
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>OutdoorFoodVendor</h2>
+                </div>
+                <div class="col-sm-6">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary-outline" onclick="onCreateOutdoorFoodVendor()">
+                        <span>Create &nbsp;</span><i class="material-icons">&#xE147;</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="outdoorFoodVendorListContainer">
+            @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
+            {
+                <partial name="_OutdoorFoodVendorList.cshtml" />
+            }
+            else
+            {
+                <p>
+                    NO RECORDS FOUND
+                </p>
+            }
+        </div>
+    </div>
+    <div>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary-outline"> <span>&#8592; &nbsp;</span> Go to Home</a>
+    </div>
+</div>
+
+<div id="createOutdoorFoodVendorFormContainer">
+    <partial name="_CreateOutdoorFoodVendor.cshtml" model="new OutdoorFoodVendorInfo()" />
+</div>
+
+<script src="~/js/Setup/OutdoorFoodVendor/outdoor-food-vendor.js" asp-append-version="true"></script>

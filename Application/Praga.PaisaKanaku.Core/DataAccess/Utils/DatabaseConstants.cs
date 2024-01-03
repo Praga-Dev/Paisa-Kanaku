@@ -38,6 +38,11 @@
         public const string USP_GROCERY_INFO_GET = "Setup.usp_V1_GroceryInfo_Get";
         public const string USP_GROCERY_INFO_GET_BY_ID = "Setup.usp_V1_GroceryInfo_Get_By_Id";
 
+        // OutdoorFoodVendor
+        public const string USP_OUTDOOR_FOOD_VENDOR_INFO_SAVE = "Setup.usp_OutdoorFoodVendorInfo_Save";
+        public const string USP_OUTDOOR_FOOD_VENDOR_INFO_GET = "Setup.usp_OutdoorFoodVendorInfo_Get";
+        public const string USP_OUTDOOR_FOOD_VENDOR_INFO_GET_BY_ID = "Setup.usp_OutdoorFoodVendorInfo_Get_By_Id";
+
         // Expense
         public const string USP_EXPENSE_DELETE_BY_TYPE = "Transactions.usp_V1_Expense_Delete_By_Type";
         public const string USP_EXPENSE_INFO_GET = "Transactions.usp_V1_ExpenseInfo_Get";

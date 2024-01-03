@@ -1,0 +1,42 @@
+﻿@model Response<List<OutdoorFoodVendorInfo>>
+
+<div class="action-body-container">
+    <div class="main-grid-container">
+        <div class="table-responsive">
+            <table class="table table-bordered  align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Outdoor Food Vendor Name</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
+                    {
+                        @foreach (var outdoorFoodVendor in Model.Data)
+                        {
+                            <tr>
+                                <th scope="row">
+                                    @if (!string.IsNullOrWhiteSpace(outdoorFoodVendor.Name))
+                                    {
+                                        <p>@outdoorFoodVendor.Name</p>
+                                    }
+                                </th>
+                                <td class="d-flex justify-content-end">
+                                    <span class="material-icons-outlined arrow btn-icon" id="btnEditOutdoorFoodVendor_@outdoorFoodVendor.Id"
+                                          title="Update OutdoorFoodVendor" onclick="editOutdoorFoodVendor('@outdoorFoodVendor.Id')">
+                                        edit
+                                    </span>
+                                    <span class="material-icons-outlined arrow btn-icon" id="btnDeleteOutdoorFoodVendor_@outdoorFoodVendor.Id"
+                                          title="Delete OutdoorFoodVendor" onclick="deleteOutdoorFoodVendor('@outdoorFoodVendor.Id', '@outdoorFoodVendor.Name')">
+                                        delete
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
