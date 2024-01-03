@@ -16,12 +16,12 @@
                         @foreach (var outdoorFoodVendor in Model.Data)
                         {
                             <tr>
-                                <th scope="row">
+                                <td>
                                     @if (!string.IsNullOrWhiteSpace(outdoorFoodVendor.Name))
                                     {
                                         <p>@outdoorFoodVendor.Name</p>
                                     }
-                                </th>
+                                </td>
                                 <td class="d-flex justify-content-end">
                                     <span class="material-icons-outlined arrow btn-icon" id="btnEditOutdoorFoodVendor_@outdoorFoodVendor.Id"
                                           title="Update OutdoorFoodVendor" onclick="editOutdoorFoodVendor('@outdoorFoodVendor.Id')">
