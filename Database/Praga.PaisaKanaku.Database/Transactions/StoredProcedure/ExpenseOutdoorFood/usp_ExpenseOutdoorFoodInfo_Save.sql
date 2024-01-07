@@ -5,6 +5,7 @@
 	@ExpenseById UNIQUEIDENTIFIER,
 	@OutdoorFoodVendorId UNIQUEIDENTIFIER,
 	@ExpenseAmount DECIMAL(12,3),
+	@BillImageUrl NVARCHAR(250),
 	@Description NVARCHAR(250),
 	@LoggedInUserId UNIQUEIDENTIFIER,
 	@Result UNIQUEIDENTIFIER OUTPUT
@@ -62,9 +63,9 @@ BEGIN TRY
 	IF(@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Transactions].[ExpenseOutdoorFoodInfo] WHERE [Id] = @Id))
 	BEGIN
 		INSERT INTO [Transactions].[ExpenseOutdoorFoodInfo]
-		([Id], [ExpenseInfoId], [ExpenseDate], [ExpenseById], [OutdoorFoodVendorId], [ExpenseAmount], [Description], [CreatedBy])
+		([Id], [ExpenseInfoId], [ExpenseDate], [ExpenseById], [OutdoorFoodVendorId], [ExpenseAmount], [BillImageUrl], [Description], [CreatedBy])
 		VALUES
-		(@ExpenseOutdoorFoodInfoId, @ExpenseInfoId, @ExpenseDate, @ExpenseById, @OutdoorFoodVendorId, @ExpenseAmount, @Description, @LoggedInUserId)
+		(@ExpenseOutdoorFoodInfoId, @ExpenseInfoId, @ExpenseDate, @ExpenseById, @OutdoorFoodVendorId, @ExpenseAmount, @BillImageUrl, @Description, @LoggedInUserId)
 
 		EXEC [Common].[usp_v1_Add_To_ExpenseAmount] @ExpenseInfoId = @ExpenseInfoId, @Amount = @ExpenseAmount, @Result = @ExpenseAmountResult OUTPUT;
 	END
@@ -78,6 +79,7 @@ BEGIN TRY
 			SET	[ExpenseById] = @ExpenseById,
 				[OutdoorFoodVendorId] = @OutdoorFoodVendorId, 				
 				[ExpenseAmount] = @ExpenseAmount, 
+				[BillImageUrl] = @BillImageUrl,
 				[Description] = @Description,
                 [ModifiedBy] = @LoggedInUserId,
 				[ModifiedDate] = GETUTCDATE()

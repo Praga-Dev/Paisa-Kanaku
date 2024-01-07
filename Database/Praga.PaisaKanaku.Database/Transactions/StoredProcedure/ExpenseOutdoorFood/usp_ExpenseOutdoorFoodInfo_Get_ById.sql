@@ -22,6 +22,7 @@ BEGIN TRY
 		[OutdoorFoodVendorId] UNIQUEIDENTIFIER,
 		[OutdoorFoodVendorName] NVARCHAR(25),
 		[ExpenseAmount] DECIMAL(12,3),
+		[BillImageUrl] NVARCHAR(250),
 		[Description] NVARCHAR(250),
 		[CreatedBy] UNIQUEIDENTIFIER,
 		[CreatedDate] DATETIME2,
@@ -30,7 +31,7 @@ BEGIN TRY
 		[RowStatus] NVARCHAR(1)
 	);
 	
-	INSERT INTO @ExpenseOutdoorFoodInfo([Id], [ExpenseDate], [ExpenseById], [ExpenseByName], [OutdoorFoodVendorId], [OutdoorFoodVendorName], [ExpenseAmount], [Description], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
+	INSERT INTO @ExpenseOutdoorFoodInfo([Id], [ExpenseDate], [ExpenseById], [ExpenseByName], [OutdoorFoodVendorId], [OutdoorFoodVendorName], [ExpenseAmount], [BillImageUrl], [Description], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
 	SELECT 
 		[EOFI].[Id],
 		[EOFI].[ExpenseDate],
@@ -39,6 +40,7 @@ BEGIN TRY
 		[EOFI].[OutdoorFoodVendorId],
 		[OFVI].[Name],
 		[EOFI].[ExpenseAmount],
+		[EOFI].[BillImageUrl],
 		[EOFI].[Description],
 		[EOFI].[CreatedBy],
 		[EOFI].[CreatedDate],

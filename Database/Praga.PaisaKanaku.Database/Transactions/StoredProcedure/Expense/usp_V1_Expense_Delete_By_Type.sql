@@ -53,6 +53,16 @@ BEGIN TRY
 		SELECT @ExpenseId = [ExpenseInfoId], @ExpenseAmount = [ExpenseAmount] FROM [Transactions].[ExpenseFamilyWellbeingInfo] WHERE [Id] = @Id;
 		UPDATE [Transactions].[ExpenseFamilyWellbeingInfo] SET [RowStatus] = 'D' WHERE [Id] = @Id
 	END
+	ELSE IF(@ExpenseType LIKE 'OUTDOOR_FOOD')
+	BEGIN
+		IF NOT EXISTS(SELECT * FROM [Transactions].[ExpenseOutdoorFoodInfo] WHERE [Id] = @Id)
+		BEGIN
+			RAISERROR('INVALID_PARAM_ID', 16, 1);
+		END
+
+		SELECT @ExpenseId = [ExpenseInfoId], @ExpenseAmount = [ExpenseAmount] FROM [Transactions].[ExpenseFamilyWellbeingInfo] WHERE [Id] = @Id;
+		UPDATE [Transactions].[ExpenseFamilyWellbeingInfo] SET [RowStatus] = 'D' WHERE [Id] = @Id
+	END
 
 	IF([Common].[udp_v1_ValidateGuid](@ExpenseId) = 0)
 	BEGIN
