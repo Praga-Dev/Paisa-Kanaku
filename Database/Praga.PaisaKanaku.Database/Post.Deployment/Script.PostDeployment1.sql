@@ -1791,6 +1791,13 @@ BEGIN
         VALUES
         (N'D1710784-7357-484A-B8A4-7646C1CFED90', N'Maggie', N'READY_TO_COOK_PRODUCTS', NULL, N'AS_NEEDED', N'W', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
     END
+    IF NOT EXISTS(SELECT 1 FROM [Setup].[GroceryInfo] WHERE [Id] LIKE N'9022850D-6022-47F0-8516-57D038B99391')
+    BEGIN
+        INSERT INTO [Setup].[GroceryInfo]
+        ([Id], [Name], [GroceryCategory], [BrandId], [PreferredRecurringTimePeriod], [MetricSystem], [CreatedBy])
+        VALUES
+        (N'9022850D-6022-47F0-8516-57D038B99391', N'Icecream', N'DAIRY', NULL, N'AS_NEEDED', N'L', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
+    END
 END
 GO
 
