@@ -1770,6 +1770,13 @@ BEGIN
         VALUES
         (N'D2AC8501-2F0F-40CE-BA46-3B7B3553248E', N'White radish', N'VEGETABLES', NULL, N'AS_NEEDED', N'W', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
     END
+    IF NOT EXISTS(SELECT 1 FROM [Setup].[GroceryInfo] WHERE [Id] LIKE N'5CD6DAF1-6C7E-404A-9445-F50C1708BF34')
+    BEGIN
+        INSERT INTO [Setup].[GroceryInfo]
+        ([Id], [Name], [GroceryCategory], [BrandId], [PreferredRecurringTimePeriod], [MetricSystem], [CreatedBy])
+        VALUES
+        (N'5CD6DAF1-6C7E-404A-9445-F50C1708BF34', N'Coconut', N'VEGETABLES', NULL, N'AS_NEEDED', N'C', N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5')
+    END
     IF NOT EXISTS(SELECT 1 FROM [Setup].[GroceryInfo] WHERE [Id] LIKE N'E70CBF48-0B19-4F76-8050-9B21C0104827')
     BEGIN
         INSERT INTO [Setup].[GroceryInfo]
