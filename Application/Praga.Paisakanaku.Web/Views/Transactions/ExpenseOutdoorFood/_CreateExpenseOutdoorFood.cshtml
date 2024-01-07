@@ -1,0 +1,21 @@
+﻿<link rel="stylesheet" href="~/css/Transactions/create-expense.css" asp-append-version="true" />
+<script>
+    let expenseData = [];
+    let outdoorFood = {};
+
+</script>
+
+<div class="container pk-create-expense-container">
+    <div class="row align-items-start">
+        <div id="divTempExpenseFormContainer" class="col-5">
+            <partial name="_CreateExpenseOutdoorFoodForm.cshtml" model="new ExpenseOutdoorFoodInfo()">
+        </div>
+        <div id="divExpenseOutdoorFoodInfoListContainer" class="col-7 pk-cart">
+            <partial name="_CreateExpenseOutdoorFoodCartList.cshtml" model="new Response<List<ExpenseOutdoorFoodInfo>>()">
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/js/Transactions/ExpenseOutdoorFood/expense-outdoor-food.js" asp-append-version="true"></script>

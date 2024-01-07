@@ -35,6 +35,8 @@
             public const string EXPENSE_TYPE_SAVINGS = "SAVINGS";
             public const string EXPENSE_TYPE_TRAVEL = "TRAVEL";
             public const string EXPENSE_TYPE_UNCATEGORIZED = "UNCATEGORIZED";
+            public const string EXPENSE_TYPE_OUTDOOR_FOOD = "OUTDOOR_FOOD";
+
         }
     }
 }

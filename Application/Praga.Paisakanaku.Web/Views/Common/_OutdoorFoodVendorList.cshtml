@@ -1,0 +1,25 @@
+﻿@model Response<List<OutdoorFoodVendorInfo>>
+
+<div class="form-group">
+    <label class="form-label">
+        Outdoor Food Vendor Info
+        <span class="required">*</span>
+    </label>
+    <select id="selectOutdoorFoodVendorInfo" name="outdoorFoodVendorInfo" class="form-control form-control-sm">
+        @if (Model != null && Model.Data != null && Model.Data.Any())
+        {
+            @foreach (var outdoorFoodVendorInfo in Model.Data)
+            {
+                @if (@outdoorFoodVendorInfo.Name == "NA")
+                {
+                    <option value="@outdoorFoodVendorInfo.Id" selected>@outdoorFoodVendorInfo.Name</option>
+                }
+                else
+                {
+                    <option value="@outdoorFoodVendorInfo.Id">@outdoorFoodVendorInfo.Name</option>
+                }
+            }
+        }
+        <option value="NEW">New</option>
+    </select>
+</div>

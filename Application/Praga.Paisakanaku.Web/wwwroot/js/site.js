@@ -322,6 +322,42 @@ function getMeasureTypeDDListByGroceryId(groceryInfoId, measureType = '') {
     }
 }
 
+function getOutdoorFoodVendorDDList(outdoorFoodVendorId = '') {
+    loadSpinner();
+    $.ajax({
+        url: `./outdoor-food-vendor/data-list`,
+        method: 'GET',
+        success: function (response) {
+            if (typeof response !== undefined && response !== null) {
+                $('#outdoorFoodVendorListDDContainer').html(response);
+
+                if (outdoorFoodVendorId === '') {
+                    outdoorFoodVendorId = $('#outdoorFoodVendorListDDContainer').data('val');
+                }
+                if (outdoorFoodVendorId) {
+                    $('#selectOutdoorFoodVendorInfo').val(outdoorFoodVendorId);
+                } else {
+                    $('#selectOutdoorFoodVendorInfo').val('');
+
+                    // TODO
+                    if ($('#selectOutdoorFoodVendorInfo option').length == 1) {
+                        $('#outdoorFoodVendorNameContainer').show();
+                    } 
+                }
+            }
+            else {
+                // TODO Alert
+            }
+        },
+        error: function () {
+            // TODO Alert
+        },
+        complete: function () {
+            hideSpinner();
+        }
+    })
+}
+
 
 // #region Common
 
@@ -389,6 +425,13 @@ function isNotFutureDate(date) {
         date.setHours(0, 0, 0, 0);
         return new Date(date) <= new Date();
     }
+}
+
+function isValidURL(url) {
+    // Regular expression for a basic URL pattern
+    let urlPattern = /^(https?:\/\/)?([a-zA-Z0-9-]+\.){1,}[a-zA-Z]{2,}([\/\w-]*)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;
+    //let urlPattern = /https:\/\/1drv\.ms\/b\/s!AtynTbQcd-MwaC6fx-2gAE7m6RQ\?e=sdC/i; // OneDrive
+    return urlPattern.test(url);
 }
 
 // #endregion
