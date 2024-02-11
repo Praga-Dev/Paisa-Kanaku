@@ -12,6 +12,8 @@ namespace Praga.PaisaKanaku.Core.DataAccess.IRepositories
         Task<Response<List<ProductCategoryInfoDB>>> GetProductCategoryInfoList(Guid loggedInUserId);
         Task<Response<List<RelationshipTypeInfoDB>>> GetRelationshipTypeInfoList(Guid loggedInUserId);
         Task<Response<List<MeasureTypeInfoDB>>> GetMeasureTypeInfoListByGroceryInfoId(Guid groceryInfoId, Guid loggedInUserId);
+        Task<Response<List<TransportModeInfoDB>>> GetTransportModeInfo(Guid loggedInUserId);
+        Task<Response<List<TravelServiceInfoDB>>> GetTravelServiceInfo(Guid loggedInUserId);
 
     }
 }

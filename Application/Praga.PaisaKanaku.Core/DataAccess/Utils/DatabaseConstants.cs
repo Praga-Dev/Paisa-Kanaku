@@ -15,6 +15,8 @@
         public const string USP_PRODUCT_CATEGORY_INFO_GET = "Lookups.usp_v1_ProductCategoryInfo_Get";
         public const string USP_RELATIONSHIP_TYPE_INFO_GET = "Lookups.usp_v1_RelationshipTypeInfo_Get";
         public const string USP_MEASURE_TYPE_INFO_BY_GROCERY_INFO_ID_GET = "Lookups.usp_v1_MeasureTypeInfo_By_GroceryInfoId_Get";
+        public const string USP_TRANSPORT_MODE_INFO_GET = "Lookups.usp_v1_TransportModeInfo_Get";
+        public const string USP_TRAVEL_SERVICE_INFO_GET = "Lookups.usp_v1_TravelServiceInfo_Get";
 
 
         // Brand

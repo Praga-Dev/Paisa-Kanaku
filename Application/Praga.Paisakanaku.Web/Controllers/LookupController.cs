@@ -227,5 +227,63 @@ namespace Praga.Paisakanaku.Web.Controllers
             return PartialView("~/Views/Common/_MeasureTypeList.cshtml", response);
         }
 
+        [HttpGet, Route("~/lookup/transport-mode")]
+        public async Task<IActionResult> GetTransportModeInfo()
+        {
+            Response<List<TransportModeInfo>> response = new Response<List<TransportModeInfo>>().GetFailedResponse(ResponseConstants.FAILED);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(this.LoggedInUserId))
+                {
+                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return PartialView("~/Views/Common/_TransportModeList.cshtml", response);
+                }
+
+                var dbresponse = await _lookupService.GetTransportModeInfo(LoggedInUserId);
+                if (Helpers.IsResponseValid(dbresponse))
+                {
+                    response = dbresponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupController.GetTransportModeInfo({@loggedInUserId})", LoggedInUserId);
+
+                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
+            }
+
+            return PartialView("~/Views/Common/_TransportModeList.cshtml", response);
+        }
+
+        [HttpGet, Route("~/lookup/travel-service")]
+        public async Task<IActionResult> GetTravelServiceInfo()
+        {
+            Response<List<TravelServiceInfo>> response = new Response<List<TravelServiceInfo>>().GetFailedResponse(ResponseConstants.FAILED);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(this.LoggedInUserId))
+                {
+                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return PartialView("~/Views/Common/_TravelServiceList.cshtml", response);
+                }
+
+                var dbresponse = await _lookupService.GetTravelServiceInfo(LoggedInUserId);
+                if (Helpers.IsResponseValid(dbresponse))
+                {
+                    response = dbresponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupController.GetTravelServiceInfo({@loggedInUserId})", LoggedInUserId);
+
+                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
+            }
+
+            return PartialView("~/Views/Common/_TravelServiceList.cshtml", response);
+        }
+
     }
 }

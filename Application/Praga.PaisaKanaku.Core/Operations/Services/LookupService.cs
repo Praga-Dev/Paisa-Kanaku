@@ -252,5 +252,79 @@ namespace Praga.PaisaKanaku.Core.Operations.Services
 
             return response;
         }
+
+        public async Task<Response<List<TransportModeInfo>>> GetTransportModeInfo(Guid loggedInUserId)
+        {
+            Response<List<TransportModeInfo>> response = new Response<List<TransportModeInfo>>()
+                .GetFailedResponse(ResponseConstants.INVALID_PARAM);
+
+            try
+            {
+
+                if (!Helpers.IsValidGuid(loggedInUserId))
+                {
+                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return response;
+                }
+
+                var dbResponse = await _lookupsRepository.GetTransportModeInfo(loggedInUserId);
+                if (Helpers.IsResponseValid(dbResponse))
+                {
+                    response.Data = dbResponse.Data.Select(
+                        relationship => new TransportModeInfo()
+                        {
+                            TransportMode = relationship.TransportMode,
+                            TransportModeValue = relationship.TransportModeValue
+                        }).ToList();
+
+                    response = response.GetSuccessResponse(response.Data);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupsRepository.GetTransportModeInfo({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+            }
+
+            return response;
+        }
+
+        public async Task<Response<List<TravelServiceInfo>>> GetTravelServiceInfo(Guid loggedInUserId)
+        {
+            Response<List<TravelServiceInfo>> response = new Response<List<TravelServiceInfo>>()
+                .GetFailedResponse(ResponseConstants.INVALID_PARAM);
+
+            try
+            {
+
+                if (!Helpers.IsValidGuid(loggedInUserId))
+                {
+                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return response;
+                }
+
+                var dbResponse = await _lookupsRepository.GetTravelServiceInfo(loggedInUserId);
+                if (Helpers.IsResponseValid(dbResponse))
+                {
+                    response.Data = dbResponse.Data.Select(
+                        relationship => new TravelServiceInfo()
+                        {
+                            TravelService = relationship.TravelService,
+                            TravelServiceValue = relationship.TravelServiceValue
+                        }).ToList();
+
+                    response = response.GetSuccessResponse(response.Data);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupsRepository.GetTravelServiceInfo({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+            }
+
+            return response;
+        }
     }
 }

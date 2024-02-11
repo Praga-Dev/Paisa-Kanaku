@@ -162,5 +162,45 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories
                 return response;
             }
         }
+
+        public async Task<Response<List<TransportModeInfoDB>>> GetTransportModeInfo(Guid loggedInUserId)
+        {
+            Response<List<TransportModeInfoDB>> response = new Response<List<TransportModeInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+
+            try
+            {
+                string spName = DatabaseConstants.USP_TRANSPORT_MODE_INFO_GET;
+                var param = new { LoggedInUserId = loggedInUserId };
+
+                var result = await _db.Connection.QueryAsync<TransportModeInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
+                return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupsRepository.GetTransportModeInfo({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+                return response;
+            }
+        }
+
+        public async Task<Response<List<TravelServiceInfoDB>>> GetTravelServiceInfo(Guid loggedInUserId)
+        {
+            Response<List<TravelServiceInfoDB>> response = new Response<List<TravelServiceInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+
+            try
+            {
+                string spName = DatabaseConstants.USP_TRAVEL_SERVICE_INFO_GET;
+                var param = new { LoggedInUserId = loggedInUserId };
+
+                var result = await _db.Connection.QueryAsync<TravelServiceInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
+                return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupsRepository.GetTravelServiceInfo({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+                return response;
+            }
+        }
     }
 }
