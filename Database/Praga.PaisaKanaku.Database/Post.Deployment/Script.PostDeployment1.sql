@@ -254,7 +254,7 @@ BEGIN
     BEGIN
 	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'UNCATEGORIZED', N'Uncategorized', 15, 'A');
     END
-    IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'OUTDOOR_FOOD') -- unplanned expenses like functions
+    IF NOT EXISTS(SELECT * FROM [Lookups].[ExpenseTypeInfo] WHERE [ExpenseType] LIKE N'OUTDOOR_FOOD')
     BEGIN
 	    INSERT INTO [Lookups].[ExpenseTypeInfo] ([ExpenseType], [ExpenseTypeValue], [SequenceId], [RowStatus]) VALUES (N'OUTDOOR_FOOD', N'Outdoor Food', 15, 'A');
     END
@@ -561,6 +561,70 @@ BEGIN
 
 END
 GO
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'TravelServiceInfo') 
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[TravelServiceInfo] WHERE [TravelService] LIKE N'GOVERMENT')
+    BEGIN
+	    INSERT INTO [Lookups].[TravelServiceInfo]([TravelService], [TravelServiceValue]) VALUES (N'GOVERMENT', N'Goverment');
+    END
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[TravelServiceInfo] WHERE [TravelService] LIKE N'IRCTC')
+    BEGIN
+	    INSERT INTO [Lookups].[TravelServiceInfo]([TravelService], [TravelServiceValue]) VALUES (N'IRCTC', N'IRCTC');
+    END
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[TravelServiceInfo] WHERE [TravelService] LIKE N'METRO_RAIL')
+    BEGIN
+	    INSERT INTO [Lookups].[TravelServiceInfo]([TravelService], [TravelServiceValue]) VALUES (N'METRO_RAIL', N'Metro Rail');
+    END
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[TravelServiceInfo] WHERE [TravelService] LIKE N'OLA')
+    BEGIN
+	    INSERT INTO [Lookups].[TravelServiceInfo]([TravelService], [TravelServiceValue]) VALUES (N'OLA', N'Ola');
+    END
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[TravelServiceInfo] WHERE [TravelService] LIKE N'RAPIDO')
+    BEGIN
+	    INSERT INTO [Lookups].[TravelServiceInfo]([TravelService], [TravelServiceValue]) VALUES (N'RAPIDO', N'Rapido');
+    END
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[TravelServiceInfo] WHERE [TravelService] LIKE N'SELF')
+    BEGIN
+	    INSERT INTO [Lookups].[TravelServiceInfo]([TravelService], [TravelServiceValue]) VALUES (N'SELF', N'Self');
+    END
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[TravelServiceInfo] WHERE [TravelService] LIKE N'UBER')
+    BEGIN
+	    INSERT INTO [Lookups].[TravelServiceInfo]([TravelService], [TravelServiceValue]) VALUES (N'UBER', N'Uber');
+    END
+END
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'TransportModeInfo') 
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[TransportModeInfo] WHERE [TransportMode] LIKE N'AEROPLANE')
+    BEGIN
+	    INSERT INTO [Lookups].[TransportModeInfo]([TransportMode], [TransportModeValue]) VALUES (N'AEROPLANE', N'Aeroplane');
+    END
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[TransportModeInfo] WHERE [TransportMode] LIKE N'BIKE')
+    BEGIN
+	    INSERT INTO [Lookups].[TransportModeInfo]([TransportMode], [TransportModeValue]) VALUES (N'BIKE', N'Bike');
+    END
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[TransportModeInfo] WHERE [TransportMode] LIKE N'BOAT')
+    BEGIN
+	    INSERT INTO [Lookups].[TransportModeInfo]([TransportMode], [TransportModeValue]) VALUES (N'BOAT', N'Boat');
+    END
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[TransportModeInfo] WHERE [TransportMode] LIKE N'BUS')
+    BEGIN
+	    INSERT INTO [Lookups].[TransportModeInfo]([TransportMode], [TransportModeValue]) VALUES (N'BUS', N'Bus');
+    END
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[TransportModeInfo] WHERE [TransportMode] LIKE N'CAB')
+    BEGIN
+	    INSERT INTO [Lookups].[TransportModeInfo]([TransportMode], [TransportModeValue]) VALUES (N'CAB', N'Cab');
+    END
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[TransportModeInfo] WHERE [TransportMode] LIKE N'TRAIN')
+    BEGIN
+	    INSERT INTO [Lookups].[TransportModeInfo]([TransportMode], [TransportModeValue]) VALUES (N'TRAIN', N'Train');
+    END
+    IF NOT EXISTS(SELECT 1 FROM [Lookups].[TransportModeInfo] WHERE [TransportMode] LIKE N'ZIPLINE')
+    BEGIN
+	    INSERT INTO [Lookups].[TransportModeInfo]([TransportMode], [TransportModeValue]) VALUES (N'ZIPLINE', N'Zipline');
+    END
+END
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Setup' AND T.TABLE_NAME = 'MemberInfo') 
 BEGIN
