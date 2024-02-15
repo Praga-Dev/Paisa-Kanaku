@@ -1,0 +1,56 @@
+﻿@model GroceryInfo
+
+@if (Model != null)
+{
+    <div class="modal fade" data-bs-backdrop="static" id="createGroceryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <b class="modal-title" id="createGroceryTitle">
+                        Create Grocery
+                    </b>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="GroceryCreateFormContainer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form id="formCreateGrocery" data-id="@Model.Id" data-isupdate="@(Guid.Empty != Model.Id)" data-is-expense-view="false" autocomplete="off">
+                                    <div class="form-group">
+                                        <label for="name" class="form-label">Name <span class="mandatory">*</span></label>
+                                        <input id="name" name="name" asp-for="@Model.Name" type="text" class="form-control form-control-sm" aria-describedby="groceryHelp" maxlength="50">
+                                        <div id="groceryHelp" style="display:none;" class="form-text">Name is case sensitive, ranges between 2 and 50 characters.</div>
+                                    </div>
+                                    <div id="groceryCategoryListDDContainer" class="form-group"
+                                            data-val="@(!string.IsNullOrWhiteSpace(Model?.GroceryCategoryInfo?.GroceryCategory) ? Model?.GroceryCategoryInfo?.GroceryCategory : "")">
+                                        <partial name="~/Views/Common/_GroceryCategoryList.cshtml" model="null" />
+                                    </div>
+                                    <div class="">
+                                        <div id="brandListDDContainer" class="form-group" data-val="@(Model?.BrandInfo?.Id != Guid.Empty ? Model?.BrandInfo?.Id : "")">
+                                            <partial name="~/Views/Common/_GroceryCategoryList.cshtml" model="null" />
+                                        </div>
+                                        <div id="brandNameContainer" class="form-group" style="display:none">
+                                            <label for="brandName" class="form-label">Brand Name <span class="mandatory">*</span></label>
+                                            <input id="brandName" name="brandName" asp-for="@Model.BrandInfo.Name" type="text" class="form-control form-control-sm" aria-describedby="grocery-brand-help" maxlength="50">
+                                            <div id="grocery-brand-help" style="display:none;" class="form-text">Brand Name is case sensitive, ranges between 2 and 50 characters.</div>
+                                        </div>
+                                    </div>
+                                    <div id="timePeriodListDDContainer" class="form-group" data-val="@(string.IsNullOrEmpty(@Model?.PreferredTimePeriodInfo?.TimePeriodType) ? "" : @Model?.PreferredTimePeriodInfo?.TimePeriodType)">
+                                        <partial name="~/Views/Common/_TimePeriodList.cshtml" model="null" />
+                                    </div>
+                                    <button type="submit" id="btnGrocerySaveSubmit" class="display-none" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="btnSaveGrocerySubmit" onclick="saveGrocery()" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/Setup/Grocery/grocery-validation.js" asp-append-version="true"></script>
+}

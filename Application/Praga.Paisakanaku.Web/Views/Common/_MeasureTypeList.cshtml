@@ -1,0 +1,17 @@
+﻿@model Response<List<MeasureTypeInfo>>
+
+<div class="form-group">
+    <label class="form-label">
+        Measure Type
+        <span class="required">*</span>
+    </label>
+    <select id="selectMeasureType" name="selectMeasureType" class="form-control form-control-sm" onchange="updateMeasureTypeTextOnQuantity()">
+        @if (Model != null && Model.Data != null && Model.Data.Any())
+        {
+            @foreach (var measure in Model.Data)
+            {
+                <option value="@measure.MeasureType">@measure.MeasureTypeValue</option>
+            }
+        }
+    </select>
+</div>

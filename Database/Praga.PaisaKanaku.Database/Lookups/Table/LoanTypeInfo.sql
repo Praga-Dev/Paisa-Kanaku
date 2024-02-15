@@ -1,0 +1,12 @@
+﻿CREATE TABLE [Lookups].[LoanTypeInfo]
+(
+	[LoanType] NVARCHAR(25) NOT NULL,
+	[LoanTypeValue] NVARCHAR(25) NOT NULL,
+	[SequenceId] INT NOT NULL,
+	[RowStatus] NVARCHAR(1) NOT NULL DEFAULT 'A'
+	CONSTRAINT [PK_Lookups_LoanTypeInfo] PRIMARY KEY CLUSTERED 
+	(
+		[LoanType] ASC
+	) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	CONSTRAINT [FK_LoanTypeInfo_RowStatusInfo] FOREIGN KEY ([RowStatus]) REFERENCES [Lookups].[RowStatusInfo]([RowStatus])
+) ON [PRIMARY];

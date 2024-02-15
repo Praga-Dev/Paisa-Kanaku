@@ -1,0 +1,25 @@
+﻿@model Response<List<ExpenseTypeInfo>>
+
+<div class="form-group">
+    <label class="form-label">
+        Expense Type
+        <span class="required">*</span>
+    </label>
+    <select id="selectExpenseType" name="expenseType" class="form-control form-control-sm">
+        @if (Model != null && Model.Data != null && Model.Data.Any())
+        {
+            @foreach (var expenseType in Model.Data)
+            {
+                @if (expenseType.ExpenseType == "UNCATEGORIZED")
+                {
+                    <option value="@expenseType.ExpenseType" selected>@expenseType.ExpenseTypeValue</option>
+                }
+                else
+                {
+                    <option value="@expenseType.ExpenseType">@expenseType.ExpenseTypeValue</option>
+
+                }
+            }
+        }
+    </select>
+</div>

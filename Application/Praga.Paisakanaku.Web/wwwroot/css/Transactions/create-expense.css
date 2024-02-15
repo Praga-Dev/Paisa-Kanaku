@@ -1,0 +1,22 @@
+﻿.pk-back-button {
+    position: absolute;
+    margin-bottom: 0px;
+    left: 50px;
+}
+
+.pk-expense-container{
+    max-width: 1800px;
+}
+
+.pk-table-border{
+    border: 0.1px solid grey;
+}
+
+.form-group {
+    padding: 0.2rem 0 !important;
+}
+
+.scrollable-table-container{
+    height: 300px;
+    overflow:scroll;
+}

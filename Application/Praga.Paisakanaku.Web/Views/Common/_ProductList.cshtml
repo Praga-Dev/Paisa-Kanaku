@@ -1,0 +1,18 @@
+﻿@model Response<List<ProductInfo>>
+
+<div class="form-group">
+    <label class="form-label">
+        Product
+        <span class="required">*</span>
+    </label>
+    <select id="selectProduct" name="product" class="form-control form-control-sm">
+        @if (Model != null && Model.Data != null && Model.Data.Any())
+        {
+            @foreach (var product in Model.Data)
+            {
+                <option value="@product.Id">@product.Name - @product.BrandInfo?.Name - @product.ProductCategoryInfo?.ProductCategoryValue</option>
+            }
+        }
+        <option value="NEW">New</option>
+    </select>
+</div>

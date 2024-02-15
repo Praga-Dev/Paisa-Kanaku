@@ -1,0 +1,25 @@
+.logo {
+  float: left;
+  background: white;
+  width: 120px;
+  height: 71px;
+  padding-left: 40px;
+  padding-right: 160px;
+}
+
+.ant-row-rtl .logo {
+  float: right;
+  margin: 16px 0 16px 24px;
+}
+
+.site-layout-background {
+  background: #fff;
+}
+
+.header {
+  height: 64px;
+  padding: 0px;
+  color: rgb(255 255 255 / 85%);
+  line-height: 64px;
+  background: #ffffff;
+}

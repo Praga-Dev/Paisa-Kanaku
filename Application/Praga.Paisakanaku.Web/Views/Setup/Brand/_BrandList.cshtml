@@ -1,0 +1,42 @@
+﻿@model Response<List<BrandInfo>>
+
+<div class="action-body-container">
+    <div class="main-grid-container">
+        <div class="table-responsive">
+            <table class="table table-bordered  align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Brand Name</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
+                    {
+                        @foreach (var brand in Model.Data)
+                        {
+                            <tr>
+                                <th scope="row">
+                                    @if (!string.IsNullOrWhiteSpace(brand.Name))
+                                    {
+                                        <p>@brand.Name</p>
+                                    }
+                                </th>
+                                <td class="d-flex justify-content-end">
+                                    <span class="material-icons-outlined arrow btn-icon" id="btnEditBrand_@brand.Id"
+                                  title="Update Brand" onclick="editBrand('@brand.Id')">
+                                        edit
+                                    </span>
+                                    <span class="material-icons-outlined arrow btn-icon" id="btnDeleteBrand_@brand.Id"
+                                  title="Delete Brand" onclick="deleteBrand('@brand.Id', '@brand.Name')">
+                                        delete
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

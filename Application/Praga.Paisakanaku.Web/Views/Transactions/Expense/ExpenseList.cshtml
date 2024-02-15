@@ -1,0 +1,104 @@
+﻿@model Response<List<ExpenseInfo>>
+
+@{
+    ViewData["Title"] = "Expenses";
+}
+
+<link href="~/css/transactions/expense-list.css" rel="stylesheet" asp-append-version="true" />
+<script src="~/lib/full-calendar/index.global.min.js" asp-append-version="true"></script>
+
+<div class="row">
+<div class="col-md-8">
+        <div id='calendar'></div>
+</div>
+    <div class="col-md-4 pt-55">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold text-center fs-5">Expenses</div>
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="">Product</div>
+                </div>
+                <span class="text-danger"> - $ 250.020</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="">Bills</div>
+                </div>
+                <span class="text-danger"> - $ 250.020</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="">Home Well Being</div>
+                </div>
+                <span class="text-danger"> - $ 250.020</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="">Entertainment</div>
+                </div>
+                <span class="text-danger"> - $ 250.020</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="">Healthcare</div>
+                </div>
+                <span class="text-danger"> - $ 250.020</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="">Business Needs</div>
+                </div>
+                <span class="text-danger"> - $ 250.020</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="">Business Needs</div>
+                </div>
+                <span class="text-danger"> - $ 250.020</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="">Business Needs</div>
+                </div>
+                <span class="text-danger"> - $ 250.020</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="">Business Needs</div>
+                </div>
+                <span class="text-danger"> - $ 250.020</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="">Business Needs</div>
+                </div>
+                <span class="text-danger"> - $ 250.020</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="">Business Needs</div>
+                </div>
+                <span class="text-danger"> - $ 250.020</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="">Business Needs</div>
+                </div>
+                <span class="text-danger"> - $ 250.020</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold text-center fs-6">Total Expense</div>
+                </div>
+                <span class="text-danger fw-bold fs-6"> - $ 250.020</span>
+            </li>
+        </ul>
+</div>
+
+</div>
+
+<script src="~/js/transactions/expense/expense.js" asp-append-version="true"></script>

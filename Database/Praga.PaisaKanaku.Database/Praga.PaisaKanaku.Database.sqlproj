@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Praga.PaisaKanaku.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{51053208-0db0-4aab-80c7-749adf07bb8c}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath />
+    <RootNamespace>Praga.PaisaKanaku.Database</RootNamespace>
+    <AssemblyName>Praga.PaisaKanaku.Database</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Schema" />
+    <Folder Include="Setup" />
+    <Folder Include="Setup\Table" />
+    <Folder Include="Setup\StoredProcedure" />
+    <Folder Include="Setup\Table\Brand" />
+    <Folder Include="Lookups" />
+    <Folder Include="Lookups\Table" />
+    <Folder Include="Lookups\StoredProcedure" />
+    <Folder Include="Post.Deployment" />
+    <Folder Include="Auth" />
+    <Folder Include="Auth\StoredProcedure" />
+    <Folder Include="Auth\Table" />
+    <Folder Include="Auth\ScalarFunction" />
+    <Folder Include="Setup\Table\Member" />
+    <Folder Include="Setup\StoredProcedure\Brand" />
+    <Folder Include="Setup\StoredProcedure\Member" />
+    <Folder Include="Setup\Table\Product" />
+    <Folder Include="Setup\StoredProcedure\Product" />
+    <Folder Include="Transactions" />
+    <Folder Include="Transactions\Table" />
+    <Folder Include="Transactions\StoredProcedure" />
+    <Folder Include="Transactions\Table\Expense" />
+    <Folder Include="Transactions\StoredProcedure\Expense" />
+    <Folder Include="Common" />
+    <Folder Include="Common\ScalarFunction" />
+    <Folder Include="Common\StoredProcedure" />
+    <Folder Include="Setup\Table\BillType" />
+    <Folder Include="Setup\StoredProcedure\BillType" />
+    <Folder Include="Setup\Table\RepairType" />
+    <Folder Include="Setup\StoredProcedure\RepairType" />
+    <Folder Include="Setup\Table\Lender" />
+    <Folder Include="Setup\StoredProcedure\Lender" />
+    <Folder Include="Transactions\Table\Loan" />
+    <Folder Include="Transactions\StoredProcedure\Loan" />
+    <Folder Include="Setup\Table\Grocery" />
+    <Folder Include="Setup\StoredProcedure\Grocery" />
+    <Folder Include="Transactions\Table\ExpenseProduct" />
+    <Folder Include="Transactions\StoredProcedure\ExpenseProduct" />
+    <Folder Include="Transactions\Table\ExpenseGrocery" />
+    <Folder Include="Transactions\StoredProcedure\ExpenseGrocery" />
+    <Folder Include="Transactions\Table\ExpenseFamilyWellbeing" />
+    <Folder Include="Transactions\StoredProcedure\ExpenseFamilyWellbeing" />
+    <Folder Include="Transactions\Table\ExpenseOutdoorFood" />
+    <Folder Include="Setup\Table\OutdoorFoodVendor" />
+    <Folder Include="Setup\StoredProcedure\OutdoorFoodVendor" />
+    <Folder Include="Transactions\StoredProcedure\ExpenseOutdoorFood" />
+    <Folder Include="Transactions\Table\ExpenseTravel" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Schema\Account.sql" />
+    <Build Include="Schema\Lookups.sql" />
+    <Build Include="Schema\Setup.sql" />
+    <Build Include="Setup\Table\Brand\BrandInfo.sql" />
+    <Build Include="Lookups\Table\RowStatusInfo.sql" />
+    <Build Include="Schema\Auth.sql" />
+    <Build Include="Auth\Table\UserInfo.sql" />
+    <Build Include="Auth\StoredProcedure\usp_v1_UserInfo_Save.sql" />
+    <Build Include="Auth\StoredProcedure\usp_v1_User_Info_Get.sql" />
+    <Build Include="Auth\ScalarFunction\udp_v1_ValidateLoggedInUser.sql" />
+    <Build Include="Setup\Table\Member\MemberInfo.sql" />
+    <Build Include="Setup\StoredProcedure\Brand\usp_V1_BrandInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Brand\usp_V1_BrandInfo_Save.sql" />
+    <Build Include="Setup\StoredProcedure\Member\usp_V1_MemberInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Member\usp_V1_MemberInfo_Save.sql" />
+    <Build Include="Lookups\Table\ExpenseTypeInfo.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_ExpenseTypeInfo_Get.sql" />
+    <Build Include="Lookups\Table\MeasureTypeInfo.sql" />
+    <Build Include="Setup\Table\Product\ProductInfo.sql" />
+    <Build Include="Lookups\Table\TimePeriodTypeInfo.sql" />
+    <Build Include="Setup\StoredProcedure\Product\usp_V1_ProductInfo_Save.sql" />
+    <Build Include="Lookups\Table\PaymentMethodInfo.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_PaymentMethodInfo_Get.sql" />
+    <Build Include="Schema\Transactions.sql" />
+    <Build Include="Transactions\Table\Expense\ExpenseInfo.sql" />
+    <Build Include="Transactions\Table\Expense\ExpenseReferenceDetailInfo.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_MeasureTypeInfo_Get.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_TimePeriodTypeInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Brand\usp_V1_BrandInfo_Get_By_Id.sql" />
+    <Build Include="Setup\StoredProcedure\Member\usp_V1_MemberInfo_Get_By_Id.sql" />
+    <Build Include="Schema\Common.sql" />
+    <Build Include="Common\ScalarFunction\udp_v1_ValidateGuid.sql" />
+    <Build Include="Setup\StoredProcedure\Product\usp_V1_ProductInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Product\usp_V1_ProductInfo_Get_By_Id.sql" />
+    <Build Include="Transactions\Table\Expense\TempExpenseInfo.sql" />
+    <Build Include="Common\StoredProcedure\usp_v1_RowStatus_Update.sql" />
+    <Build Include="Transactions\Table\Expense\ExpenseReferenceDetailLog.sql" />
+    <Build Include="Setup\Table\BillType\BillTypeInfo.sql" />
+    <Build Include="Setup\StoredProcedure\BillType\usp_V1_BillTypeInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\BillType\usp_V1_BillTypeInfo_Get_By_Id.sql" />
+    <Build Include="Setup\StoredProcedure\BillType\usp_V1_BillTypeInfo_Save.sql" />
+    <Build Include="Setup\Table\RepairType\RepairTypeInfo.sql" />
+    <Build Include="Setup\StoredProcedure\RepairType\usp_V1_RepairTypeInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\RepairType\usp_V1_RepairTypeInfo_Get_By_Id.sql" />
+    <Build Include="Setup\StoredProcedure\RepairType\usp_V1_RepairTypeInfo_Save.sql" />
+    <Build Include="Setup\Table\Lender\LenderInfo.sql" />
+    <Build Include="Setup\StoredProcedure\Lender\usp_V1_LenderInfo_Save.sql" />
+    <Build Include="Setup\StoredProcedure\Lender\usp_V1_LenderInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Lender\usp_V1_LenderInfo_Get_By_Id.sql" />
+    <Build Include="Transactions\Table\Loan\LoanInfo.sql" />
+    <Build Include="Transactions\Table\Loan\LoanInterestPaymentInfo.sql" />
+    <Build Include="Transactions\Table\Loan\LoanPartialPrePaymentInfo.sql" />
+    <Build Include="Lookups\Table\LoanStatusInfo.sql" />
+    <Build Include="Lookups\Table\LoanTypeInfo.sql" />
+    <Build Include="Transactions\StoredProcedure\Loan\usp_V1_LoanInfo_Save.sql" />
+    <Build Include="Transactions\Table\Loan\CollateralInfo.sql" />
+    <Build Include="Transactions\Table\Loan\CollateralOwnerInfo.sql" />
+    <Build Include="Lookups\Table\CollateralTypeInfo.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_CollateralTypeInfo_Get.sql" />
+    <Build Include="Transactions\StoredProcedure\Expense\usp_V1_ExpenseInfo_Get.sql" />
+    <Build Include="Setup\Table\Grocery\GroceryInfo.sql" />
+    <Build Include="Lookups\Table\MetricSystemInfo.sql" />
+    <Build Include="Lookups\Table\ProductCategoryInfo.sql" />
+    <Build Include="Lookups\Table\GroceryCategoryInfo.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_ProductCategoryInfo_Get.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_GroceryCategoryInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Grocery\usp_V1_GroceryInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Grocery\usp_V1_GroceryInfo_Get_By_Id.sql" />
+    <Build Include="Setup\StoredProcedure\Grocery\usp_V1_GroceryInfo_Save.sql" />
+    <Build Include="Transactions\Table\ExpenseProduct\ExpenseProductInfo.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseProduct\usp_ExpenseProductInfo_Save.sql" />
+    <Build Include="Common\StoredProcedure\usp_v1_Add_To_ExpenseAmount.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseProduct\usp_ExpenseProductInfo_Get_SumAmountByDate.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseProduct\usp_ExpenseProductInfo_Get_ByDate.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseProduct\usp_ExpenseProductInfo_Get_ById.sql" />
+    <Build Include="Setup\Table\Product\ProductPriceInfo.sql" />
+    <Build Include="Setup\StoredProcedure\Product\usp_ProductPriceInfo_Register.sql" />
+    <Build Include="Transactions\Table\ExpenseGrocery\ExpenseGroceryInfo.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseGrocery\usp_ExpenseGroceryInfo_Save.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseGrocery\usp_ExpenseGroceryInfo_Get_SumAmountByDate.sql" />
+    <Build Include="Common\ScalarFunction\udp_v1_ValidateMonth.sql" />
+    <Build Include="Common\ScalarFunction\udp_v1_ValidateYear.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseGrocery\usp_ExpenseGroceryInfo_Get_ById.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseGrocery\usp_ExpenseGroceryInfo_Get_ByDate.sql" />
+    <Build Include="Setup\StoredProcedure\Member\usp_V1_GetManagesExpenseMemberInfo.sql" />
+    <Build Include="Transactions\Table\ExpenseFamilyWellbeing\ExpenseFamilyWellbeingInfo.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseFamilyWellbeing\usp_ExpenseFamilyWellbeingInfo_Save.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseFamilyWellbeing\usp_ExpenseFamilyWellbeingInfo_Get_SumAmountByDate.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseFamilyWellbeing\usp_ExpenseFamilyWellbeingInfo_Get_ById.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseFamilyWellbeing\usp_ExpenseFamilyWellbeingInfo_Get_ByDate.sql" />
+    <Build Include="Lookups\Table\RelationshipTypeInfo.sql" />
+    <Build Include="Setup\StoredProcedure\Member\usp_V1_GetFamilyMemberInfo.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_RelationshipTypeInfo_Get.sql" />
+    <Build Include="Transactions\StoredProcedure\Expense\usp_V1_Expense_Delete_By_Type.sql" />
+    <Build Include="Transactions\StoredProcedure\Expense\usp_V1_GetMonthlyExpenseByType.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_MetricSystemInfo_Get.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_MeasureTypeInfo_By_GroceryInfoId_Get.sql" />
+    <Build Include="Transactions\Table\ExpenseOutdoorFood\ExpenseOutdoorFoodInfo.sql" />
+    <Build Include="Setup\Table\OutdoorFoodVendor\OutdoorFoodVendorInfo.sql" />
+    <Build Include="Setup\StoredProcedure\OutdoorFoodVendor\usp_OutdoorFoodVendorInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\OutdoorFoodVendor\usp_OutdoorFoodVendorInfo_GetById.sql" />
+    <Build Include="Setup\StoredProcedure\OutdoorFoodVendor\usp_OutdoorFoodVendorInfo_Save.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseOutdoorFood\usp_ExpenseOutdoorFoodInfo_Save.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseOutdoorFood\usp_ExpenseOutdoorFoodInfo_Get_SumAmountByDate.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseOutdoorFood\usp_ExpenseOutdoorFoodInfo_Get_ById.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseOutdoorFood\usp_ExpenseOutdoorFoodInfo_Get_ByDate.sql" />
+    <Build Include="Lookups\Table\TravelServiceInfo.sql" />
+    <Build Include="Lookups\Table\TransportModeInfo.sql" />
+    <Build Include="Transactions\Table\ExpenseTravel\ExpenseTravelInfo.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_TransportModeInfo_Get.sql" />
+    <Build Include="Lookups\StoredProcedure\usp_v1_TravelServiceInfo_Get.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />
+  </ItemGroup>
+</Project>

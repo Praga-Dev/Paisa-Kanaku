@@ -1,0 +1,41 @@
+﻿@using System.Globalization;
+@model Response<List<ExpenseInfoSumAmountByDate>>
+
+<div class="action-body-container">
+    <div class="main-grid-container">
+        <div class="table-responsive">
+            <table class="table table-bordered  align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Expense</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
+                    {
+                        @foreach (var expenseProduct in Model.Data)
+                        {
+                            <tr>
+                                <th scope="row">
+                                    @if (expenseProduct.ExpenseDate > DateTime.MinValue)
+                                    {
+                                        <p>@expenseProduct.ExpenseDate.ToString("d")</p>
+                                    }
+                                </th>
+                                <td scope="row">
+                                    @if (expenseProduct.TotalExpenseAmount > -1)
+                                    {
+                                        <p>
+                                            @string.Format(new CultureInfo("en-IN"), "{0:C}", expenseProduct.TotalExpenseAmount)
+                                        </p>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

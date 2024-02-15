@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32505.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Praga.PaisaKanaku.API", "Praga.PaisaKanaku.API.csproj", "{4FA577B0-0E95-4735-B693-A4C9DC8F3B9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Praga.PaisaKanaku.Core", "..\Praga.PaisaKanaku.Core\Praga.PaisaKanaku.Core.csproj", "{9CAE8CA9-2812-4769-9DA6-B4FE86709AC5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4FA577B0-0E95-4735-B693-A4C9DC8F3B9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FA577B0-0E95-4735-B693-A4C9DC8F3B9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FA577B0-0E95-4735-B693-A4C9DC8F3B9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FA577B0-0E95-4735-B693-A4C9DC8F3B9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CAE8CA9-2812-4769-9DA6-B4FE86709AC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CAE8CA9-2812-4769-9DA6-B4FE86709AC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CAE8CA9-2812-4769-9DA6-B4FE86709AC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CAE8CA9-2812-4769-9DA6-B4FE86709AC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {95F8FA41-2A0D-4C7C-8281-907C0BAEC173}
+	EndGlobalSection
+EndGlobal

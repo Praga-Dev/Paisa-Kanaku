@@ -1,0 +1,68 @@
+﻿@model Response<List<ProductInfo>>
+
+<div class="action-body-container">
+    <div class="main-grid-container">
+        <div class="table-responsive">
+            <table class="table table-bordered  align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Product Category</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Preferred Time Period</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
+                    {
+                        @foreach (var product in Model.Data)
+                        {
+                            <tr>
+                                <td scope="row">
+                                    @if (!string.IsNullOrWhiteSpace(product.Name))
+                                    {
+                                        <p data-bs-toggle="tooltip" data-bs-placement="top" title="@product.Description">@product.Name</p> 
+                                        @* TODO Check Tooltip functionality *@
+                                    }
+                                </td>
+                                <td scope="row">
+                                    <p>@product.Price.ToString("C")</p>
+                                </td>
+                                <td scope="row">
+                                    @if (product.ProductCategoryInfo != null && !string.IsNullOrWhiteSpace(product.ProductCategoryInfo.ProductCategoryValue))
+                                    {
+                                        <p>@product.ProductCategoryInfo.ProductCategoryValue</p>
+                                    }
+                                </td>
+                                <td scope="row">
+                                    @if (product.BrandInfo != null && !string.IsNullOrWhiteSpace(product.BrandInfo.Name))
+                                    {
+                                        <p>@product.BrandInfo.Name</p>
+                                    }
+                                </td>
+                                <td scope="row">
+                                    @if (product.PreferredTimePeriodInfo != null && !string.IsNullOrWhiteSpace(product.PreferredTimePeriodInfo.TimePeriodTypeValue))
+                                    {
+                                        <p>@product.PreferredTimePeriodInfo.TimePeriodTypeValue</p>
+                                    }
+                                </td>
+                                <td class="d-flex justify-content-end">
+                                    <span class="material-icons-outlined arrow btn-icon" id="btnEditProduct_@product.Id"
+                                  title="Update Product" onclick="editProduct('@product.Id')">
+                                        edit
+                                    </span>
+                                    <span class="material-icons-outlined arrow btn-icon" id="btnDeleteProduct_@product.Id"
+                                  title="Delete Product" onclick="deleteProduct('@product.Id', '@product.Name')">
+                                        delete
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

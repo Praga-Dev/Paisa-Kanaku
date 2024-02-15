@@ -1,0 +1,45 @@
+﻿@model Response<List<BrandInfo>>
+
+@{
+    ViewData["Title"] = "Brand";
+}
+
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Brand</h2>
+                </div>
+                <div class="col-sm-6">
+                    @*<a href="#addEmployeeModal" class="btn btn-primary-outline" data-toggle="modal"> </a>*@
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary-outline" onclick="onCreateBrand()">
+                        <span>Create &nbsp;</span><i class="material-icons">&#xE147;</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="brandListContainer">
+            @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
+            {
+                <partial name="_BrandList.cshtml" />
+            }
+            else
+            {
+                <p>
+                    NO RECORDS FOUND
+                </p>
+            }
+        </div>
+    </div>
+    <div>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary-outline"> <span>&#8592; &nbsp;</span> Go to Home</a>
+    </div>
+</div>
+
+<div id="createBrandFormContainer">
+    <partial name="_CreateBrand.cshtml" model="new BrandInfo()" />
+</div>
+
+<script src="~/js/Setup/Brand/brand.js" asp-append-version="true"></script>

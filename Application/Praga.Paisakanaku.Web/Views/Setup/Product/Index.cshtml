@@ -1,0 +1,48 @@
+﻿@model Response<List<ProductInfo>>
+
+@{
+    ViewData["Title"] = "Product";
+}
+
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Product</h2>
+                </div>
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-primary-outline" onclick="onCreateProduct()">
+                        <span>Create &nbsp;</span><i class="material-icons">&#xE147;</i>
+                    </button>
+                    <a id="btnDownloadProduct" class="btn btn-primary-outline" asp-area="" asp-controller="Product" asp-action="ExportProductInfoData">
+                        <i class="material-icons">
+                            file_download
+                        </i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="productListContainer">
+            @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
+            {
+                    <partial name="_ProductList.cshtml" />
+            }
+            else
+            {
+                <p>
+                    NO RECORDS FOUND
+                </p>
+            }
+        </div>
+    </div>
+    <div>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary-outline"> <span>&#8592; &nbsp;</span> Go to Home</a>
+    </div>
+</div>
+
+<div id="createProductFormContainer">
+    <partial name="_CreateProduct.cshtml" model="new ProductInfo()" />
+</div>
+
+<script src="~/js/Setup/Product/product.js" asp-append-version="true"></script>

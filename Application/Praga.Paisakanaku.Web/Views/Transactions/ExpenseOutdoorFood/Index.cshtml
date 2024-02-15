@@ -1,0 +1,9 @@
+﻿@model Response<List<ExpenseInfoSumAmountByDate>>
+
+@{
+    ViewData["Title"] = "OutdoorFood - Expense";
+}
+
+<div class="pk-expense-container">
+    <partial name="_CreateExpenseOutdoorFood.cshtml" model="new ExpenseOutdoorFoodInfo()" />
+</div>

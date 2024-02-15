@@ -1,0 +1,67 @@
+﻿@model ExpenseProductInfo
+
+@if (Model != null)
+{
+    <h5>Create Expense</h5>
+    <div id="ExpenseCreateFormContainer">
+        <div class="row">
+            <div class="col-sm-12">
+                <form id="formCreateExpense" data-id="@Model.Id" data-expense-id="@Model.ExpenseInfoId" data-isupdate="@(Guid.Empty != Model.Id)" autocomplete="off">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="expenseDate" class="form-label">Expense Date <span class="mandatory">*</span></label>
+                            <input id="expenseDate" name="expenseDate" asp-for="@Model.ExpenseDate" type="date" class="form-control form-control-sm" aria-describedby="product-expense-date-help">
+                            <div id="product-expense-date-help" style="display:none;" class="form-text">Date should be past or present date of the expense made.</div>
+                        </div>
+                        <div id="memberListDDContainer" class="form-group" data-val="@Model?.ExpenseByInfo?.Id">
+                            <partial name="~/Views/Common/_MemberList.cshtml" model="null" />
+                        </div>
+                        <div class="">
+                            <div id="productListDDContainer" class="form-group" data-val="@Model.ProductBaseInfo?.Id" data-price="@Model.ProductPrice">
+                                <partial name="~/Views/Common/_ProductList.cshtml" model="null" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="amount" class="form-label">Product Amount <span class="mandatory">*</span></label>
+                                    <input id="amount" name="amount" asp-for="@Model.ProductBaseInfo.Price" type="number" class="form-control form-control-sm" aria-describedby="product-amount-help" min="0">
+                                    <div id="product-amount-help" style="display:none;" class="form-text">Enter valid expense amount of the product. Example : 50.95</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="quantity" class="form-label">Quantity<span class="mandatory">*</span></label>
+                                    <input id="quantity" name="quantity" asp-for="@Model.Quantity" type="number" class="form-control form-control-sm" aria-describedby="product-expense-quantity-help" min="1" value="@Model.Quantity" max="100">
+                                    <div id="product-expense-quantity-help" style="display:none;" class="form-text">Enter valid quantity of the product. Example : 3</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="expenseAmount" class="form-label">Expense Amount <span class="mandatory">*</span></label>
+                                    <input id="expenseAmount" name="expenseAmount" asp-for="@Model.ExpenseAmount" type="number" value="@(Model.ExpenseAmount * Model.Quantity)" class="form-control form-control-sm" aria-describedby="product-expense-amount-help" min="0">
+                                    <div id="product-expense-amount-help" style="display:none;" class="form-text">Enter valid expense amount of the product. Example : 50.95</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="expenseDescription" class="form-label">Description</label>
+                            <textarea id="expenseDescription" name="description" asp-for="@Model.Description" type="text" class="form-control form-control-sm" aria-describedby="product-expense-description-help" maxlength="250"></textarea>
+                            <div id="product-expense-description-help" style="display:none;" class="form-text">Description is case sensitive, ranges between 2 and 250 characters.</div>
+                        </div>
+                    </div>
+                    <div class="pb-3 pt-3">
+                        <button type="button" class="btn btn-secondary">Clear</button>
+                        <button id="btnAddExpenseSubmit" type="submit" class="btn btn-primary">Add Expense</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="createProductFormContainer">
+        <partial name="~/Views/Setup/Product/_CreateProduct.cshtml" model="new ProductInfo()" />
+    </div>
+
+    <script src="~/js/Transactions/ExpenseProduct/create-expense-product-validation.js" asp-append-version="true"></script>
+}

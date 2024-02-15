@@ -1,0 +1,24 @@
+﻿@model Response<List<TimePeriodTypeInfo>>
+
+<div class="form-group">
+    <label class="form-label">
+        Time Period
+        <span class="required">*</span>
+    </label>
+    <select id="selectTimePeriod" name="timePeriod" class="form-control form-control-sm">
+        @if (Model != null && Model.Data != null && Model.Data.Any())
+        {
+            @foreach (var timePeriod in Model.Data)
+            {
+                @if (timePeriod.TimePeriodType == "NA")
+                {
+                    <option value="@timePeriod.TimePeriodType" selected>@timePeriod.TimePeriodTypeValue</option>
+                }
+                else
+                {
+                    <option value="@timePeriod.TimePeriodType">@timePeriod.TimePeriodTypeValue</option>
+                }
+            }
+        }
+    </select>
+</div>

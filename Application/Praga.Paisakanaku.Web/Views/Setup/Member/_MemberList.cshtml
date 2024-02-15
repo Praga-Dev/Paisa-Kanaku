@@ -1,0 +1,49 @@
+﻿@model Response<List<MemberInfo>>
+
+<div class="action-body-container">
+    <div class="main-grid-container">
+        <div class="table-responsive">
+            <table class="table table-bordered  align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Member Name</th>
+                        <th scope="col">Relationship</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.IsSuccess && Model.Data != null && Model.Data.Any())
+                    {
+                        @foreach (var member in Model.Data)
+                        {
+                            <tr>
+                                <td scope="row">
+                                    @if (!string.IsNullOrWhiteSpace(member.Name))
+                                    {
+                                        <p>@member.Name</p>
+                                    }
+                                </td>
+                                <td scope="row">
+                                    @if (member.RelationshipTypeInfo != null && !string.IsNullOrWhiteSpace(member.RelationshipTypeInfo.RelationshipTypeValue))
+                                    {
+                                        <p>@member.RelationshipTypeInfo.RelationshipTypeValue</p>
+                                    }
+                                </td>
+                                <td class="d-flex justify-content-end">
+                                    <span class="material-icons-outlined arrow btn-icon" id="btnEditMember_@member.Id"
+                                          title="Update Member" onclick="editMember('@member.Id')">
+                                        edit
+                                    </span>
+                                    <span class="material-icons-outlined arrow btn-icon" id="btnDeleteMember_@member.Id"
+                                          title="Delete Member" onclick="deleteMember('@member.Id', '@member.Name')">
+                                        delete
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

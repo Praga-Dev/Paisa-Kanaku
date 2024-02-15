@@ -1,0 +1,48 @@
+﻿@model ExpenseOutdoorFoodInfo
+
+@if (Model != null)
+{
+    <h5>Create Expense</h5>
+    <div id="ExpenseCreateFormContainer">
+        <div class="row">
+            <div class="col-sm-12">
+                <form id="formCreateExpenseOutdoorFood" data-id="@Model.Id" data-expense-id="@Model.ExpenseInfoId" data-isupdate="@(Guid.Empty != Model.Id)" autocomplete="off">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="expenseDate" class="form-label">Expense Date <span class="mandatory">*</span></label>
+                            <input id="expenseDate" name="expenseDate" asp-for="@Model.ExpenseDate" type="date" class="form-control form-control-sm" aria-describedby="expense-outdoor-food-date-help">
+                            <div id="expense-outdoor-food-date-help" style="display:none;" class="form-text">Date should be past or present date of the expense made.</div>
+                        </div>
+                        <div id="memberListDDContainer" class="form-group" data-val="@Model?.ExpenseByInfo?.Id">
+                            <partial name="~/Views/Common/_MemberList.cshtml" model="null" />
+                        </div>
+                        <div id="outdoorFoodVendorListDDContainer" class="form-group" data-val="@Model?.OutdoorFoodVendorInfo?.Id">
+                            <partial name="~/Views/Common/_OutdoorFoodVendorList.cshtml" model="null" />
+                        </div>
+                        <div class="form-group">
+                            <label for="expenseAmount" class="form-label">Expense Amount <span class="mandatory">*</span></label>
+                            <input id="expenseAmount" name="expenseAmount" asp-for="@Model.ExpenseAmount" type="number" value="@(Model.ExpenseAmount)" class="form-control form-control-sm" aria-describedby="expense-outdoor-food-amount-help" min="0">
+                            <div id="expense-outdoor-food-amount-help" style="display:none;" class="form-text">Enter valid amount. Example : 50.99</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="expenseBillImageURL" class="form-label">Bill Image URL</label>
+                            <input id="expenseBillImageURL" name="expenseBillImageURL" asp-for="@Model.BillImageURL" type="text"  class="form-control form-control-sm" aria-describedby="expense-outdoor-food-bill-image-url-help"/>
+                            <div id="expense-outdoor-food-bill-image-url-help" style="display:none;" class="form-text">URL is not Valid</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="expenseDescription" class="form-label">Description</label>
+                            <textarea id="expenseDescription" name="description" asp-for="@Model.Description" type="text" class="form-control form-control-sm" aria-describedby="expense-outdoor-food-description-help" maxlength="250"></textarea>
+                            <div id="expense-outdoor-food-description-help" style="display:none;" class="form-text">Description is case sensitive, ranges between 2 and 250 characters.</div>
+                        </div>
+                    </div>
+                    <div class="pb-3 pt-3">
+                        <button type="button" class="btn btn-secondary">Clear</button>
+                        <button id="btnAddExpenseSubmit" type="submit" class="btn btn-primary">Add Expense</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/Transactions/ExpenseOutdoorFood/expense-outdoor-food-validation.js" asp-append-version="true"></script>
+}

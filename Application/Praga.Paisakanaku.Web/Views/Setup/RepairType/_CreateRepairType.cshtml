@@ -1,0 +1,42 @@
+﻿@model RepairTypeInfo
+
+@if (Model != null)
+{    
+    <div class="modal fade" data-bs-backdrop="static" id="createRepairTypeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <b class="modal-title" id="createRepairTypeTitle">
+                        Create RepairType
+                    </b>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="RepairTypeCreateFormContainer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form id="formCreateRepairType" data-id="@Model.Id" data-isupdate="@(Guid.Empty != Model.Id)" autocomplete="off">
+                                    <div class="form-group">
+                                        <label for="name" class="form-label">Name <span class="mandatory">*</span></label>
+                                        <input id="name" name="name" asp-for="@Model.Name" type="text" class="form-control form-control-sm" aria-describedby="repairTypeHelp"
+                                           maxlength="50"
+                                           data-err-required="Name is required"
+                                           data-err-min-length="Name is too short">
+                                        <div id="repairTypeHelp" style="display:none;" class="form-text">Name is case sensitive, ranges between 2 and 50 characters.</div>
+                                    </div>
+                                    <button type="submit" id="btnRepairTypeSaveSubmit" class="display-none" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="btnSaveRepairTypeSubmit" onclick="saveRepairType()" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/Setup/RepairType/repair-type-validation.js" asp-append-version="true"></script>
+}
