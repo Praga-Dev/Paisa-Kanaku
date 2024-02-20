@@ -101,6 +101,7 @@
     <Folder Include="Setup\StoredProcedure\OutdoorFoodVendor" />
     <Folder Include="Transactions\StoredProcedure\ExpenseOutdoorFood" />
     <Folder Include="Transactions\Table\ExpenseTravel" />
+    <Folder Include="Transactions\StoredProcedure\ExpenseTravel" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Account.sql" />
@@ -214,6 +215,10 @@
     <Build Include="Transactions\Table\ExpenseTravel\ExpenseTravelInfo.sql" />
     <Build Include="Lookups\StoredProcedure\usp_v1_TransportModeInfo_Get.sql" />
     <Build Include="Lookups\StoredProcedure\usp_v1_TravelServiceInfo_Get.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseTravel\usp_ExpenseTravelInfo_Save.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseTravel\usp_ExpenseTravelInfo_Get_ById.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseTravel\usp_ExpenseTravelInfo_Get_ByDate.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseTravel\usp_ExpenseTravelInfo_Get_SumAmountByDate.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />

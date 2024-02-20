@@ -593,6 +593,7 @@ BEGIN
 	    INSERT INTO [Lookups].[TravelServiceInfo]([TravelService], [TravelServiceValue]) VALUES (N'UBER', N'Uber');
     END
 END
+GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'TransportModeInfo') 
 BEGIN
@@ -625,6 +626,7 @@ BEGIN
 	    INSERT INTO [Lookups].[TransportModeInfo]([TransportMode], [TransportModeValue]) VALUES (N'ZIPLINE', N'Zipline');
     END
 END
+GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Setup' AND T.TABLE_NAME = 'MemberInfo') 
 BEGIN
