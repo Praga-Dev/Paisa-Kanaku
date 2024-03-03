@@ -14,6 +14,20 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 
+$(document).ready(function () {
+    $('#fullscreen-btn').click(function () {
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen().catch(err => {
+                console.error('Failed to enter fullscreen mode:', err);
+            });
+        } else {
+            console.error('Fullscreen is not supported by this browser.');
+        }
+    });
+});
+
+
 function getBrandDDList() {
     loadSpinner();
     $.ajax({
