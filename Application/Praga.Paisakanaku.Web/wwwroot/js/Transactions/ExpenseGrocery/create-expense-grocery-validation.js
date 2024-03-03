@@ -128,10 +128,10 @@ function resetExpenseGroceryRelatedInputs() {
     $('#spanQuantityMeasureTypeInfo').text('');
 }
 
-//function resetForm() {
-//    $('#selectMember, #selectGrocery, #selectMeasureType').val('');
-//    resetExpenseGroceryRelatedInputs();
-//}
+function resetGroceryForm() {
+    $('#selectMember, #selectGrocery, #selectMeasureType').val('');
+    resetExpenseGroceryRelatedInputs();
+}
 
 function getCreateFormView() {
     $('#formCreateExpenseGrocery').data('id', '');

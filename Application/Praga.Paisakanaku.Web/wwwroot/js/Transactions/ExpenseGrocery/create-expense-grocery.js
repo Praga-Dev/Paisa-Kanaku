@@ -8,7 +8,7 @@ $(document).ready(function () {
 
 function onCreateGrocery() {
     loadSpinner();
-    resetForm();
+    resetGroceryForm();
     $('#formCreateGrocery').trigger("reset");
     $('#formCreateGrocery').data('id', '');
     $('#formCreateGrocery').data('isupdate', 'False');
