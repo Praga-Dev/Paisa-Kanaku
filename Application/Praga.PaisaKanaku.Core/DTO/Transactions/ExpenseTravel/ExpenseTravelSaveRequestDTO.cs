@@ -8,6 +8,7 @@
         public Guid ExpenseByInfoId { get; set; }
         public string Source { get; set; } = string.Empty;
         public string Destination { get; set; } = string.Empty;
+        public DateTime TravelDate { get; set; }
         public string TransportMode { get; set; } = string.Empty;
         public string TravelService { get; set; } = string.Empty;
         public double ExpenseAmount { get; set; }

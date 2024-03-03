@@ -32,10 +32,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="expenseAmount" class="form-label">Expense Amount <span class="mandatory">*</span></label>
-                            <input id="expenseAmount" name="expenseAmount" asp-for="@Model.ExpenseAmount" type="number" value="@(Model.ExpenseAmount)" class="form-control form-control-sm" aria-describedby="travel-expense-amount-help" min="0">
-                            <div id="travel-expense-amount-help" style="display:none;" class="form-text">Enter valid expense amount of the travel. Example : 50.95</div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="travelDate" class="form-label">Travel Date<span class="mandatory">*</span></label>
+                                    <input id="travelDate" name="travelDate" asp-for="@Model.TravelDate" type="date" value="@(Model.TravelDate)" class="form-control form-control-sm" aria-describedby="travel-travel-date-help" min="0">
+                                    <div id="travel-travel-date-help" style="display:none;" class="form-text">Enter valid travel date. Example</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="expenseAmount" class="form-label">Expense Amount <span class="mandatory">*</span></label>
+                                    <input id="expenseAmount" name="expenseAmount" asp-for="@Model.ExpenseAmount" type="number" value="@(Model.ExpenseAmount)" class="form-control form-control-sm" aria-describedby="travel-expense-amount-help" min="0">
+                                    <div id="travel-expense-amount-help" style="display:none;" class="form-text">Enter valid expense amount of the travel. Example : 50.95</div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">

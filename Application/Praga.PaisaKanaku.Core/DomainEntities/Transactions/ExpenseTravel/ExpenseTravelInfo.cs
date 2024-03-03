@@ -12,6 +12,7 @@ namespace Praga.PaisaKanaku.Core.DomainEntities.Transactions.ExpenseTravel
         public MemberInfo ExpenseByInfo { get; set; } = new();
         public string Source { get; set; } = string.Empty;
         public string Destination { get; set; } = string.Empty;
+        public DateTime TravelDate { get; set; } = DateTime.UtcNow;
         public double ExpenseAmount { get; set; }
         public TransportModeInfo TransportModeInfo { get; set; } = new();
         public TravelServiceInfo TravelServiceInfo { get; set; } = new();

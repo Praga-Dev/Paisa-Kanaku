@@ -22,6 +22,7 @@ namespace Praga.PaisaKanaku.Core.Mappers.Transactions
                     },
                     Source = expenseTravelInfoDB.Source,
                     Destination = expenseTravelInfoDB.Destination,
+                    TravelDate = expenseTravelInfoDB.TravelDate,
                     ExpenseAmount = expenseTravelInfoDB.ExpenseAmount,
                     TransportModeInfo = new()
                     {
@@ -56,37 +57,8 @@ namespace Praga.PaisaKanaku.Core.Mappers.Transactions
         {
             try
             {
-                List<ExpenseTravelInfo> expenseTravelInfoList = expenseTravelInfoDBList.Select(expenseTravelInfoDB => new ExpenseTravelInfo()
-                {
-                    Id = expenseTravelInfoDB.Id,
-                    ExpenseInfoId = expenseTravelInfoDB.ExpenseInfoId,
-                    ExpenseDate = expenseTravelInfoDB.ExpenseDate,
-                    ExpenseByInfo = new()
-                    {
-                        Id = expenseTravelInfoDB.ExpenseById,
-                        Name = expenseTravelInfoDB.ExpenseByName
-                    },
-                    Source = expenseTravelInfoDB.Source,
-                    Destination = expenseTravelInfoDB.Destination,
-                    ExpenseAmount = expenseTravelInfoDB.ExpenseAmount,
-                    TransportModeInfo = new()
-                    {
-                        TransportMode = expenseTravelInfoDB.TransportMode,
-                        TransportModeValue = expenseTravelInfoDB.TransportModeValue
-                    },
-                    TravelServiceInfo = new()
-                    {
-                        TravelService = expenseTravelInfoDB.TravelService,
-                        TravelServiceValue = expenseTravelInfoDB.TravelServiceValue
-                    },
-                    Description = expenseTravelInfoDB.Description,
-                    SequenceId = expenseTravelInfoDB.SequenceId,
-                    CreatedBy = expenseTravelInfoDB.CreatedBy,
-                    CreatedDate = expenseTravelInfoDB.CreatedDate,
-                    ModifiedBy = expenseTravelInfoDB.ModifiedBy,
-                    ModifiedDate = expenseTravelInfoDB.ModifiedDate,
-                    RowStatus = expenseTravelInfoDB.RowStatus
-                }).ToList();
+                List<ExpenseTravelInfo> expenseTravelInfoList = expenseTravelInfoDBList
+                    .Select(expenseTravelInfoDB => expenseTravelInfoDB.ToExpenseTravelInfo()).ToList();
 
                 return expenseTravelInfoList;
             }
@@ -110,6 +82,7 @@ namespace Praga.PaisaKanaku.Core.Mappers.Transactions
                     ExpenseById = expenseTravel.ExpenseByInfoId,
                     Source = expenseTravel.Source,
                     Destination = expenseTravel.Destination,
+                    TravelDate = expenseTravel.TravelDate,
                     TransportMode = expenseTravel.TransportMode,
                     TravelService = expenseTravel.TravelService,
                     ExpenseDate = expenseTravel.ExpenseDate,

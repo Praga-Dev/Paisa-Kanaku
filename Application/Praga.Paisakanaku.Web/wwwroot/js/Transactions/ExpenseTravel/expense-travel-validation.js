@@ -28,6 +28,9 @@ $(document).ready(function () {
             destination: {
                 required: true,
             },
+            travelDate: {
+                required: true
+            },
             expenseAmount: {
                 required: true,
                 isExpenseAmountValid: true
@@ -57,6 +60,9 @@ $(document).ready(function () {
             destination: {
                 required: 'To is required',
             },
+            travelDate: {
+                required: 'Travel Date is required'
+            },
             expenseAmount: {
                 required: 'Expense Amount is required',
                 isExpenseAmountValid: 'Expense Amount is not valid'
@@ -81,6 +87,7 @@ $(document).ready(function () {
             let expenseByInfoId = $('#selectMember').val();
             let source = $('#source').val();
             let destination = $('#destination').val();
+            let travelDate = $('#travelDate').val();
             let travelService = $('#selectTravelService').val();
             let transportMode = $('#selectTransportMode').val();
             let expenseAmount = $('#expenseAmount').val();
@@ -93,6 +100,7 @@ $(document).ready(function () {
                 'ExpenseByInfoId': expenseByInfoId,
                 'Source': source,
                 'Destination': destination,
+                'TravelDate': travelDate,
                 'TransportMode': transportMode,
                 'TravelService': travelService,
                 'ExpenseAmount': expenseAmount,

@@ -22,6 +22,7 @@
                                     <th scope="col">ExpenseBy</th>
                                     <th scope="col">Source</th>
                                     <th scope="col">Destination</th>
+                                    <th scope="col">Travel Date</th>
                                     <th scope="col">Expense Amount</th>
                                     <th scope="col">Actions</th>
                                 </tr>
@@ -50,6 +51,12 @@
                                                 @if (!string.IsNullOrWhiteSpace(cartItem.Destination))
                                                 {
                                                     <p data-bs-toggle="tooltip" data-bs-placement="bottom" title="@(cartItem.Description ?? string.Empty)">@cartItem.Destination</p>
+                                                }
+                                            </td>
+                                            <td scope="row">
+                                                @if (cartItem.TravelDate != null)
+                                                {
+                                                    <p data-bs-toggle="tooltip" data-bs-placement="bottom">@cartItem.TravelDate.ToString("dd/MM/yyyy")</p>
                                                 }
                                             </td>
                                             <td scope="row">

@@ -106,6 +106,7 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories.Transactions
                 parameters.Add("@ExpenseById", expenseTravelInfoDB.ExpenseById, DbType.Guid);
                 parameters.Add("@Source", expenseTravelInfoDB.Source, DbType.String);
                 parameters.Add("@Destination", expenseTravelInfoDB.Destination, DbType.String);
+                parameters.Add("@TravelDate", expenseTravelInfoDB.TravelDate, DbType.Date);
                 parameters.Add("@ExpenseAmount", expenseTravelInfoDB.ExpenseAmount, DbType.Double);
                 parameters.Add("@TransportMode", expenseTravelInfoDB.TransportMode, DbType.String);
                 parameters.Add("@TravelService", expenseTravelInfoDB.TravelService, DbType.String);
