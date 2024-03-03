@@ -7,6 +7,7 @@ using Praga.PaisaKanaku.Core.DataEntities.Transactions.ExpenseGrocery;
 using Praga.PaisaKanaku.Core.DomainEntities.Transactions.Common;
 using Praga.PaisaKanaku.Core.DomainEntities.Transactions.ExpenseGrocery;
 using Praga.PaisaKanaku.Core.DTO.Transactions.ExpenseGrocery;
+using Praga.PaisaKanaku.Core.Mappers.Transactions;
 using Praga.PaisaKanaku.Core.Operations.IServices;
 using Praga.PaisaKanaku.Core.Operations.IServices.Transactions;
 
@@ -307,18 +308,7 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Transactions
                     return response;
                 }
 
-                ExpenseGroceryInfoDB expenseGroceryInfoDB = new()
-                {
-                    Id = expenseGrocerySaveRequestDTO.Id,
-                    ExpenseInfoId = expenseGrocerySaveRequestDTO.ExpenseInfoId,
-                    MeasureType = expenseGrocerySaveRequestDTO.MeasureType,
-                    Quantity = expenseGrocerySaveRequestDTO.Quantity,
-                    ExpenseAmount = expenseGrocerySaveRequestDTO.ExpenseAmount,
-                    ExpenseById = expenseGrocerySaveRequestDTO.ExpenseByInfoId,
-                    ExpenseDate = expenseGrocerySaveRequestDTO.ExpenseDate,
-                    GroceryInfoId = expenseGrocerySaveRequestDTO.GroceryInfoId,
-                    Description = expenseGrocerySaveRequestDTO.Description
-                };
+                ExpenseGroceryInfoDB expenseGroceryInfoDB = expenseGrocerySaveRequestDTO.ToExpenseGroceryInfo();
 
                 return await _expenseGroceryRepository.SaveExpenseGroceryInfoDB(expenseGroceryInfoDB, loggedInUserId);
             }

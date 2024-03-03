@@ -2,11 +2,13 @@
 @{
     string labelText = "Member";
     string selectElementId = "selectMember";
+    string selectElementName = "member";
 
     if (ViewData["SelectMemberLableText"] != null)
     {
         labelText = Convert.ToString(ViewData["SelectMemberLableText"]);
         selectElementId = "selectRecipient";
+        selectElementName = "recipient";
     }
 }
 
@@ -15,7 +17,7 @@
         @labelText
         <span class="required">*</span>
     </label>
-    <select id="@selectElementId" name="@selectElementId" class="form-control form-control-sm">
+    <select id="@selectElementId" name="@selectElementName" class="form-control form-control-sm">
         @if (Model != null && Model.Data != null && Model.Data.Any())
         {
             <option selected="true" style='display: none'></option>

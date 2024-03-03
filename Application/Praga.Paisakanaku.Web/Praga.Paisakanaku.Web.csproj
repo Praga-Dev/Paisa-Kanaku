@@ -24,6 +24,7 @@
     <Folder Include="wwwroot\js\Setup\Grocery\" />
     <Folder Include="wwwroot\js\Setup\OutdoorFoodVendor\" />
     <Folder Include="wwwroot\js\Transactions\ExpenseGrocery\" />
+    <Folder Include="wwwroot\js\Transactions\ExpenseTravel\" />
     <Folder Include="wwwroot\lib\full-calendar\" />
   </ItemGroup>
 

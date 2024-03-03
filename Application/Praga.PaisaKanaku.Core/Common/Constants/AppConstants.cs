@@ -15,6 +15,8 @@
         public const string EXPENSE_PRODUCT_INFO_TABLE = "ExpenseProductInfo";
         public const string EXPENSE_GROCERY_INFO_TABLE = "ExpenseGroceryInfo";
         public const string EXPENSE_FAMILY_FUND_INFO_TABLE = "ExpenseFamilyWellbeingInfo";
+        public const string EXPENSE_OUTDOOR_FOOD_INFO_TABLE = "ExpenseOutdoorFoodInfo";
+        public const string EXPENSE_TRAVEL_INFO_TABLE = "ExpenseTravelInfo";
 
         #endregion
 

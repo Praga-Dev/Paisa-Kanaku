@@ -358,6 +358,73 @@ function getOutdoorFoodVendorDDList(outdoorFoodVendorId = '') {
     })
 }
 
+function getTravelServiceList(travelServiceId = '') {
+    loadSpinner();
+    $.ajax({
+        url: `./lookup/travel-service`,
+        method: 'GET',
+        success: function (response) {
+            if (typeof response !== undefined && response !== null) {
+                $('#travelServiceListDDContainer').html(response);
+                let val = $('#travelServiceListDDContainer').data('val')
+                if (val) {
+                    $('#selectTravelService').val(val);
+                }
+                if (travelServiceId) {
+                    $('#selectTravelService').val(travelServiceId);
+                }
+
+                if (!(travelServiceId || val)) {
+                    $('#selectTravelService').val('');
+                }
+            }
+            else {
+                // TODO Alert
+            }
+        },
+        error: function () {
+            // TODO Alert
+        },
+        complete: function () {
+            hideSpinner();
+        }
+    })
+}
+
+function getTransportModeList(transportModeId = '') {
+    loadSpinner();
+    $.ajax({
+        url: `./lookup/transport-mode`,
+        method: 'GET',
+        success: function (response) {
+            if (typeof response !== undefined && response !== null) {
+                $('#transportModeListDDContainer').html(response);
+                let val = $('#transportModeListDDContainer').data('val')
+                if (val) {
+                    $('#selectTransportMode').val(val);
+                }
+                if (transportModeId) {
+                    $('#selectTransportMode').val(transportModeId);
+                }
+
+                if (!(transportModeId || val)) {
+                    $('#selectTransportMode').val('');
+                }
+            }
+            else {
+                // TODO Alert
+            }
+        },
+        error: function () {
+            // TODO Alert
+        },
+        complete: function () {
+            hideSpinner();
+        }
+    })
+}
+
+
 
 // #region Common
 

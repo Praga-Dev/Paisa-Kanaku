@@ -61,6 +61,9 @@ namespace Praga.PaisaKanaku.Web.IoC
 
             services.AddTransient<IExpenseOutdoorFoodService, ExpenseOutdoorFoodService>();
             services.AddTransient<IExpenseOutdoorFoodRepository, ExpenseOutdoorFoodRepository>();
+
+            services.AddTransient<IExpenseTravelService, ExpenseTravelService>();
+            services.AddTransient<IExpenseTravelRepository, ExpenseTravelRepository>();
         }
     }
 }
