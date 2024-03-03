@@ -67,7 +67,7 @@
                                             <td scope="row">
                                                 @if (!string.IsNullOrWhiteSpace(cartItem.GroceryBaseInfo.Name))
                                                 {
-                                                    <p>@cartItem.GroceryBaseInfo.Name</p>
+                                                    <p data-bs-toggle="tooltip" data-bs-placement="bottom" title="@(cartItem.Description ?? string.Empty)">@cartItem.GroceryBaseInfo.Name</p>
                                                 }
                                             </td>
                                             <td scope="row">
