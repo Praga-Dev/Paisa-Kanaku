@@ -21,6 +21,7 @@ BEGIN TRY
 		[ExpenseByName] NVARCHAR(50),
 		[Source] NVARCHAR(250),
 		[Destination] NVARCHAR(250),
+		[TravelDate] DATETIME2,
 		[ExpenseAmount] DECIMAL(12,3),
 		[TransportMode] NVARCHAR(15),
 		[TransportModeValue] NVARCHAR(15),
@@ -34,7 +35,8 @@ BEGIN TRY
 		[RowStatus] NVARCHAR(1)
 	);
 	
-	INSERT INTO @ExpenseTravelInfo([Id], [ExpenseDate], [ExpenseById], [ExpenseByName], [Source], [Destination], [ExpenseAmount], [TransportMode], [TransportModeValue], [TravelService], [TravelServiceValue], [Description],[CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
+	INSERT INTO @ExpenseTravelInfo([Id], [ExpenseDate], [ExpenseById], [ExpenseByName], [Source], [Destination]
+	, [TravelDate], [ExpenseAmount], [TransportMode], [TransportModeValue], [TravelService], [TravelServiceValue], [Description],[CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate], [RowStatus])
 	SELECT 
 		[ETI].[Id],
 		[ETI].[ExpenseDate],
@@ -42,6 +44,7 @@ BEGIN TRY
 		[MI].[Name],
 		[ETI].[Source],
 		[ETI].[Destination],
+		[ETI].[TravelDate],
 		[ETI].[ExpenseAmount],
 		[ETI].[TransportMode],
 		[ETI].[TransportMode],

@@ -6,6 +6,7 @@
 	[ExpenseDate] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
 	[Source] NVARCHAR(250) NOT NULL,
 	[Destination] NVARCHAR(250) NOT NULL,
+	[TravelDate] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
 	[ExpenseAmount] DECIMAL(12,3) NOT NULL,
 	[TransportMode] NVARCHAR(15),
 	[TravelService] NVARCHAR(15),

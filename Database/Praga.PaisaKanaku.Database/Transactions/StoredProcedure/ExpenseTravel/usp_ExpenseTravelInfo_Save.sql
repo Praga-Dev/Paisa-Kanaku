@@ -5,6 +5,7 @@
 	@ExpenseById UNIQUEIDENTIFIER,
 	@Source NVARCHAR(250),
 	@Destination NVARCHAR(250),
+	@TravelDate DATETIME,
 	@ExpenseAmount DECIMAL(12,3),
 	@TransportMode NVARCHAR(15),
 	@TravelService NVARCHAR(15),
@@ -65,9 +66,9 @@ BEGIN TRY
 	IF(@Id IS NULL OR @Id = @EmptyGuid OR NOT EXISTS(SELECT TOP 1 1 FROM [Transactions].[ExpenseOutdoorFoodInfo] WHERE [Id] = @Id))
 	BEGIN
 		INSERT INTO [Transactions].[ExpenseTravelInfo]
-		([Id], [ExpenseInfoId], [ExpenseDate], [ExpenseById], [Source], [Destination], [ExpenseAmount], [TransportMode], [TravelService], [Description], [CreatedBy])
+		([Id], [ExpenseInfoId], [ExpenseDate], [ExpenseById], [Source], [Destination], [TravelDate], [ExpenseAmount], [TransportMode], [TravelService], [Description], [CreatedBy])
 		VALUES
-		(@ExpenseTravelInfoId, @ExpenseInfoId, @ExpenseDate, @ExpenseById, @Source, @Destination, @ExpenseAmount, @TransportMode, @TravelService, @Description, @LoggedInUserId)
+		(@ExpenseTravelInfoId, @ExpenseInfoId, @ExpenseDate, @ExpenseById, @Source, @Destination, @TravelDate, @ExpenseAmount, @TransportMode, @TravelService, @Description, @LoggedInUserId)
 
 		EXEC [Common].[usp_v1_Add_To_ExpenseAmount] @ExpenseInfoId = @ExpenseInfoId, @Amount = @ExpenseAmount, @Result = @ExpenseAmountResult OUTPUT;
 	END
@@ -80,7 +81,8 @@ BEGIN TRY
 		UPDATE [Transactions].[ExpenseTravelInfo]
 			SET	[ExpenseById] = @ExpenseById,
 				[Source] = @Source, 				
-				[Destination] = @Destination, 				
+				[Destination] = @Destination, 	
+				[TravelDate] = @TravelDate,
 				[ExpenseAmount] = @ExpenseAmount, 
 				[TransportMode] = @TransportMode,
 				[TravelService] = @TravelService,
