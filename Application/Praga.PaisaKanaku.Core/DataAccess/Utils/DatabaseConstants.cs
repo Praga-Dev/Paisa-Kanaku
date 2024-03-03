@@ -73,6 +73,12 @@
         public const string USP_EXPENSE_OUTDOOR_FOOD_INFO_GET_BY_DATE = "Transactions.usp_ExpenseOutdoorFoodInfo_Get_ByDate";
         public const string USP_EXPENSE_OUTDOOR_FOOD_INFO_GET_BY_ID = "Transactions.usp_ExpenseOutdoorFoodInfo_Get_ById";
 
+        // ExpenseTravel
+        public const string USP_EXPENSE_TRAVEL_INFO_SAVE = "Transactions.usp_ExpenseTravelInfo_Save";
+        public const string USP_EXPENSE_TRAVEL_INFO_GET_SUM_AMOUNT_BY_DATE = "Transactions.usp_ExpenseTravelInfo_Get_SumAmountByDate";
+        public const string USP_EXPENSE_TRAVEL_INFO_GET_BY_DATE = "Transactions.usp_ExpenseTravelInfo_Get_ByDate";
+        public const string USP_EXPENSE_TRAVEL_INFO_GET_BY_ID = "Transactions.usp_ExpenseTravelInfo_Get_ById";
+
 
         // BillType
         public const string USP_BILL_TYPE_INFO_SAVE = "Setup.usp_V1_BillTypeInfo_Save";
