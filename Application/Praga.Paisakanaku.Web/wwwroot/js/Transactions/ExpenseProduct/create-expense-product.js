@@ -6,15 +6,22 @@
     resetForm();
 });
 
+$(document).on('click', '#btnProductClose, #btnProductModalClose', function () {
+    $('#selectProduct').val('');
+})
+
 function resetForm() {
-    $('#selectMember').val('')
-    $('#selectMember').val('')
+    $('#selectMember').val('');
+    resetProductRelatedInfo();
+}
+
+function resetProductRelatedInfo() {
     $('#amount, #expenseAmount, #quantity').prop('disabled', true);
 }
 
 function onCreateProduct() {
     loadSpinner();
-    resetForm();
+    resetProductRelatedInfo();
     $('#formCreateProduct').trigger("reset");
     $('#formCreateProduct').data('id', '');
     $('#formCreateProduct').data('isupdate', 'False');
