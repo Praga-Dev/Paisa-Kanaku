@@ -6,6 +6,18 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     // Add services to the container.
+    builder.WebHost.UseUrls("http://192.168.29.1:8080");
+    builder.WebHost.ConfigureKestrel((context, serverOptions) =>
+    {
+        serverOptions.ListenAnyIP(8080);
+        
+        var kestrelSection = context.Configuration.GetSection("Kestrel");
+        serverOptions.Configure(kestrelSection)
+            .Endpoint("HTTPS", listenOptions =>
+            {
+                // ...
+            });
+    });
 
     // add services
     using IHost host = Host.CreateDefaultBuilder(args).Build();
@@ -14,6 +26,7 @@ try
     string? connectionString = config["ConnectionStrings:DefaultConnection"];
     builder.Services.InjectDependencies(connectionString);
 
+    
     // Serilog Configuration
     var logger = new LoggerConfiguration()
                         .ReadFrom.Configuration(builder.Configuration)
