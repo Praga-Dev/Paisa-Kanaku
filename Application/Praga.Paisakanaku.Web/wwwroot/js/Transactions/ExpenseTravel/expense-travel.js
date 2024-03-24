@@ -9,7 +9,7 @@ $(function () {
 });
 
 $(document).on('change', `${EXPENSE_TRAVEL_FORM_ID} #expenseDate`, function () {
-    getExpenseOutdoorFoodInfoList();
+    getExpenseTravelInfoList();
 });
 
 function getExpenseTravelInfoList(date) {
@@ -79,7 +79,7 @@ function deleteCartItem(tempExpenseInfoId, ItemName) {
             method: 'DELETE',
             success: function (response) {
                 if (response && response.data && response.isSuccess) {
-                    getExpenseOutdoorFoodInfoList();
+                    getExpenseTravelInfoList();
                     showSuccessMsg('Expense deleted successfully');
                 }
                 else {
