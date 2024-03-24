@@ -438,6 +438,39 @@ function getTransportModeList(transportModeId = '') {
     })
 }
 
+function getConsumerTypeList(consumerTypeId = '') {
+    loadSpinner();
+    $.ajax({
+        url: `./lookup/consumer-type`,
+        method: 'GET',
+        success: function (response) {
+            if (typeof response !== undefined && response !== null) {
+                $('#consumerTypeListDDContainer').html(response);
+                let val = $('#consumerTypeListDDContainer').data('val')
+                if (val) {
+                    $('#selectconsumerType').val(val);
+                }
+                if (consumerTypeId) {
+                    $('#selectconsumerType').val(consumerTypeId);
+                }
+
+                if (!(consumerTypeId || val)) {
+                    $('#selectconsumerType').val('');
+                }
+            }
+            else {
+                // TODO Alert
+            }
+        },
+        error: function () {
+            // TODO Alert
+        },
+        complete: function () {
+            hideSpinner();
+        }
+    })
+}
+
 
 
 // #region Common

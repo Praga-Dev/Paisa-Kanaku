@@ -326,5 +326,42 @@ namespace Praga.PaisaKanaku.Core.Operations.Services
 
             return response;
         }
+
+        public async Task<Response<List<ConsumerTypeInfo>>> GetConsumerTypeInfo(Guid loggedInUserId)
+        {
+            Response<List<ConsumerTypeInfo>> response = new Response<List<ConsumerTypeInfo>>()
+                .GetFailedResponse(ResponseConstants.INVALID_PARAM);
+
+            try
+            {
+
+                if (!Helpers.IsValidGuid(loggedInUserId))
+                {
+                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return response;
+                }
+
+                var dbResponse = await _lookupsRepository.GetConsumerTypeInfo(loggedInUserId);
+                if (Helpers.IsResponseValid(dbResponse))
+                {
+                    response.Data = dbResponse.Data.Select(
+                        relationship => new ConsumerTypeInfo()
+                        {
+                            ConsumerType = relationship.ConsumerType,
+                            ConsumerTypeValue = relationship.ConsumerTypeValue
+                        }).ToList();
+
+                    response = response.GetSuccessResponse(response.Data);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupsRepository.GetConsumerTypeInfo({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+            }
+
+            return response;
+        }
     }
 }

@@ -202,5 +202,25 @@ namespace Praga.PaisaKanaku.Core.DataAccess.Repositories
                 return response;
             }
         }
+
+        public async Task<Response<List<ConsumerTypeInfoDB>>> GetConsumerTypeInfo(Guid loggedInUserId)
+        {
+            Response<List<ConsumerTypeInfoDB>> response = new Response<List<ConsumerTypeInfoDB>>().GetFailedResponse(ResponseConstants.NO_RECORDS_FOUND);
+
+            try
+            {
+                string spName = DatabaseConstants.USP_TRAVEL_SERVICE_INFO_GET;
+                var param = new { LoggedInUserId = loggedInUserId };
+
+                var result = await _db.Connection.QueryAsync<ConsumerTypeInfoDB>(spName, param, commandType: CommandType.StoredProcedure);
+                return result != null && result.Any() ? response.GetSuccessResponse(result.ToList()) : response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupsRepository.GetConsumerTypeInfo({@loggedInUserId})", loggedInUserId);
+                response = response.GetFailedResponse(ResponseConstants.INTERNAL_SERVER_ERROR);
+                return response;
+            }
+        }
     }
 }

@@ -285,5 +285,35 @@ namespace Praga.Paisakanaku.Web.Controllers
             return PartialView("~/Views/Common/_TravelServiceList.cshtml", response);
         }
 
+
+        [HttpGet, Route("~/lookup/consumer-type")]
+        public async Task<IActionResult> GetConsumerTypeInfo()
+        {
+            Response<List<ConsumerTypeInfo>> response = new Response<List<ConsumerTypeInfo>>().GetFailedResponse(ResponseConstants.FAILED);
+
+            try
+            {
+                if (!Helpers.IsValidGuid(this.LoggedInUserId))
+                {
+                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
+                    return PartialView("~/Views/Common/_ConsumerTypeList.cshtml", response);
+                }
+
+                var dbresponse = await _lookupService.GetConsumerTypeInfo(LoggedInUserId);
+                if (Helpers.IsResponseValid(dbresponse))
+                {
+                    response = dbresponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in LookupController.GetConsumerTypeInfo({@loggedInUserId})", LoggedInUserId);
+
+                response.Message = ResponseConstants.SOMETHING_WENT_WRONG;
+            }
+
+            return PartialView("~/Views/Common/_ConsumerTypeList.cshtml", response);
+        }
+
     }
 }

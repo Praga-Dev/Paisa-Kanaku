@@ -14,5 +14,6 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices
         Task<Response<List<MeasureTypeInfo>>> GetMeasureTypeInfoListByGroceryInfoId(Guid groceryInfoId, Guid loggedInUserId);
         Task<Response<List<TransportModeInfo>>> GetTransportModeInfo(Guid loggedInUserId);
         Task<Response<List<TravelServiceInfo>>> GetTravelServiceInfo(Guid loggedInUserId);
+        Task<Response<List<ConsumerTypeInfo>>> GetConsumerTypeInfo(Guid loggedInUserId);
     }
 }
