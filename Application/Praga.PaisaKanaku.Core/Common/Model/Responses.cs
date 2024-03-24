@@ -1,10 +1,15 @@
-﻿using Praga.PaisaKanaku.Core.Common.Constants;
+﻿using Newtonsoft.Json.Linq;
+using Praga.PaisaKanaku.Core.Common.Constants;
 using Praga.PaisaKanaku.Core.Common.Enum;
 
 namespace Praga.PaisaKanaku.Core.Common.Model
 {    
     public class Response<T>
     {
+        private readonly T _value;
+
+        //private Response(T value) => _value = value;
+
         public T Data { get; set; }
 
         public bool IsSuccess { get; set; }
@@ -13,9 +18,12 @@ namespace Praga.PaisaKanaku.Core.Common.Model
 
         public string? Message { get; set; }
 
+
         public List<string> ValidationErrorMessages { get; set; } = new List<string>();
 
-        public Response<T> GetNotFoundResponse() => new() { StatusCode = ResultTypeEnum.NotFound };
+        //public static Response<T> None => new Response<T>();
+
+        public Response<T> GetNotFoundResponse() => new() { StatusCode = ResultTypeEnum.NotFound, Message = ResponseConstants.NO_RECORDS_FOUND };
 
         public Response<T> GetFailedResponse(string errorMessage) => new() { StatusCode = ResultTypeEnum.Failed, Message = errorMessage };
 

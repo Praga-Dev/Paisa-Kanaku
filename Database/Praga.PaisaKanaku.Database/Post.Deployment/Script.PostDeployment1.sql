@@ -1876,3 +1876,63 @@ BEGIN
 	END
 END
 GO
+
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Lookups' AND T.TABLE_NAME = 'ConsumerTypeInfo') 
+BEGIN
+	IF NOT EXISTS(SELECT * FROM [Lookups].[ConsumerTypeInfo] WHERE [ConsumerType] LIKE N'INDIVIDUAL')
+	BEGIN
+		INSERT INTO [Lookups].[ConsumerTypeInfo] ([ConsumerType], [ConsumerTypeValue], [SequenceId], [RowStatus]) VALUES (N'INDIVIDUAL', N'Individual', 1, 'A');
+	END
+    IF NOT EXISTS(SELECT * FROM [Lookups].[ConsumerTypeInfo] WHERE [ConsumerType] LIKE N'GROUP')
+	BEGIN
+		INSERT INTO [Lookups].[ConsumerTypeInfo] ([ConsumerType], [ConsumerTypeValue], [SequenceId], [RowStatus]) VALUES (N'GROUP', N'Group', 2, 'A');
+	END
+END
+GO
+
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES T WHERE T.TABLE_SCHEMA = 'Setup' AND T.TABLE_NAME = 'UtilityInfo') 
+BEGIN
+	IF NOT EXISTS(SELECT 1 FROM [Setup].UtilityInfo WHERE [Id] LIKE N'B1C2B2EA-418C-4BAE-932B-7416B611FF09')
+	BEGIN
+		INSERT INTO [Setup].[UtilityInfo]([Id], [Name], [ConsumerType], [RecurringType], [IsEssential], [CreatedBy]) 
+		VALUES (N'B1C2B2EA-418C-4BAE-932B-7416B611FF09', N'Gas', N'GROUP', N'BIMONTHLY', 1, N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	END
+    IF NOT EXISTS(SELECT 1 FROM [Setup].UtilityInfo WHERE [Id] LIKE N'24EF12B8-C8AA-4142-B40C-69EB32C3FC51')
+	BEGIN
+		INSERT INTO [Setup].[UtilityInfo]([Id], [Name], [ConsumerType], [RecurringType], [IsEssential], [CreatedBy]) 
+		VALUES (N'24EF12B8-C8AA-4142-B40C-69EB32C3FC51', N'Rent', N'GROUP', N'MONTHLY', 1, N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	END
+    IF NOT EXISTS(SELECT 1 FROM [Setup].UtilityInfo WHERE [Id] LIKE N'D59821D3-7CFD-4FC5-8D2E-EA5846750A14')
+	BEGIN
+		INSERT INTO [Setup].[UtilityInfo]([Id], [Name], [ConsumerType], [RecurringType], [IsEssential], [CreatedBy]) 
+		VALUES (N'D59821D3-7CFD-4FC5-8D2E-EA5846750A14', N'Wifi', N'GROUP', N'AS_NEEDED', 1, N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	END
+    IF NOT EXISTS(SELECT 1 FROM [Setup].UtilityInfo WHERE [Id] LIKE N'6320D193-099D-4741-B187-02E7D543AB30')
+	BEGIN
+		INSERT INTO [Setup].[UtilityInfo]([Id], [Name], [ConsumerType], [RecurringType], [IsEssential], [CreatedBy]) 
+		VALUES (N'6320D193-099D-4741-B187-02E7D543AB30', N'Electricity Bill', N'GROUP', N'BIMONTHLY', 1, N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	END
+    IF NOT EXISTS(SELECT 1 FROM [Setup].UtilityInfo WHERE [Id] LIKE N'E7E3208D-F33D-4CC0-97BE-4D90C38A432F')
+	BEGIN
+		INSERT INTO [Setup].[UtilityInfo]([Id], [Name], [ConsumerType], [RecurringType], [IsEssential], [CreatedBy]) 
+		VALUES (N'E7E3208D-F33D-4CC0-97BE-4D90C38A432F', N'Mobile Recharge', N'INDIVIDUAL', N'AS_NEEDED', 1, N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	END
+    IF NOT EXISTS(SELECT 1 FROM [Setup].UtilityInfo WHERE [Id] LIKE N'9D488B26-D550-4DCE-A81F-0773E2B7995E')
+	BEGIN
+		INSERT INTO [Setup].[UtilityInfo]([Id], [Name], [ConsumerType], [RecurringType], [IsEssential], [CreatedBy]) 
+		VALUES (N'9D488B26-D550-4DCE-A81F-0773E2B7995E', N'Maintanence', N'GROUP', N'MONTHLY', 1, N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	END
+    IF NOT EXISTS(SELECT 1 FROM [Setup].UtilityInfo WHERE [Id] LIKE N'C11CDFB8-2547-4EA4-BF43-6FA152328DEC')
+	BEGIN
+		INSERT INTO [Setup].[UtilityInfo]([Id], [Name], [ConsumerType], [RecurringType], [IsEssential], [CreatedBy]) 
+		VALUES (N'C11CDFB8-2547-4EA4-BF43-6FA152328DEC', N'Tuition Fee', N'INDIVIDUAL', N'MONTHLY', 1, N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	END
+    IF NOT EXISTS(SELECT 1 FROM [Setup].UtilityInfo WHERE [Id] LIKE N'E2CA7D06-B7C9-49AC-B906-583487D79700')
+	BEGIN
+		INSERT INTO [Setup].[UtilityInfo]([Id], [Name], [ConsumerType], [RecurringType], [IsEssential], [CreatedBy]) 
+		VALUES (N'E2CA7D06-B7C9-49AC-B906-583487D79700', N'Health Insurance', N'INDIVIDUAL', N'MONTHLY', 1, N'F6510A9A-2E3D-4341-9E94-090ACC25D2A5');
+	END
+END
+GO
