@@ -19,20 +19,17 @@ try
             });
     });
 
+    //Add support to logging with SERILOG
+    builder.Host.UseSerilog((context, configuration) =>
+        configuration.ReadFrom.Configuration(context.Configuration));
+
     // add services
     using IHost host = Host.CreateDefaultBuilder(args).Build();
     IConfiguration config = host.Services.GetRequiredService<IConfiguration>();
 
-    string? connectionString = config["ConnectionStrings:DefaultConnection"];
+    string connectionString = config["ConnectionStrings:DefaultConnection"]
+        ?? throw new ArgumentNullException("ConnectionStrings:DefaultConnection is null");
     builder.Services.InjectDependencies(connectionString);
-
-    
-    // Serilog Configuration
-    var logger = new LoggerConfiguration()
-                        .ReadFrom.Configuration(builder.Configuration)
-                        .Enrich.FromLogContext()
-                        .CreateLogger();
-    builder.Host.UseSerilog(logger);
 
     builder.Services.AddControllersWithViews();
 
