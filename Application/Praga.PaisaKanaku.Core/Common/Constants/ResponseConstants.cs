@@ -15,6 +15,7 @@
         public const string INVALID_PARAM_SCHEMA_NAME = "Invalid Schema Name";
         public const string INVALID_PARAM_ROW_STATUS = "Invalid Row Status";
         public const string INVALID_GROCERY_INFO_ID = "Invalid Grocery Info Id";
+        public const string VALIDATION_FAILED = "Validation Failed";
 
     }
 }
