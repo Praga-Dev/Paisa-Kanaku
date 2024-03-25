@@ -199,7 +199,7 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
 
                 if (response.ValidationErrorMessages.Count > 0)
                 {
-                    response = new Response<Guid>().GetValidationFailedResponse(response.ValidationErrorMessages);
+                    response = response.GetValidationFailedResponse();
                     return response;
                 }
 
@@ -229,10 +229,9 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                         response.ValidationErrorMessages.Add("Invalid Expense Description");
                     }
 
-                    if (response.ValidationErrorMessages.Count > 0)
+                    if (response.HasValidationErrorMessages)
                     {
-                        response = new Response<Guid>().GetValidationFailedResponse(response.ValidationErrorMessages);
-                        return response;
+                        return response.GetValidationFailedResponse();
                     }
                 }
 
@@ -372,10 +371,9 @@ namespace Praga.PaisaKanaku.Core.Operations.IServices.Transactions
                 //    response.ValidationErrorMessages.Add("Invalid Expense Category Not Exist");
                 //}
 
-                if (response.ValidationErrorMessages.Count > 0)
+                if (response.HasValidationErrorMessages)
                 {
-                    response = new Response<Guid>().GetValidationFailedResponse(response.ValidationErrorMessages);
-                    return response;
+                    return response.GetValidationFailedResponse();
                 }
 
                 return await _expenseRepository.DeleteExpenseByType(id, expenseCategory, loggedInUserId);

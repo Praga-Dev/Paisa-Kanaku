@@ -122,13 +122,11 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
             {
                 if (!Helpers.IsValidGuid(loggedInUserId))
                 {
-                    response.Message = ResponseConstants.INVALID_LOGGED_IN_USER;
-                    return response;
+                    return response.GetNotAuthorizedResponse();
                 }
 
                 if (outdoorFoodVendorInfo == null)
                 {
-                    response.Message = ResponseConstants.INVALID_PARAM;
                     return response;
                 }
 
@@ -136,10 +134,14 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                 {
                     response.ValidationErrorMessages.Add("Invalid OutdoorFoodVendor Name");
                 }
-
-                if (outdoorFoodVendorInfo.Name.Length < 2 || outdoorFoodVendorInfo.Name.Length > 50)
+                else if (outdoorFoodVendorInfo.Name.Length < 2 || outdoorFoodVendorInfo.Name.Length > 50)
                 {
                     response.ValidationErrorMessages.Add("OutdoorFoodVendor Name must be between 2 and 50 Characters long.");
+                }
+
+                if (response.HasValidationErrorMessages)
+                {
+                    return response.GetValidationFailedResponse();
                 }
 
                 OutdoorFoodVendorInfoDB outdoorFoodVendorInfoDb = new OutdoorFoodVendorInfoDB()

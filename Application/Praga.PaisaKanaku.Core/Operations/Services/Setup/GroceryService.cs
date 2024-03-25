@@ -171,10 +171,9 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                 {
                     response.ValidationErrorMessages.Add("Invalid Grocery Name");
                 }
-
-                if (groceryInfo.Name.Length < 2 || groceryInfo.Name.Length > 50)
+                else if (groceryInfo.Name.Length < 2 || groceryInfo.Name.Length > 50)
                 {
-                    response.ValidationErrorMessages.Add("Grocery Name must be between 2 and 50 Characters long.");
+                    response.ValidationErrorMessages.Add("Grocery Name must be between 2 and 50 Characters long");
                 }
 
                 if (groceryInfo.BrandInfo == null || (!Helpers.IsValidGuid(groceryInfo.BrandInfo.Id) && string.IsNullOrWhiteSpace(groceryInfo.BrandInfo.Name)))
@@ -197,9 +196,9 @@ namespace Praga.PaisaKanaku.Core.Operations.Services.Setup
                     response.ValidationErrorMessages.Add("Invalid Preferred Time Period");
                 }
 
-                if (response.ValidationErrorMessages.Count > 0)
+                if (response.HasValidationErrorMessages)
                 {
-                    return response;
+                    return response.GetValidationFailedResponse();
                 }
 
                 GroceryInfoDB groceryInfoDb = new GroceryInfoDB()
