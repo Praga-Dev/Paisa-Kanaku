@@ -1,4 +1,5 @@
-﻿using Praga.PaisaKanaku.Core.DataAccess.ConnectionManager;
+﻿using Praga.Paisakanaku.Web.Middleware;
+using Praga.PaisaKanaku.Core.DataAccess.ConnectionManager;
 using Praga.PaisaKanaku.Core.DataAccess.IRepositories;
 using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Setup;
 using Praga.PaisaKanaku.Core.DataAccess.IRepositories.Transactions;
@@ -18,6 +19,9 @@ namespace Praga.PaisaKanaku.Web.IoC
     {
         public static void InjectDependencies(this IServiceCollection services, string connectionString) 
         {
+            // Middlewares
+            services.AddTransient<AuthenticationMiddleware>();
+
             services.AddTransient<IDataBaseConnection, DataBaseConnection>(con => new DataBaseConnection(connectionString));
 
             services.AddTransient<ILookupService, LookupService>();
