@@ -103,6 +103,11 @@
     <Folder Include="Transactions\Table\ExpenseTravel" />
     <Folder Include="Transactions\StoredProcedure\ExpenseTravel" />
     <Folder Include="Setup\Table\Utility" />
+    <Folder Include="Setup\Table\Group" />
+    <Folder Include="Transactions\Table\ExpenseUtility" />
+    <Folder Include="Setup\StoredProcedure\Utility" />
+    <Folder Include="Setup\StoredProcedure\Group" />
+    <Folder Include="Transactions\StoredProcedure\ExpenseUtility" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Account.sql" />
@@ -224,6 +229,20 @@
     <Build Include="Transactions\StoredProcedure\Expense\usp_V1_GetAllExpensesByMonth..sql" />
     <Build Include="Lookups\Table\ConsumerTypeInfo.sql" />
     <Build Include="Setup\Table\Utility\UtilityInfo.sql" />
+    <Build Include="Setup\Table\Group\GroupInfo.sql" />
+    <Build Include="Transactions\Table\ExpenseUtility\ExpenseUtilityBaseInfo.sql" />
+    <Build Include="Transactions\Table\ExpenseUtility\ExpenseMemberUtilityInfo.sql" />
+    <Build Include="Transactions\Table\ExpenseUtility\ExpenseGroupUtilityInfo.sql" />
+    <Build Include="Setup\Table\Group\GroupMemberInfo.sql" />
+    <Build Include="Lookups\usp_v1_ConsumerTypeInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Utility\usp_V1_UtilityInfo_Get.sql" />
+    <Build Include="Setup\StoredProcedure\Utility\usp_V1_UtilityInfo_Get_By_Id.sql" />
+    <Build Include="Setup\StoredProcedure\Utility\usp_V1_UtilityInfo_Save.sql" />
+    <Build Include="Setup\StoredProcedure\Group\usp_V1_GroupInfo_Get.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseUtility\usp_ExpenseUtilityInfo_Get_ByDate.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseUtility\usp_ExpenseUtilityInfo_Get_ById.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseUtility\usp_ExpenseUtilityInfo_Get_SumAmountByDate.sql" />
+    <Build Include="Transactions\StoredProcedure\ExpenseUtility\usp_ExpenseUtilityInfo_Save.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Post.Deployment\Script.PostDeployment1.sql" />
