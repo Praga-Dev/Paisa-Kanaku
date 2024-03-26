@@ -90,5 +90,9 @@
         public const string USP_REPAIR_TYPE_INFO_GET = "Setup.usp_V1_RepairTypeInfo_Get";
         public const string USP_REPAIR_TYPE_INFO_GET_BY_ID = "Setup.usp_V1_RepairTypeInfo_Get_By_Id";
 
+        // Utility
+        public const string USP_UTILITY_INFO_SAVE = "Setup.usp_V1_UtilityInfo_Save";
+        public const string USP_UTILITY_INFO_GET = "Setup.usp_V1_UtilityInfo_Get";
+        public const string USP_UTILITY_INFO_GET_BY_ID = "Setup.usp_V1_UtilityInfo_Get_By_Id";
     }
 }
