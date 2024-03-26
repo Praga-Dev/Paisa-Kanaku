@@ -1,20 +1,13 @@
-﻿using Praga.PaisaKanaku.Core.Common.Model;
+﻿using Praga.PaisaKanaku.Core.DataEntities.Transactions.Common;
 
 namespace Praga.PaisaKanaku.Core.DataEntities.Transactions.ExpenseGrocery
 {
-    public class ExpenseGroceryInfoDB : BaseInfo
+    public class ExpenseGroceryInfoDB : ExpenseBaseInfo
     {
-        public Guid Id { get; set; }
-        public Guid ExpenseInfoId { get; set; }
-        public DateTime ExpenseDate { get; set; }
         public Guid GroceryInfoId { get; set; }
-        public string GroceryInfoName { get; set; }
-        public Guid ExpenseById { get; set; }
-        public string ExpenseByName { get; set; }
-        public string MeasureType { get; set; }
-        public string MeasureTypeValue { get; set; }
+        public string GroceryInfoName { get; set; } = string.Empty;
+        public string MeasureType { get; set; } = string.Empty;
+        public string MeasureTypeValue { get; set; } = string.Empty;
         public float Quantity { get; set; }
-        public double ExpenseAmount { get; set; }
-        public string Description { get; set; }
     }
 }

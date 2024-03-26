@@ -1,17 +1,10 @@
-﻿using Praga.PaisaKanaku.Core.Common.Model;
+﻿using Praga.PaisaKanaku.Core.DataEntities.Transactions.Common;
 
 namespace Praga.PaisaKanaku.Core.DataEntities.Transactions.ExpenseFamilyWellbeing
 {
-    public class ExpenseFamilyWellbeingInfoDB : BaseInfo
+    public class ExpenseFamilyWellbeingInfoDB : ExpenseBaseInfo
     {
-        public Guid Id { get; set; }
-        public Guid ExpenseInfoId { get; set; }
-        public DateTime ExpenseDate { get; set; }
-        public Guid ExpenseById { get; set; }
-        public string ExpenseByName { get; set; }
         public Guid RecipientId { get; set; }
-        public string RecipientName { get; set; }
-        public double ExpenseAmount { get; set; }
-        public string Description { get; set; }
+        public string RecipientName { get; set; } = string.Empty;
     }
 }
