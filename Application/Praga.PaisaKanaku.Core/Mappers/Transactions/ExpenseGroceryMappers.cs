@@ -7,27 +7,18 @@ namespace Praga.PaisaKanaku.Core.Mappers.Transactions
     {
         public static ExpenseGroceryInfoDB ToExpenseGroceryInfo(this ExpenseGrocerySaveRequestDTO expenseGrocerySaveRequestDTO)
         {
-            try
+            return new()
             {
-                return new()
-                {
-                    Id = expenseGrocerySaveRequestDTO.Id,
-                    ExpenseInfoId = expenseGrocerySaveRequestDTO.ExpenseInfoId,
-                    MeasureType = expenseGrocerySaveRequestDTO.MeasureType,
-                    Quantity = expenseGrocerySaveRequestDTO.Quantity,
-                    ExpenseAmount = expenseGrocerySaveRequestDTO.ExpenseAmount,
-                    ExpenseById = expenseGrocerySaveRequestDTO.ExpenseByInfoId,
-                    ExpenseDate = expenseGrocerySaveRequestDTO.ExpenseDate,
-                    GroceryInfoId = expenseGrocerySaveRequestDTO.GroceryInfoId,
-                    Description = expenseGrocerySaveRequestDTO.Description
-                };
-            }
-            catch (Exception ex)
-            {
-                // TODO Log
-            }
-
-            return new();
+                Id = expenseGrocerySaveRequestDTO.Id,
+                ExpenseInfoId = expenseGrocerySaveRequestDTO.ExpenseInfoId,
+                MeasureType = expenseGrocerySaveRequestDTO.MeasureType,
+                Quantity = expenseGrocerySaveRequestDTO.Quantity,
+                ExpenseAmount = expenseGrocerySaveRequestDTO.ExpenseAmount,
+                ExpenseById = expenseGrocerySaveRequestDTO.ExpenseByInfoId,
+                ExpenseDate = expenseGrocerySaveRequestDTO.ExpenseDate,
+                GroceryInfoId = expenseGrocerySaveRequestDTO.GroceryInfoId,
+                Description = expenseGrocerySaveRequestDTO.Description
+            };
         }
     }
 }
