@@ -7,6 +7,6 @@ namespace Praga.PaisaKanaku.Core.DomainEntities.Setup
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public RelationshipTypeInfo RelationshipTypeInfo { get; set; }
+        public RelationshipTypeInfo RelationshipTypeInfo { get; set; } = new();
     }
 }

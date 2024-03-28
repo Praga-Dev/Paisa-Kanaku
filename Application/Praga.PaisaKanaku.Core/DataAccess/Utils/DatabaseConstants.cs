@@ -99,5 +99,10 @@
         public const string USP_UTILITY_INFO_SAVE = "Setup.usp_V1_UtilityInfo_Save";
         public const string USP_UTILITY_INFO_GET = "Setup.usp_V1_UtilityInfo_Get";
         public const string USP_UTILITY_INFO_GET_BY_ID = "Setup.usp_V1_UtilityInfo_Get_By_Id";
+
+        // Group
+        public const string USP_GROUP_INFO_SAVE = "Setup.usp_V1_GroupInfo_Save";
+        public const string USP_GROUP_INFO_GET = "Setup.usp_V1_GroupInfo_Get";
+        public const string USP_GROUP_INFO_GET_BY_ID = "Setup.usp_V1_GroupInfo_Get_By_Id";
     }
 }

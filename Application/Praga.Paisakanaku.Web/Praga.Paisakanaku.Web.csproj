@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\js\Setup\Grocery\" />
+    <Folder Include="wwwroot\js\Setup\Group\" />
     <Folder Include="wwwroot\js\Setup\OutdoorFoodVendor\" />
     <Folder Include="wwwroot\js\Transactions\ExpenseGrocery\" />
     <Folder Include="wwwroot\js\Transactions\ExpenseTravel\" />
